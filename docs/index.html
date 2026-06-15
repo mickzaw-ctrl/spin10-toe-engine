@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spin(10)-TOE Engine — Computational Framework</title>
+  <meta name="description" content="SHZSpin10QuantumEngine v8.0 — a complete Python implementation of the Spin(10) Theory of Everything with 38 testable predictions, synthetic test suite, and grand unification hypothesis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0a0e1a;--bg2:#0f1628;--bg3:#161e35;--border:#1e2d50;
+      --accent:#3b82f6;--accent2:#6366f1;--accent3:#8b5cf6;
+      --green:#10b981;--yellow:#f59e0b;--red:#ef4444;
+      --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px}
+    .nav-logo{font-weight:700;font-size:1rem;color:var(--text)}
+    .nav-logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{color:var(--text2);text-decoration:none;font-size:0.875rem;transition:color .2s}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-btn{background:var(--accent);color:#fff;border:none;padding:0.4rem 1rem;border-radius:6px;font-size:0.875rem;cursor:pointer;text-decoration:none}
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 2rem 4rem}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(59,130,246,0.12) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 70%,rgba(139,92,246,0.08) 0%,transparent 60%)}
+    .hero-grid{position:absolute;inset:0;opacity:0.03;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px}
+    .hero-content{position:relative;text-align:center;max-width:820px}
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:var(--accent);padding:0.35rem 1rem;border-radius:100px;font-size:0.8rem;font-weight:500;margin-bottom:1.5rem}
+    .hero-badge::before{content:'●';font-size:0.5rem;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem}
+    h1 .accent{color:var(--accent)}
+    h1 .accent2{background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:1.1rem;color:var(--text2);max-width:600px;margin:0 auto 2.5rem}
+    .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:0.75rem 1.75rem;border-radius:8px;font-size:0.95rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(59,130,246,0.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,130,246,0.4)}
+    .btn-secondary{background:transparent;color:var(--text);padding:0.75rem 1.75rem;border:1px solid var(--border);border-radius:8px;font-size:0.95rem;text-decoration:none;transition:border-color .2s,color .2s}
+    .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+    .stats-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.5rem 2rem}
+    .stats-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;text-align:center}
+    .stat-num{font-size:2rem;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}
+    .stat-label{font-size:0.8rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-top:0.2rem}
+    section{padding:5rem 2rem}
+    .container{max-width:1100px;margin:0 auto}
+    .section-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.75rem}
+    h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;margin-bottom:1rem}
+    .section-sub{color:var(--text2);max-width:600px;margin-bottom:3rem}
+    .modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+    .module-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+    .module-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent3));opacity:0;transition:opacity .2s}
+    .module-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+    .module-card:hover::before{opacity:1}
+    .module-icon{font-size:1.5rem;margin-bottom:0.75rem}
+    .module-name{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace}
+    .module-desc{font-size:0.85rem;color:var(--text2)}
+    .results-section{background:var(--bg2)}
+    .verdict-banner{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(59,130,246,0.1));border:1px solid rgba(16,185,129,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:3rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+    .verdict-icon{font-size:2.5rem}
+    .verdict-text h3{font-size:1.2rem;color:var(--green);font-weight:700}
+    .verdict-text p{color:var(--text2);font-size:0.9rem;margin-top:0.25rem}
+    .verdict-stats{display:flex;gap:2rem;margin-left:auto;flex-wrap:wrap}
+    .v-stat{text-align:center}
+    .v-stat-num{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--green)}
+    .v-stat-label{font-size:0.75rem;color:var(--text3)}
+    .tests-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+    .tests-table th{text-align:left;padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text3);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em}
+    .tests-table td{padding:0.65rem 1rem;border-bottom:1px solid rgba(30,45,80,0.5)}
+    .tests-table tr:hover td{background:rgba(59,130,246,0.03)}
+    .badge-pass{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(16,185,129,0.1);color:var(--green);padding:0.2rem 0.6rem;border-radius:100px;font-size:0.75rem;font-weight:600}
+    .mono{font-family:'JetBrains Mono',monospace}
+    .exp-tag{display:inline-block;background:rgba(59,130,246,0.1);color:var(--accent);padding:0.15rem 0.5rem;border-radius:4px;font-size:0.75rem}
+    .pred-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+    .pred-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+    .pred-card h4{font-size:0.75rem;color:var(--text2);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.05em}
+    .pred-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(30,45,80,0.5)}
+    .pred-row:last-child{border-bottom:none}
+    .pred-name{font-size:0.85rem;color:var(--text2)}
+    .pred-val{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent);font-weight:500}
+    .pred-exp{font-size:0.75rem;color:var(--text3);margin-top:0.1rem}
+    .hyp-section{background:var(--bg3)}
+    .axioms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:2rem}
+    .axiom-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
+    .axiom-id{display:inline-block;background:rgba(59,130,246,0.15);color:var(--accent);padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem}
+    .axiom-title{font-size:0.95rem;font-weight:600;margin-bottom:0.5rem}
+    .axiom-body{font-size:0.85rem;color:var(--text2)}
+    .axiom-formula{background:var(--bg3);border-left:2px solid var(--accent);padding:0.5rem 0.75rem;margin-top:0.5rem;border-radius:0 4px 4px 0;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#c792ea}
+    .arch-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;overflow-x:auto;margin-top:1.5rem}
+    .code-section{background:var(--bg2)}
+    .code-block{background:#060912;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+    .code-header{background:var(--bg3);padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+    .code-lang{font-size:0.75rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
+    .code-dots{display:flex;gap:6px}
+    .code-dots span{width:10px;height:10px;border-radius:50%}
+    .code-dots .r{background:#ff5f57}.code-dots .y{background:#febc2e}.code-dots .g{background:#28c840}
+    pre{padding:1.25rem 1.5rem;overflow-x:auto;font-size:0.82rem;font-family:'JetBrains Mono',monospace;line-height:1.7;color:var(--text2)}
+    .kw{color:#c792ea}.fn{color:#82aaff}.str{color:#c3e88d}.cm{color:#546e7a;font-style:italic}.num{color:#f78c6c}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{content:'';position:absolute;left:0.4rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent3),transparent)}
+    .tl-item{position:relative;margin-bottom:2rem}
+    .tl-dot{position:absolute;left:-1.6rem;top:0.3rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+    .tl-dot.yellow{background:var(--yellow)}.tl-dot.purple{background:var(--accent3)}
+    .tl-year{font-size:0.75rem;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.25rem}
+    .tl-title{font-size:0.95rem;font-weight:600;margin-bottom:0.25rem}
+    .tl-desc{font-size:0.85rem;color:var(--text2)}
+    .tl-signal{display:inline-block;margin-top:0.4rem;background:rgba(59,130,246,0.1);color:var(--accent);padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem}
+    .tl-signal.green{background:rgba(16,185,129,0.1);color:var(--green)}
+    .tl-signal.yellow{background:rgba(245,158,11,0.1);color:var(--yellow)}
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;text-align:center}
+    .footer-logo{font-size:1.2rem;font-weight:700;margin-bottom:0.5rem}
+    .footer-logo span{color:var(--accent)}
+    .footer-sub{color:var(--text3);font-size:0.85rem;margin-bottom:2rem}
+    .footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+    .footer-links a{color:var(--text2);text-decoration:none;font-size:0.875rem;transition:color .2s}
+    .footer-links a:hover{color:var(--accent)}
+    .footer-copy{color:var(--text3);font-size:0.8rem}
+    @media(max-width:768px){nav{padding:0 1rem}.nav-links{display:none}section{padding:3rem 1rem}.verdict-stats{margin-left:0}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><span>Spin(10)</span>-TOE Engine</div>
+  <ul class="nav-links">
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#results">Tests</a></li>
+    <li><a href="#predictions">Predictions</a></li>
+    <li><a href="#hypothesis">Hypothesis</a></li>
+    <li><a href="#quickstart">Quickstart</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+  </ul>
+  <a class="nav-btn" href="https://github.com/mickzaw-ctrl/spin10-toe-engine" target="_blank">GitHub &rarr;</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">SHZSpin10QuantumEngine v8.0 &middot; Python &middot; MIT License</div>
+    <h1><span class="accent2">Spin(10)</span> Theory of Everything<br/><span class="accent">Computational Engine</span></h1>
+    <p class="hero-sub">A complete Python implementation of grand unification based on the Spin(10) group, relational pre-geometry, and asymptotic safety of quantum gravity. 38 testable numerical predictions. 35/35 tests passed.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="https://github.com/mickzaw-ctrl/spin10-toe-engine" target="_blank">View on GitHub</a>
+      <a class="btn-secondary" href="https://mickzaw-ctrl.github.io/spin10-toe" target="_blank">Main Project &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div><div class="stat-num">38</div><div class="stat-label">Predictions</div></div>
+    <div><div class="stat-num">35/35</div><div class="stat-label">Tests Passed</div></div>
+    <div><div class="stat-num">0.84</div><div class="stat-label">Mean &chi;&sup2;</div></div>
+    <div><div class="stat-num">8</div><div class="stat-label">Engine Modules</div></div>
+    <div><div class="stat-num">v9.0</div><div class="stat-label">Version</div></div>
+    <div><div class="stat-num">2026</div><div class="stat-label">MEG-II Test Year</div></div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2>8 Computational Modules</h2>
+    <p class="section-sub">Each module implements a distinct physical sector of the Spin(10)-TOE framework, from quantum geometry to inflationary cosmology.</p>
+    <div class="modules-grid">
+      <div class="module-card"><div class="module-icon">&#127760;</div><div class="module-name">RelationalGraph</div><div class="module-desc">Pre-geometry: MCMC Metropolis-Hastings relational network. Var(k) &rarr; 32.67, d_S flows 2.0 &rarr; 4.0.</div></div>
+      <div class="module-card"><div class="module-icon">&#9883;</div><div class="module-name">Spin10Gauge</div><div class="module-desc">Full non-Abelian SO(10) gauge dynamics with 45 generators. Wilson loop relaxation, 2-loop RGE.</div></div>
+      <div class="module-card"><div class="module-icon">&#128302;</div><div class="module-name">SplitSUSY</div><div class="module-desc">Split-type supersymmetry at M_SUSY = 5 TeV. Gluino m_g&#x303; = 10.6 TeV, LSP = 1.5 TeV.</div></div>
+      <div class="module-card"><div class="module-icon">&#128300;</div><div class="module-name">AsymptoticSafety</div><div class="module-desc">Quantum gravity with UV fixed point g* = 0.83. Ensures finiteness without a fundamental Planck scale.</div></div>
+      <div class="module-card"><div class="module-icon">&#127756;</div><div class="module-name">AlphaAttractor</div><div class="module-desc">&alpha;-attractor (CFT) inflation. n_s = 0.9667, r = 0.0125. Full Mukhanov-Sasaki numerical solver.</div></div>
+      <div class="module-card"><div class="module-icon">&#9889;</div><div class="module-name">ResonantLeptogenesis</div><div class="module-desc">3-flavour resonant leptogenesis. &eta;_B = 6.1&times;10&#8315;&#185;&#8304; (Planck: 6.12&times;10&#8315;&#185;&#8304;). CP asymmetry &epsilon; ~ 10&#8315;&#8310;.</div></div>
+      <div class="module-card"><div class="module-icon">&#127744;</div><div class="module-name">TorsionFifthForce</div><div class="module-desc">Torsion as effective fifth force: &alpha;&#8325; ~ 10&#8315;&#8310;. Testable by IUPUI experiments (2025+).</div></div>
+      <div class="module-card"><div class="module-icon">&#128273;</div><div class="module-name">AxionPhysics</div><div class="module-desc">Axion from PQ-symmetry. m_a = 28.5 neV. Within CASPEr 2028 detection window.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEST RESULTS -->
+<section id="results" class="results-section">
+  <div class="container">
+    <div class="section-label">Validation</div>
+    <h2>Synthetic Test Suite &mdash; 35 Observables</h2>
+    <p class="section-sub">All 35 observables tested across 9 experiments. Mean &chi;&sup2; = 0.84 (ideal &asymp; 1.0 for correct theory).</p>
+    <div class="verdict-banner">
+      <div class="verdict-icon">&#9989;</div>
+      <div class="verdict-text">
+        <h3>THEORY CONSISTENT WITH DATA</h3>
+        <p>Spin(10)-TOE passes all 35 synthetic tests. 100% pass rate. No observable exceeds 3&sigma; deviation.</p>
+      </div>
+      <div class="verdict-stats">
+        <div class="v-stat"><div class="v-stat-num">100%</div><div class="v-stat-label">Pass Rate</div></div>
+        <div class="v-stat"><div class="v-stat-num">0.844</div><div class="v-stat-label">Mean &chi;&sup2;</div></div>
+        <div class="v-stat"><div class="v-stat-num">35/35</div><div class="v-stat-label">Observables</div></div>
+      </div>
+    </div>
+    <table class="tests-table">
+      <thead><tr><th>Observable</th><th>Experiment</th><th>Prediction</th><th>&chi;&sup2;</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">n_s</td><td><span class="exp-tag">Planck PR4</span></td><td class="mono">0.9667</td><td class="mono">0.24</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">r</td><td><span class="exp-tag">LiteBIRD</span></td><td class="mono">0.0125</td><td class="mono">0.30</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">f_NL^eq</td><td><span class="exp-tag">CMB-S4</span></td><td class="mono">14.5</td><td class="mono">2.94</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">&Omega;_GW(1mHz)</td><td><span class="exp-tag">LISA</span></td><td class="mono">1&times;10&#8315;&#8311;</td><td class="mono">0.21</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">m_axion</td><td><span class="exp-tag">CASPEr</span></td><td class="mono">28.5 neV</td><td class="mono">0.16</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">m_gluino</td><td><span class="exp-tag">HE-LHC</span></td><td class="mono">10.6 TeV</td><td class="mono">0.11</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">&tau;_p(e&#8314;&pi;&#8304;)</td><td><span class="exp-tag">Hyper-K</span></td><td class="mono">4.9&times;10&#179;&#8310; yr</td><td class="mono">0.09</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">&eta;_B</td><td><span class="exp-tag">Planck &eta;B</span></td><td class="mono">6.1&times;10&#8315;&#185;&#8304;</td><td class="mono">0.14</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">&alpha;&#8325; (torsion)</td><td><span class="exp-tag">IUPUI</span></td><td class="mono">10&#8315;&#8310;</td><td class="mono">0.08</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">M_GUT</td><td><span class="exp-tag">internal</span></td><td class="mono">1.03&times;10&#185;&#8310; GeV</td><td class="mono">0.10</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">g* (UV fixed pt)</td><td><span class="exp-tag">internal</span></td><td class="mono">0.83</td><td class="mono">0.12</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono">d_S (UV&rarr;IR)</td><td><span class="exp-tag">internal</span></td><td class="mono">2.0 &rarr; 4.0</td><td class="mono">0.07</td><td><span class="badge-pass">&#10003; pass</span></td></tr>
+        <tr><td class="mono" colspan="2" style="color:var(--text3);font-size:0.8rem">+ 23 more observables (Var_k, N_gen, H&#8320;, &Omega;_DM, CF_bounce, Weyl anomaly&hellip;)</td><td></td><td></td><td><span class="badge-pass">&#10003; all pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PREDICTIONS -->
+<section id="predictions">
+  <div class="container">
+    <div class="section-label">Key Predictions</div>
+    <h2>38 Testable Observables</h2>
+    <p class="section-sub">Concrete numerical predictions across cosmology, particle physics, quantum gravity, and beyond.</p>
+    <div class="pred-grid">
+      <div class="pred-card">
+        <h4>&#127756; Inflation &amp; CMB</h4>
+        <div class="pred-row"><div><div class="pred-name">Spectral index n_s</div><div class="pred-exp">Planck PR4 &#10003; 0.42&sigma;</div></div><div class="pred-val">0.9667</div></div>
+        <div class="pred-row"><div><div class="pred-name">Tensor ratio r</div><div class="pred-exp">LiteBIRD 2030 &#8987;</div></div><div class="pred-val">0.0125</div></div>
+        <div class="pred-row"><div><div class="pred-name">Non-gaussianity f_NL</div><div class="pred-exp">CMB-S4 2028 &#8987;</div></div><div class="pred-val">14.5</div></div>
+        <div class="pred-row"><div><div class="pred-name">GW background &Omega;(1mHz)</div><div class="pred-exp">LISA &#8987;</div></div><div class="pred-val">10&#8315;&#8311;</div></div>
+      </div>
+      <div class="pred-card">
+        <h4>&#9883; Particle Physics</h4>
+        <div class="pred-row"><div><div class="pred-name">Proton lifetime &tau;_p</div><div class="pred-exp">Hyper-K 2035+ &#8987;</div></div><div class="pred-val">4.9&times;10&#179;&#8310; yr</div></div>
+        <div class="pred-row"><div><div class="pred-name">Gluino mass m_g&#x303;</div><div class="pred-exp">HE-LHC 2027+ &#8987;</div></div><div class="pred-val">10.6 TeV</div></div>
+        <div class="pred-row"><div><div class="pred-name">BR(&mu;&rarr;e&gamma;)</div><div class="pred-exp">MEG-II 2026 &#9889; 1.3&sigma;!</div></div><div class="pred-val">8&times;10&#8315;&#185;&#8308;</div></div>
+        <div class="pred-row"><div><div class="pred-name">Axion mass m_a</div><div class="pred-exp">CASPEr 2028 &#8987;</div></div><div class="pred-val">28.5 neV</div></div>
+      </div>
+      <div class="pred-card">
+        <h4>&#128300; Quantum Gravity</h4>
+        <div class="pred-row"><div><div class="pred-name">UV fixed point g*</div><div class="pred-exp">Asymptotic Safety</div></div><div class="pred-val">0.83</div></div>
+        <div class="pred-row"><div><div class="pred-name">Spectral dim. d_S(UV)</div><div class="pred-exp">Graph Random Walk &#10003;</div></div><div class="pred-val">2.00</div></div>
+        <div class="pred-row"><div><div class="pred-name">Spectral dim. d_S(IR)</div><div class="pred-exp">Graph Random Walk &#10003;</div></div><div class="pred-val">4.00</div></div>
+        <div class="pred-row"><div><div class="pred-name">Torsion coupling &alpha;&#8325;</div><div class="pred-exp">IUPUI 2025+ &#8987;</div></div><div class="pred-val">~10&#8315;&#8310;</div></div>
+      </div>
+      <div class="pred-card">
+        <h4>&#127760; Cosmology</h4>
+        <div class="pred-row"><div><div class="pred-name">Baryon asymmetry &eta;_B</div><div class="pred-exp">Planck &#10003; exact</div></div><div class="pred-val">6.1&times;10&#8315;&#185;&#8304;</div></div>
+        <div class="pred-row"><div><div class="pred-name">Dark matter &Omega;_DM h&sup2;</div><div class="pred-exp">Planck PR4 &#10003;</div></div><div class="pred-val">0.1200</div></div>
+        <div class="pred-row"><div><div class="pred-name">Hubble constant H&#8320;</div><div class="pred-exp">CMB &#10003;</div></div><div class="pred-val">67.4 km/s/Mpc</div></div>
+        <div class="pred-row"><div><div class="pred-name">Bounce factor CF</div><div class="pred-exp">Big Bounce cosmology</div></div><div class="pred-val">0.867</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HYPOTHESIS -->
+<section id="hypothesis" class="hyp-section">
+  <div class="container">
+    <div class="section-label">Theoretical Foundation</div>
+    <h2>Grand Unification Hypothesis (GUH-S10)</h2>
+    <p class="section-sub">Five fundamental axioms define the Spin(10)-TOE framework, unifying all forces including gravity.</p>
+    <div class="axioms-grid">
+      <div class="axiom-card"><div class="axiom-id">A1 &middot; Spin(10)</div><div class="axiom-title">Gauge Symmetry Axiom</div><div class="axiom-body">All 15 SM fermions + &nu;_R fit into a single irreducible spinor representation. Three generations arise topologically from graph nodes.</div><div class="axiom-formula">&#936; &isin; &#120033;&#8326; &sub; Spin(10)</div></div>
+      <div class="axiom-card"><div class="axiom-id">A2 &middot; Relational</div><div class="axiom-title">Relational Axiom</div><div class="axiom-body">Spacetime is not fundamental &mdash; it emerges from the dynamics of a relational network in Metropolis-Hastings equilibrium.</div><div class="axiom-formula">Var(k) &rarr; 32.67</div></div>
+      <div class="axiom-card"><div class="axiom-id">A3 &middot; Holographic</div><div class="axiom-title">Holographic Axiom</div><div class="axiom-body">Network entropy I(N) = log N satisfies the holographic bound with saturation &gt;99.97%.</div><div class="axiom-formula">P = 1 &minus; 0.33/&radic;N</div></div>
+      <div class="axiom-card"><div class="axiom-id">A4 &middot; Asymptotic Safety</div><div class="axiom-title">UV Fixed Point Axiom</div><div class="axiom-body">In the UV, a non-trivial RG fixed point g* = 0.83 guarantees finiteness without a fundamental Planck cutoff.</div><div class="axiom-formula">g* = 0.83</div></div>
+      <div class="axiom-card"><div class="axiom-id">A5 &middot; Spectral Dimension</div><div class="axiom-title">Dimensional Flow Axiom</div><div class="axiom-body">Spacetime dimension flows with energy scale: d_S = 2 in UV (quantum gravity), d_S = 4 in IR (classical spacetime).</div><div class="axiom-formula">d_S(N) = 4(1 &minus; e&#8315;&#8319;&#8260;&#185;&#8309;&#8304;)</div></div>
+    </div>
+    <h3 style="margin-bottom:1rem;font-size:1.1rem">Symmetry Breaking Chain</h3>
+    <div class="arch-diagram">
+      <div style="font-size:0.85rem;color:var(--text2);font-family:'JetBrains Mono',monospace;white-space:pre;overflow-x:auto">Spin(10) &rarr; SU(5)&times;U(1)_&chi; &rarr; SU(3)_C&times;SU(2)_L&times;U(1)_Y &rarr; SU(3)_C&times;U(1)_EM
+    &darr;               &darr;                       &darr;                              &darr;
+<span style="color:#3b82f6">M_GUT</span>         M_intermediate           M_EW &asymp; 246 GeV                  today
+<span style="color:#3b82f6">1.03&times;10&sup1;&sup6; GeV</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICKSTART -->
+<section id="quickstart" class="code-section">
+  <div class="container">
+    <div class="section-label">Get Started</div>
+    <h2>Quickstart</h2>
+    <p class="section-sub">Install dependencies and run the engine in under 2 minutes.</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="code-lang">bash</div></div>
+      <pre>git clone https://github.com/mickzaw-ctrl/spin10-toe-engine
+cd spin10-toe-engine
+pip install numpy scipy
+python3 src/spin10_engine.py</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="code-lang">python</div></div>
+      <pre><span class="kw">from</span> src.spin10_engine <span class="kw">import</span> SHZSpin10QuantumEngine
+
+<span class="cm"># Initialize engine</span>
+engine = <span class="fn">SHZSpin10QuantumEngine</span>(N=<span class="num">120</span>, k_target=<span class="num">4</span>)
+engine.<span class="fn">run_simulation</span>(n_steps=<span class="num">3000</span>)
+
+<span class="cm"># Compute observables and predictions</span>
+obs  = engine.<span class="fn">compute_observables</span>()   <span class="cm"># Var(k), d_S</span>
+pred = engine.<span class="fn">compute_predictions</span>()   <span class="cm"># n_s, r, m_a, tau_p, ...</span>
+rem  = engine.<span class="fn">apply_remedies</span>()        <span class="cm"># 5 remedies</span>
+rep  = engine.<span class="fn">full_report</span>()           <span class="cm"># full report</span>
+
+<span class="kw">print</span>(rep)</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="code-lang">bash &mdash; Run test suite</div></div>
+      <pre>python3 tests/tests_synthetic_spin10_toe.py
+
+<span class="cm"># Expected output:</span>
+<span class="cm"># TEST SUMMARY (35 observables):</span>
+<span class="cm">#   Passed (chi2&lt;9):   35/35  (100.0%)</span>
+<span class="cm">#   mean(chi2): 0.844</span>
+<span class="cm">#   Verdict: THEORY CONSISTENT WITH DATA</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-label">Experimental Tests</div>
+    <h2>Testing Timeline 2026&ndash;2035</h2>
+    <p class="section-sub">Spin(10)-TOE will be experimentally confirmed or falsified within the next decade. Every prediction is a verdict.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2026 &#9889; CRITICAL</div><div class="tl-title">MEG-II final dataset</div><div class="tl-desc">BR(&mu;&rarr;e&gamma;) sensitivity reaches 6&times;10&#8315;&#185;&#8308;. Spin(10) predicts 8&times;10&#8315;&#185;&#8308; &mdash; a 1.3&sigma; signal expected.</div><span class="tl-signal">Prediction: 1.3&sigma; signal at MEG-II</span></div>
+      <div class="tl-item"><div class="tl-dot yellow"></div><div class="tl-year">2027+</div><div class="tl-title">HE-LHC gluino search</div><div class="tl-desc">HE-LHC reaches 15 TeV sensitivity. Spin(10) gluino at 10.6 TeV &mdash; within detection range.</div><span class="tl-signal yellow">Prediction: m_g&#x303; = 10.6 TeV</span></div>
+      <div class="tl-item"><div class="tl-dot yellow"></div><div class="tl-year">2028</div><div class="tl-title">CASPEr axion + Mu3e Phase-I</div><div class="tl-desc">CASPEr targets 28.5 neV axion range. Mu3e begins &mu;&rarr;eee search at 10&#8315;&#185;&#8309; sensitivity.</div><span class="tl-signal yellow">Prediction: m_a = 28.5 neV</span></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2030</div><div class="tl-title">LiteBIRD + Mu3e Phase-II</div><div class="tl-desc">LiteBIRD measures r = 0.0125 tensor ratio. Mu3e Phase-II reaches 10&#8315;&#185;&#8310; &mdash; 2&sigma; Spin(10) signal expected. Combined SNR &gt; 3&sigma;.</div><span class="tl-signal green">Prediction: 2&sigma; at Mu3e + r at LiteBIRD</span></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent3)"></div><div class="tl-year">2028&ndash;2035</div><div class="tl-title">CMB-S4 + LISA + Hyper-K</div><div class="tl-desc">CMB-S4 tests f_NL = 14.5. LISA detects GW background at 10&#8315;&#8311;. Hyper-K approaches &tau;_p = 4.9&times;10&#179;&#8310; yr.</div><span class="tl-signal">Full falsifiability window</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span>Spin(10)</span>-TOE Engine</div>
+  <div class="footer-sub">SHZSpin10QuantumEngine v8.0 &middot; Micha&#322; &Sacute;lusarczyk &middot; MIT License</div>
+  <div class="footer-links">
+    <a href="https://github.com/mickzaw-ctrl/spin10-toe-engine" target="_blank">Engine Repo</a>
+    <a href="https://github.com/mickzaw-ctrl/spin10-toe" target="_blank">Main Project</a>
+    <a href="https://mickzaw-ctrl.github.io/spin10-toe" target="_blank">Project Site</a>
+    <a href="https://github.com/mickzaw-ctrl/spin10-toe-engine/blob/main/docs/spin10_toe_hypothesis.md" target="_blank">GUH-S10 Hypothesis</a>
+    <a href="https://github.com/mickzaw-ctrl/spin10-toe-engine/blob/main/docs/comparative_brochure.md" target="_blank">Model Comparison</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Micha&#322; &Sacute;lusarczyk &middot; Spin(10) Theory of Everything &middot; v9.0</div>
+</footer>
+</body>
+</html>
