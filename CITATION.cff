@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Spin(10) Theory of Everything — SHZSpin10QuantumEngine"
+version: "8.0"
+date-released: 2026-06-15
+authors:
+  - family-names: Ślusarczyk
+    given-names: Michał
+abstract: >
+  A complete computational implementation of a Spin(10) Theory of Everything
+  on a relational graph, unifying quantum gravity, Spin(10) gauge symmetry,
+  supersymmetry (SUSY), and cosmology. Features 38 testable predictions
+  confronted against 9 experiments (Planck, LISA, CMB-S4, LiteBIRD,
+  Hyper-K, CASPEr, HE-LHC, IUPUI, DECIGO).
+license: MIT
+url: "https://github.com/YOUR_USERNAME/spin10-toe"
+keywords:
+  - quantum gravity
+  - theory of everything
+  - spin10
+  - supersymmetry
+  - cosmology
+  - Monte Carlo
+  - relational graph
