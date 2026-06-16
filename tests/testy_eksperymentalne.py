@@ -1,5 +1,5 @@
 """
-TESTY - Porownanie predictions Spin(10) z aktualnymi granicami eksperymentalnymi
+TESTY - Porownanie predykcji Spin(10) z aktualnymi granicami eksperymentalnymi
 Kompletny manifest testow dla heksalogii Spin(10)
 """
 import math
@@ -40,7 +40,7 @@ print(f"  Spin(10):              Ω_GW(1 mHz) = {Omega_GW_pred:.1e}")
 print(f"  LISA czulosc:          ~ {Omega_GW_LISA_sens:.0e}")
 print(f"  SNR:                   {SNR_SGWB:.0e} (7 DEKAD)")
 print(f"  Peak:                  Ω_GW^max = 5.18e-7")
-print(f"  Struktura:             inflation + GUT + Bounce")
+print(f"  Struktura:             inflacja + GUT + Bounce")
 
 # 1.3 B_TTB
 print("\n[1.3] B_TTB (CP violation) w LiteBIRD (2030)")
@@ -53,13 +53,13 @@ print(f"  LiteBIRD:              σ(r) ~ {r_LiteBIRD_sens}")
 print(f"  SNR na r:              {SNR_r:.1f}σ")
 print(f"  UNIKALNA SYGNATURA:    B_TTB=0 we wszystkich innych modelach")
 
-# 1.4 N_gen topological
+# 1.4 N_gen topologiczne
 print("\n[1.4] N_gen (topologia /D)")
 N_gen = 3
 print(f"  Spin(10):              ind(/D) = {N_gen}")
 print(f"  Obserwacja:            SM ma 3 generacje")
 print(f"  Status:                ✓✓✓ POTWIERDZONE")
-print(f"  Uwaga:                 kazda modyfikacja graph -> inna N_gen")
+print(f"  Uwaga:                 kazda modyfikacja grafu -> inna N_gen")
 
 # =================================================================
 #  KATEGORIA 2: BARDZO SILNE (★★★★)
@@ -181,7 +181,7 @@ MEG_II_limit = 6e-14
 print(f"  Spin(10):              BR(μ→eγ) = {BR_pred:.1e}")
 print(f"  MEG 2016:              < {MEG_limit:.1e}")
 print(f"  MEG-II 2026:           ~ {MEG_II_limit:.1e}")
-print(f"  Spin(10) > MEG limit -> models wykluczone CZESCIOWO")
+print(f"  Spin(10) > MEG limit -> modele wykluczone CZESCIOWO")
 
 # 4.2 m_bb
 print("\n[4.2] m_ββ w LEGEND-1000 (2028)")
@@ -235,10 +235,10 @@ print("\n[4.7] Yukawa unification w LHCb")
 Y_u_Y_d_ratio = 0.516 * cos_Phi  # = 0.355
 print(f"  Spin(10):              Y_u = Y_d = Y_ℓ na GUT")
 print(f"  Test:                  m_b/m_τ ~ {Y_u_Y_d_ratio:.3f}")
-print(f"  Pomiar:                m_b/m_τ ~ 0.835 (z corrections QCD)")
+print(f"  Pomiar:                m_b/m_τ ~ 0.835 (z korektami QCD)")
 
 # 4.8 Holografia
-print("\n[4.8] Holografia w network")
+print("\n[4.8] Holografia w sieci")
 holo = 0.67  # 67%
 print(f"  Spin(10) z N=120:      {holo*100}% czasu")
 print(f"  Remedium (N=250):      >90% czasu")
@@ -316,9 +316,9 @@ print(f"  Spin(10):              η_B^res = {eta_B_res:.2e}")
 print(f"  Target:                η_B = {target:.1e}")
 print(f"  Remedium:              flavour effects × 10³")
 
-print("\n[7.3] η_B^torsion ⚠️")
+print("\n[7.3] η_B^torsja ⚠️")
 eta_B_torsja = 4.5e-9
-print(f"  Spin(10):              η_B^torsion = {eta_B_torsja:.2e}")
+print(f"  Spin(10):              η_B^torsja = {eta_B_torsja:.2e}")
 print(f"  Target:                η_B = {target:.1e}")
 print(f"  Remedium:              renormalizacja")
 
@@ -346,7 +346,7 @@ categories = {
     "★★ Średnie": 8,
     "★ Pomocnicze": 4,
     "✓ Potwierdzone": 6,
-    "⚠️ Wymaga corrections": 5
+    "⚠️ Wymaga poprawki": 5
 }
 
 total = 0
@@ -418,7 +418,7 @@ print("  w horyzoncie 2025-2040.")
 print()
 print("To jest NAJBARDZIEJ testowalny model ToE w historii fizyki.")
 print()
-print("Krytyczne 4 tests (★★★★★) to:")
+print("Krytyczne 4 testy (★★★★★) to:")
 print("  1. f_NL^eq = 14.5 (CMB-S4, 14.5σ)")
 print("  2. SGWB Ω~1e-7 (LISA, 7 dekad)")
 print("  3. B_TTB ≠ 0 (LiteBIRD, unikalna)")
