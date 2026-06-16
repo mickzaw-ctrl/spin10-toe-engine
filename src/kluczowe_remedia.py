@@ -1,5 +1,5 @@
 """
-5 KLUCZOWYCH REMEDIES - skrócony przeglad
+5 KLUCZOWYCH REMEDIES - skrocony przeglad
 """
 import math
 
@@ -9,7 +9,7 @@ print("="*70)
 
 print("\n1. SPLIT-SUSY (m_gluino)")
 print(f"   Przed:  m_gluino = 2.1 TeV    < LHC limit 2.3 TeV")
-print(f"   Po:     m_gluino = 10.6 TeV   >> LHC, w HE-LHC zasięgu")
+print(f"   Po:     m_gluino = 10.6 TeV   >> LHC, w HE-LHC zasiegu")
 print(f"   Test:   HE-LHC (2027+), FCC-hh")
 
 print("\n2. 3-FLAVOUR BOLTZMANN (eta_B)")
@@ -27,10 +27,10 @@ print(f"   Przed:  a_4 = -6.23   (nie anuluje sie)")
 print(f"   Po:     a_4 = 0       (+125 chiralnych multipletow)")
 print(f"   Test:   DM searches (CTA), FCC-hh")
 
-print("\n4-5. SIEC N >= 150 (holografia + d_S)")
+print("\n4-5. SIEC N >= 150 (holographia + d_S)")
 c_H = 0.33
 N_c = 150
-print(f"   {'N':<10} | {'Holografia':<12} | {'d_S (UV->IR)':<15}")
+print(f"   {'N':<10} | {'Holographia':<12} | {'d_S (UV->IR)':<15}")
 print("   " + "-"*45)
 for N in [120, 150, 250, 1000, 10000, 1e6]:
     P_holo = 1 - c_H/math.sqrt(N)
@@ -42,7 +42,7 @@ print(f"   Test:   Spin(10) v8.0 (planowane)")
 print("\n" + "="*70)
 print(" PODSUMOWANIE")
 print("="*70)
-print("\n5 problematycznych punktów -> 5 kluczowych remedies:")
+print("\n5 problematycznych punktow -> 5 kluczowych remedies:")
 print("  1. Split-SUSY         -> HE-LHC test 2027+")
 print("  2. 3-flavour          -> DUNE test 2028+")
 print("  3. Hidden SUSY        -> DM searches 2025+")
