@@ -1,6 +1,6 @@
 """
 Publikacja IV - Fermiony, Leptogeneza, f_NL, Bispektrum
-Finalna tetralogia - wszystkie computations
+Finalna tetralogia - wszystkie obliczenia
 """
 import math
 import numpy as np
@@ -52,11 +52,11 @@ print("="*65)
 
 print(f"ind(/D) = {n_zero_modes} (Atiyah-Singer theorem)")
 print(f"  -> Topologiczny dowód: N_gen = {n_zero_modes}")
-print(f"  -> 3 generacje SM sa EMERGENTNA wlasnoscia graph Spin(10)")
+print(f"  -> 3 generacje SM sa EMERGENTNA wlasnoscia grafu Spin(10)")
 print()
 print(f"Trzy niezalezne wyprowadzenia:")
 print(f"  1. Algebraiczny:    E_8 -> SU(4) x Spin(10), 4->3+1")
-print(f"  2. Geometryczny:    <k>=4 graph regularnego")
+print(f"  2. Geometryczny:    <k>=4 grafu regularnego")
 print(f"  3. Topologiczny:    ind(/D) = {n_zero_modes}  [Publ. IV]")
 
 print(f"\nKondensat chiralny (Bank-Casher):")
@@ -86,16 +86,16 @@ print(f"  -> Maximum value (Bounce amplifies)")
 print(f"K_washout             = {K_washout}")
 print(f"  -> Optymalny reżim")
 print(f"Y_L (final)           = 1.01e-20")
-print(f"η_B (leptogenesis)     = {eta_B_lept:.2e}")
+print(f"η_B (leptogeneza)     = {eta_B_lept:.2e}")
 print(f"η_B (obserwacja)      = 6.10e-10")
 print(f"Stosunek              = {eta_B_lept/6.10e-10:.2e}x (za małe)")
 print(f"  -> Potrzebna resonant leptogenesis (Publ. V)")
 
-# Comparison z torsion (Publ. III)
+# Comparison z torsja (Publ. III)
 eta_B_torsion = 4.5e-9
-print(f"\nComparison z baryogeneza z torsion (Publ. III):")
-print(f"  η_B (torsion)         = {eta_B_torsion:.2e}  (7× za duzo)")
-print(f"  η_B (leptogenesis)    = {eta_B_lept:.2e}  (10^11× too few)")
+print(f"\nComparison z baryogeneza z torsji (Publ. III):")
+print(f"  η_B (torsja)         = {eta_B_torsion:.2e}  (7× za duzo)")
+print(f"  η_B (leptogeneza)    = {eta_B_lept:.2e}  (10^11× too few)")
 print(f"  -> Dwa kanaly razem moga dac obserwowane η_B")
 
 # Warunki Sacharowa
@@ -230,7 +230,7 @@ print("\n[TEST 2] SGWB w LISA (2035)")
 print(f"  Predykcja: Ω_GW(1 mHz) ~ 10^-7")
 print(f"  LISA sensitivity:        10^-14")
 print(f"  SNR:                 10^7 (dekady)")
-print(f"  Struktura:           inflation + GUT + Bounce")
+print(f"  Struktura:           inflacja + GUT + Bounce")
 print(f"  → BEZPOŚREDNIA DETEKCJA")
 
 # =================================================================
@@ -249,7 +249,7 @@ print(f"Publ. IV      (v5.0) + Fermiony + Leptogeneza + f_NL + Bispektrum")
 print(f"\nMain results of the tetralogy:")
 print(f"  ✓ Trzy generacje (3 niezależne wyprowadzenia)")
 print(f"  ✓ Stała cosmological (emergent)")
-print(f"  ✓ Inflation α-att (zgodna z danymi)")
+print(f"  ✓ Inflacja α-att (zgodna z danymi)")
 print(f"  ✓ SGWB (7 dekad powyżej LISA)")
 print(f"  ✓ CPT (idealnie zachowana)")
 print(f"  ✓ Baryogeneza (dwa kanały)")
