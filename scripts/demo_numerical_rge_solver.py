@@ -1,13 +1,13 @@
 """
 demo_numerical_rge_solver.py
 ============================
-Demo script presenting numerical 2-loop and 1-loop integration of
+Demo script presenting numerical integration of 2-loop and 1-loop
 Renormalization Group Equations (RGE) for coupling constants g_1, g_2, g_3.
 
-Shows the evolution of couplings from the electroweak scale (M_Z) to the unification scale (M_GUT),
-accounting for the intermediate Split-SUSY threshold at scale M_SUSY = 5 TeV.
+Shows coupling evolution from the electroweak scale (M_Z) to the unification scale (M_GUT),
+including the intermediate Split-SUSY threshold at M_SUSY = 5 TeV.
 
-Launch:
+Runienie:
     python scripts/demo_numerical_rge_solver.py
 """
 
@@ -29,16 +29,16 @@ def run_demo():
     M_SUSY = 5000.0  # 5 TeV (Split-SUSY Remedy #1)
     M_GUT_target = 2.0e16
     
-    print(f"\n1. WARUNKI POCZATKOWE I MODEL FIZYCZNY")
-    print(f"   Scale elektroslaba:        M_Z    = 91.19 GeV")
-    print(f"   Prog przelaczenia SUSY:    M_SUSY = {M_SUSY:.0f} GeV ({M_SUSY/1000:.1f} TeV)")
-    print(f"   Docelowa scale unification: M_GUT  = {M_GUT_target:.1e} GeV")
-    print(f"   Konwencja unification:      g_1(M_Z) = sqrt(5/3) g_Y(M_Z)")
+    print(f"\n1. WARUNKI POCZĄTKOWE I MODEL FIZYCZNY")
+    print(f"   Scale elektrosłaba:        M_Z    = 91.19 GeV")
+    print(f"   SUSY switching threshold:    M_SUSY = {M_SUSY:.0f} GeV ({M_SUSY/1000:.1f} TeV)")
+    print(f"   Docelowa scale unifikacji: M_GUT  = {M_GUT_target:.1e} GeV")
+    print(f"   Konwencja unifikacji:      g_1(M_Z) = sqrt(5/3) g_Y(M_Z)")
     
     # -------------------------------------------------------------------------
-    # 2. INTEGRATION 1-PETLOWE
+    # 2. 1-LOOP INTEGRATION
     # -------------------------------------------------------------------------
-    print(f"\n2. INTEGRATION 1-PETLOWE (Z Przelacznikiem Progowym)")
+    print(f"\n2. 1-LOOP INTEGRATION (With Threshold Switching)")
     start_1 = time.time()
     t_1, g_1_vals, a_gut_1, best_gut_1 = NumericalRGESolver.integrate_1loop_rge_flow(
         M_SUSY=M_SUSY, M_GUT_target=M_GUT_target
@@ -47,15 +47,15 @@ def run_demo():
     
     res_1 = NumericalRGESolver.analyze_unification(t_1, g_1_vals)
     
-    print(f"   Integration 1-loop zakonczone w {time_1:.2f} s.")
-    print(f"   - Wyznaczona scale unification: M_GUT      = {res_1['M_GUT_GeV']:.2e} GeV")
-    print(f"   - Wspolna constant coupling:    alpha_GUT  = {res_1['alpha_GUT']:.4f} (1/alpha_GUT = {res_1['alpha_GUT_inv']:.1f})")
-    print(f"   - Accuracy zbieznosci:       Rozbieznosc = {res_1['unification_accuracy']:.2%}")
+    print(f"   1-loop integration completed in {time_1:.2f} s.")
+    print(f"   - Wyznaczona scale unifikacji: M_GUT      = {res_1['M_GUT_GeV']:.2e} GeV")
+    print(f"   - Unified coupling constant:    alpha_GUT  = {res_1['alpha_GUT']:.4f} (1/alpha_GUT = {res_1['alpha_GUT_inv']:.1f})")
+    print(f"   - Convergence accuracy:       Deviation = {res_1['unification_accuracy']:.2%}")
     
     # -------------------------------------------------------------------------
-    # 3. INTEGRATION 2-PETLOWE
+    # 3. 2-LOOP INTEGRATION
     # -------------------------------------------------------------------------
-    print(f"\n3. PELNE INTEGRATION 2-PETLOWE (Wysoka Precyzja)")
+    print(f"\n3. FULL 2-LOOP INTEGRATION (High Precision)")
     start_2 = time.time()
     t_2, g_2_vals, a_gut_2, best_gut_2 = NumericalRGESolver.integrate_2loop_rge_flow(
         M_SUSY=M_SUSY, M_GUT_target=M_GUT_target
@@ -64,16 +64,16 @@ def run_demo():
     
     res_2 = NumericalRGESolver.analyze_unification(t_2, g_2_vals)
     
-    print(f"   Integration 2-loop zakonczone w {time_2:.2f} s.")
-    print(f"   - Optymalna scale unification:  M_GUT      = {res_2['M_GUT_GeV']:.2e} GeV")
+    print(f"   2-loop integration completed in {time_2:.2f} s.")
+    print(f"   - Optymalna scale unifikacji:  M_GUT      = {res_2['M_GUT_GeV']:.2e} GeV")
     print(f"   - Precyzyjne alpha_GUT:        alpha_GUT  = {res_2['alpha_GUT']:.4f} (1/alpha_GUT = {res_2['alpha_GUT_inv']:.2f})")
-    print(f"   - Kat Weinberga sin^2(theta_W): {res_2['sin2_theta_W_GUT']:.4f}   (Teoria ToE: {res_2['sin2_theta_W_GUT_theoretical']:.4f})")
-    print(f"   - Zgodnosc z unifikacja ToE:   {'POZYTYWNA ✓✓✓' if res_2['perfect_unification_passed'] else 'WYMAGA KOREKTY PROGU'}")
+    print(f"   - Kąt Weinberga sin^2(theta_W): {res_2['sin2_theta_W_GUT']:.4f}   (Theora ToE: {res_2['sin2_theta_W_GUT_theoretical']:.4f})")
+    print(f"   - Consistency with ToE unification:   {'POSITIVE ✓✓✓' if res_2['perfect_unification_passed'] else 'WYMAGA KOREKTY PROGU'}")
     
     # -------------------------------------------------------------------------
-    # 4. TABELA TRAJEKTORII (Probka ewolucji 2-loop)
+    # 4. TABELA TRAJEKTORII (Próbka ewolucji 2-loop)
     # -------------------------------------------------------------------------
-    print(f"\n4. TRAJEKTORIA SPRZEZEN (Ewolucja 2-petlowa w function scale mu)")
+    print(f"\n4. COUPLING TRAJECTORY (2-loop evolution as a function of scale mu)")
     print(f"   {'Scale mu (GeV)':<15} | {'g_1 (U(1))':<12} | {'g_2 (SU(2))':<12} | {'g_3 (SU(3))':<12} | {'Uwagi':<20}")
     print("   " + "-"*70)
     
@@ -88,12 +88,12 @@ def run_demo():
         
         remark = ""
         if abs(actual_mu - 91.2) < 10: remark = "Scale Z (SM)"
-        elif abs(actual_mu - M_SUSY) < M_SUSY*0.2: remark = "Prog Split-SUSY"
+        elif abs(actual_mu - M_SUSY) < M_SUSY*0.2: remark = "Próg Split-SUSY"
         elif abs(actual_mu - res_2['M_GUT_GeV']) < res_2['M_GUT_GeV']*0.2: remark = "Scale Unifikacji ToE"
             
         print(f"   {actual_mu:<15.1e} | {g1:<12.4f} | {g2:<12.4f} | {g3:<12.4f} | {remark:<20}")
 
-    print("\n   >>> Module 'NumericalRGESolver' gotowy do pelnej integracji z analityka ToE! <<<")
+    print("\n   >>> Module 'NumericalRGESolver' ready for full integration with ToE analytics! <<<")
     print("="*75)
 
 
