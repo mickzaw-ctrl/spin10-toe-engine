@@ -2,48 +2,48 @@
 numerical_rge_solver.py
 =======================
 Advanced numerical module for integrating the coupled system of
-Renormalization Group Equations (RGE) for gauge coupling constants g_1, g_2, g_3
+Group Equations (RGE) for gauge coupling constants g_1, g_2, g_3
 from the electroweak scale (M_Z = 91.2 GeV) to the Planck scale (M_P ~ 1.22e19 GeV).
 
 Module precisely accounts for Split-SUSY thresholds (Remedy #1) at scale M_SUSY,
 switching 1-loop and 2-loop beta-function coefficients from the Standard Model (SM)
-to Split-SUSY / MSSM coefficients. Determines the unification scale M_GUT where couplings
-converge to a common value alpha_GUT.
+to Split-SUSY / MSSM coefficients. Determines the unification scale M_GUT at which couplings
+converge to the common value alpha_GUT.
 
-Author: SHZSpin10QuantumEngine Team
-Version: 9.4 (Numerical RGE Flow)
+Autor: SHZSpin10QuantumEngine Team
+Wersja: 9.4 (Numerical RGE Flow)
 """
 
 import numpy as np
 from scipy.integrate import solve_ivp
-from typeing import Tuple, Dict, Any, List
+from typing import Tuple, Dict, Any, List
 
 
 class NumericalRGESolver:
     """
-    Wysokowydajny solwer numeryczny RGE dla algebry gauge w Spin(10) ToE.
+    Wysokowydajny solwer numeryczny RGE dla algebry cechowania w Spin(10) ToE.
     """
     
-    # 1-loop beta coefficients b_i = (b_1, b_2, b_3)
+    # 1-loop coefficients b_i = (b_1, b_2, b_3)
     # Dla Modelu Standardowego (SM):
-    B1_SM = np.array([41.0 / 10.0, -19.0 / 6.0, -7.0], dtypee=np.float64)
+    B1_SM = np.array([41.0 / 10.0, -19.0 / 6.0, -7.0], dtype=np.float64)
     # For Split-SUSY / MSSM (above M_SUSY):
-    B1_SUSY = np.array([33.0 / 5.0, 1.0, -3.0], dtypee=np.float64)
+    B1_SUSY = np.array([33.0 / 5.0, 1.0, -3.0], dtype=np.float64)
 
-    # 2-loop matrices B_{ij} (3x3)
+    # 2-loop macierze B_{ij} (3x3)
     # Dla Modelu Standardowego (SM):
     B2_SM = np.array([
         [199.0 / 50.0, 27.0 / 10.0, 44.0 / 5.0],
         [9.0 / 10.0,   35.0 / 6.0,  12.0],
         [11.0 / 10.0,  27.0 / 2.0,  -26.0]
-    ], dtypee=np.float64)
+    ], dtype=np.float64)
     
     # Dla Split-SUSY / MSSM:
     B2_SUSY = np.array([
         [199.0 / 25.0, 27.0 / 5.0,  44.0 / 5.0],
         [9.0 / 5.0,    25.0,        12.0],
         [11.0 / 5.0,   9.0,         14.0]
-    ], dtypee=np.float64)
+    ], dtype=np.float64)
 
     @classmethod
     def integrate_1loop_rge_flow(
@@ -53,13 +53,13 @@ class NumericalRGESolver:
         n_points: int = 300
     ) -> Tuple[np.ndarray, np.ndarray, float, float]:
         """
-        Integrat 1-loop equation RGE: dg_i / dt = b_i * g_i^3 / (16 * pi^2).
+        Integrates 1-loop RGE equations: dg_i / dt = b_i * g_i^3 / (16 * pi^2).
         Gdzie t = ln(mu).
         
-        Returns: (t_vals, g_vals, alpha_GUT, best_M_GUT)
+        Zwraca: (t_vals, g_vals, alpha_GUT, best_M_GUT)
         """
-        # Initial conditions at scale M_Z = 91.1876 GeV (in SU(5) GUT convention g_1 = sqrt(5/3) g_Y)
-        g_Z = np.array([0.462, 0.652, 1.221], dtypee=np.float64)
+        # Warunki initial na scale M_Z = 91.1876 GeV (w convention SU(5) GUT g_1 = sqrt(5/3) g_Y)
+        g_Z = np.array([0.462, 0.652, 1.221], dtype=np.float64)
         t_Z = np.log(91.1876)
         t_GUT = np.log(M_GUT_target)
 
@@ -82,7 +82,7 @@ class NumericalRGESolver:
         g_GUT = sol.y[:, -1]
         alpha_GUT = float((np.mean(g_GUT)**2) / (4.0 * np.pi))
         
-        # Znalezienie punktu optymalnej unification (gdzie wariancja g_i jest minimalna)
+        # Znalezienie punktu optymalnej unification (gdzie variance g_i jest minimalna)
         variances = np.var(sol.y, axis=0)
         best_idx = np.argmin(variances)
         best_M_GUT = float(np.exp(sol.t[best_idx]))
@@ -97,14 +97,14 @@ class NumericalRGESolver:
         n_points: int = 300
     ) -> Tuple[np.ndarray, np.ndarray, float, float]:
         """
-        Integrates full 2-loop RGE equations:
+        Integrates the full 2-loop RGE equations:
         dg_i / dt = b_i * g_i^3 / (16*pi^2) + g_i^3 * sum(B_{ij} g_j^2) / (256*pi^4).
         
-        Returns: (t_vals, g_vals, alpha_GUT, best_M_GUT)
+        Zwraca: (t_vals, g_vals, alpha_GUT, best_M_GUT)
         """
-        # Initial conditions M_Z = 91.1876 GeV in SU(5)/Spin(10) GUT convention
+        # Warunki initial M_Z = 91.1876 GeV w GUT convention SU(5)/Spin(10)
         # g_1(M_Z) = np.sqrt(5/3) * g_Y(M_Z)
-        g_Z = np.array([0.462, 0.652, 1.221], dtypee=np.float64)
+        g_Z = np.array([0.462, 0.652, 1.221], dtype=np.float64)
         t_Z = np.log(91.1876)
         t_GUT = np.log(M_GUT_target)
 
@@ -164,7 +164,7 @@ class NumericalRGESolver:
         # Skale GeV
         mu_vals = np.exp(t_vals)
         
-        # Variance of couplings at each step
+        # Coupling variance at each step
         diffs = np.std(g_vals, axis=0) / np.mean(g_vals, axis=0)
         
         # Find minimum divergence for mu > 1e14 GeV
@@ -180,12 +180,12 @@ class NumericalRGESolver:
         alpha_gut_inv = float(1.0 / alpha_gut)
 
         # Weinberg angle at scale Z and at GUT scale: sin^2(theta_W) = g'^2 / (g'^2 + g^2)
-        # Noting the convention g_1^2 = (5/3) g'^2  => g'^2 = (3/5) g_1^2
+        # Remembering the convention g_1^2 = (5/3) g'^2  => g'^2 = (3/5) g_1^2
         g_1_gut, g_2_gut, g_3_gut = g_gut
         gp_gut_sq = (3.0 / 5.0) * (g_1_gut**2)
         sin2_theta_W_GUT = float(gp_gut_sq / (gp_gut_sq + g_2_gut**2))
 
-        # W idealnej unification ToE SU(5)/Spin(10) mamy sin^2(theta_W) dążące do 3/8 = 0.375
+        # In ideal ToE SU(5)/Spin(10) unification sin^2(theta_W) approaches 3/8 = 0.375
         theo_sin2 = 3.0 / 8.0
 
         return {
