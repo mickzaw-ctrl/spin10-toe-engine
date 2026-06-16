@@ -1,6 +1,6 @@
 """
-Predykcje testowalne model Spin(10) sieciowego - v2 (poprawione formuly)
-Laczy: 3 generacje, symetrie rodzinna SU(3)_F, E8xE8, predictions observables
+Predykcje testowalne modelu Spin(10) sieciowego - v2 (poprawione formuly)
+Laczy: 3 generacje, symetrie rodzinna SU(3)_F, E8xE8, predykcje obserwabli
 
 Dane wejsciowe z raportu (krok 3000):
   N = 150, <k> = 4, Var(k) = 0.262, <cos Phi> = 0.688
@@ -31,7 +31,7 @@ alpha_GUT= 0.04
 alpha_S  = 0.118        # strong coupling at M_Z
 
 # =================================================================
-#  EMERGENT STALE - z danych network
+#  EMERGENT STALE - z danych sieci
 # =================================================================
 eps_F = math.sqrt(Var_k) / k_mean       # = 0.128
 G_N = 3.0 / (2.0 * math.pi * N)        # w jednostkach a=1
@@ -103,7 +103,7 @@ print("="*65)
 # BR(mu -> e gamma) ~ (alpha/4 pi) * (m_mu^2/M_SUSY^2) * |delta_LL|^2
 # |delta_LL| ~ (3 m_top^2/(8 pi^2 v^2)) * A_0 * log(M_GUT/M_SUSY) * (Y_u^+ Y_u)
 # Typowa prediction SUSY GUT: 10^-12 do 10^-14
-M_SUSY = 1.0e3     # GeV, scale SUSY
+M_SUSY = 1.0e3     # GeV, skala SUSY
 v_EW = 246.0       # GeV
 
 # Przyblizenie z Y_nu (Yukawa prawoskrętnego neutrina)
@@ -130,7 +130,7 @@ print("\n" + "="*65)
 print(" 4. KATY PMNS - z symetrii rodzinnej")
 print("="*65)
 
-# Sukces model: theta_13
+# Sukces modelu: theta_13
 sin_th13_model = eps_F * cos_Phi
 sin2_th12_model = 0.333 * (1 + 0.05*(1-cos_Phi))  # ~ tribimaximal + poprawka
 sin2_th23_model = 0.5 * (1 + Var_k*0.5)            # ~ max + poprawka
@@ -248,7 +248,7 @@ print(f"  Detectory:              Fermi-LAT, CTA, LHAASO")
 #  9. PODSUMOWANIE - macierz testowalnosci
 # =================================================================
 print("\n" + "="*72)
-print(" PODSUMOWANIE - macierz testowalności predictions")
+print(" PODSUMOWANIE - macierz testowalności predykcji")
 print("="*72)
 print(f"{'Predykcja':<28} | {'Model':<18} | {'Eksperyment':<18} | {'Okno':<10}")
 print("-"*72)
