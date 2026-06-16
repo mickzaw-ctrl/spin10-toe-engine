@@ -1,21 +1,21 @@
 """
 SHZSpin10QuantumEngine v8.0
 ===========================
-Kod silnika Spin(10) Theory of Everything na grafie relacyjnym.
+Kod engine Spin(10) Theory of Everything na graphie relacyjnym.
 
 Implementuje wszystkie 6 publikacji heksalogii:
-  - Raport I:  Pre-geometria i Monte Carlo
+  - Report I:  Pre-geometry i Monte Carlo
   - Publ. I:   Lorentz signature i Big Bounce
-  - Publ. II:  Tensor Riemanna, Entropia dS, Holografia
+  - Publ. II:  Tensor Riemanna, Entropy dS, Holographia
   - Publ. III: α-Attractor, CPT, SGWB, Baryogeneza
-  - Publ. IV:  Fermiony Dirac, f_NL, Bispektrum
+  - Publ. IV:  Fermions Dirac, f_NL, Bispektrum
   - Publ. V:   RGE, Axion, B_TTB
-  - Publ. VI:  SUSY, Pełna QG, Gravitino
+  - Publ. VI:  SUSY, Pelna QG, Gravitino
 
 + 5 kluczowych remedies dla problematycznych punktow.
 
-Autor: SHZSpin10QuantumEngine Team
-Wersja: 8.0 (kompletna heksalogia z remedies)
+Author: SHZSpin10QuantumEngine Team
+Version: 8.0 (kompletna heksalogia z remedies)
 """
 
 import numpy as np
@@ -36,22 +36,22 @@ import warnings
 
 @dataclass
 class Spin10Constants:
-    """Stałe fizyczne i parametry modelu Spin(10)"""
+    """Stale fizyczne i parameters modelu Spin(10)"""
     # Geometryczne
     SPIN10_DIM: int = 45                # dim Lie(Spin(10))
     alpha_attractor: float = 45.0/12.0  # α = dim/12 = 3.75
     N_efolds: int = 60                  # e-folds
     
-    # Sieć
+    # Network
     N: int = 120                        # number of nodes (publ. VI)
-    k_target: int = 4                   # docelowy stopień
+    k_target: int = 4                   # docelowy stopien
     N_layers: int = 10                  # warstwy temporalne (publ. I)
     
-    # Symulacja
-    Var_k_init: float = 3.467           # Var(k) na początku
-    cos_Phi_eq: float = 0.688           # <cos Φ> w równowadze
-    Var_k_eq: float = 0.262             # Var(k) w równowadze
-    CF_eq: float = 0.738                # Causal Fraction w równowadze
+    # Simulation
+    Var_k_init: float = 3.467           # Var(k) na poczatku
+    cos_Phi_eq: float = 0.688           # <cos Φ> w rownowadze
+    Var_k_eq: float = 0.262             # Var(k) w rownowadze
+    CF_eq: float = 0.738                # Causal Fraction w rownowadze
     
     # SUSY
     M_SUSY: float = 1000.0              # GeV (publ. VI)
@@ -62,7 +62,7 @@ class Spin10Constants:
     M_GUT_GeV: float = 2.0e16
     alpha_em: float = 1.0/137.0
     alpha_GUT: float = 0.04
-    eta_B_obs: float = 6.10e-10        # obserwowana asymetria barionowa
+    eta_B_obs: float = 6.10e-10        # obserwowana asymmetry barionowa
     Omega_DM_h2: float = 0.12
     
     # Observables eksperymentalne (do porownan)
@@ -82,11 +82,11 @@ CONST = Spin10Constants()
 
 class Spin10Graph:
     """
-    Klasa reprezentująca graf relacyjny Spin(10).
+    Class reprezentujaca graph relacyjny Spin(10).
     
     Atrybuty:
-        G: networkx.Graph - nieskierowany graf bazowy
-        phi: dict - fazy pola YM na krawędziach
+        G: networkx.Graph - nieskierowany graph bazowy
+        phi: dict - fazy field YM na edgesach
         omega: dict - fazy koneksji spinowej
         layer: dict - temporal layer of node (publ. I)
     """
@@ -101,12 +101,12 @@ class Spin10Graph:
         self.G = nx.Graph()
         self.G.add_nodes_from(range(N))
         
-        # Początkowy graf: Barabasi-Albert (scale-free, jak w raporcie I)
+        # Poczatkowy graph: Barabasi-Albert (scale-free, jak w raporcie I)
         # N nodes added with m=k_target edges
         seed_graph = nx.barabasi_albert_graph(N, k_target, seed=seed)
         self.G = seed_graph
         
-        # Inicjalizacja faz
+        # Initialization faz
         self.phi = {}    # fazy YM Spin(10)
         self.omega = {}  # fazy koneksji spinowej
         for u, v in self.G.edges():
@@ -125,7 +125,7 @@ class Spin10Graph:
         return self.layer[u] < self.layer[v]
     
     def causal_fraction(self) -> float:
-        """Computes CF = (edgese czasowe)/(wszystkie edgese)"""
+        """Computes CF = (edgese timeowe)/(wszystkie edgese)"""
         if self.G.number_of_edges() == 0:
             return 0.0
         n_causal = sum(1 for u, v in self.G.edges() if self.is_causal_edge(u, v))
@@ -161,12 +161,12 @@ class Spin10Graph:
 
 
 # ============================================================================
-# DZIAŁANIE SPIN(10)
+# DZIALANIE SPIN(10)
 # ============================================================================
 
 class Spin10Action:
     """
-    Działanie Spin(10) na grafie (Raport I + Publ. I):
+    Dzialanie Spin(10) na graphie (Report I + Publ. I):
         S = S_deg + η(△)·S_YM
     
     gdzie:
@@ -185,7 +185,7 @@ class Spin10Action:
         return self.alpha * graph.N * var_k
     
     def S_YM(self, graph: Spin10Graph) -> float:
-        """Działanie YM = -Σ cos(Φ_△) z czynnikiem η(△) (publ. I)"""
+        """Dzialanie YM = -Σ cos(Φ_△) z czynnikiem η(△) (publ. I)"""
         total = 0.0
         for triangle in graph.all_plaquettes():
             flux = graph.plaquette_flux(triangle)
@@ -213,7 +213,7 @@ class MonteCarloSimulator:
     Implementacja Metropolis-Hastings dla Spin(10).
     
     Ruchy MC:
-      1. Zmiana fazy φ_e na krawędzi (publ. I)
+      1. Zmiana fazy φ_e na edges (publ. I)
       2. Add/remove edge (publ. I)
       3. Transfer node between layers (publ. I)
     """
@@ -223,7 +223,7 @@ class MonteCarloSimulator:
         self.beta = beta
     
     def propose_phase_change(self, graph: Spin10Graph, edge: Tuple) -> Spin10Graph:
-        """Propaguje zmianę fazy φ_e na edges"""
+        """Propaguje zmiane fazy φ_e na edges"""
         new_phi = graph.phi.get(edge, 0) + np.random.normal(0, 0.1)
         new_phi = new_phi % (2*np.pi)
         graph.phi[edge] = new_phi
@@ -256,11 +256,11 @@ class MonteCarloSimulator:
                 graph.phi[edge_key] = old_phi
                 return False
         else:
-            # Ruch edges (dodanie/usunięcie)
+            # Ruch edges (dodanie/usuniecie)
             return self._edge_move(graph)
     
     def _edge_move(self, graph: Spin10Graph) -> bool:
-        """Dodaj lub usuń edge (z zachowaniem max_degree)"""
+        """Dodaj lub usun edge (z zachowaniem max_degree)"""
         S_old = self.action.S_total(graph)
         
         operation = np.random.choice(['add', 'remove'], p=[0.5, 0.5])
@@ -278,7 +278,7 @@ class MonteCarloSimulator:
             graph.phi[(min(u,v), max(u,v))] = np.random.uniform(0, 2*np.pi)
             graph.omega[(min(u,v), max(u,v))] = np.random.uniform(0, 2*np.pi)
         else:
-            # Usuń edge
+            # Usun edge
             edges = list(graph.G.edges())
             if len(edges) <= graph.N:  # minimum edges
                 return False
@@ -308,7 +308,7 @@ class MonteCarloSimulator:
 
 class Spin10Observables:
     """
-    Obliczanie obserwabli Spin(10) z grafu.
+    Computeanie obserwabli Spin(10) z graph.
     """
     
     @staticmethod
@@ -332,21 +332,21 @@ class Spin10Observables:
     
     @staticmethod
     def hausdorff_dimension(graph: Spin10Graph) -> float:
-        """Wymiar Hausdorffa (przybliżenie)"""
+        """Dimension Hausdorffa (przyblizenie)"""
         # Heuristic: log(N)/log(R) where R is mean radius
         N = graph.G.number_of_nodes()
         if N == 0:
             return 0.0
-        # Przybliżenie: R ~ sqrt(N)
+        # Przyblizenie: R ~ sqrt(N)
         return np.log(N) / np.log(np.sqrt(N)) if N > 1 else 1.0
     
     @staticmethod
     def spectral_dimension(graph: Spin10Graph, t_range=None, method='auto') -> Tuple[float, float]:
         """
-        Wymiar spektralny d_S(t) = -2 * d(log P_0)/d(log t).
+        Dimension spektralny d_S(t) = -2 * d(log P_0)/d(log t).
         Zwraca (d_S_UV, d_S_IR) — plateau na UV i IR.
-        Wykorzystuje nową, ultraszybką metodę Lazy Random Walk (z modułu spectral_dimension_random_walk)
-        dla grafów N >= 150 lub gdy method=='random_walk'.
+        Wykorzystuje nowa, ultraszybka metode Lazy Random Walk (z module spectral_dimension_random_walk)
+        dla graphow N >= 150 lub gdy method=='random_walk'.
         """
         if graph.G.number_of_nodes() < 3:
             return (1.0, 1.0)
@@ -363,13 +363,13 @@ class Spin10Observables:
             except Exception as e:
                 warnings.warn(f"RandomWalkSpectralDimension failed: {e}. Falling back to Laplacian.")
 
-        # Buduj Laplace'a (dla małych grafów)
+        # Buduj Laplace'a (dla malych graphow)
         L = nx.laplacian_matrix(graph.G).astype(float)
         # Add small offset for stability
         L = L + 1e-10 * sparse.eye(L.shape[0])
         
         try:
-            # Oblicz eigenvalues
+            # Compute eigenvalues
             if L.shape[0] > 200:
                 eigenvalues = eigsh(L, k=min(50, L.shape[0]-2), which='SM', return_eigenvectors=False)
             else:
@@ -401,8 +401,8 @@ class Spin10Observables:
 
 class Spin10Predictions:
     """
-    Teoretyczne predykcje z heksalogii Spin(10).
-    Implementuje formuły z Publ. I-VI.
+    Teoretyczne predictions z heksalogii Spin(10).
+    Implementuje formuly z Publ. I-VI.
     """
     
     @staticmethod
@@ -415,12 +415,12 @@ class Spin10Predictions:
         Var_k = Spin10Observables.Var_k(graph)
         CF = graph.causal_fraction()
         
-        # Składowe Λ
+        # Skladowe Λ
         Lambda_YM = (3.0/4.0) * (1 - cos_Phi)
         Lambda_top = Var_k
         # Anomalia konforemna (publ. II)
         Lambda_anom = 3.958e-4
-        # SUSY wkład (publ. VI)
+        # SUSY wklad (publ. VI)
         Gamma_1loop = 2.998195
         M_SUSY = CONST.M_SUSY
         Lambda_SUSY = Gamma_1loop / (16 * np.pi**2) * (M_SUSY / CONST.M_Planck_GeV)**4
@@ -443,17 +443,17 @@ class Spin10Predictions:
             'Lambda_SUSY': Lambda_SUSY,
             'Lambda_Euc': Lambda_Euc,
             'Lambda_Lor': Lambda_Lor,
-            'Lambda_Lor_eq': 0.0,  # w pełnej Lorentz → 0
+            'Lambda_Lor_eq': 0.0,  # w pelnej Lorentz → 0
         }
     
     @staticmethod
     def three_generations_index(graph: Spin10Graph) -> int:
         """
         Indeks topologiczny operatora Diraca = 3 (Atiyah-Singer).
-        Liczba modów zerowych = liczba generacji.
+        Liczba modow zerowych = liczba generacji.
         Zwraca 3 (topologiczny invariant).
         """
-        # W modelu sieciowym ind(/D) = k_target - 1 = 3 (dla k_target = 4)
+        # W modelu networkowym ind(/D) = k_target - 1 = 3 (dla k_target = 4)
         return CONST.k_target - 1
     
     @staticmethod
@@ -468,10 +468,10 @@ class Spin10Predictions:
     @staticmethod
     def sgwb_spectrum(f: float = 1e-3) -> float:
         """
-        Stochastyczne tło fal grawitacyjnych (Publ. III + V).
+        Stochastyczne tlo fal grawitacyjnych (Publ. III + V).
         Omega_GW(f) — three sources: inflation + GUT + Big Bounce.
         """
-        # Inflacja α-attractor
+        # Inflation α-attractor
         Omega_r0 = 9.2e-5  # h² × Ω_radiation
         r = Spin10Predictions.inflation_spectrum()['r']
         n_s = Spin10Predictions.inflation_spectrum()['n_s']
@@ -497,8 +497,8 @@ class Spin10Predictions:
     @staticmethod
     def f_NL_equilateral() -> float:
         """
-        f_NL^equil z 45 pól gauge Spin(10) (Publ. IV).
-        Formuła: N_gauge × φ_rms² × 0.1
+        f_NL^equil z 45 pol gauge Spin(10) (Publ. IV).
+        Formula: N_gauge × φ_rms² × 0.1
         """
         N_gauge = CONST.SPIN10_DIM  # 45
         phi_rms = 0.32  # z publikacji
@@ -508,12 +508,12 @@ class Spin10Predictions:
     def axion_mass(f_a_GeV: float = None) -> Dict[str, float]:
         """
         Axion Spin(10): m_a z f_a = M_GUT (Publ. V).
-        Formuła zgodna z Publ. V: m_a = 5.7e-2 eV × (10^10 GeV / f_a)
+        Formula zgodna z Publ. V: m_a = 5.7e-2 eV × (10^10 GeV / f_a)
         Dla f_a = M_GUT = 2×10^16 GeV: m_a = 28.5 neV
         """
         if f_a_GeV is None:
             f_a_GeV = CONST.M_GUT_GeV
-        m_a_eV = 5.7e-2 * (1e10 / f_a_GeV)  # formuła z Publ. V
+        m_a_eV = 5.7e-2 * (1e10 / f_a_GeV)  # formula z Publ. V
         theta_req = 0.0031
         Omega_h2 = 0.12 * (f_a_GeV / 1e12)**(7/6) * theta_req**2
         return {
@@ -527,7 +527,7 @@ class Spin10Predictions:
     @staticmethod
     def proton_decay_branch(with_susy: bool = True) -> Dict[str, float]:
         """
-        Czas życia protonu w Spin(10) (Publ. I, III, VI).
+        Time zycia protonu w Spin(10) (Publ. I, III, VI).
         """
         cos_Phi = CONST.cos_Phi_eq
         f_top = 1 + 0.5 * CONST.Var_k_eq
@@ -550,7 +550,7 @@ class Spin10Predictions:
     @staticmethod
     def baryon_asymmetry(with_remedies: bool = True) -> Dict[str, float]:
         """
-        Asymetria barionowa — dwa kanały + remedy.
+        Asymmetry barionowa — dwa kanaly + remedy.
         """
         # Torsja chiralna (Publ. III)
         eta_B_torsja = 4.5e-9
@@ -591,7 +591,7 @@ class Spin10Predictions:
         result = {'a_4_bare': a_4_bare}
         
         if with_remedies:
-            # Hidden SUSY sector z 125 chiralnych multipletów
+            # Hidden SUSY sector z 125 chiralnych multipletow
             a_4_per_hid = 0.05
             N_hid = abs(a_4_bare) / a_4_per_hid  # ~125
             a_4_total = a_4_bare + N_hid * a_4_per_hid
@@ -653,7 +653,7 @@ class Spin10Remedies:
     @staticmethod
     def hidden_susy_sector() -> Dict[str, Any]:
         """
-        Remedy #3: Hidden SUSY sector (125 chiralnych multipletów)
+        Remedy #3: Hidden SUSY sector (125 chiralnych multipletow)
         dla anulowania anomalii Weyla.
         """
         a_4_bare = -6.2333
@@ -671,8 +671,8 @@ class Spin10Remedies:
     @staticmethod
     def scale_network(N_target: int = 1e6) -> Dict[str, float]:
         """
-        Remedy #4-5: Skalowanie sieci N → N_target.
-        Poprawia holografię i d_S running.
+        Remedy #4-5: Skalowanie network N → N_target.
+        Poprawia holographie i d_S running.
         """
         c_H = 0.33
         N_c = 150
@@ -800,7 +800,7 @@ class Spin10Tests:
     
     @classmethod
     def run_all_tests(cls) -> Dict[str, Any]:
-        """Uruchom wszystkie testy"""
+        """Run wszystkie testy"""
         return {
             'inflation_n_s_r': cls.test_inflation_plank_bicep(),
             'SGWB_LISA': cls.test_sgwb_vs_LISA(),
@@ -821,7 +821,7 @@ class SHZSpin10QuantumEngine:
     
     Integruje wszystkie 6 publikacji heksalogii + 5 remedies.
     
-    Użycie:
+    Uzycie:
         engine = SHZSpin10QuantumEngine(N=120, k_target=4)
         engine.run_simulation(n_steps=3000)
         observables = engine.compute_observables()
@@ -837,7 +837,7 @@ class SHZSpin10QuantumEngine:
         self.beta = beta
         self.seed = seed
         
-        # Inicjalizacja komponentow
+        # Initialization komponentow
         self.graph = Spin10Graph(N=N, k_target=k_target, seed=seed)
         self.action = Spin10Action(alpha=alpha, k_target=k_target)
         self.mc = MonteCarloSimulator(self.action, beta=beta)
@@ -853,12 +853,12 @@ class SHZSpin10QuantumEngine:
     
     def run_simulation(self, n_steps: int = 3000, verbose: bool = False) -> None:
         """
-        Uruchamia symulację Metropolis-Hastings.
+        Uruchamia symulacje Metropolis-Hastings.
         Wzorowane na Raporcie I.
         """
         if verbose:
             print(f"Start simulation: N={self.N}, n_steps={n_steps}")
-            print(f"Początkowe Var(k) = {self.graph.degree_variance():.3f}")
+            print(f"Poczatkowe Var(k) = {self.graph.degree_variance():.3f}")
         
         for step in range(n_steps):
             self.mc.step(self.graph)
@@ -879,7 +879,7 @@ class SHZSpin10QuantumEngine:
                           f"<cos Φ>={cos_Phi:.3f}, CF={CF:.3f}")
         
         if verbose:
-            print(f"Symulacja zakończona. Final Var(k) = {self.graph.degree_variance():.3f}")
+            print(f"Simulation zakonczona. Final Var(k) = {self.graph.degree_variance():.3f}")
     
     def compute_observables(self) -> Dict[str, float]:
         """Computes wszystkie obserwable z simulation"""
@@ -919,7 +919,7 @@ class SHZSpin10QuantumEngine:
         return Spin10Tests.run_all_tests()
     
     def full_report(self) -> Dict[str, Any]:
-        """Pełny raport: simulation + obserwable + predictions + testy + remedies"""
+        """Pelny report: simulation + obserwable + predictions + testy + remedies"""
         return {
             'engine_version': 'SHZSpin10QuantumEngine v8.0',
             'simulation_history': self.history,
@@ -935,18 +935,18 @@ class SHZSpin10QuantumEngine:
 # ============================================================================
 
 def demo():
-    """Demonstracja użycia engine Spin(10)"""
+    """Demonstracja uzycia engine Spin(10)"""
     
     print("="*70)
     print(" SHZSpin10QuantumEngine v8.0 - DEMO")
     print("="*70)
     
-    # 1. Inicjalizacja
+    # 1. Initialization
     print("\n1. INICJALIZACJA SILNIKA")
     engine = SHZSpin10QuantumEngine(N=120, k_target=4)
     print(f"   N = {engine.N}, k_target = {engine.k_target}")
     
-    # 2. Symulacja
+    # 2. Simulation
     print("\n2. SYMULACJA MONTE CARLO")
     engine.run_simulation(n_steps=300, verbose=True)
     
@@ -959,7 +959,7 @@ def demo():
         else:
             print(f"   {k} = {v}")
     
-    # 4. Predykcje
+    # 4. Predictions
     print("\n4. PREDYKCJE TEORETYCZNE")
     pred = engine.compute_predictions()
     
@@ -979,7 +979,7 @@ def demo():
     print(f"      Zgodnosc z obs: {rem['remedy_2_3flavour_boltzmann']['agrees_with_obs']}")
     print(f"   3. Hidden SUSY: {rem['remedy_3_hidden_susy']['N_hidden_chirals']} multipletow")
     print(f"      Anomalia anulowana: {rem['remedy_3_hidden_susy']['anomaly_cancelled']}")
-    print(f"   4. Siec N=10^6: Holografia = {rem['remedy_4_5_network_scaling']['P_holography']:.2%}")
+    print(f"   4. Siec N=10^6: Holographia = {rem['remedy_4_5_network_scaling']['P_holography']:.2%}")
     print(f"   5. d_S = {rem['remedy_4_5_network_scaling']['d_S_UV']:.1f} -> "
           f"{rem['remedy_4_5_network_scaling']['d_S_IR']:.1f}")
     
@@ -987,12 +987,12 @@ def demo():
     print("\n6. TESTY EKSPERYMENTALNE")
     tests = engine.run_tests()
     
-    print(f"   Inflacja: n_s = {tests['inflation_n_s_r']['n_s_sigma']:.2f}σ, r OK = {tests['inflation_n_s_r']['r_passes']}")
-    print(f"   SGWB LISA: {tests['SGWB_LISA']['decades_above']:.1f} dekad powyżej szumu")
+    print(f"   Inflation: n_s = {tests['inflation_n_s_r']['n_s_sigma']:.2f}σ, r OK = {tests['inflation_n_s_r']['r_passes']}")
+    print(f"   SGWB LISA: {tests['SGWB_LISA']['decades_above']:.1f} dekad powyzej szumu")
     print(f"   f_NL CMB-S4: {tests['f_NL_CMB_S4']['SNR']:.1f}σ")
     print(f"   Axion CASPEr: in range = {tests['axion_CASPEr']['in_CASPEr_range']}")
     print(f"   τ_p Hyper-K: visible 2030 = {tests['proton_decay_HyperK']['visible_2030']}")
-    print(f"   N_gen = {tests['three_generations']['N_gen_pred']} (topologia)")
+    print(f"   N_gen = {tests['three_generations']['N_gen_pred']} (topology)")
     
     # 7. Konkluzja
     print("\n" + "="*70)
@@ -1001,7 +1001,7 @@ def demo():
     print("\nWszystkie 6 publikacji heksalogii zaimplementowane.")
     print("Wszystkie 5 kluczowych remedies zastosowane.")
     print("Wszystkie 38 testowalnych predykcji dostepnych.")
-    print("\nModel gotowy do konfrontacji z danymi 2025-2040.")
+    print("\nModel gotowy do confrontation z danymi 2025-2040.")
     
     return engine
 
