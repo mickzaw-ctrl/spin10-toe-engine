@@ -1,21 +1,21 @@
 """
 symbolic_regression_discovery_ai.py
 ===================================
-Advanced module for automatic discovery and derivation of new,
-previously unknown physical equations (Symbolic Equation Discovery / Symbolic Regression).
+Zaawansowany module do automatycznego odkrywania i wyprowadzania nowych,
+nieznanych dotad rownan fizycznych (Symbolic Equation Discovery / Regresja Symboliczna).
 
-Uses Genetic Programming algorithms and evolutionary
-mathematical operator trees to observe ToE numerical data and autonomously
-build physics laws in pure analytical form (with the Occam parsimony principle).
+Wykorzystuje algorytmy programowania genetycznego (Genetic Programming) i ewolucyjne
+drzewa operatorow matematycznych do obserwacji data numerycznych ToE i samoczynnego
+budowania praw fizyki w czystej analitycznej postaci (z zasada oszczednosci Occama / parsymonii).
 
-Module equipped with SymPy support for symbolic simplifications and gplearn.
+Module wyposazony w wsparcie dla SymPy do symbolicznych uproszczen oraz gplearn.
 
 Author: SHZ Quantum Technologies AI Discovery Team
 Version: 11.0-VISION (Symbolic SciML Equation Scientist)
 """
 
 import numpy as np
-from typeing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Optional
 import warnings
 import time
 
@@ -30,8 +30,8 @@ except ImportError:
 
 class PhysicalEquationDiscoveryAI:
     """
-    Artificial Intelligence for Physical Equation Discovery.
-    Observes the evolution of ToE variables and autonomously constructs mathematical expressions.
+    Sztuczna Inteligencja Odkrywajaca Rownania Fizyczne.
+    Obserwuje ewolucje zmiennych ToE i samodzielnie konstruuje wyrazenia matematyczne.
     """
     
     def __init__(self, population_size: int = 300, generations: int = 15, parsimony_coef: float = 0.005, seed: int = 42):
@@ -41,11 +41,11 @@ class PhysicalEquationDiscoveryAI:
         self.seed = seed
         
     def _create_custom_physical_function_set(self) -> List[Any]:
-        """Tworzy bogaty dataset dozwolonych fizycznych operators matematycznych."""
+        """Tworzy bogaty zbior dozwolonych fizycznych operatorow matematycznych."""
         if not SCIML_GPLEARN_AVAILABLE:
             return ['add', 'sub', 'mul', 'div', 'log', 'sqrt']
             
-        # Safe operations (to avoid division-by-zero or logarithm of negative singularities)
+        # Zabezpieczone operacje (by uniknac osobliwosci dzielenia przez zero czy logarytmu z ujemnych)
         def protected_div(x1, x2):
             with np.errstate(divide='ignore', invalid='ignore'):
                 return np.where(np.abs(x2) > 1e-6, x1 / x2, 1.0)
@@ -71,16 +71,16 @@ class PhysicalEquationDiscoveryAI:
         target_name: str = "y_analytic"
     ) -> Dict[str, Any]:
         """
-        Uruchamia ewolucyjne poszukiwanie najlepszego fizycznego equation
-        descriptionjącego zjawisko y_target = f(X_data).
+        Uruchamia ewolucyjne poszukiwanie najlepszego fizycznego rownania
+        descriptionujacego zjawisko y_target = f(X_data).
         
-        Returns a complete report with discovered equations, their error assessment (MSE)
-        and simplified algebraic form in the SymPy framework.
+        Zwraca kompletny report z odkrytymi rownaniami, ich ocena bledu (MSE)
+        oraz uproszczona forma algebraiczna w frameworku SymPy.
         """
         start_time = time.time()
         
         if not SCIML_GPLEARN_AVAILABLE:
-            warnings.warn("Gplearn / SymPy unavailable --- enabling analytical AI discovery emulator.")
+            warnings.warn("Gplearn / SymPy niedostepne --- wlaczam analityczny emulator odkryc AI.")
             return self._surrogate_discovery_mock(variable_names, target_name)
             
         # Generowanie regresem genetycznym
@@ -108,18 +108,18 @@ class PhysicalEquationDiscoveryAI:
         # Proces trenowania genetycznego (Ewolucja w poszukiwaniu prawa fizyki)
         est.fit(X_data, y_target)
         
-        # Wyciągnięcie ostatecznego wygrywającego programu
+        # Wyciagniecie ostatecznego wygrywajacego programu
         best_program = est._program
         raw_equation_str = str(best_program)
         
-        # Oczyszczamy nazwy chronionych function do readable symboliki SymPy
+        # Oczyszczamy nazwy chronionych function do czytelnej symboliki SymPy
         clean_eq_str = raw_equation_str.replace('p_div', '').replace('p_log', 'log').replace('p_sqrt', 'sqrt').replace('neg', '-')
         
         # Algebraiczna optymalizacja przez SymPy (Occam Razor Simplification)
         try:
             # Tworzymy zmienne algebraiczne
             sp_vars = {name: sp.Symbol(name) for name in variable_names}
-            # Rzutujemy string na wyrażenie SymPy (bezpieczne)
+            # Rzutujemy string na wyrazenie SymPy (bezpieczne)
             sp_expr = sp.sympify(clean_eq_str, locals=sp_vars)
             simplified_expr = sp.simplify(sp_expr)
             latex_expr = sp.latex(simplified_expr)
@@ -153,7 +153,7 @@ class PhysicalEquationDiscoveryAI:
         }
 
     def _surrogate_discovery_mock(self, variable_names: List[str], target_name: str) -> Dict[str, Any]:
-        """Szybki fallback na wypadek środowisk bez gplearn."""
+        """Szybki fallback na wypadek srodowisk bez gplearn."""
         v1 = variable_names[0] if len(variable_names) > 0 else "x1"
         v2 = variable_names[1] if len(variable_names) > 1 else "x2"
         
