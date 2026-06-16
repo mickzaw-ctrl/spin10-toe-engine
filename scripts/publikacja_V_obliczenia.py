@@ -1,6 +1,6 @@
 """
 Publikacja V - Wielka Unifikacja: Resonant Leptogeneza + RGE + B_TTB + Axion
-Finalna pentalog - kompletne computations
+Finalna pentalog - kompletne obliczenia
 """
 import math
 import numpy as np
@@ -37,7 +37,7 @@ Omega_a_h2 = 0.12
 # Tensor bispectrum
 r_alpha = 0.0125
 f_NL_TTE = 0.004688
-delta_CP = -0.3581          # z Publ. IV (torsion)
+delta_CP = -0.3581          # z Publ. IV (torsja)
 
 # Emergent
 eps_F = math.sqrt(Var_k) / k_mean
@@ -54,7 +54,7 @@ print("="*65)
 print(f"M_Δ (N_R masa)           = {M_delta:.0e} GeV")
 print(f"  -> SKALA EW! Testowalne w LHC")
 print(f"ε_CP^res (asymmetry CP) = {eps_CP_res}")
-print(f"  -> Saturacja boundary unitarności (max 0.5)")
+print(f"  -> Saturacja granicy unitarności (max 0.5)")
 print(f"K_washout                = {K_washout_res:.2e}")
 print(f"  -> Silny washout (problem)")
 print(f"η_B^res                  = {eta_B_res:.2e}")
@@ -86,7 +86,7 @@ print(f"\nWynik RGE:")
 print(f"  M_GUT (Spin(10))      = {M_GUT_Spin10:.3e} GeV")
 print(f"  M_GUT (standard SUSY) = {M_GUT_standard:.3e} GeV")
 print(f"  -> Spin(10) gives LOW scale (10^11 vs 10^16)")
-print(f"  -> Wymaga SUSY dla prawidłowej unification 10^16")
+print(f"  -> Wymaga SUSY dla prawidłowej unifikacji 10^16")
 
 print(f"\n  sin²θ_W(M_GUT) = {sin2_theta_W_GUT:.4f}")
 print(f"  -> Predykcja SO(10): 3/8 = {3/8:.4f}")
@@ -94,7 +94,7 @@ print(f"  -> ZGODNE! ✓")
 
 print(f"\n  α_GUT^-1 = {alpha_GUT_inv}")
 print(f"  -> Ujemne oczekiwane - PROBLEM")
-print(f"  -> Remedium: 2-loop korekcje + SUSY")
+print(f"  -> Remedium: 2-pętlowe korekcje + SUSY")
 
 # Czas życia protonu
 tau_p_Spin10_naive = M_GUT_Spin10**4 / (0.04**2 * 0.938**5) / (1e36)
@@ -194,7 +194,7 @@ print(f"{'d_S running':<35} | {2:<14.4f}->{4} | CDT-compat     | ✓")
 print(f"{'supresja low-ℓ':<35} | {4:<14.1f}% | Planck          | ✓")
 print(f"{'τ_p (z SUSY M_GUT)':<35} | {4e36:<14.2e} | Hyper-K         | ⚠️ wymaga SUSY")
 print(f"{'η_B^res':<35} | {eta_B_res:<14.2e} | obserwacja      | ⚠️ za małe")
-print(f"{'η_B (torsion, Pub.III)':<35} | {4.5e-9:<14.2e} | obserwacja      | ⚠️ 7× za duże")
+print(f"{'η_B (torsja, Pub.III)':<35} | {4.5e-9:<14.2e} | obserwacja      | ⚠️ 7× za duże")
 print("="*72)
 
 # =================================================================
@@ -243,7 +243,7 @@ print("="*72)
 
 print("\n1. Dlaczego 3 generacje?")
 print("   → ind(/D) = 3 (Atiyah-Singer)")
-print("   → Trzy generacje = topologia graph")
+print("   → Trzy generacje = topologia grafu")
 
 print("\n2. Co to jest ciemna materia?")
 print(f"   → Axion Spin(10): m_a = {m_a_eV*1e9:.0f} neV, f_a = M_GUT")
@@ -298,6 +298,6 @@ print("  Publ. VI    (v7.0?) SUSY + Pełna QG     W TRAKCIE")
 print()
 print("EFEKTYWNY MODEL Teorii Wszystkiego:")
 print("  - 5 great physics questions have an answer")
-print("  - 25+ testowalnych predictions")
+print("  - 25+ testowalnych predykcji")
 print("  - 3 unikalne sygnatury")
 print("  - Gotowy do konfrontacji z danymi 2025-2040")
