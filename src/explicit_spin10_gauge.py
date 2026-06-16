@@ -1,34 +1,34 @@
 """
 explicit_spin10_gauge.py
 ========================
-Full, nieabelowa implementacja zmiennych edgesowych (Link Variables)
-dla algebry Liego Spin(10) / SO(10) na graph relationalm.
+Full, non-Abelian implementation of edge variables (Link Variables)
+dla algebry Liego Spin(10) / SO(10) na graph relacyjnym.
 
-Module replaces simplified scalar U(1) phases with real gauge dynamics
+Module replaces uproszczone scalerne fazy U(1) with real gauge dynamics
 in the 10-dimensional fundamental representation of SO(10). Enables simulation
-relaksacji Monte Carlo (Metropolis-Hastings) nieliniowego operation Yang-Millsa.
+relaxation Monte Carlo (Metropolis-Hastings) of the nonlinear Yang-Mills action.
 
-Author: SHZSpin10QuantumEngine Team
-Version: 9.1 (Explicit Gauge Dynamics)
+Autor: SHZSpin10QuantumEngine Team
+Wersja: 9.1 (Explicit Gauge Dynamics)
 """
 
 import numpy as np
 import networkx as nx
 from scipy.linalg import expm
-from typeing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Tuple, Optional, Any
 import time
 
 
 def generate_so10_generators() -> List[np.ndarray]:
     """
     Generates 45 antisymmetric, purely imaginary generators T^a for SO(10)
-    w 10-dimensional reprezentacji fundamentalnej.
-    Satisfy the rule Tr(T^a T^b) = delta^{ab} (up to normalization accuracy).
+    w 10-wymiarowej reprezentacji fundamentalnej.
+    Satisfy the rule Tr(T^a T^b) = delta^{ab} (up to normalization).
     """
     generators = []
     for i in range(10):
         for j in range(i + 1, 10):
-            T = np.zeros((10, 10), dtypee=complex)
+            T = np.zeros((10, 10), dtype=complex)
             T[i, j] = -1j
             T[j, i] = 1j
             generators.append(T)
@@ -37,13 +37,13 @@ def generate_so10_generators() -> List[np.ndarray]:
 
 class ExplicitSpin10GaugeGraph:
     """
-    Graph relational z matrixowymi zmiennymi edgesowymi U_e w SO(10).
+    Relational graph with matrix edge variables U_e in SO(10).
     
     Atrybuty:
         G: networkx.Graph - nieskierowany graph bazowy
-        links: dict - matrices 10x10 U_{ij} przypisane do edges (i, j) z i < j
-        generators: list - 45 generators of SO(10)
-        layer: dict - layer temporalne nodes (dla structure przyczynewj)
+        links: dict - macierze 10x10 U_{ij} przypisane do edges (i, j) z i < j
+        generators: list - 45 SO(10) generators
+        layer: dict - temporal layers of nodes (for causal structure)
     """
     
     def __init__(self, N: int = 60, k_target: int = 4, seed: int = 42):
@@ -64,11 +64,11 @@ class ExplicitSpin10GaugeGraph:
         for i, node in enumerate(self.G.nodes()):
             self.layer[node] = min(i // nodes_per_layer, 9)
             
-        # Initialization matrix gauge na edgesach
+        # Initialize gauge matrices on edges
         self.links = {}
         for u, v in self.G.edges():
             edge_key = (min(u, v), max(u, v))
-            # Random matrix z SO(10)
+            # Losowa matrix z SO(10)
             self.links[edge_key] = self._random_so10_element(sigma=0.5)
 
     def _random_so10_element(self, sigma: float = 0.1) -> np.ndarray:
@@ -78,11 +78,11 @@ class ExplicitSpin10GaugeGraph:
         return expm(1j * Lie_elem)
 
     def is_causal_edge(self, u: int, v: int) -> bool:
-        """Checks whether an edge is temporal (between different layers)."""
+        """Checks if an edge is temporal (between different layers)."""
         return self.layer[u] < self.layer[v]
 
     def get_link(self, u: int, v: int) -> np.ndarray:
-        r"""Retrieves the edge matrix, accounting for direction U_{vu} = U_{uv}^\dagger."""
+        r"""Retrieves the edge matrix, taking into account the direction U_{vu} = U_{uv}^\dagger."""
         if u < v:
             return self.links[(u, v)]
         else:
@@ -90,7 +90,7 @@ class ExplicitSpin10GaugeGraph:
 
     def exact_wilson_loop(self, triangle: Tuple[int, int, int]) -> float:
         """
-        Computes invariant Wilson loop W_P = Re(Tr(U_ij * U_jk * U_ki)) / 10.0
+        Computes the invariant Wilson loop W_P = Re(Tr(U_ij * U_jk * U_ki)) / 10.0
         for an elementary plaquette (triangle).
         """
         u, v, w = triangle
@@ -126,7 +126,7 @@ class ExplicitSpin10Simulator:
         self.beta = beta
         self.plaquettes = graph.all_plaquettes()
         
-        # Mapping edges to plaquettes in which they appear (for performance)
+        # Mapping edges to plaquettes they belong to (for efficiency)
         self.edge_to_plaquettes = {}
         for edge in graph.G.edges():
             ekey = (min(edge), max(edge))
@@ -144,7 +144,7 @@ class ExplicitSpin10Simulator:
         action = 0.0
         for t in self.plaquettes:
             W_P = self.graph.exact_wilson_loop(t)
-            # Accounting for Lorentz signature (Publ. I)
+            # Account for Lorentz signature (Publ. I)
             has_causal = any(self.graph.is_causal_edge(e[0], e[1]) 
                            for e in [(t[0], t[1]), (t[1], t[2]), (t[2], t[0])])
             eta = -1.0 if has_causal else 1.0
@@ -152,7 +152,7 @@ class ExplicitSpin10Simulator:
         return -action
 
     def compute_local_action_for_edge(self, edge_key: Tuple[int, int]) -> float:
-        """Computes operation only from plaquettes containing the given edge."""
+        """Computes action only from plaquettes containing the given edge."""
         local_act = 0.0
         for t in self.edge_to_plaquettes[edge_key]:
             W_P = self.graph.exact_wilson_loop(t)
@@ -164,8 +164,8 @@ class ExplicitSpin10Simulator:
 
     def run_sweep(self, step_sigma: float = 0.1) -> Tuple[int, int]:
         """
-        Performs one full MC sweep (attempt to update each edge).
-        Returns (number_accepted, number_attempts).
+        Performs one full MC sweep (attempted update of each edge).
+        Returns (n_accepted, n_attempts).
         """
         accepted = 0
         trials = 0
@@ -178,24 +178,24 @@ class ExplicitSpin10Simulator:
                 
             trials += 1
             
-            # Compute local operation before change
+            # Compute local action before change
             S_old = self.compute_local_action_for_edge(edge_key)
             
-            # Remember the old matrix
+            # Store old matrix
             U_old = self.graph.links[edge_key]
             
             # Propose new matrix U_new = U_old * exp(i * sum(theta * T))
             U_shift = self.graph._random_so10_element(sigma=step_sigma)
             U_new = np.dot(U_old, U_shift)
             
-            # Przejściowy rzut na SO(10) by zapobiegać akumulacji errors numerycznych
+            # Temporary projection onto SO(10) to prevent numerical error accumulation
             U, _, Vh = np.linalg.svd(U_new)
             U_new = np.dot(U, Vh)
             
-            # Zastosuj new matrix
+            # Apply new matrix
             self.graph.links[edge_key] = U_new
             
-            # Compute lokalne operation po zmianie
+            # Compute lokalne działanie po zmianie
             S_new = self.compute_local_action_for_edge(edge_key)
             
             delta_S = S_new - S_old
@@ -204,13 +204,13 @@ class ExplicitSpin10Simulator:
             if delta_S < 0 or np.random.random() < np.exp(-self.beta * delta_S):
                 accepted += 1
             else:
-                # Odrzucenie ruchu — przywrócenie starej matrix
+                # Reject move — restore old matrix
                 self.graph.links[edge_key] = U_old
                 
         return accepted, trials
 
     def compute_observables(self) -> Dict[str, float]:
-        """Computea value średnie w aktualnym stanie."""
+        """Computes mean values in the current state."""
         if not self.plaquettes:
             return {'wilson_loop': 0.0, 'ym_action': 0.0}
             
