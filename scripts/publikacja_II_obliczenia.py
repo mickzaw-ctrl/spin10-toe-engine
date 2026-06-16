@@ -1,12 +1,12 @@
 """
-Publikacja II - Widmo inflacyjne, entropia dS, holografia
-Laczy wszystkie elementy z Raportu I + Publikacja I + Publikacja II
+Publication II - Widmo inflacyjne, entropy dS, holographia
+Laczy wszystkie elementy z Reportu I + Publication I + Publication II
 """
 import math
 import numpy as np
 
 # =================================================================
-#  PARAMETRY Z SYMULACJI (Publikacja II - v3.0)
+#  PARAMETRY Z SYMULACJI (Publication II - v3.0)
 # =================================================================
 N      = 120          # PII: N=120 (vs PI: N=150)
 k_mean = 4
@@ -15,7 +15,7 @@ cos_Phi= 0.688
 CF     = 0.738
 N_LAYERS = 10
 
-# Nowe parametry z PII
+# Nowe parameters z PII
 alpha_top = 1.2        # waga topologiczna
 beta_SR   = 2.5        # inverse T w fazie slow-roll
 beta_RD   = 4.0        # inverse T w fazie radiation-dominated
@@ -46,7 +46,7 @@ print("="*65)
 n_s_analytic = 1 - 6*eps_SR + 2*eta_SR
 print(f"Slow-roll parameters:   eps = {eps_SR}, eta = {eta_SR}")
 
-# Predykcja analityczna
+# Prediction analityczna
 print(f"n_s (analityczna)       = {n_s_analytic:.4f}")
 print(f"  eksperyment Planck:   = 0.9649 +/- 0.0042")
 
@@ -91,28 +91,28 @@ print("="*65)
 
 # Gibbons-Hawking
 S_dS = math.pi / (G_N * H_INF**2)
-print(f"G_N (sieciowa)         = {G_N:.6f}")
+print(f"G_N (networkowa)         = {G_N:.6f}")
 print(f"H_INF (jednostki Pl)   = {H_INF}")
 print(f"S_dS = π/(G·H²)        = {S_dS:.4f}")
 print(f"  Interpretacja:        = N stopni swobody w horyzoncie Hubble'a")
 print(f"  vs Planck units:      = ~10^122 (w jednostkach naturalnych)")
 
-# Test holograficzny
-print(f"\nTest holograficzny:    S_ent <= S_BH")
-print(f"  Splniony:              ~67% czasu  (częsciowy)")
-print(f"  Przyczyna:             dyskretyzacja sieci")
+# Test holographic
+print(f"\nTest holographic:    S_ent <= S_BH")
+print(f"  Splniony:              ~67% time  (czesciowy)")
+print(f"  Przyczyna:             dyskretyzacja network")
 print(f"  Remedium:              zwiekszenie N (do N=250 w PIV)")
 
 # Granica Beckensteina
 print(f"\nGranica Beckensteina:  S_vN <= 2πER")
-print(f"  Splniona:              >90% czasu")
-print(f"  Wniosek:               model termodynamicznie spójny")
+print(f"  Splniona:              >90% time")
+print(f"  Wniosek:               model termodynamicznie spojny")
 
-# Entropia splątania z 3 generacji
-S_ent_gen = 3 * math.log(16)  # 3 pokolenia × dim(16) fermionów
-print(f"\nEntropia 3 generacji:")
+# Entropy entanglement z 3 generacji
+S_ent_gen = 3 * math.log(16)  # 3 pokolenia × dim(16) fermions
+print(f"\nEntropy 3 generacji:")
 print(f"  S_ent(gen) = 3 * ln(16) = {S_ent_gen:.3f}")
-print(f"  vs S_dS = {S_dS:.2f}  -> Koincydencja holograficzna!")
+print(f"  vs S_dS = {S_dS:.2f}  -> Koincydencja holographic!")
 
 # =================================================================
 #  3. ANOMALIA KONFOREMNA a_4
@@ -136,8 +136,8 @@ print(f"<R²> (Ricci RMS²)      = {R_sq:.4f}")
 print(f"α (Seeley-DeWitt)      = {alpha_SD}")
 print(f"β (Seeley-DeWitt)      = {beta_SD}")
 print(f"a_4                    = {a_4:.2e}")
-print(f"  Wniosek:              = zviolation symetrii konforemnej przez Spin(10)")
-print(f"  Konsekwencja:         wkład do Λ z renormalizacji")
+print(f"  Wniosek:              = zviolation symmetry konforemnej przez Spin(10)")
+print(f"  Konsekwencja:         wklad do Λ z renormalizacji")
 
 # =================================================================
 #  4. COSMOLOGICAL CONSTANT - FULL FORMULA
@@ -149,12 +149,12 @@ print("="*65)
 # Lambda from 3 sources:
 # (a) Anomalia konforemna
 Lambda_anom = a_4 * 16 * math.pi**2 * G_N / 1.0  # w jednostkach a=1
-# (b) Topologia
+# (b) Topology
 Lambda_top = alpha_top * Var_k / 1.0
 # (c) Yang-Mills
 Lambda_YM = (3.0/4.0) * (1 - cos_Phi) / 1.0
 
-# Całkowita
+# Calkowita
 eps_vac_full = Lambda_YM + Lambda_top + Lambda_anom
 Lambda_full = 8 * math.pi * G_N * eps_vac_full
 
@@ -164,12 +164,12 @@ Lambda_Lorentz = Lambda_full * (1 - CF_factor)
 Lambda_Lorentz_eq = Lambda_full * (1 - 1)  # CF -> 1 w rownowadze
 
 print(f"Λ z anomalii konformnej  = {Lambda_anom:.2e}")
-print(f"Λ z topologii            = {Lambda_top:.4f}")
+print(f"Λ z topology            = {Lambda_top:.4f}")
 print(f"Λ z YM (Spin(10))        = {Lambda_YM:.4f}")
 print(f"Λ_eff (Euclides)         = {Lambda_full:.4f}")
 print(f"Λ_Lorentz (CF=0.738)     = {Lambda_Lorentz:.4f}")
 print(f"Λ_Lorentz (CF→1)         = {Lambda_Lorentz_eq:.4f}")
-print(f"  Wniosek: Λ → 0 w pełnej Lorentz — emergentna redukcja!")
+print(f"  Wniosek: Λ → 0 w pelnej Lorentz — emergentna redukcja!")
 
 # =================================================================
 #  5. ROZPAD PROTONU (skonsolidowane)
@@ -181,7 +181,7 @@ print("="*65)
 f_top = 1 + 0.5*Var_k
 tau_e_pi0 = 1.4e36 * cos_Phi**(-4) * f_top**(-2)
 tau_nu_K  = 5.0e35 * cos_Phi**(-4) * f_top**(-2)
-# Poprawka z Publikacja II (nowe N)
+# Poprawka z Publication II (nowe N)
 tau_e_pi0 *= (N/150.0)
 tau_nu_K *= (N/150.0)
 
@@ -202,13 +202,13 @@ print(f"M_DM (WIMP-like)        = {M_DM:.2e} GeV")
 print(f"  Detection:             XENONnT (do 2030)")
 
 # =================================================================
-#  7. STOCHASTYCZNE TŁO FAL GRAWITACYJNYCH
+#  7. STOCHASTYCZNE TLO FAL GRAWITACYJNYCH
 # =================================================================
 print("\n" + "="*65)
-print(" 7. STOCHASTYCZNE TŁO FAL GRAWITACYJNYCH (SGWB)")
+print(" 7. STOCHASTYCZNE TLO FAL GRAWITACYJNYCH (SGWB)")
 print("="*65)
 
-# Omega_GW z inflacji
+# Omega_GW z inflation
 # Omega_GW* ~ (r/0.01) * 10^-15
 Omega_GW_r019 = (r/0.01) * 1e-15   # dla r=0.19 (PII)
 Omega_GW_attractor = (r_attractor/0.01) * 1e-15  # dla r=0.004 (α-attractor)
@@ -217,7 +217,7 @@ print(f"  LISA (mHz):           sensitivity ~ 10^-12 -> DETECTABLE!")
 print(f"  Einstein T. (Hz):     sensitivity ~ 10^-15 -> MARGINAL")
 print(f"\nOmega_GW (r=0.004, PIII) = {Omega_GW_attractor:.2e}")
 print(f"  LISA:                 trudne")
-print(f"  Einstein T.:          możliwe")
+print(f"  Einstein T.:          mozliwe")
 print(f"  DECIGO:               DETECTABLE")
 
 # Widmo SGWB
@@ -227,12 +227,12 @@ print(f"  nT (PII)              = {-r/8:.4f}")
 print(f"  nT (α-attractor)      = {-r_attractor/8:.4f}")
 
 # =================================================================
-#  8. PODSUMOWANIE - full macierz predykcji
+#  8. PODSUMOWANIE - full matrix predykcji
 # =================================================================
 print("\n" + "="*72)
-print(" PEŁNA MACIERZ PREDYKCJI (Raport I + Pub. I + Pub. II)")
+print(" PELNA MACIERZ PREDYKCJI (Report I + Pub. I + Pub. II)")
 print("="*72)
-print(f"{'Predykcja':<30} | {'Model':<14} | {'Eksperyment':<18} | Status")
+print(f"{'Prediction':<30} | {'Model':<14} | {'Eksperyment':<18} | Status")
 print("-"*72)
 print(f"{'n_s (PII numeryczne)':<30} | {n_s_PII:<14} | Planck           | {'~2σ tension'}")
 print(f"{'n_s (α-attractor)':<30} | {n_s_attractor:<14.4f} | Planck           | {'~1σ OK'}")
@@ -250,13 +250,13 @@ print(f"{'tau(p->nu K+)':<30} | {tau_nu_K:<14.2e} | Hyper-K/JUNO     | {'TESTABL
 print(f"{'M_DM':<30} | {M_DM:<14.2e} | XENONnT          | {'TESTABLE'}")
 print(f"{'CMB circles':<30} | {1.31e-6:<14.2e} | Planck/LiteBIRD  | {'SEARCHABLE'}")
 print(f"{'SGWB Ω_GW':<30} | {Omega_GW_r019:<14.2e} | LISA/ET          | {'TESTABLE!'}")
-print(f"{'S_ent(gen)/S_dS':<30} | {S_ent_gen/S_dS:<14.3f} | holografia       | {'Koincydencja!'}")
+print(f"{'S_ent(gen)/S_dS':<30} | {S_ent_gen/S_dS:<14.3f} | holographia       | {'Koincydencja!'}")
 print("="*72)
 
 # =================================================================
 #  9. FALSYFIKOWALNOSC - PODSUMOWANIE
 # =================================================================
-print("\nFALSYFIKACJE (JEDNOCZEŚNIE wymagane):")
+print("\nFALSYFIKACJE (JEDNOCZESNIE wymagane):")
 print(f"  1. Hyper-K NIE widzi proton decay do 1e35 (2030)")
 print(f"  2. CMB-S4 mierzy r < 0.05 (Pub. II przewiduje 0.19)")
 print(f"  3. LiteBIRD NIE widzi CMB circles")
@@ -266,7 +266,7 @@ print(f"  6. DUNE mierzy θ_13 spoza [0.005, 0.04]")
 print(f"  7. LISA NIE widzi SGWB Ω_GW > 10^-13")
 print(f"  8. XENONnT NIE widzi WIMP do 2030")
 print(f"  9. Einstein T. NIE widzi Ω_GW > 10^-15")
-print(f"\n  α-attractor (Pub. III) ROZWIĄZUJE problem r:")
+print(f"\n  α-attractor (Pub. III) ROZWIAZUJE problem r:")
 print(f"     r = 0.004 (zamiast 0.19) — ZGODNE z BICEP")
 print(f"     n_s = 0.967 — ZGODNE z Planck w 0.5σ")
-print(f"     nadal falsyfikowalny przez pozostałe testy")
+print(f"     nadal falsyfikowalny przez pozostale testy")
