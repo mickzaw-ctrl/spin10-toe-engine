@@ -278,7 +278,7 @@ address new problems or concerns.
  COPYRIGHT NOTICE & DUAL-LICENSING MANIFEST
 =============================================================================
 
- Copyright (c) 2026 Michał Ślusarczyk
+ Copyright (c) 2026 Michal Slusarczyk
 
  This Program (SHZSpin10QuantumEngine and all associated mathematical suites,
  models, and heptalogy modules) is free software: you can redistribute it
@@ -294,11 +294,11 @@ address new problems or concerns.
  DUAL-LICENSING EXCEPTION:
  If you wish to use, integrate, or deploy this Program (or its fundamental
  algorithms, non-Abelian Link Variables, d_S Random Walk modules, RGE
- ODE solvers, Bayesian SciML Bliźniaki Cyfrowe, or ToE ML modules) within a
+ ODE solvers, Bayesian SciML Blizniaki Cyfrowe, or ToE ML modules) within a
  proprietary, commercial, or closed-source enterprise software product or
  SaaS cloud infrastructure without subjecting your internal source code to the
  network distribution obligations of GNU AGPLv3 (Section 13), you must
  purchase an explicit Commercial Enterprise License directly from the author.
 
- Contact: Michał Ślusarczyk (mickzaw-ctrl / SHZ Quantum Technologies Team)
+ Contact: Michal Slusarczyk (mickzaw-ctrl / SHZ Quantum Technologies Team)
 =============================================================================
