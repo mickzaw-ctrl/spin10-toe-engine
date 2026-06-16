@@ -1,10 +1,10 @@
 """
 demo_explicit_spin10_gauge.py
 =============================
-Script demonstrating newly implemented full non-Abelian
-zmiennych krawędziowych (Link Variables) w grupie cechowania SO(10).
+Script demonstrujacy dzialanie nowo zaimplementowanych, pelnych nieabelowych
+zmiennych edgesowych (Link Variables) w grupie cechowania SO(10).
 
-Compares Wilson loop relaxation in the non-Abelian model with simplified U(1) model.
+Porownuje relaksacje petli Wilsona w modelu nieabelowym z uproszczonym modelem U(1).
 
 Runienie:
     python scripts/demo_explicit_spin10_gauge.py
@@ -13,7 +13,7 @@ Runienie:
 import sys
 import os
 
-# Add main directory to path
+# Dodaj glowny katalog do sciezki
 sys.path.append(os.path.join(os.path.dirname(__file__), '../src'))
 
 import numpy as np
@@ -23,7 +23,7 @@ from explicit_spin10_gauge import ExplicitSpin10GaugeGraph, ExplicitSpin10Simula
 
 def run_demo():
     print("="*75)
-    print(" DEMONSTRACJA: PEŁNA NIEABELOWA DYNAMIKA CECHOWANIA SPIN(10) / SO(10)")
+    print(" DEMONSTRACJA: PELNA NIEABELOWA DYNAMIKA CECHOWANIA SPIN(10) / SO(10)")
     print("="*75)
     
     # 1. Initialization
@@ -32,7 +32,7 @@ def run_demo():
     beta = 2.5
     
     print(f"\n1. INICJALIZACJA GRAFU Z MACIERZAMI LINKOWYMI SO(10)")
-    print(f"   Number of nodes N = {N_nodes}, Target degree <k> = {k_target}")
+    print(f"   Liczba nodes N = {N_nodes}, Docelowy stopien <k> = {k_target}")
     
     start_time = time.time()
     gauge_graph = ExplicitSpin10GaugeGraph(N=N_nodes, k_target=k_target, seed=101)
@@ -41,16 +41,16 @@ def run_demo():
     
     obs_init = sim.compute_observables()
     
-    print(f"   Initialization zakończona w {init_time:.2f} s.")
-    print(f"   Wygenerowano 45 generatorów SO(10) w 10-wym. rep. fundamentalnej.")
-    print(f"   Przypisano {gauge_graph.G.number_of_edges()} macierzy krawędziowych (10x10).")
-    print(f"   Found {obs_init['N_plaquettes']} elementary triangles (plaquettes).")
-    print(f"   Początkowa mean loop Wilsona <W> = {obs_init['wilson_loop']:.4f} ± {obs_init['wilson_loop_std']:.4f}")
+    print(f"   Initialization zakonczona w {init_time:.2f} s.")
+    print(f"   Wygenerowano 45 generatorow SO(10) w 10-wym. rep. fundamentalnej.")
+    print(f"   Przypisano {gauge_graph.G.number_of_edges()} matrix edgesowych (10x10).")
+    print(f"   Znaleziono {obs_init['N_plaquettes']} elementarnych trojkatow (plakiet).")
+    print(f"   Poczatkowa srednia petla Wilsona <W> = {obs_init['wilson_loop']:.4f} ± {obs_init['wilson_loop_std']:.4f}")
     
     # 2. Simulation Monte Carlo
     print(f"\n2. RELAKSACJA MONTE CARLO (METROPOLIS-HASTINGS)")
     print(f"   Parametr odwrotnej temperatury beta = {beta}")
-    print(f"   Performing 10 full sweeps (updating all edges in each sweep)...")
+    print(f"   Wykonujemy 10 pelnych sweepow (aktualizacja wszystkich edges w kazdym sweepie)...")
     
     n_sweeps = 10
     history = {
@@ -60,7 +60,7 @@ def run_demo():
         'acceptance_rate': [0.0]
     }
     
-    print(f"\n   {'Sweep':<6} | {'<W> (Wilson Loop)':<20} | {'S_YM (Akcja)':<15} | {'Akceptacja':<12} | {'Czas (s)':<10}")
+    print(f"\n   {'Sweep':<6} | {'<W> (Wilson Loop)':<20} | {'S_YM (Akcja)':<15} | {'Akceptacja':<12} | {'Time (s)':<10}")
     print("   " + "-"*70)
     
     print(f"   {0:<6} | {obs_init['wilson_loop']:<20.4f} | {obs_init['ym_action']:<15.3f} | {'---':<12} | {'---':<10}")
@@ -91,18 +91,18 @@ def run_demo():
     
     print("\n   " + "="*70)
     print(f"   PODSUMOWANIE RELAKSACJI")
-    print(f"   - Czas całkowity symulacji: {total_sim_time:.2f} s")
-    print(f"   - Mean akceptacja:       {total_accepted / total_trials:.2%}")
-    print(f"   - Ewolucja pętli Wilsona:   {history['wilson_loop'][0]:.4f}  --->  {history['wilson_loop'][-1]:.4f}")
+    print(f"   - Time calkowity symulacji: {total_sim_time:.2f} s")
+    print(f"   - Srednia akceptacja:       {total_accepted / total_trials:.2%}")
+    print(f"   - Ewolucja petli Wilsona:   {history['wilson_loop'][0]:.4f}  --->  {history['wilson_loop'][-1]:.4f}")
     
-    print(f"\n3. PORÓWNANIE Z MODELEM SKALARNYM U(1) (Wersja v8.0 / v9.0)")
-    print(f"   Stary model U(1) operował na pojedynczej fazie phi in [0, 2pi].")
-    print(f"   New SO(10) model operates in 45-dimensional gauge space, fully accounting for:")
-    print(f"   - Gauge invariance: W = Re(Tr(U1 U2 U3))/10")
-    print(f"   - Algebra non-commutativity (Non-Abelian fingerprint)")
-    print(f"   - Much richer spectrum of microscopic fluctuations around the vacuum state.")
+    print(f"\n3. POROWNANIE Z MODELEM SKALARNYM U(1) (Version v8.0 / v9.0)")
+    print(f"   Stary model U(1) operowal na pojedynczej fazie phi in [0, 2pi].")
+    print(f"   Nowy model SO(10) operuje w 45-dimensionowej space cechowania, w pelni uwzgledniajac:")
+    print(f"   - Niezmienniczosc cechowania: W = Re(Tr(U1 U2 U3))/10")
+    print(f"   - Nieprzemiennosc algebry (Non-Abelian fingerprint)")
+    print(f"   - Znacznie bogatsze spektrum fluktuacji mikroskopowych wokol stanu prozni.")
     
-    print("\n   >>> Nowy moduł 'ExplicitSpin10GaugeGraph' jest gotowy do integracji z mainm silnikiem ToE! <<<")
+    print("\n   >>> Nowy module 'ExplicitSpin10GaugeGraph' jest gotowy do integracji z glownym engine ToE! <<<")
     print("="*75)
 
 
