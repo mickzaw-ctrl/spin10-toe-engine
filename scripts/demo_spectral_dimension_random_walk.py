@@ -1,11 +1,11 @@
 """
 demo_spectral_dimension_random_walk.py
 ======================================
-Demo script presenting numerical determination of spectral dimension
-using "Lazy Random Walk" (eliminates parity oscillations on networks).
+Script demonstracyjny prezentujacy numeryczne wyznaczanie dimensionu spektralnego
+za pomoca "Lazy Random Walk" (eliminuje oscylacje parzystosci na networkach).
 
-Compares results for ToE graph (N=250) with a huge graph at holographic scale
-(N=50,000 nodes), for which the traditional matrix diagonalization method would be infeasible.
+Porownuje results dla graph ToE (N=250) z ogromnym graphem o scale holographic
+(N=50,000 nodes), dla ktorego tradycyjna method diagonalizacji matrix bylaby niemozliwa.
 
 Runienie:
     python scripts/demo_spectral_dimension_random_walk.py
@@ -24,22 +24,22 @@ from spectral_dimension_random_walk import RandomWalkSpectralDimension
 
 def run_demo():
     print("="*75)
-    print(" DEMONSTRATION: SPECTRAL DIMENSION VIA LAZY RANDOM WALK (WITHOUT DIAGONALIZATION)")
+    print(" DEMONSTRACJA: WYMIAR SPEKTRALNY METODA LAZY RANDOM WALK (BEZ DIAGONALIZACJI)")
     print("="*75)
     
     # -------------------------------------------------------------------------
-    # TEST 1: SMALL GRAPH (Setup and analysis of UV/IR zone)
+    # TEST 1: GRAF MALY (Comparison i zbadanie strefy UV/IR)
     # -------------------------------------------------------------------------
     N_small = 300
     k_target = 4
     max_steps_small = 100
     num_walkers_small = 20000
     
-    print(f"\n[TEST 1] UV -> IR FLOW ANALYSIS ON GRAPH N = {N_small}")
-    print(f"   Generation graph ToE (N={N_small}, k_target={k_target})...")
+    print(f"\n[TEST 1] ANALIZA PRZEPLYWU UV -> IR NA GRAFIE N = {N_small}")
+    print(f"   Generowanie graph ToE (N={N_small}, k_target={k_target})...")
     G_small = nx.barabasi_albert_graph(N_small, k_target, seed=101)
     
-    print(f"   Running Lazy Random Walk: {num_walkers_small} walkers for {max_steps_small} steps...")
+    print(f"   Running Lazy Random Walk: {num_walkers_small} errorzacych na {max_steps_small} krokow...")
     start_time = time.time()
     t_vals, return_probs, d_S = RandomWalkSpectralDimension.exact_spectral_dimension_random_walk(
         G_small, max_steps=max_steps_small, num_walkers=num_walkers_small, lazy_prob=0.5, seed=102
@@ -48,14 +48,14 @@ def run_demo():
     
     plateaux = RandomWalkSpectralDimension.compute_spectral_plateaux(t_vals, d_S, N_nodes=N_small)
     
-    print(f"   Simulation completed in {rw_time:.2f} s.")
-    print(f"   Spectral dimension d_S(t) flow results:")
+    print(f"   Simulation zakonczona w {rw_time:.2f} s.")
+    print(f"   Results przeplywu dimensionu spektralnego d_S(t):")
     print(f"   - Strefa mikroskopowa UV:  d_S(UV) = {plateaux['d_S_UV']:.2f}")
     print(f"   - Strefa makroskopowa IR:  d_S(IR) numeric = {plateaux['d_S_IR_numeric']:.2f}")
-    print(f"   - Theora ToE (Remedy #5):  d_S(IR) ToE     = {plateaux['d_S_IR_theoretical_remedy']:.2f}")
+    print(f"   - Teoria ToE (Remedy #5):  d_S(IR) ToE     = {plateaux['d_S_IR_theoretical_remedy']:.2f}")
     
-    print(f"\n   Sample of smooth time evolution (parity oscillation elimination):")
-    print(f"   {'Time step t':<8} | {'P(t) (Return)':<16} | {'d_S(t) (Spectral Dimension)':<22}")
+    print(f"\n   Probka gladkiej ewolucji w timeie (eliminacja oscylacji parzystosci):")
+    print(f"   {'Krok t':<8} | {'P(t) (Powrot)':<16} | {'d_S(t) (Dimension Spektralny)':<22}")
     print("   " + "-"*50)
     for idx in [1, 4, 9, 14, 24, 49]:
         if idx < len(t_vals):
@@ -69,17 +69,17 @@ def run_demo():
     num_walkers_large = 25000
     
     print(f"\n" + "="*75)
-    print(f"[TEST 2] PERFORMANCE DEMONSTRATION ON HOLOGRAPHIC SCALE GRAPH (N = {N_large:<7,})")
-    print(f"   Traditional Laplacian matrix diagonalization method would require O(N^3) operations here")
-    print(f"   and several hundred gigabytes of RAM, exceeding standard computer capabilities.")
+    print(f"[TEST 2] DEMONSTRACJA WYDAJNOSCI NA GRAFIE SKALI HOLOGRAFICZNEJ (N = {N_large:<7,})")
+    print(f"   Tradycyjna method diagonalizacji matrix Laplace'a wymagalaby tu O(N^3) operacji")
+    print(f"   i kilkuset gigabajtow pamieci RAM, co przekracza mozliwosci standardowych komputerow.")
     
-    print(f"\n   Generating large ToE network with {N_large:,} nodes...")
+    print(f"\n   Generowanie wielkiej network ToE o {N_large:,} wezlach...")
     start_gen = time.time()
     G_large = nx.barabasi_albert_graph(N_large, k_target, seed=201)
     gen_time = time.time() - start_gen
-    print(f"   Network generated in {gen_time:.2f} s. Number of edges: {G_large.number_of_edges():,}")
+    print(f"   Network wygenerowana w {gen_time:.2f} s. Liczba edges: {G_large.number_of_edges():,}")
     
-    print(f"   Lightning-fast Lazy Random Walk simulation: {num_walkers_large:,} walkers for {max_steps_large} steps...")
+    print(f"   Blyskawiczna simulation Lazy Random Walk: {num_walkers_large:,} errorzacych na {max_steps_large} krokow...")
     start_sim = time.time()
     t_vals_l, probs_l, d_S_l = RandomWalkSpectralDimension.exact_spectral_dimension_random_walk(
         G_large, max_steps=max_steps_large, num_walkers=num_walkers_large, lazy_prob=0.5, seed=202
@@ -88,11 +88,11 @@ def run_demo():
     
     plat_large = RandomWalkSpectralDimension.compute_spectral_plateaux(t_vals_l, d_S_l, N_nodes=N_large)
     
-    print(f"   NUMERICAL SUCCESS! Full analysis completed in just {sim_time:.2f} s.")
-    print(f"   - Estymacja dimension IR: d_S(IR) = {plat_large['d_S_IR_numeric']:.2f}")
-    print(f"   - Transition from fractal UV dimension to stable spacetime confirmed.")
+    print(f"   SUKCES NUMERYCZNY! Pelna analysis zakonczona w zaledwie {sim_time:.2f} s.")
+    print(f"   - Estymacja dimensionu IR: d_S(IR) = {plat_large['d_S_IR_numeric']:.2f}")
+    print(f"   - Przejscie od dimensionu fraktalnego UV do stabilnej timeospace potwierdzone.")
     
-    print("\n   >>> New module 'RandomWalkSpectralDimension' fully ready for integration! <<<")
+    print("\n   >>> Nowy module 'RandomWalkSpectralDimension' w pelni gotowy do integracji! <<<")
     print("="*75)
 
 
