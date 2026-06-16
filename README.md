@@ -4,7 +4,7 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-preprint-red.svg)](#publications)
 
-**Author:** Michał Ślusarczyk  
+**Author:** Michal Slusarczyk  
 **Engine version:** v8.0 / v9.0 / v9.7 (Fully Integrated Numerical & Bayesian Suite)  
 **Status:** Heptalogy complete (7 publications) + 5 Advanced Computational Laboratories
 
@@ -120,10 +120,10 @@ spin10-toe/
 │   ├── numerical_rge_solver.py      # Numerical 2-loop RGE ODE solver
 │   ├── mukhanov_sasaki_solver.py    # Primordial Mukhanov-Sasaki ODE solver
 │   ├── bayesian_mcmc_analysis.py    # emcee Bayesian MCMC Likelihood and inference
-│   ├── kluczowe_remedia.py          # 5 key remedies module
-│   ├── predykcje_testowalne.py      # Testable predictions module
-│   ├── konfrontacja_summary.py      # Experiment confrontation summary
-│   └── oblicz_lambda.py             # Cosmological constant calculation
+│   ├── kluczowe_remedies.py          # 5 key remedies module
+│   ├── predictions_testowalne.py      # Testable predictions module
+│   ├── confrontation_summary.py      # Experiment confrontation summary
+│   └── compute_lambda.py             # Cosmological constant calculation
 ├── scripts/
 │   ├── demo_explicit_spin10_gauge.py     # Demo: Non-Abelian link relaxation
 │   ├── demo_spectral_dimension_random_walk.py # Demo: Scale-free d_S flow
@@ -135,13 +135,18 @@ spin10-toe/
 │   ├── test_bayes.py                     # User snippet: Bayesian MCMC validation
 │   ├── test_random_walk.py               # User snippet: 100k Random Walk validation
 │   ├── przyklady_uzycia.py               # Usage examples
-│   ├── remedia_5_problemow.py            # Remedies scripts
-│   └── publikacja_*_obliczenia.py        # Pub. I–VI standalone calculations
+│   ├── remedies_5_problemow.py            # Remedies scripts
+│   └── publication_*_computations.py        # Pub. I–VI standalone calculations
 ├── tests/
 │   └── testy_eksperymentalne.py     # Experimental tests
 ├── docs/
-│   ├── publications/                # PDF papers (Pub. I–VI)
-│   └── *.md                         # Rich theoretical documentation
+│   ├── publications/                     # PDF papers (Pub. I–VI)
+│   ├── ARCHITEKTURA-v12-ULTIMA.md        # Core DeepTech Enterprise HPC / SciML architecture
+│   ├── PREDYKCJE-i-FALSYFIKACJA-2026-2040.md # Master quantitative confrontation table (38 targets)
+│   ├── KOMERCJALIZACJA-Enterprise-B2B.md # Enterprise B2B Business DeepTech roadmap & AI Twins
+│   ├── POROWNANIE-Z-KONKURENCJA.md       # Definitive Strategic Competition Matrix
+│   ├── STRATEGICZNA-MAPA-ROZWOJU-v13.md  # Definitive global strategic future roadmap
+│   └── *.md                              # Extended heptalogy documents & derivations
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -189,7 +194,7 @@ If you use this code or results in your research, please cite:
 
 ```bibtex
 @software{slusarczyk2026spin10toe,
-  author  = {Ślusarczyk, Michał},
+  author  = {Slusarczyk, Michal},
   title   = {{Spin(10) Theory of Everything — SHZSpin10QuantumEngine}},
   year    = {2026},
   url     = {https://github.com/YOUR_USERNAME/spin10-toe},
@@ -206,7 +211,7 @@ This repository operates under a **Dual-Licensing Strategy** designed to maximiz
 1. **Open-Source Academic License (`GNU AGPLv3`)**: 
    Free for all academic, personal, scientific, and educational research purposes under the definitive copyleft network terms of the **[GNU Affero General Public License v3](LICENSE)**. If you modify or host this software on a publicly accessible network server / SaaS API, you must distribute your corresponding source code under the same AGPLv3 terms.
 2. **Proprietary Enterprise License (`Commercial License`)**: 
-   If you intend to integrate, adapt, or deploy this computational engine (or its valuable subcomponents, such as the Non-Abelian $SO(10)$ Link Variables, the $N=10^6$ Random Walk Wymiar Spektralny flow modules, the Multi-TeV Split-SUSY RGE ODE integration suites, or the SciML Bayesian Bliźniaki Cyfrowe) within proprietary, commercial oprogramowanie or closed SaaS cloud platforms without opening your internal product source code, you must secure an explicit **Commercial Enterprise License** directly from the author.
+   If you intend to integrate, adapt, or deploy this computational engine (or its valuable subcomponents, such as the Non-Abelian $SO(10)$ Link Variables, the $N=10^6$ Random Walk Dimension Spektralny flow modules, the Multi-TeV Split-SUSY RGE ODE integration suites, or the SciML Bayesian Blizniaki Cyfrowe) within proprietary, commercial oprogramowanie or closed SaaS cloud platforms without opening your internal product source code, you must secure an explicit **Commercial Enterprise License** directly from the author.
 
 ---
 
