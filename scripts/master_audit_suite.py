@@ -1,16 +1,16 @@
 """
 master_audit_suite.py
 =====================
-Fully automated package performing rigorous, comprehensive audit
-(Full Audit) of the entire software and working environment of SHZSpin10QuantumEngine v11.1-PRO.
+W pelni zautomatyzowany pakiet przeprowadzajacy rygorystyczny, calosciowy audyt
+(Full Audit) calego oprogramowania i srodowiska roboczego engine SHZSpin10QuantumEngine v11.1-PRO.
 
 Audyt weryfikuje 4 fundamentalne obszary:
-  1. File Structure Integrity and Dependencies Verification (Requirements).
-  2. Runtime Rigour Test of all 8 built-in numerical and research engines.
-  3. Physical Audit of 38 Predictions and Observational Falsification 2026-2040.
-  4. Legal-License Compliance (GNU AGPLv3 + Dual Licensing Manifest).
+  1. Integralnosc Struktury Plikow i Weryfikacje Zaleznosci (Requirements).
+  2. Test Wykonawczy (Runtime Rigour) wszystkich 8 wbudowanych engineow numerycznych i badawczych.
+  3. Audyt Fizyczny 38 Predykcji i Falsyfikacje Obserwacyjna 2026-2040.
+  4. Zgodnosc Prawno-Licencyjna (GNU AGPLv3 + Dual Licensing Manifest).
 
-Launch:
+Runienie:
     python scripts/master_audit_suite.py
 """
 
@@ -24,7 +24,7 @@ import time
 import warnings
 import json
 
-# Imports wszystkich rdzeni software
+# Importy wszystkich rdzeni oprogramowania
 from spin10_engine_v9 import SHZSpin10QuantumEngineV9
 from explicit_spin10_gauge import ExplicitSpin10GaugeGraph, ExplicitSpin10Simulator
 from spectral_dimension_random_walk import RandomWalkSpectralDimension
@@ -38,26 +38,26 @@ from spin10_enterprise_core import Spin10EnterpriseHPCEngine, QuantumHardwareBri
 
 def wykonaj_pelny_audyt():
     print("="*85)
-    print(" SHZ QUANTUM TECHNOLOGIES --- OFFICIAL FULL SOFTWARE AUDIT REPORT")
+    print(" SHZ QUANTUM TECHNOLOGIES --- OFICJALNY RAPORT Z PELNEGO AUDYTU OPROGRAMOWANIA")
     print("="*85)
-    print(f" Data audytu:     2026-06-16 (Environment Sandbox Arena.ai)")
-    print(f" Version silnika:  SHZSpin10QuantumEngine v11.1-ENTERPRISE PRO")
-    print(f" Cel audytu:      Verification of code integrity, physical rigor and license.\n")
+    print(f" Data audytu:     2026-06-16 (Srodowisko Sandbox Arena.ai)")
+    print(f" Version engine:  SHZSpin10QuantumEngine v11.1-ENTERPRISE PRO")
+    print(f" Cel audytu:      Verification integralnosci kodu, rygoru fizycznego i license.\n")
     
     start_audit_time = time.time()
     
     # -------------------------------------------------------------------------
-    # SECTION 1: FILE STRUCTURE AND DEPENDENCY AUDIT
+    # SEKCJA 1: AUDYT STRUKTURY PLIKOW I ZALEZNOSCI
     # -------------------------------------------------------------------------
     print("="*85)
-    print(" [SECTION 1] FILE STRUCTURE AND PACKAGE DEPENDENCY AUDIT (DEPENDENCIES)")
+    print(" [SEKCJA 1] AUDYT STRUKTURY PLIKOW I ZALEZNOSCI PAKIETOWYCH (DEPENDENCIES)")
     print("="*85)
     
     expected_src_files = [
         'spin10_engine.py', 'spin10_engine_v9.py', 'explicit_spin10_gauge.py',
         'spectral_dimension_random_walk.py', 'numerical_rge_solver.py', 'mukhanov_sasaki_solver.py',
         'bayesian_mcmc_analysis.py', 'symbolic_regression_discovery_ai.py', 'mera_tensor_network_adscft.py',
-        'spin10_enterprise_core.py', 'kluczowe_remedia.py', 'predictions_testowalne.py'
+        'spin10_enterprise_core.py', 'kluczowe_remedies.py', 'predictions_testowalne.py'
     ]
     
     src_dir = os.path.join(os.path.dirname(__file__), '../src')
@@ -65,18 +65,18 @@ def wykonaj_pelny_audyt():
     
     missing_src = [f for f in expected_src_files if f not in existing_src]
     
-    print(f"   >>> Verification of source directory 'src/': {'100% COMPLIANCE ✓✓✓' if not missing_src else 'MISSING FILEW'}")
-    print(f"   >>> Zidentyfikowano {len(existing_src)} aktywnych moduleow computeeniowych w jadrze silnika.")
+    print(f"   >>> Verification katalogu zrodlowego 'src/': {'100% ZGODNOSCI ✓✓✓' if not missing_src else 'BRAKI PLIKOW'}")
+    print(f"   >>> Zidentyfikowano {len(existing_src)} aktywnych moduleow computeeniowych w jadrze engine.")
     
     # Audyt Requirements
     req_path = os.path.join(os.path.dirname(__file__), '../requirements.txt')
     if os.path.exists(req_path):
         with open(req_path, 'r', encoding='utf-8') as rf:
             req_content = rf.read().strip().split('\n')
-        print(f"   >>> Zwalidowano file 'requirements.txt' ({len(req_content)} zadeklarowanych packageow DeepTech):")
+        print(f"   >>> Zwalidowano plik 'requirements.txt' ({len(req_content)} zadeklarowanych pakietow DeepTech):")
         print(f"       {', '.join(req_content)}")
     else:
-        print("   >>> [BLAD] Brak file requirements.txt")
+        print("   >>> [BLAD] Brak pliku requirements.txt")
 
     # -------------------------------------------------------------------------
     # SEKCJA 2: AUDYT WYKONAWCZY (RUNTIME EXECUTION RIGOUR)
@@ -84,11 +84,11 @@ def wykonaj_pelny_audyt():
     print("\n" + "="*85)
     print(" [SEKCJA 2] AUDYT WYKONAWCZY SILNIKOW NUMERYCZCH I KWANTOWYCH (RUNTIME RIGOUR)")
     print("="*85)
-    print("   Running automatedch testow obciazeniowych dla wszystkich 8 rdzeni badawczych...\n")
+    print("   Running zautomatyzowanych testow obciazeniowych dla wszystkich 8 rdzeni badawczych...\n")
     
     engine_health = {}
     
-    # 1. Main silnik ToE v9.7
+    # 1. Glowny engine ToE v9.7
     t0 = time.time()
     try:
         e = SHZSpin10QuantumEngineV9(N=80, k_target=4)
@@ -150,8 +150,8 @@ def wykonaj_pelny_audyt():
         engine_health['AdS/CFT MERA Tensor Networks (quimb)'] = ('PASSED ✓', time.time()-t0)
     except Exception as ex: engine_health['AdS/CFT MERA Tensor Networks (quimb)'] = (f'CRASH: {ex}', time.time()-t0)
 
-    # Drukowanie tabeli stanu silnikow
-    print(f"   {'Module Computeeniowy Silnika ToE':<42} | {'Status Runtime':<18} | {'Time Opoznienia (s)'}")
+    # Drukowanie tabeli stanu engineow
+    print(f"   {'Module Computeeniowy Enginea ToE':<42} | {'Status Wykonawczy':<18} | {'Time Opoznienia (s)'}")
     print("   " + "-"*80)
     for eng_name, (status, dt) in engine_health.items():
         print(f"   {eng_name:<42} | {status:<18} | {dt:.4f} s.")
@@ -165,9 +165,9 @@ def wykonaj_pelny_audyt():
     
     print(f"   >>> Verification 5 Kluczowych Remedies (Mechanizmow Naprawczych): PASSED ✓✓✓")
     print(f"       1. Split-SUSY:       Zabezpiecza unifikacje RGE bez naruszania wykluczen LHC (>2.3 TeV).")
-    print(f"       2. 3-Flavour Enh.:   Idealnie odtwarza asymmetry barionowa (eta_B = 6.1e-10).")
+    print(f"       2. 3-Flavour Enh.:   Idealnie odtwarza asymetrie barionowa (eta_B = 6.1e-10).")
     print(f"       3. Hidden SUSY Sec.: Dokladnie 125 multipletow calkowicie anuluje anomalie Weyla (a_4 = 0).")
-    print(f"       4. Network Scaling:  Scale N=10^6 nasyca rigorous granice holographiczna (>99.97%).")
+    print(f"       4. Network Scaling:  Scale N=10^6 nasyca rygorystyczna granice holographiczna (>99.97%).")
     print(f"       5. Spectral Flow:    Zapewnia plynne przejscie d_S od mikroskopowego 2D do stabilnego 4D.")
     
     print(f"\n   >>> Horyzont Falsyfikacji (Timeline 2026-2040): 100% gotowosci w architekturze.")
@@ -178,7 +178,7 @@ def wykonaj_pelny_audyt():
     # SEKCJA 4: AUDYT PRAWNO-LICENCYJNY
     # -------------------------------------------------------------------------
     print("\n" + "="*85)
-    print(" [SEKCJA 4] AUDYT COMPLIANCE PRAWNO-LICENCYJNEJ I BIZNESOWEJ (COMPLIANCE)")
+    print(" [SEKCJA 4] AUDYT ZGODNOSCI PRAWNO-LICENCYJNEJ I BIZNESOWEJ (COMPLIANCE)")
     print("="*85)
     
     lic_path = os.path.join(os.path.dirname(__file__), '../LICENSE')
@@ -192,18 +192,18 @@ def wykonaj_pelny_audyt():
         has_agpl = "AFFERO" in l_content
         has_dual = "DUAL-LICENSING" in l_content
         
-    print(f"   >>> Walidacja Licencji w file 'LICENSE':       {'PASSED ✓ (GNU AGPLv3 Zgloszone)' if has_agpl else 'OSTRZEZENIE'}")
-    print(f"   >>> Walidacja Manifestu 'Dual-Licensing':        {'PASSED ✓ (Klauzula Commercial Aktywna)' if has_dual else 'OSTRZEZENIE'}")
+    print(f"   >>> Walidacja Licencji w pliku 'LICENSE':       {'PASSED ✓ (GNU AGPLv3 Zgloszone)' if has_agpl else 'OSTRZEZENIE'}")
+    print(f"   >>> Walidacja Manifestu 'Dual-Licensing':        {'PASSED ✓ (Klauzula Komercyjna Aktywna)' if has_dual else 'OSTRZEZENIE'}")
     print(f"   >>> Plakietki w dokumentacji 'README.md':        PASSED ✓ (Zbieznosc z AGPL v3 zwalidowana)")
     print(f"   >>> Architecture Uslugowa Enterprise SaaS API:   PASSED ✓ (Module FastAPI Cloud w pelni wpiety)")
 
     total_audit_time = time.time() - start_audit_time
     
     print("\n" + "="*85)
-    print(f" OSTATECZNA KONKLUZJA AUDYTU: 100% COMPLIANCE Z ZASADAMI DEEPTECH I OPEN-SOURCE")
+    print(f" OSTATECZNA KONKLUZJA AUDYTU: 100% ZGODNOSCI Z ZASADAMI DEEPTECH I OPEN-SOURCE")
     print("="*85)
-    print(f" Cale environment robocze pomyslnie przeszlo rigorous audyt w timeie {total_audit_time:.2f} s.")
-    print(f" Repozytorium stanowi najwyzszej klasy, gotowe do commercialization aktywo DeepTech.")
+    print(f" Cale srodowisko robocze pomyslnie przeszlo rygorystyczny audyt w timeie {total_audit_time:.2f} s.")
+    print(f" Repository stanowi najwyzszej klasy, gotowe do commercialization aktywo DeepTech.")
     print("="*85)
 
 
