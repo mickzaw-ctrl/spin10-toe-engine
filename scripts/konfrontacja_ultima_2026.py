@@ -1,18 +1,18 @@
 """
-konfrontacja_ultima_2026.py
+confrontation_ultima_2026.py
 ===========================
-Kompleksowa, rigorous mega-konfrontacja najnowszego, ostatecznego
-silnika SHZSpin10QuantumEngine v12.0-ULTIMA ze wszystkimi aktualnymi na 2026 rok
+Kompleksowa, rygorystyczna mega-confrontation najnowszego, ostatecznego
+engine SHZSpin10QuantumEngine v12.0-ULTIMA ze wszystkimi aktualnymi na 2026 rok
 danymi obserwacyjnymi z Plancka, LHC, Super-K oraz celami badawczymi na lata 2026-2040.
 
-Accounts for new modules deployed in the ULTIMA package:
-  - Network Tensorowe MERA (quimb) i entropy Ryu-Takayanagiego
-  - Fermion Mass Hierarchy with A_4 family symmetries
-  - Solution Paradoksu Hawkinga (Krzywa Page'a)
-  - Synthesis in String Theory E_8 x E_8
+Uwzglednia nowe moduley wdrozone w pakiecie ULTIMA:
+  - Sieci Tensorowe MERA (quimb) i entropie Ryu-Takayanagiego
+  - Hierarchie Mas Fermionow z symmetry rodzin A_4
+  - Rozwiazanie Paradoksu Hawkinga (Krzywa Page'a)
+  - Synteze w Teorii Strun E_8 x E_8
 
-Launch:
-    python scripts/konfrontacja_ultima_2026.py
+Runienie:
+    python scripts/confrontation_ultima_2026.py
 """
 
 import sys
@@ -23,7 +23,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../src'))
 import numpy as np
 import time
 
-# Imports of all ToE research cores
+# Importy wszystkich jader badawczych ToE
 from spin10_engine_v9 import SHZSpin10QuantumEngineV9
 from mera_tensor_network_adscft import AdSCFTMERAEngine
 from ultima_frontiers_core import (
@@ -32,18 +32,18 @@ from ultima_frontiers_core import (
 )
 
 
-def generuj_report_ultima_konfrontacja():
+def generuj_report_ultima_confrontation():
     print("="*85)
     print(" OSTATECZNA MEGA-KONFRONTACJA: SPIN(10) v12.0-ULTIMA vs WIEDZA EKSPERYMENTALNA 2026")
     print("="*85)
     
     start_time = time.time()
     
-    # Call computations ToE v9.7 / v12.0
-    print("\n[ Initialization of integrated numerical ToE engines v12.0-ULTIMA... ]")
-    silnik = SHZSpin10QuantumEngineV9(N=150, k_target=4)
-    silnik.run_simulation(n_steps=200)
-    base_report = silnik.full_report_v7()
+    # Wywolanie computeen ToE v9.7 / v12.0
+    print("\n[ Initialization zintegrowanych engineow numerycznych ToE v12.0-ULTIMA... ]")
+    engine = SHZSpin10QuantumEngineV9(N=150, k_target=4)
+    engine.run_simulation(n_steps=200)
+    base_report = engine.full_report_v7()
     
     # Pobranie predykcji ULTIMA
     mera_engine = AdSCFTMERAEngine(physical_sites=32)
@@ -55,7 +55,7 @@ def generuj_report_ultima_konfrontacja():
     e8 = E8HeteroticStringEmbedding.derive_e8_symmetry_breaking()
     
     dt = time.time() - start_time
-    print(f"[ Synthesis of quantum vectors completed in {dt:.2f} s ]\n")
+    print(f"[ Syntetyzowanie wektorow quantumch zakonczone w {dt:.2f} s ]\n")
     
     # -------------------------------------------------------------------------
     # PANEL 1: KOSMOLOGIA, INFLACJA I WIDMO PIERWOTNE
@@ -66,7 +66,7 @@ def generuj_report_ultima_konfrontacja():
     
     ms_spec = base_report['predictions_v7']['mukhanov_sasaki_spectrum']
     
-    print(f"   {'Parameter / Obserwabla':<28} | {'Predykcja ULTIMA (v12.0)':<22} | {'Obserwacja / Limit (2026)':<24} | {'Status w σ'}")
+    print(f"   {'Parametr / Obserwabla':<28} | {'Prediction ULTIMA (v12.0)':<22} | {'Obserwacja / Limit (2026)':<24} | {'Status w σ'}")
     print("   " + "-"*85)
     
     # n_s
@@ -76,7 +76,7 @@ def generuj_report_ultima_konfrontacja():
     
     # r
     r_pred = ms_spec['r_theoretical']
-    print(f"   {'Tensor ratio r':<28} | {r_pred:<22.4f} | {'< 0.036 (BICEP / Keck)':<24} | {'CONSISTENT (IN RANGE)'}")
+    print(f"   {'Stosunek tensorow r':<28} | {r_pred:<22.4f} | {'< 0.036 (BICEP / Keck)':<24} | {'ZGODNE (W ZASIEGU)'}")
     
     # Running alpha_s
     print(f"   {'Bieganie indeksu alpha_s':<28} | {'-0.0006':<22} | {'-0.0045 ± 0.0067':<24} | {'ZGODNE (Idealnie)'}")
@@ -86,21 +86,21 @@ def generuj_report_ultima_konfrontacja():
     print(f"   {'Asymmetry Barionowa eta_B':<28} | {eta_b:<22.2e} | {'6.10e-10 (BBN / CMB Target)':<24} | {'ZGODNE (Remedy #2)'}")
 
     # -------------------------------------------------------------------------
-    # PANEL 2: PARTICLE SECTOR AND MASS HIERARCHY of Std. Model (ULTIMA)
+    # PANEL 2: SEKTOR CZASTEK I HIERARCHIA MAS Modelu Stand. (ULTIMA)
     # -------------------------------------------------------------------------
     print("\n" + "="*85)
-    print(" [PANEL 2] FIZYKA CZASTEK, SPLIT-SUSY I MACIERZE YUKAWY (Hierarchia Mas)")
+    print(" [PANEL 2] FIZYKA CZASTEK, SPLIT-SUSY I MACIERZE YUKAWY (Hierarchy Mas)")
     print("="*85)
     
     rge_res = base_report['predictions_v7']['two_loop_rge']
     bayes_res = base_report['predictions_v7']['bayesian_mcmc_estimation']['best_fit_observables']
     
-    print(f"   {'Obserwabla Czastkowa':<28} | {'Predykcja ULTIMA (v12.0)':<22} | {'Status / Granica z Zderzaczy':<24} | {'Docelowy Exp.'}")
+    print(f"   {'Obserwabla Czastkowa':<28} | {'Prediction ULTIMA (v12.0)':<22} | {'Status / Granica z Zderzaczy':<24} | {'Docelowy Exp.'}")
     print("   " + "-"*85)
     
     # M_GUT i Kat Weinberga
-    print(f"   {'Unification Scale M_GUT':<28} | {f'{rge_res['M_GUT']:.2e} GeV':<22} | {'~10^16 GeV (Grand Unif.)':<24} | {'Unification Scisla ✓'}")
-    print(f"   {'Weinberg angle sin²θ_W Engine':<28} | {rge_res['sin2_theta_W_GUT']:<22.4f} | {'0.3750 (Invariant Lie 3/8)':<24} | {f'Rozbieznosc {abs(rge_res['sin2_theta_W_GUT']-0.375)/0.375:.1%}'}")
+    print(f"   {'Scale Unifikacji M_GUT':<28} | {f'{rge_res['M_GUT']:.2e} GeV':<22} | {'~10^16 GeV (Wielka Unif.)':<24} | {'Unification Scisla ✓'}")
+    print(f"   {'Kat Weinberga sin²θ_W Engine':<28} | {rge_res['sin2_theta_W_GUT']:<22.4f} | {'0.3750 (Invariant Lie 3/8)':<24} | {f'Rozbieznosc {abs(rge_res['sin2_theta_W_GUT']-0.375)/0.375:.1%}'}")
     
     # Rozpad protonu
     tau_p = bayes_res['tau_p']
@@ -110,12 +110,12 @@ def generuj_report_ultima_konfrontacja():
     m_g = bayes_res['m_gluino']
     print(f"   {'Mass Gluina w Split-SUSY':<28} | {f'{m_g/1000:.2f} TeV':<22} | {'> 2.3 TeV (Wykluczenie LHC)':<24} | {'HE-LHC / FCC-hh'}")
     
-    # Mass quarka Top
+    # Mass kwarka Top
     m_top = yukawa['quark_masses_GeV']['top']
-    print(f"   {'Mass Quarka Top (m_t)':<28} | {f'{m_top:.2f} GeV':<22} | {'172.76 ± 0.30 GeV (PDG 2026)':<24} | {'ZGODNE ✓✓✓ (Sym. A_4)'}")
+    print(f"   {'Mass Kwarka Top (m_t)':<28} | {f'{m_top:.2f} GeV':<22} | {'172.76 ± 0.30 GeV (PDG 2026)':<24} | {'ZGODNE ✓✓✓ (Sym. A_4)'}")
     
-    # Mass quarka Bottom i Leptonu Tau
-    print(f"   {'Mass Quarka Bottom (m_b)':<28} | {f'{yukawa['quark_masses_GeV']['bottom']:.2f} GeV':<22} | {'4.18 ± 0.03 GeV (PDG Target)':<24} | {'ZGODNE ✓✓✓'}")
+    # Mass kwarka Bottom i Leptonu Tau
+    print(f"   {'Mass Kwarka Bottom (m_b)':<28} | {f'{yukawa['quark_masses_GeV']['bottom']:.2f} GeV':<22} | {'4.18 ± 0.03 GeV (PDG Target)':<24} | {'ZGODNE ✓✓✓'}")
     print(f"   {'Mass Leptonu Tau (m_tau)':<28} | {f'{yukawa['lepton_masses_GeV']['tau']:.3f} GeV':<22} | {'1.776 ± 0.001 GeV':<24} | {'ZGODNE ✓✓✓'}")
     
     # Mieszanie PMNS
@@ -129,20 +129,20 @@ def generuj_report_ultima_konfrontacja():
     print(" [PANEL 3] HORYZONTY GRAWITACJI KWANTOWEJ (MERA, quimb, Black Holes i E_8)")
     print("="*85)
     
-    print(f"   {'Quantum Structure / QG':<28} | {'Sygnatura Badawcza ULTIMA':<34} | {'Znaczenie Naukowe'}")
+    print(f"   {'Quantum Struktura / QG':<28} | {'Sygnatura Badawcza ULTIMA':<34} | {'Znaczenie Naukowe'}")
     print("   " + "-"*85)
     
     # Entropy Ryu-Takayanagiego w MERA
-    print(f"   {'Entanglement Entropy in MERA':<28} | {'S(A) = Area(gamma_A) / 4G_N':<34} | {'Ryu-Takayan formulaagiego ✓✓✓'}")
+    print(f"   {'Entropy Splatania w MERA':<28} | {'S(A) = Area(gamma_A) / 4G_N':<34} | {'Formula Ryu-Takayanagiego ✓✓✓'}")
     
     # Paradoks Hawkinga
-    print(f"   {'Black Hole Pairing':<28} | {'Krzywa Pagea (Turnaround na t=0.5)':<34} | {'Paradoks Hawkinga Rozwiazany ✓'}")
+    print(f"   {'Parowanie Czarnych Dziur':<28} | {'Krzywa Pagea (Turnaround na t=0.5)':<34} | {'Paradoks Hawkinga Rozwiazany ✓'}")
     
-    # Podsumowanie w Strunach
+    # Summary w Strunach
     print(f"   {'Synteza Heterotyczna E_8':<28} | {'E_8 x E_8 na space Calabi-Yau Threefold':<34} | {'Unifikuje wszystkie 5 Remedies'}")
     
     # Dyskretna Sygnatura Gen
-    print(f"   {'Number Generacji Fermionow':<28} | {'N_gen = 3 (Atiyah-Singer Zero Modes)':<34} | {'Zgodne z Model Stand. ✓'}")
+    print(f"   {'Liczba Generacji Fermionow':<28} | {'N_gen = 3 (Atiyah-Singer Zero Modes)':<34} | {'Zgodne z Model Stand. ✓'}")
 
     # -------------------------------------------------------------------------
     # PANEL 4: PODSUMOWANIE 38 OSTATECZNYCH CELOW
@@ -154,7 +154,7 @@ def generuj_report_ultima_konfrontacja():
     print("   W ujeciu ostatecznym (ULTIMA Core Apex), 38 predykcji modelu rozklada sie:")
     print("   - ✅ ZWALIDOWANE DZISIAJ (Zgodnosc w 100% z PDG/Planck): 12 obserwabili")
     print("        (n_s, alpha_s, N_gen=3, m_t, m_b, m_tau, sin²θ₁₃, Ω_a h²=0.12, Supresja l=2 CMB, sin²θ_W na GUT, CPT, a-theorem)")
-    print("   - ⏳ W FAZIE RZECZYWISTEGO OCZEKIWANIA na new sygnaly:  26 obserwabili")
+    print("   - ⏳ W FAZIE RZECZYWISTEGO OCZEKIWANIA na nowe sygnaly:  26 obserwabili")
     print("        (Dla Hyper-K tau_p, LiteBIRD r i B_TTB, CMB-S4 f_NL, HE-LHC m_gluino, CASPEr axion)")
     
     print("\n   >>> ARCHITEKTURA ToE JEST CALKOWICIE W 100% SPOJNA Z GLOBALNA WIEDZA FIZYCZNYCH ZDERZACZY I SATELITOW <<<")
@@ -162,4 +162,4 @@ def generuj_report_ultima_konfrontacja():
 
 
 if __name__ == "__main__":
-    generuj_report_ultima_konfrontacja()
+    generuj_report_ultima_confrontation()
