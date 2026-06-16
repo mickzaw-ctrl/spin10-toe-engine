@@ -1,8 +1,8 @@
 """
-Predykcje testowalne modelu Spin(10) sieciowego - v2 (poprawione formuly)
-Laczy: 3 generacje, symetrie rodzinna SU(3)_F, E8xE8, predykcje obserwabli
+Predictions testowalne modelu Spin(10) networkowego - v2 (poprawione formuly)
+Laczy: 3 generacje, symetrie rodzinna SU(3)_F, E8xE8, predictions obserwabli
 
-Dane wejsciowe z raportu (krok 3000):
+Data wejsciowe z report (krok 3000):
   N = 150, <k> = 4, Var(k) = 0.262, <cos Phi> = 0.688
 
 Zalozenia: Spin(10) minimal SUSY GUT
@@ -20,7 +20,7 @@ cos_Phi= 0.688
 alpha  = 1.0
 g2     = 1.0
 
-# Parametry fizyczne
+# Parameters fizyczne
 M_Planck = 1.22e19      # GeV
 M_GUT_0  = 2.0e16       # GeV, standard SUSY Spin(10)
 m_p      = 0.938        # GeV
@@ -31,17 +31,17 @@ alpha_GUT= 0.04
 alpha_S  = 0.118        # strong coupling at M_Z
 
 # =================================================================
-#  EMERGENT STALE - z danych sieci
+#  EMERGENT STALE - z data network
 # =================================================================
 eps_F = math.sqrt(Var_k) / k_mean       # = 0.128
 G_N = 3.0 / (2.0 * math.pi * N)        # w jednostkach a=1
 
-M_GUT_eff = M_GUT_0 * cos_Phi          # GUT z poprawka sieciowa
+M_GUT_eff = M_GUT_0 * cos_Phi          # GUT z poprawka networkowa
 
 print(f"PARAMETRY EMERGENT:")
 print(f"  eps_F              = {eps_F:.4f}  (fluktuacja flavon)")
 print(f"  M_GUT_eff          = {M_GUT_eff:.3e} GeV")
-print(f"  G_N (sieciowa)     = {G_N:.6f} (jednostki a=1)")
+print(f"  G_N (networkowa)     = {G_N:.6f} (jednostki a=1)")
 print()
 
 # =================================================================
@@ -55,7 +55,7 @@ f_top = 1.0 + 0.5 * Var_k   # czynnik topologiczny z Var(k)
 
 # Standard: tau ~ M^4 / (alpha^2 m_p^5)
 def tau_proton(channel_factor):
-    # Bazowy czas zycia (z Babu, Bajc, Saad 2017 - minimal SUSY SO(10))
+    # Bazowy time zycia (z Babu, Bajc, Saad 2017 - minimal SUSY SO(10))
     if channel_factor == 'e_pi0':
         return 1.4e36 * cos_Phi**(-4) * f_top**(-2)
     elif channel_factor == 'nu_K':
@@ -73,10 +73,10 @@ print(f"  current limit (SK):    > 5.9e33 years")
 print(f"  Hyper-K sensitivity:       ~ 3e34 -> TESTABLE")
 
 # =================================================================
-#  2. PODWÓJNY ROZPAD BETA (0vbb) - Majorana mass
+#  2. PODWOJNY ROZPAD BETA (0vbb) - Majorana mass
 # =================================================================
 print("\n" + "="*65)
-print(" 2. PODWÓJNY ROZPAD BETA 0vbb - Majorana mass")
+print(" 2. PODWOJNY ROZPAD BETA 0vbb - Majorana mass")
 print("="*65)
 
 # Seesaw: m_nu = m_D^2 / M_R
@@ -99,14 +99,14 @@ print("\n" + "="*65)
 print(" 3. LEPTON FLAVOR VIOLATION - LFV")
 print("="*65)
 
-# W Spin(10) SUSY, LFV z pętli sleptonowych
+# W Spin(10) SUSY, LFV z petli sleptonowych
 # BR(mu -> e gamma) ~ (alpha/4 pi) * (m_mu^2/M_SUSY^2) * |delta_LL|^2
 # |delta_LL| ~ (3 m_top^2/(8 pi^2 v^2)) * A_0 * log(M_GUT/M_SUSY) * (Y_u^+ Y_u)
 # Typowa prediction SUSY GUT: 10^-12 do 10^-14
-M_SUSY = 1.0e3     # GeV, skala SUSY
+M_SUSY = 1.0e3     # GeV, scale SUSY
 v_EW = 246.0       # GeV
 
-# Przyblizenie z Y_nu (Yukawa prawoskrętnego neutrina)
+# Przyblizenie z Y_nu (Yukawa prawoskretnego neutrina)
 # |delta_LL| ~ eps_F * m_top * log(M_GUT/M_SUSY) / v
 delta_LL = eps_F * (m_top/v_EW) * math.log(M_GUT_eff/M_SUSY)
 
@@ -127,10 +127,10 @@ print(f"BR(tau -> mu gamma)      ~ {BR_tau_mu_gamma:.2e} (Belle II limit: ~5e-9)
 #  4. KATY MIESZANIA NEUTRIN (PMNS)
 # =================================================================
 print("\n" + "="*65)
-print(" 4. KATY PMNS - z symetrii rodzinnej")
+print(" 4. KATY PMNS - z symmetry rodzinnej")
 print("="*65)
 
-# Sukces modelu: theta_13
+# Success modelu: theta_13
 sin_th13_model = eps_F * cos_Phi
 sin2_th12_model = 0.333 * (1 + 0.05*(1-cos_Phi))  # ~ tribimaximal + poprawka
 sin2_th23_model = 0.5 * (1 + Var_k*0.5)            # ~ max + poprawka
@@ -164,7 +164,7 @@ print(f"Lambda_eff (bare)         = {Lambda_eff:.4f} [a^-4]")
 print(f"Lambda_tl (z rank=5)      = {Lambda_tl:.4f}")
 print(f"Lambda (full confined)    = {8*math.pi*G_N*eps_top:.4f}")
 print(f"  Obserwowana:            ~ 10^-122 w jednostkach Plancka")
-print(f"  Problem hierarchii:     taki sam jak w QFT")
+print(f"  Problem hierarchy:     taki sam jak w QFT")
 
 # =================================================================
 #  6. CIEMNA MATERIA z ukrytego sektora (1,16)
@@ -173,8 +173,8 @@ print("\n" + "="*65)
 print(" 6. CIEMNA MATERIA z ukrytego (1,16)")
 print("="*65)
 
-# W (1,16) mamy prawoskrętne neutrino N_R_4
-# Masa: M_DM = M_R_4 ~ M_GUT * epsilon_F (mniejsze VEV)
+# W (1,16) mamy prawoskretne neutrino N_R_4
+# Mass: M_DM = M_R_4 ~ M_GUT * epsilon_F (mniejsze VEV)
 M_DM_GeV = M_GUT_eff * eps_F * cos_Phi
 
 print(f"M_DM (N_R w ukrytym 16)  = {M_DM_GeV:.2e} GeV")
@@ -183,7 +183,7 @@ print(f"  <sigma*v> anihilacji:   ~ 3e-26 cm^3/s (termiczny relic)")
 print(f"  Detekcja:")
 print(f"    bezpomedium:         XENONnT, LZ, DARWIN")
 print(f"    pomedium:            CTA, IceCube")
-print(f"    W zasięgu:            XENONnT do 2030")
+print(f"    W zasiegu:            XENONnT do 2030")
 
 # =================================================================
 #  7. INFLACJA z Var(k) reduction
@@ -212,7 +212,7 @@ print(f"N_efolds (quadratic V)    = {N_efolds_quad:.1f}")
 N_efolds_lin = (phi_init_Pl**2 - phi_end_Pl**2) / 3.0
 print(f"N_efolds (linear V)       = {N_efolds_lin:.1f}")
 
-# Predykcje slow-roll
+# Predictions slow-roll
 N_e = 60.0     # wymagane minimum
 n_s = 1.0 - 2.0/N_e          # dla phi^2
 r_quad = 8.0/N_e              # dla phi^2
@@ -241,16 +241,16 @@ print(f"t_* (crossover scale)    = {t_star} t_Planck")
 print(f"                        = {t_star * 5.4e-44:.2e} s")
 print(f"  Test: time delays in high-E GRB photons")
 print(f"  Obecna granica (Fermi-LAT):  |dt/t| < 10^-15")
-print(f"  Model prediction:        modyfikacja dyspersji rzędu 10^-2 ms")
+print(f"  Model prediction:        modyfikacja dyspersji rzedu 10^-2 ms")
 print(f"  Detectory:              Fermi-LAT, CTA, LHAASO")
 
 # =================================================================
-#  9. PODSUMOWANIE - macierz testowalnosci
+#  9. PODSUMOWANIE - matrix testowalnosci
 # =================================================================
 print("\n" + "="*72)
-print(" PODSUMOWANIE - macierz testowalności predykcji")
+print(" PODSUMOWANIE - matrix testowalnosci predykcji")
 print("="*72)
-print(f"{'Predykcja':<28} | {'Model':<18} | {'Eksperyment':<18} | {'Okno':<10}")
+print(f"{'Prediction':<28} | {'Model':<18} | {'Eksperyment':<18} | {'Okno':<10}")
 print("-"*72)
 print(f"{'tau(p->e+pi0) [years]':<28} | {tau_e_pi0:.2e}   | Hyper-K 2027+     | 2030-2040")
 print(f"{'tau(p->nu K+) [years]':<28} | {tau_nu_K:.2e}    | Hyper-K/JUNO      | 2027-2035")
@@ -268,7 +268,7 @@ print("="*72)
 # 10. KONKLUZJA - falsyfikowalnosc
 # =================================================================
 print("\nFALSIFIABILITY:")
-print("  Model przewiduje JEDNOCZEŚNIE:")
+print("  Model przewiduje JEDNOCZESNIE:")
 print(f"    - proton decay ~ {tau_e_pi0:.1e} years (just above SK)")
 print(f"    - theta_13 = {sin_th13_model**2:.4f} (vs 0.0220 eksperyment)")
 print(f"    - BR(mu->e gamma) ~ {BR_mu_e_gamma:.1e}")
