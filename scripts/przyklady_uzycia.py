@@ -18,11 +18,11 @@ import numpy as np
 def example_1_basic_simulation():
     """Example 1: Podstawowa simulation"""
     print("\n" + "="*60)
-    print("PRZYKŁAD 1: Podstawowa simulation")
+    print("PRZYKLAD 1: Podstawowa simulation")
     print("="*60)
     
     engine = SHZSpin10QuantumEngine(N=120, k_target=4)
-    print(f"\nPoczątkowe Var(k) = {engine.graph.degree_variance():.3f}")
+    print(f"\nPoczatkowe Var(k) = {engine.graph.degree_variance():.3f}")
     
     engine.run_simulation(n_steps=500)
     
@@ -36,9 +36,9 @@ def example_1_basic_simulation():
 
 
 def example_2_inflation_predictions():
-    """Example 2: Predykcje inflacji α-Attractor"""
+    """Example 2: Predictions inflation α-Attractor"""
     print("\n" + "="*60)
-    print("PRZYKŁAD 2: α-Attractor Spin(10)")
+    print("PRZYKLAD 2: α-Attractor Spin(10)")
     print("="*60)
     
     infl = Spin10Predictions.inflation_spectrum()
@@ -83,7 +83,7 @@ def example_3_sgwb_spectrum():
         print(f"  {f:<10.0e} | {Omega:<12.2e} | {det}{star}")
     
     # Comparison with sensitivities
-    print(f"\nCzulości detectors:")
+    print(f"\nCzulosci detectors:")
     print(f"  LISA (1 mHz):     ~10^-14")
     print(f"  Spin(10) (1 mHz): ~10^-7  (7 dekad powyzej progu)")
 
@@ -91,7 +91,7 @@ def example_3_sgwb_spectrum():
 def example_4_remedies():
     """Example 4: 5 kluczowych remedies"""
     print("\n" + "="*60)
-    print("PRZYKŁAD 4: 5 KLUCZOWYCH REMEDIES")
+    print("PRZYKLAD 4: 5 KLUCZOWYCH REMEDIES")
     print("="*60)
     
     remedies = Spin10Remedies.apply_all_remedies()
@@ -118,7 +118,7 @@ def example_4_remedies():
     print("\n4-5. SKALOWANIE SIECI:")
     r45 = remedies['remedy_4_5_network_scaling']
     print(f"   N = {r45['N']:.0e}")
-    print(f"   P(holografia) = {r45['P_holography']:.2%}")
+    print(f"   P(holographia) = {r45['P_holography']:.2%}")
     print(f"   d_S: {r45['d_S_UV']:.1f} -> {r45['d_S_IR']:.1f}")
     print(f"   d_S CDT-compat: {r45['d_S_compatible_CDT']}")
 
@@ -145,19 +145,19 @@ def example_5_full_tests():
     
     print("\n4. AXION (CASPEr 2028):")
     print(f"   m_a = {tests['axion_CASPEr']['m_a_eV']*1e9:.1f} neV")
-    print(f"   W zasięgu CASPEr: {tests['axion_CASPEr']['in_CASPEr_range']}")
+    print(f"   W zasiegu CASPEr: {tests['axion_CASPEr']['in_CASPEr_range']}")
     
     print("\n5. PROTON DECAY (Hyper-K 2027+):")
     print(f"   τ(p->e+π⁰) = {tests['proton_decay_HyperK']['tau_e_pi0']:.2e} years")
     print(f"   Visible 2030: {tests['proton_decay_HyperK']['visible_2030']}")
     
     print("\n6. THREE GENERATIONS:")
-    print(f"   N_gen (topologia) = {tests['three_generations']['N_gen_pred']}")
+    print(f"   N_gen (topology) = {tests['three_generations']['N_gen_pred']}")
     print(f"   Matches SM: {tests['three_generations']['matches']}")
 
 
 def example_6_full_report():
-    """Example 6: Pełen raport z simulation"""
+    """Example 6: Pelen report z simulation"""
     print("\n" + "="*60)
     print("EXAMPLE 6: Full report")
     print("="*60)
@@ -192,7 +192,7 @@ def example_6_full_report():
 
 
 def example_7_custom_graph():
-    """Example 7: Własna konfiguracja grafu"""
+    """Example 7: Wlasna configuration graph"""
     print("\n" + "="*60)
     print("EXAMPLE 7: Custom graph configuration")
     print("="*60)
@@ -211,7 +211,7 @@ def example_7_custom_graph():
 def example_8_plot_results():
     """Example 8: Podstawowa wizualizacja"""
     print("\n" + "="*60)
-    print("PRZYKŁAD 8: Podstawowa wizualizacja")
+    print("PRZYKLAD 8: Podstawowa wizualizacja")
     print("="*60)
     
     engine = SHZSpin10QuantumEngine(N=120, k_target=4)
@@ -235,7 +235,7 @@ def example_8_plot_results():
 
 
 if __name__ == "__main__":
-    # Uruchom wszystkie przyklady
+    # Run wszystkie przyklady
     example_1_basic_simulation()
     example_2_inflation_predictions()
     example_3_sgwb_spectrum()
