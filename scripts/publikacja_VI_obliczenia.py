@@ -1,6 +1,6 @@
 """
 Publikacja VI - SUSY Spin(10), Pełna QG, Gravitino, Emergencja
-Finalna heksalogia - kompletne computations
+Finalna heksalogia - kompletne obliczenia
 """
 import math
 import numpy as np
@@ -23,7 +23,7 @@ m_stop = 2645.8   # GeV
 m_neutralino = 38.6  # GeV
 m_gravitino = 4.732e-14  # GeV (ultra-lekkie)
 
-# QG 1-loop
+# QG 1-pętlowe
 Gamma_1loop = 2.998195
 a_4_anomaly = -6.2333
 fine_tune_SUSY = 2.86e55
@@ -58,7 +58,7 @@ print("="*65)
 
 print(f"Witten Index (Δ)         = {Witten_index}")
 print(f"  -> SUSY jest DYNAMICZNIE ZŁAMANA")
-print(f"  -> Nawet w boundary zerowej energii")
+print(f"  -> Nawet w granicy zerowej energii")
 
 print(f"\nSpektrum spartnera (mSUGRA, M_SUSY={M_SUSY} GeV):")
 print(f"  m_gluino                = {m_gluino} GeV  (LHC limit > 2300 GeV) ❌")
@@ -111,7 +111,7 @@ print(f"  -> Remedium: 6 sektorów scalernych LUB ciemny sektor")
 print(f"\nFine-tuning:")
 print(f"  Bez SUSY: ~10^121")
 print(f"  Z SUSY Spin(10): {fine_tune_SUSY:.2e}")
-print(f"  Improvement: × {SUSY_improvement:.2e}")
+print(f"  Poprawa: × {SUSY_improvement:.2e}")
 
 # =================================================================
 #  3. GRAWITINO I SUGRA
@@ -152,7 +152,7 @@ print(" 4. EMERGENCJA PRZESTRZENI")
 print("="*65)
 
 # Wald entropy
-print(f"Entropia Walda z corrections QG:")
+print(f"Entropia Walda z korektami QG:")
 print(f"  S_Wald                 = {S_Wald}")
 print(f"  S_BH                   = {S_BH}")
 print(f"  Korekta QG             = {Wald_correction:.2f}%")
@@ -167,7 +167,7 @@ print(f"  c(UV) >= c(IR): {c_UV >= c_IR}")
 print(f"  -> a-theorem SPEŁNIONY ✓")
 
 # d_S running
-print(f"\nBiegnięcie wymiaru spectral:")
+print(f"\nBiegnięcie wymiaru spektralnego:")
 print(f"  d_S(UV) = {d_S_UV} (Planck scale)")
 print(f"  d_S(IR) = {d_S_IR} (makroskopowo)")
 print(f"  -> Does not reach 4 (network N=120 too small)")
@@ -176,7 +176,7 @@ print(f"  -> Remedy: N=10^6 (full agreement with CDT)")
 # Verlinde
 print(f"\nGrawitacja emergentna (Verlinde):")
 print(f"  F(r) = -T · ∂S/∂r")
-print(f"  Test na graph: {Verlinde_test}")
+print(f"  Test na grafie: {Verlinde_test}")
 print(f"  -> Gravity EMERGES from entropy")
 
 # =================================================================
@@ -191,7 +191,7 @@ Lambda_YM = (3.0/4.0) * (1 - cos_Phi)
 Lambda_top = Var_k
 Lambda_anom = 3.958e-4   # Seeley-DeWitt
 Lambda_SUSY = Gamma_1loop / (16 * math.pi**2) * (M_SUSY/M_Pl)**4
-Lambda_Wald = (S_BH - S_Wald) / S_BH  # correction Wald
+Lambda_Wald = (S_BH - S_Wald) / S_BH  # korekta Wald
 
 CF_factor = 2*CF - 1
 Lambda_total_Euc = (Lambda_YM + Lambda_top + Lambda_anom + Lambda_SUSY)
@@ -199,7 +199,7 @@ Lambda_total_Lor = Lambda_total_Euc * (1 - CF_factor)
 
 print(f"Λ_Euc (bez SUSY)        = {Lambda_YM + Lambda_top + Lambda_anom:.4f}")
 print(f"Λ_SUSY (M_SUSY=1 TeV)   = {Lambda_SUSY:.4e}")
-print(f"Λ_Wald (correction)        = {Lambda_Wald:.4f}")
+print(f"Λ_Wald (korekta)        = {Lambda_Wald:.4f}")
 print(f"\nΛ_Euc (total)           = {Lambda_total_Euc:.4f}")
 print(f"Λ_Lor (CF factor)       = {Lambda_total_Lor:.4f}")
 print(f"Λ_Lor (CF→1)            -> 0")
@@ -215,7 +215,7 @@ print("-"*72)
 print(f"{'Witten Index':<35} | {Witten_index:<14d} | LHC              | ✓")
 print(f"{'Γ_1loop (full QG)':<35} | {Gamma_1loop:<14.4f} | teoria QG        | ✓")
 print(f"{'a_4 (Weyl anomalia)':<35} | {a_4_anomaly:<14.4f} | teoria           | ⚠️")
-print(f"{'Fine-tune SUSY':<35} | {fine_tune_SUSY:<14.2e} | teoria           | ✓ improvement")
+print(f"{'Fine-tune SUSY':<35} | {fine_tune_SUSY:<14.2e} | teoria           | ✓ poprawa")
 print(f"{'m_gravitino':<35} | {m_gravitino:<14.2e} | DM searches      | ★")
 print(f"{'S_Wald':<35} | {S_Wald:<14.4f} | BH merger GW     | ★★")
 print(f"{'c(UV) > c(IR)':<35} | {c_UV:<14.4f} >= {c_IR} | RG flow          | ✓")
@@ -257,7 +257,7 @@ print("="*72)
 
 print("\n1. Dlaczego 3 generacje?")
 print("   → ind(/D) = 3 (Atiyah-Singer)")
-print("   → Trzy generacje = topologia graph")
+print("   → Trzy generacje = topologia grafu")
 
 print("\n2. Co to jest ciemna materia?")
 print("   → Axion Spin(10): m_a=28neV (CASPEr)")
@@ -269,7 +269,7 @@ print("   → Λ → 0 w pełnej Lorentz (CF→1)")
 
 print("\n4. Jak powstała materia?")
 print("   → Torsja chiralna: η_B~4.5e-9 (7× za dużo)")
-print("   → Resonant leptogenesis: η_B~1e-21 (za małe)")
+print("   → Resonant leptogeneza: η_B~1e-21 (za małe)")
 print("   → Razem: blisko obserwowanej 6.1e-10")
 
 print("\n5. What did inflation look like?")
@@ -312,12 +312,12 @@ print("  Publ. VII?  (v8.0?) Pełna Teoria Wszystkiego    W TRAKCIE")
 print()
 print("EFEKTYWNY MODEL Teorii Wszystkiego:")
 print("  ✓ 7 publikacji + Raport I = 8 dokumentów")
-print("  ✓ 25+ testowalnych predictions")
+print("  ✓ 25+ testowalnych predykcji")
 print("  ✓ 4 unikalne sygnatury")
 print("  ✓ 5 great physics questions have an answer")
 print("  ✓ Gotowy do konfrontacji z danymi 2025-2040")
 print()
 print("EFEKT SUSY:")
 print(f"  Fine-tuning: {fine_tune_SUSY:.2e}")
-print(f"  Improvement vs bez SUSY: ×{SUSY_improvement:.2e}")
-print(f"  -> Istotna improvement, ale wymaga M_SUSY > 4 TeV")
+print(f"  Poprawa vs bez SUSY: ×{SUSY_improvement:.2e}")
+print(f"  -> Istotna poprawa, ale wymaga M_SUSY > 4 TeV")
