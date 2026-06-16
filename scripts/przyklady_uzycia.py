@@ -36,7 +36,7 @@ def example_1_basic_simulation():
 
 
 def example_2_inflation_predictions():
-    """Example 2: Predykcje inflation α-Attractor"""
+    """Example 2: Predykcje inflacji α-Attractor"""
     print("\n" + "="*60)
     print("PRZYKŁAD 2: α-Attractor Spin(10)")
     print("="*60)
@@ -178,7 +178,7 @@ def example_6_full_report():
     
     print(f"\nKLUCZOWE PREDYKCJE:")
     pred = report['predictions']
-    print(f"  N_generations = {pred['N_generations']} (topological)")
+    print(f"  N_generations = {pred['N_generations']} (topologiczne)")
     print(f"  n_s = {pred['inflation']['n_s']:.4f}")
     print(f"  r = {pred['inflation']['r']:.4f}")
     print(f"  f_NL^eq = {pred['f_NL_equil']:.4f}")
@@ -192,7 +192,7 @@ def example_6_full_report():
 
 
 def example_7_custom_graph():
-    """Example 7: Własna configuration graph"""
+    """Example 7: Własna konfiguracja grafu"""
     print("\n" + "="*60)
     print("EXAMPLE 7: Custom graph configuration")
     print("="*60)
