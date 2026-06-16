@@ -5,8 +5,8 @@ title: "Spin(10) Theory of Everything — SHZSpin10QuantumEngine"
 version: "8.0"
 date-released: 2026-06-15
 authors:
-  - family-names: Ślusarczyk
-    given-names: Michał
+  - family-names: Slusarczyk
+    given-names: Michal
 abstract: >
   A complete computational implementation of a Spin(10) Theory of Everything
   on a relational graph, unifying quantum gravity, Spin(10) gauge symmetry,
