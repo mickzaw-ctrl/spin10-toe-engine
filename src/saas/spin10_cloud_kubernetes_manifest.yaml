@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spin10-cloud-saas-deployment
+  namespace: deeptech-production
+  labels:
+    app: spin10-cloud-saas
+    tier: enterprise-hpc
+spec:
+  replicas: 16
+  selector:
+    matchLabels:
+      app: spin10-cloud-saas
+  template:
+    metadata:
+      labels:
+        app: spin10-cloud-saas
+    spec:
+      containers:
+      - name: fastapi-saas-engine
+        image: 012345678910.dkr.ecr.eu-central-1.amazonaws.com/shz-quantum/spin10-cloud-saas:v12.0-PRO
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http-rest
+        - containerPort: 50051
+          name: grpc-stream
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+            nvidia.com/gpu: "1"
+          limits:
+            memory: "32Gi"
+            cpu: "16"
+            nvidia.com/gpu: "2"
+        env:
+        - name: ENV_MODE
+          value: "PRODUCTION_AWS_EKS"
+        - name: STRIPE_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: stripe-enterprise-secret
+              key: secret-key
+        - name: OAUTH2_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-auth-secret
+              key: secret-key
+        readinessProbe:
+          httpGet:
+            path: /cloud/service/status
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /cloud/service/status
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spin10-cloud-saas-service
+  namespace: deeptech-production
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 443
+    targetPort: 8000
+    protocol: TCP
+    name: https
+  - port: 50051
+    targetPort: 50051
+    protocol: TCP
+    name: grpc
+  selector:
+    app: spin10-cloud-saas
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: spin10-hpa-autoscaler
+  namespace: deeptech-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: spin10-cloud-saas-deployment
+  minReplicas: 16
+  maxReplicas: 256
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+  - type: ContainerResource
+    containerResource:
+      name: nvidia.com/gpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spin10-cloud-saas-ingress
+  namespace: deeptech-production
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-central-1:012345678910:certificate/12345678-abcd-ef01-2345-6789abcdef"
+spec:
+  rules:
+  - host: cloud.shz-quantum.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: spin10-cloud-saas-service
+            port:
+              number: 443
