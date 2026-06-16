@@ -1,5 +1,5 @@
 """
-Publikacja II - Widmo inflationary, entropy dS, holografia
+Publikacja II - Widmo inflacyjne, entropia dS, holografia
 Laczy wszystkie elementy z Raportu I + Publikacja I + Publikacja II
 """
 import math
@@ -15,8 +15,8 @@ cos_Phi= 0.688
 CF     = 0.738
 N_LAYERS = 10
 
-# Nowe parameters z PII
-alpha_top = 1.2        # waga topological
+# Nowe parametry z PII
+alpha_top = 1.2        # waga topologiczna
 beta_SR   = 2.5        # inverse T w fazie slow-roll
 beta_RD   = 4.0        # inverse T w fazie radiation-dominated
 eps_SR    = 0.012      # slow-roll epsilon
@@ -61,7 +61,7 @@ print(f"\nr (analityczna)         = {r:.4f}")
 print(f"r (numeryczna PII)      = 0.1875")
 print(f"  Granica BICEP/Keck:   < 0.036  -> {'WYKLUCZONE' if r > 0.036 else 'OK'}")
 
-# Moc spectral A_s
+# Moc spektralna A_s
 A_s_model = 2.80e-9
 A_s_COBE  = 2.10e-9
 print(f"\nA_s (model)             = {A_s_model:.2e}")
@@ -97,10 +97,10 @@ print(f"S_dS = π/(G·H²)        = {S_dS:.4f}")
 print(f"  Interpretacja:        = N stopni swobody w horyzoncie Hubble'a")
 print(f"  vs Planck units:      = ~10^122 (w jednostkach naturalnych)")
 
-# Test holographic
-print(f"\nTest holographic:    S_ent <= S_BH")
+# Test holograficzny
+print(f"\nTest holograficzny:    S_ent <= S_BH")
 print(f"  Splniony:              ~67% czasu  (częsciowy)")
-print(f"  Przyczyna:             dyskretyzacja network")
+print(f"  Przyczyna:             dyskretyzacja sieci")
 print(f"  Remedium:              zwiekszenie N (do N=250 w PIV)")
 
 # Granica Beckensteina
@@ -108,11 +108,11 @@ print(f"\nGranica Beckensteina:  S_vN <= 2πER")
 print(f"  Splniona:              >90% czasu")
 print(f"  Wniosek:               model termodynamicznie spójny")
 
-# Entropia splątania z 3 generation
+# Entropia splątania z 3 generacji
 S_ent_gen = 3 * math.log(16)  # 3 pokolenia × dim(16) fermionów
-print(f"\nEntropia 3 generation:")
+print(f"\nEntropia 3 generacji:")
 print(f"  S_ent(gen) = 3 * ln(16) = {S_ent_gen:.3f}")
-print(f"  vs S_dS = {S_dS:.2f}  -> Koincydencja holographic!")
+print(f"  vs S_dS = {S_dS:.2f}  -> Koincydencja holograficzna!")
 
 # =================================================================
 #  3. ANOMALIA KONFOREMNA a_4
@@ -149,7 +149,7 @@ print("="*65)
 # Lambda from 3 sources:
 # (a) Anomalia konforemna
 Lambda_anom = a_4 * 16 * math.pi**2 * G_N / 1.0  # w jednostkach a=1
-# (b) Topology
+# (b) Topologia
 Lambda_top = alpha_top * Var_k / 1.0
 # (c) Yang-Mills
 Lambda_YM = (3.0/4.0) * (1 - cos_Phi) / 1.0
@@ -164,7 +164,7 @@ Lambda_Lorentz = Lambda_full * (1 - CF_factor)
 Lambda_Lorentz_eq = Lambda_full * (1 - 1)  # CF -> 1 w rownowadze
 
 print(f"Λ z anomalii konformnej  = {Lambda_anom:.2e}")
-print(f"Λ z topology            = {Lambda_top:.4f}")
+print(f"Λ z topologii            = {Lambda_top:.4f}")
 print(f"Λ z YM (Spin(10))        = {Lambda_YM:.4f}")
 print(f"Λ_eff (Euclides)         = {Lambda_full:.4f}")
 print(f"Λ_Lorentz (CF=0.738)     = {Lambda_Lorentz:.4f}")
@@ -208,7 +208,7 @@ print("\n" + "="*65)
 print(" 7. STOCHASTYCZNE TŁO FAL GRAWITACYJNYCH (SGWB)")
 print("="*65)
 
-# Omega_GW z inflation
+# Omega_GW z inflacji
 # Omega_GW* ~ (r/0.01) * 10^-15
 Omega_GW_r019 = (r/0.01) * 1e-15   # dla r=0.19 (PII)
 Omega_GW_attractor = (r_attractor/0.01) * 1e-15  # dla r=0.004 (α-attractor)
@@ -227,7 +227,7 @@ print(f"  nT (PII)              = {-r/8:.4f}")
 print(f"  nT (α-attractor)      = {-r_attractor/8:.4f}")
 
 # =================================================================
-#  8. PODSUMOWANIE - full macierz predictions
+#  8. PODSUMOWANIE - full macierz predykcji
 # =================================================================
 print("\n" + "="*72)
 print(" PEŁNA MACIERZ PREDYKCJI (Raport I + Pub. I + Pub. II)")
@@ -269,4 +269,4 @@ print(f"  9. Einstein T. NIE widzi Ω_GW > 10^-15")
 print(f"\n  α-attractor (Pub. III) ROZWIĄZUJE problem r:")
 print(f"     r = 0.004 (zamiast 0.19) — ZGODNE z BICEP")
 print(f"     n_s = 0.967 — ZGODNE z Planck w 0.5σ")
-print(f"     nadal falsyfikowalny przez pozostałe tests")
+print(f"     nadal falsyfikowalny przez pozostałe testy")
