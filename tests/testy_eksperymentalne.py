@@ -12,7 +12,7 @@ import numpy as np
 SPIN10_DIM = 45
 alpha_attractor = SPIN10_DIM / 12.0  # 3.75
 N_efolds = 60
-cos_Phi = 0.688  # z Raportu I
+cos_Phi = 0.688  # z Reportu I
 
 # =================================================================
 #  KATEGORIA 1: TESTY KRYTYCZNE (★★★★★)
@@ -40,7 +40,7 @@ print(f"  Spin(10):              Ω_GW(1 mHz) = {Omega_GW_pred:.1e}")
 print(f"  LISA czulosc:          ~ {Omega_GW_LISA_sens:.0e}")
 print(f"  SNR:                   {SNR_SGWB:.0e} (7 DEKAD)")
 print(f"  Peak:                  Ω_GW^max = 5.18e-7")
-print(f"  Struktura:             inflacja + GUT + Bounce")
+print(f"  Struktura:             inflation + GUT + Bounce")
 
 # 1.3 B_TTB
 print("\n[1.3] B_TTB (CP violation) w LiteBIRD (2030)")
@@ -54,12 +54,12 @@ print(f"  SNR na r:              {SNR_r:.1f}σ")
 print(f"  UNIKALNA SYGNATURA:    B_TTB=0 we wszystkich innych modelach")
 
 # 1.4 N_gen topologiczne
-print("\n[1.4] N_gen (topologia /D)")
+print("\n[1.4] N_gen (topology /D)")
 N_gen = 3
 print(f"  Spin(10):              ind(/D) = {N_gen}")
 print(f"  Obserwacja:            SM ma 3 generacje")
 print(f"  Status:                ✓✓✓ POTWIERDZONE")
-print(f"  Uwaga:                 kazda modyfikacja grafu -> inna N_gen")
+print(f"  Uwaga:                 kazda modyfikacja graph -> inna N_gen")
 
 # =================================================================
 #  KATEGORIA 2: BARDZO SILNE (★★★★)
@@ -76,7 +76,7 @@ Omega_a = 0.12
 print(f"  Spin(10):              m_a = {m_a*1e9:.1f} neV")
 print(f"  Spin(10):              f_a = M_GUT = {f_a:.0e} GeV")
 print(f"  Spin(10):              Ω_a h² = {Omega_a}")
-print(f"  CASPEr range:         peV - neV ✓ W ZASIĘGU")
+print(f"  CASPEr range:         peV - neV ✓ W ZASIEGU")
 print(f"  Status:                α Spin(10) ≠ KSVZ/DFSZ")
 
 # 2.2 Wald entropy
@@ -87,7 +87,7 @@ Wald_corr = (S_BH - S_Wald) / S_BH * 100
 print(f"  Spin(10):              S_Wald = {S_Wald}")
 print(f"  Spin(10):              S_BH = {S_BH}")
 print(f"  Korekta QG:            {Wald_corr:.2f}%")
-print(f"  Skala:                 √N -> istotne przy N=10^6")
+print(f"  Scale:                 √N -> istotne przy N=10^6")
 print(f"  Detection:              BH merger ringdown (LIGO/Virgo/ET)")
 
 # 2.3 Proton decay
@@ -120,12 +120,12 @@ print(f"  BICEP limit:           r < 0.036")
 print(f"  LiteBIRD:              σ(r) ~ {r_LiteBIRD_sens}")
 print(f"  SNR:                   {SNR_r:.1f}σ")
 
-# 3.3 Bispectrum kształt
-print("\n[3.3] Bispectrum kształt w CMB-S4 (2035)")
+# 3.3 Bispectrum ksztalt
+print("\n[3.3] Bispectrum ksztalt w CMB-S4 (2035)")
 print(f"  Spin(10):              70% equilateral + 30% local")
 print(f"  f_NL^local:            0.014")
 print(f"  f_NL^equil:            14.5 (dominuje)")
-print(f"  Detection:              kształt bispektrum")
+print(f"  Detection:              ksztalt bispektrum")
 
 # 3.4 Resonant leptogenesis
 print("\n[3.4] Resonant leptogenesis @ 1 TeV w LHC (2027+)")
@@ -167,10 +167,10 @@ print(f"  Spin(10):              m_{{3/2}} = {m_32:.2e} GeV (ultra-lekkie)")
 print(f"  Alternatywa:           Split-SUGRA: m_{{3/2}} ~ 10^3 TeV")
 
 # =================================================================
-#  KATEGORIA 4: ŚREDNIE (★★)
+#  KATEGORIA 4: SREDNIE (★★)
 # =================================================================
 print("\n" + "="*72)
-print(" KATEGORIA 4: ŚREDNIE (★★)")
+print(" KATEGORIA 4: SREDNIE (★★)")
 print("="*72)
 
 # 4.1 BR(mu->e gamma)
@@ -212,7 +212,7 @@ print(f"  Exp (T2K):             δ_CP ~ {delta_CP_exp}°")
 print("\n[4.4] CMB circles w LiteBIRD (2030)")
 A_circles = 1.31e-6
 print(f"  Spin(10):              A ~ {A_circles:.2e}")
-print(f"  Detection:              multipole l<10")
+print(f"  Detection:              multifield l<10")
 print(f"  Status:                SEARCHABLE")
 
 # 4.5 LIV
@@ -237,11 +237,11 @@ print(f"  Spin(10):              Y_u = Y_d = Y_ℓ na GUT")
 print(f"  Test:                  m_b/m_τ ~ {Y_u_Y_d_ratio:.3f}")
 print(f"  Pomiar:                m_b/m_τ ~ 0.835 (z korektami QCD)")
 
-# 4.8 Holografia
-print("\n[4.8] Holografia w sieci")
+# 4.8 Holographia
+print("\n[4.8] Holographia w network")
 holo = 0.67  # 67%
-print(f"  Spin(10) z N=120:      {holo*100}% czasu")
-print(f"  Remedium (N=250):      >90% czasu")
+print(f"  Spin(10) z N=120:      {holo*100}% time")
+print(f"  Remedium (N=250):      >90% time")
 
 # =================================================================
 #  KATEGORIA 5: POMOCNICZE (★)
@@ -252,7 +252,7 @@ print("="*72)
 
 print("\n[5.1] Stozki swietlne - hierarchy test")
 print(f"  Spin(10):              forward > backward")
-print(f"  Strzalka czasu:        |J(p)| = {0.738}/2 N")
+print(f"  Strzalka time:        |J(p)| = {0.738}/2 N")
 
 print("\n[5.2] CP+T asymmetry")
 A_CPT = 1 - 2 * 0.262
@@ -262,14 +262,14 @@ print("\n[5.3] Modulacja G_N na Planck scale")
 delta_GN = 0.262
 print(f"  Spin(10):              δG_N/G_N ~ {delta_GN} exp(-t/t_P)")
 
-print("\n[5.4] Wymiar spektralny")
+print("\n[5.4] Dimension spektralny")
 print(f"  Spin(10) N=250:        d_S: 2 → 4 ✓")
 
 # =================================================================
 #  KATEGORIA 6: POTWIERDZONE (✓)
 # =================================================================
 print("\n" + "="*72)
-print(" KATEGORIA 6: JUŻ POTWIERDZONE (✓)")
+print(" KATEGORIA 6: JUZ POTWIERDZONE (✓)")
 print("="*72)
 
 print("\n[6.1] Supresja niskich multipoli ✓")
@@ -280,7 +280,7 @@ print(f"  Planck:                TAK ✓✓✓")
 print("\n[6.2] CPT bounce ✓")
 S_bounce = 0.0
 print(f"  Spin(10):              ||S_bounce||/N = {S_bounce}")
-print(f"  Symetria:              IDEALNA ✓✓✓")
+print(f"  Symmetry:              IDEALNA ✓✓✓")
 
 print("\n[6.3] d_S running ✓")
 print(f"  Spin(10) N=250:        d_S: 2 → 4 (PUBL. I) ✓")
@@ -326,14 +326,14 @@ print("\n[7.4] a_4 anomaly ⚠️")
 a_4 = -6.23
 print(f"  Spin(10):              a_4 = {a_4}")
 print(f"  Wymaga:                anulacja")
-print(f"  Remedium:              6 dodatkowych sektorów scalernych")
+print(f"  Remedium:              6 dodatkowych sektorow scalernych")
 
-print("\n[7.5] Holografia 67% ⚠️")
-print(f"  Spin(10) N=120:        67% czasu")
+print("\n[7.5] Holographia 67% ⚠️")
+print(f"  Spin(10) N=120:        67% time")
 print(f"  Remedium:              N=10^6 -> >90%")
 
 # =================================================================
-#  PODSUMOWANIE ILOŚCIOWE
+#  PODSUMOWANIE ILOSCIOWE
 # =================================================================
 print("\n" + "="*72)
 print(" QUANTITATIVE TESTS SUMMARY")
@@ -343,7 +343,7 @@ categories = {
     "★★★★★ Krytyczne": 4,
     "★★★★ Bardzo silne": 3,
     "★★★ Silne": 8,
-    "★★ Średnie": 8,
+    "★★ Srednie": 8,
     "★ Pomocnicze": 4,
     "✓ Potwierdzone": 6,
     "⚠️ Wymaga poprawki": 5
@@ -377,20 +377,20 @@ print("  ✓ Hyper-K widzi proton decay τ~1e36 (2035)")
 print("  ✓ CMB-S4 mierzy f_NL^eq = 14.5 ± 2 (2035)")
 print("  ✓ LISA widzi SGWB Ω~1e-7 @ 1 mHz (2035)")
 print("  ✓ LiteBIRD mierzy B_TTB ≠ 0 (2030)")
-print("  ✓ CASPEr wykryje sygnał 28 neV (2030)")
+print("  ✓ CASPEr wykryje sygnal 28 neV (2030)")
 print("  ✓ HL-LHC widzi SUSY @ 4-6 TeV (2035)")
 
 # =================================================================
 #  TIMELINE
 # =================================================================
 print("\n" + "="*72)
-print(" TIMELINE TESTÓW")
+print(" TIMELINE TESTOW")
 print("="*72)
 
 timeline = [
     (2025, "LIV GRB (Fermi-LAT)"),
     (2026, "MEG-II limit (μ→eγ)"),
-    (2027, "Hyper-K pierwsze dane (proton decay)"),
+    (2027, "Hyper-K pierwsze data (proton decay)"),
     (2028, "CASPEr axion 28 neV"),
     (2028, "CMB-S4 pierwsze (n_s, f_NL)"),
     (2028, "LEGEND-1000 (m_ββ)"),
@@ -422,7 +422,7 @@ print("Krytyczne 4 testy (★★★★★) to:")
 print("  1. f_NL^eq = 14.5 (CMB-S4, 14.5σ)")
 print("  2. SGWB Ω~1e-7 (LISA, 7 dekad)")
 print("  3. B_TTB ≠ 0 (LiteBIRD, unikalna)")
-print("  4. N_gen = 3 (topologia /D)")
+print("  4. N_gen = 3 (topology /D)")
 print()
-print("Jeśli 3 z 4 pozytywne -> model bardzo mocno wspierany")
-print("Jeśli 0 z 4 -> model obalony")
+print("Jesli 3 z 4 pozytywne -> model bardzo mocno wspierany")
+print("Jesli 0 z 4 -> model obalony")
