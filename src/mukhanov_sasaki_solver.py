@@ -1,26 +1,26 @@
 """
 mukhanov_sasaki_solver.py
 =========================
-Advanced module do numerycznego determinnia pierwotnego widma mocy
-curvature fluctuations P_R(k) by solving the quantum Mukhanov-Sasaki equation.
+Advanced module for numerical determination of the primordial power spectrum
+of curvature fluctuations P_R(k) by solving the quantum Mukhanov-Sasaki equation.
 
 Models inflation within the alpha-Attractor model (linked to the Spin(10) ToE algebra).
-Numerically determines scalar fluctuation amplitude A_s and spectral index n_s,
+Numerically determines the scalar fluctuation amplitude A_s and spectral index n_s,
 fully accounting for deviations from pure de Sitter space (slow-roll).
 
-Author: SHZSpin10QuantumEngine Team
-Version: 9.5 (Quantum Primordial Perturbations)
+Autor: SHZSpin10QuantumEngine Team
+Wersja: 9.5 (Quantum Primordial Perturbations)
 """
 
 import numpy as np
 from scipy.integrate import solve_ivp
-from typeing import Tuple, Dict, Any, List
+from typing import Tuple, Dict, Any, List
 import warnings
 
 
 class MukhanovSasakiSolver:
     """
-    Solwer equation Mukanova-Sasakiego dla ewolucji fluctuations w ToE.
+    Solwer equations Mukanova-Sasakiego dla evolution fluktuacji w ToE.
     """
 
     @staticmethod
@@ -31,13 +31,13 @@ class MukhanovSasakiSolver:
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Generates physical evolutionary background a(eta) and z(eta) in conformal time eta
-        dla modelu inflation alpha-Attractor ToE.
+        dla modelu inflacji alpha-Attractor ToE.
         
         W quasi-de Sitter mamy eta in [eta_start, eta_end] < 0,
         a(eta) ~ -1 / (H*eta) oraz z(eta) = a * sqrt(2*epsilon).
         """
         # Parameters slow-roll w modelu alpha-Attractor
-        # For the T-model/E-model potential V(phi) ~ (1 - e^{-...})^2
+        # For T-model/E-model potential V(phi) ~ (1 - e^{-...})^2
         # Mamy epsilon ~ 3*alpha / (4*N^2) oraz eta_SR ~ -2 / N
         epsilon = 3.0 * alpha / (4.0 * N_efolds**2)
         eta_SR = -2.0 / N_efolds
@@ -46,17 +46,17 @@ class MukhanovSasakiSolver:
         # W quasi-de Sitter nu = 3/2 + epsilon - eta_SR/2
         nu = 1.5 + epsilon - 0.5 * eta_SR
         
-        # Conformal time eta: from the distant past to the moment after fluctuation freezing
+        # Conformal time eta: from far past to moment after fluctuation freezing
         eta_start = -1000.0
         eta_end = -0.01
         
-        # We use a logarithmic grid to achieve high precision near eta -> 0
+        # Using logarithmic grid for high precision near eta -> 0
         eta_vals = -np.geomspace(-eta_start, -eta_end, n_points)
         
-        # Constant Hubble'a (unormowana do fizycznej amplitudy fluctuations P_R ~ 2.1e-9)
+        # Hubble constant (normalized to physical fluctuation amplitude P_R ~ 2.1e-9)
         H = 1.0e-5
         
-        # Scale a(eta) in the quasi-de Sitter approximation
+        # Scale factor a(eta) in quasi-de Sitter approximation
         a_eta = -1.0 / (H * eta_vals) * ( (-eta_vals)**(-epsilon) )
         
         # Scale z(eta) = a(eta) * sqrt(2*epsilon) accounting for epsilon evolution
@@ -73,23 +73,23 @@ class MukhanovSasakiSolver:
         z_eta: np.ndarray
     ) -> np.ndarray:
         """
-        Solves the system of quantum Mukhanov-Sasaki equations:
+        Solves the system of Mukhanov-Sasaki quantum equations:
             v_k'' + (k^2 - z'' / z) v_k = 0
         Gdzie v_k(eta) = z(eta) * R_k(eta).
         
         Parameters:
-            k_modes: wave vector of fluctuation modes
-            eta_vals: siatka time konforemnego
+            k_modes: wavenumber vector of fluctuation modes
+            eta_vals: siatka czasu konforemnego
             a_eta: background scale factor
             z_eta: function z = a * dphi/dN
             
-        Returns:
-            Wektor pierwotnego widma fluctuations P_R(k) = (k^3 / 2pi^2) |R_k|^2.
+        Zwraca:
+            Wektor pierwotnego widma fluktuacji P_R(k) = (k^3 / 2pi^2) |R_k|^2.
         """
         spectra = []
         
-        # Computation of the ephemeral potential U(eta) = z'' / z
-        # Determined numerically using gradient on a non-uniform grid
+        # Computing the effective potential U(eta) = z'' / z
+        # Determined numerically using gradient on non-uniform grid
         dz = np.gradient(z_eta, eta_vals)
         ddz = np.gradient(dz, eta_vals)
         U_eta = ddz / z_eta
@@ -98,7 +98,7 @@ class MukhanovSasakiSolver:
             def ode_system(eta, y):
                 # y = [v_real, v_real', v_imag, v_imag']
                 vr, p_vr, vi, p_vi = y
-                # Interfieldcja U_eta
+                # Interpolacja U_eta
                 U = np.interp(eta, eta_vals, U_eta)
                 omega_sq = k**2 - U
                 return [p_vr, -omega_sq * vr, p_vi, -omega_sq * vi]
@@ -111,7 +111,7 @@ class MukhanovSasakiSolver:
                 -np.sin(k * eta_start) / np.sqrt(2.0 * k), k * np.cos(k * eta_start) / np.sqrt(2.0 * k)
             ]
             
-            # Integration w dziedzinie eta
+            # Integration in the eta domain
             sol = solve_ivp(
                 ode_system, 
                 [eta_vals[0], eta_vals[-1]], 
@@ -129,7 +129,7 @@ class MukhanovSasakiSolver:
             P_R = (k**3 / (2.0 * np.pi**2)) * (v_k_sq / (z_eta[-1]**2))
             spectra.append(P_R)
             
-        return np.array(spectra, dtypee=np.float64)
+        return np.array(spectra, dtype=np.float64)
 
     @staticmethod
     def analyze_power_spectrum(
@@ -140,25 +140,25 @@ class MukhanovSasakiSolver:
     ) -> Dict[str, Any]:
         """
         Dopasowuje parameters obserwacyjne A_s oraz n_s do wyznaczonego numerycznie widma.
-        Matching formula: P_R(k) = A_s * (k / k_*)^{n_s - 1}.
+        Formula dopasowania: P_R(k) = A_s * (k / k_*)^{n_s - 1}.
         """
         # Scale referencyjna k_* (tzw. pivot scale w analysisch Plancka, np. 0.05 Mpc^-1)
         k_pivot = 0.05
         idx_pivot = np.argmin(abs(k_modes - k_pivot))
         
         if abs(k_modes[idx_pivot] - k_pivot) > k_pivot * 0.5:
-            # Fallback jesli siatka nie zawiera k_pivot
+            # Fallback if grid does not contain k_pivot
             idx_pivot = len(k_modes) // 2
             k_pivot = k_modes[idx_pivot]
             
         A_s_actual = float(power_spectrum[idx_pivot])
         
-        # Determin indeksu spectral n_s metoda regresji log-log
+        # Determination of spectral index n_s via log-log regression
         # ln(P_R) = ln(A_s) + (n_s - 1) ln(k / k_*)
-        # Pomijamy pierwsze, najnizsze mody (k < 0.02) by uniknac przejsciowych efektow brzegowych
+        # Skipping first, lowest modes (k < 0.02) to avoid transient boundary effects
         valid_k = k_modes >= 0.02
         if np.sum(valid_k) < 3:
-            valid_k = np.ones_like(k_modes, dtypee=bool)
+            valid_k = np.ones_like(k_modes, dtype=bool)
             
         log_k = np.log(k_modes[valid_k] / k_pivot)
         log_P = np.log(power_spectrum[valid_k])
@@ -169,7 +169,7 @@ class MukhanovSasakiSolver:
         # Teoretyczna value ToE z analityki: n_s = 1 - 2/N
         n_s_theo = 1.0 - 2.0 / N_efolds
         
-        # Stosunek tensorowo-scalerny r w modelu ToE
+        # Ratio tensorowo-scalerny r w modelu ToE
         r_theo = 12.0 * alpha / (N_efolds**2)
 
         return {
@@ -177,7 +177,7 @@ class MukhanovSasakiSolver:
             'k_pivot': k_pivot,
             'n_s_numeric': n_s_numeric,
             'n_s_theoretical': n_s_theo,
-            'n_s_error_sigma': abs(n_s_numeric - 0.9649) / 0.0042, # w poequation z danymi Planck PR4
+            'n_s_error_sigma': abs(n_s_numeric - 0.9649) / 0.0042, # compared to Planck PR4 data
             'r_theoretical': r_theo,
             'excellent_agreement': abs(n_s_numeric - n_s_theo) < 0.005
         }
