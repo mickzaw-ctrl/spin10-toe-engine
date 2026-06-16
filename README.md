@@ -1,291 +1,213 @@
-# Spin(10)-TOE Engine
+# Spin(10) Theory of Everything — SHZSpin10QuantumEngine
 
-**Computational engine for the Spin(10) Theory of Everything**
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-preprint-red.svg)](#publications)
 
-[![Tests](https://img.shields.io/badge/tests-35%2F35%20passed-brightgreen)](results/test_results.json)
-[![Pass rate](https://img.shields.io/badge/pass%20rate-100%25-brightgreen)](results/test_results.json)
-[![Mean χ²](https://img.shields.io/badge/mean%20%CF%87%C2%B2-0.844-blue)](results/test_results.json)
-[![Predictions](https://img.shields.io/badge/predictions-38%20testable-blue)](docs/spin10_toe_hypothesis.md)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
-[![Version](https://img.shields.io/badge/version-10.0--PRO-purple)](src/spin10_enterprise_core.py)
+**Author:** Michał Ślusarczyk  
+**Engine version:** v8.0 / v9.0 / v9.7 (Fully Integrated Numerical & Bayesian Suite)  
+**Status:** Heptalogy complete (7 publications) + 5 Advanced Computational Laboratories
 
-A complete Python implementation of the Spin(10) grand unification hypothesis — from the open-source research engine (v8.0/v9.0) to the commercial Enterprise platform (v10.0-PRO). Includes 38 testable numerical predictions, a full synthetic test suite, Bayesian MCMC analysis, 2-loop RGE solver, Mukhanov-Sasaki quantum inflation solver, GPU/CUDA acceleration, Quantum Bridge, and a SciML Digital Twin framework.
+---
 
-🌐 **GitHub Pages site:** [mickzaw-ctrl.github.io/spin10-toe-engine](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
+## Overview
+
+A complete computational implementation of a **Spin(10) Theory of Everything** on a relational graph. The model unifies quantum gravity, gauge symmetry Spin(10), supersymmetry (SUSY), and cosmology into a single framework — confronted against 9 current and future experiments (Planck, LISA, CMB-S4, LiteBIRD, Hyper-K, CASPEr, HE-LHC, IUPUI, DECIGO).
+
+### Key features
+
+- Relational graph network with Monte Carlo simulation (Metropolis-Hastings)
+- **38 testable predictions** across cosmology, particle physics, and gravity
+- **5 key remedies** resolving problematic sectors (Split-SUSY, 3-flavour Boltzmann, Hidden SUSY, Network scaling, Spectral dimension)
+- Full **heptalogy**: 7 publications from pre-geometry to complete ToE
+- PDFs of all 6 main publications included
+- **Advanced Numerical Suite (v9.7)**: Non-Abelian Link Variables, MCMC Bayesian Parameter Estimation (`emcee`), Numerical 2-loop RGE ODE Solvers, and Quantum Mukhanov-Sasaki Primordial Perturbation Solvers.
+
+---
+
+## 🚀 What's New in v9.7 (Advanced Computational Suite)
+
+In version **v9.7**, the engine has been upgraded from analytical asymptotic approximations ($1 - \frac{2}{N}$) to **cutting-edge numerical solvers** running authentic Quantum Field Theory and Quantum Gravity simulations:
+
+1. **Non-Abelian Gauge Dynamics (`ExplicitSpin10GaugeGraph`)**: Replaces simplified scalar $U(1)$ phases with authentic $10 \times 10$ matrix Link Variables in the fundamental representation of $SO(10)$. Solves non-linear Yang-Mills multi-boson interactions via Metropolis sweeps.
+2. **Holographic Scale Random Walk (`RandomWalkSpectralDimension`)**: Eliminates the $\mathcal{O}(N^3)$ memory bottleneck of sparse Laplacian matrix diagonalization. Computes continuous spectral dimension flow ($d_S: 2 \to 4$) across huge scale-free graphs (up to $N=10^6$ nodes) in seconds via lazy random walks.
+3. **Numerical 2-Loop RGE ODE Solver (`NumericalRGESolver`)**: Integrates exact multi-loop Renormalization Group Equations from the electroweak scale ($M_Z = 91.19\text{ GeV}$) up to the Planck scale, dynamically implementing intermediate Split-SUSY threshold matching at $M_{\text{SUSY}} = 5\text{ TeV}$. Confirms precise gauge coupling unification and the invariant Weinberg angle $\sin^2\theta_W \approx 0.3779$ (GUT target: $\frac{3}{8}$).
+4. **Quantum Mukhanov-Sasaki Primordial Perturbations (`MukhanovSasakiSolver`)**: Numerically solves the parametric quantum oscillator $v_k'' + (k^2 - \frac{z''}{z})v_k = 0$ with Bunch-Davies vacuum initial conditions across quasi-de Sitter curved spacetime, deriving the precise primordial power spectrum $\mathcal{P}_{\mathcal{R}}(k)$ and spectral index $n_s \approx 0.9634$.
+5. **Bayesian Parameter Inference Suite (`MultiExperimentLikelihood`)**: Leverages `emcee` (Goodman-Weare MCMC sampling) to explore the multidimensional ToE parameter space $[M_{\text{SUSY}}, \alpha_{\text{attractor}}, CF]$ on the fly against observational vectors from Planck, BICEP, LHC, and Super-Kamiokande, validating absolute Maximum A Posteriori (MAP) Best-Fits and plotting publication-ready posterior corner plots.
+
+---
+
+## Heptalogy — 7 Publications
+
+| # | Title | Key result | Engine |
+|---|---|---|---|
+| Report I | Pre-geometry + Monte Carlo | Relational graph, MC equilibrium | v1.0 |
+| Publ. I | Lorentz invariance + Big Bounce | CPT, Conformal Factor CF | v2.0 |
+| Publ. II | Riemannian geometry + dS entropy + Holography | $d_S: 2\to 4$, holographic bound | v3.0 |
+| Publ. III | α-Attractor inflation + SGWB + Torsion | $n_s=0.9667$, $r=0.0125$, 5th force | v4.0 |
+| Publ. IV | Fermions + $f_{NL}$ + CMB Bispectrum | $N_{gen}=3$ (topological), $f_{NL}^{eq}=14.5$ | v5.0 |
+| Publ. V | RGE + Axion + Leptogenesis | $m_a=28.5$ neV, $\eta_B=6.2\times10^{-10}$ | v6.0 |
+| Publ. VI | SUSY + Full QG + SUGRA | $M_{GUT}=2\times10^{16}$ GeV, gravitino | v7.0 |
+| Publ. VII | Complete ToE (Multi-Bounce, 2-loop RGE, AS) | UV fixed point, full synthesis | v8.0 / v9.7 |
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/YOUR_USERNAME/spin10-toe.git
+cd spin10-toe
+pip install -r requirements.txt
+```
+
+**Requirements:**
+- Python 3.8+
+- numpy >= 1.20
+- scipy >= 1.7
+- networkx >= 2.6
+- emcee >= 3.1.0 (for Bayesian MCMC suite)
+- matplotlib >= 3.3.0 (for trajectory and posterior plotting)
+
+---
+
+## Quick Start (Integrated Demo)
+
+```python
+from src.spin10_engine_v9 import SHZSpin10QuantumEngineV9
+
+# Initialize advanced ToE engine v9.0 / v9.7
+engine = SHZSpin10QuantumEngineV9(N=150, k_target=4)
+
+# Run relational graph Monte Carlo simulation
+engine.run_simulation(n_steps=3000, verbose=True)
+
+# Generate complete heptalogy report (includes Multi-Bounce, 2-Loop RGE, Mukhanov-Sasaki, and Bayesian MCMC)
+report = engine.full_report_v7()
+
+print(f"Emergent Cosmological Constant Lambda: {report['predictions']['Lambda']['Lambda_Lor']:.4f}")
+print(f"2-Loop Unified Gauge Target (M_GUT):     {report['predictions_v7']['two_loop_rge']['M_GUT']:.2e} GeV")
+print(f"Exact Quantum Primordial Index (n_s):    {report['predictions_v7']['mukhanov_sasaki_spectrum']['n_s_numeric']:.4f}")
+print(f"Bayesian Optimal Split-SUSY Scale:       {report['predictions_v7']['bayesian_mcmc_estimation']['parameter_estimation']['M_SUSY_GeV']['best_fit']:.0f} GeV")
+```
+
+---
+
+## Key Predictions vs Experiments
+
+| Prediction | Value | Experiment | Timeline | Status |
+|---|---|---|---|---|
+| Spectral index $n_s$ | 0.9634 – 0.9667 | Planck PR4 | 2025 | ✅ 0.42σ |
+| Tensor ratio $r$ | 0.0125 | LiteBIRD | 2030 | ⏳ in range |
+| $f_{NL}^{equil}$ | 14.5 | CMB-S4 | 2028 | ⏳ in range |
+| SGWB $\Omega_{GW}$(1 mHz) | $10^{-7}$ | LISA | 2035 | ⏳ 7.7 decades above noise |
+| Axion mass $m_a$ | 28.5 neV | CASPEr | 2028 | ⏳ in range |
+| Gluino mass | 10.6 – 12.5 TeV | HE-LHC / FCC | 2027+ | ⏳ in range |
+| Proton lifetime $\tau_p$ | $\sim 10^{35} - 10^{36}$ yr | Hyper-K | 2027+ | ⏳ observable |
+| 5th force $\alpha_5$ | $\sim 10^{-6}$ | IUPUI | 2025+ | ⏳ in range |
+| Baryon asymmetry $\eta_B$ | $6.2\times10^{-10}$ | Observed | — | ✅ |
 
 ---
 
 ## Repository Structure
 
 ```
-spin10-toe-engine/
-│
-├── src/                                   # Core engine modules
-│   ├── spin10_engine.py                   # SHZSpin10QuantumEngine v8.0 — main engine (8 modules)
-│   ├── spin10_engine_v9.py                # Engine v9.0 — 2-loop RGE + Split-SUSY corrections
-│   ├── spin10_enterprise_core.py          # ★ Enterprise v10.0-PRO — GPU/Quantum/SciML/API
-│   ├── bayesian_mcmc_analysis.py          # Bayesian MCMC (emcee) — multi-experiment likelihood
-│   ├── explicit_spin10_gauge.py           # Non-Abelian SO(10) gauge dynamics (45 generators)
-│   ├── mukhanov_sasaki_solver.py          # Quantum Mukhanov-Sasaki inflation solver
-│   ├── numerical_rge_solver.py            # 2-loop RGE integrator (SM → Split-SUSY threshold)
-│   ├── spectral_dimension_random_walk.py  # Spectral dimension via Lazy Random Walk (d_S: 2→4)
-│   ├── predykcje_testowalne.py            # Testable predictions catalogue (38 observables)
-│   ├── kluczowe_remedia.py                # 5 key remedies implementation
-│   ├── oblicz_lambda.py                   # Cosmological constant derivation
-│   ├── konfrontacja_summary.py            # Confrontation summary utilities
-│   └── __init__.py
-│
-├── tests/                                 # Test suites
-│   ├── tests_synthetic_spin10_toe.py      # Synthetic test suite (35 observables, 9 experiments)
-│   └── testy_eksperymentalne.py           # Experimental confrontation tests
-│
-├── scripts/                               # Demo and analysis scripts
-│   ├── demo_engine_vs_tests.py            # Demo: engine v8.0 vs test suite
-│   ├── demo_enterprise_platform.py        # ★ Enterprise v10.0 full demo (4 pillars)
-│   ├── test_cloud_api.py                  # REST API test (FastAPI microservice)
-│   ├── demo_bayesian_mcmc_analysis.py     # Bayesian MCMC demo
-│   ├── demo_explicit_spin10_gauge.py      # Non-Abelian gauge dynamics demo
-│   ├── demo_mukhanov_sasaki_solver.py     # Mukhanov-Sasaki solver demo
-│   ├── demo_numerical_rge_solver.py       # 2-loop RGE demo
-│   ├── demo_spectral_dimension_random_walk.py  # Spectral dimension demo
-│   ├── run_rge_unification_suite.py       # Full RGE unification analysis suite
-│   ├── comparison_data_2025.py            # 2025 experimental data comparison
-│   ├── confrontation_megii_mu3e.py        # MEG-II / Mu3e confrontation
-│   ├── przyklady_uzycia.py                # Usage examples
-│   ├── remedia_5_problemow.py             # 5 remedies script
-│   └── publikacja_[I–VI]_obliczenia.py    # Publication computations (Pub. I–VI)
-│
-├── results/
-│   └── test_results.json                  # Full test results export (35 observables)
-│
-└── docs/                                  # Documentation
-    ├── index.html                         # GitHub Pages site
-    ├── spin10_toe_hypothesis.md           # Grand Unification Hypothesis (GUH-S10)
-    ├── comparative_brochure.md            # 12-model comparison brochure
-    ├── README_synthetic_tests.md          # Synthetic test suite documentation
-    ├── confrontation-manifest.md          # Full confrontation manifest
-    ├── confrontation-megii-mu3e.md        # MEG-II / Mu3e confrontation details
-    ├── key-remedies.md                    # 5 key remedies
-    ├── remedies-5-problems.md             # 5 open problems & remedies
-    ├── tests-manifest.md                  # Test manifest
-    ├── three-generations-e8.md            # 3 generations from E8 predictions
-    ├── cosmological-constant.md           # Cosmological constant derivation
-    └── pub-[I–VII]-*.md                   # Heptalogy publication notes (7 volumes)
+spin10-toe/
+├── src/
+│   ├── spin10_engine.py             # Main ToE engine v8.0
+│   ├── spin10_engine_v9.py          # Complete integrated engine v9.0 / v9.7
+│   ├── explicit_spin10_gauge.py     # Non-Abelian SO(10) Link Variables module
+│   ├── spectral_dimension_random_walk.py # Fast Holographic Random Walk module
+│   ├── numerical_rge_solver.py      # Numerical 2-loop RGE ODE solver
+│   ├── mukhanov_sasaki_solver.py    # Primordial Mukhanov-Sasaki ODE solver
+│   ├── bayesian_mcmc_analysis.py    # emcee Bayesian MCMC Likelihood and inference
+│   ├── kluczowe_remedia.py          # 5 key remedies module
+│   ├── predykcje_testowalne.py      # Testable predictions module
+│   ├── konfrontacja_summary.py      # Experiment confrontation summary
+│   └── oblicz_lambda.py             # Cosmological constant calculation
+├── scripts/
+│   ├── demo_explicit_spin10_gauge.py     # Demo: Non-Abelian link relaxation
+│   ├── demo_spectral_dimension_random_walk.py # Demo: Scale-free d_S flow
+│   ├── demo_numerical_rge_solver.py      # Demo: 1-loop vs 2-loop RGE integration
+│   ├── demo_mukhanov_sasaki_solver.py    # Demo: Quantum primordial power spectrum
+│   ├── demo_bayesian_mcmc_analysis.py    # Demo: MCMC Bayesian parameter estimation
+│   ├── run_rge_unification_suite.py      # Lab: Multi-TeV Split-SUSY RGE sweep & plots
+│   ├── test_rge.py                       # User snippet: 2-loop RGE validation
+│   ├── test_bayes.py                     # User snippet: Bayesian MCMC validation
+│   ├── test_random_walk.py               # User snippet: 100k Random Walk validation
+│   ├── przyklady_uzycia.py               # Usage examples
+│   ├── remedia_5_problemow.py            # Remedies scripts
+│   └── publikacja_*_obliczenia.py        # Pub. I–VI standalone calculations
+├── tests/
+│   └── testy_eksperymentalne.py     # Experimental tests
+├── docs/
+│   ├── publications/                # PDF papers (Pub. I–VI)
+│   └── *.md                         # Rich theoretical documentation
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-## Quick Start
+## The 5 Key Remedies
 
-```bash
-git clone https://github.com/mickzaw-ctrl/spin10-toe-engine
-cd spin10-toe-engine
-pip install numpy scipy
-```
-
-**Run the main engine (v8.0):**
-```bash
-python3 src/spin10_engine.py
-```
-
-**Run the full test suite (35 observables):**
-```bash
-python3 tests/tests_synthetic_spin10_toe.py
-# Expected: 35/35 passed · mean χ² = 0.844 · THEORY CONSISTENT WITH DATA
-```
-
-**Run the Enterprise v10.0 demo (4 pillars):**
-```bash
-pip install numpy scipy fastapi httpx  # optional: cupy qiskit torch torch-geometric
-python3 scripts/demo_enterprise_platform.py
-```
-
-**Run the 2-loop RGE unification suite:**
-```bash
-python3 scripts/run_rge_unification_suite.py
-```
-
-**Run Bayesian MCMC analysis:**
-```bash
-pip install emcee
-python3 scripts/demo_bayesian_mcmc_analysis.py
-```
-
----
-
-## Engine Versions
-
-### v8.0 — Open Source Research Engine (`spin10_engine.py`)
-
-The original SHZSpin10QuantumEngine implementing 8 physics modules:
-
-| Module | Description |
-|---|---|
-| `RelationalGraph` | Pre-geometry — MCMC Metropolis-Hastings relational network, Var(k) → 32.67 |
-| `Spin10Gauge` | Spin(10) gauge symmetry with 45 generators, Wilson loop relaxation |
-| `SplitSUSY` | Split-type SUSY: M_SUSY = 5 TeV, m_g̃ = 10.6 TeV, LSP = 1.5 TeV |
-| `AsymptoticSafety` | Quantum gravity with UV fixed point g* = 0.83 |
-| `AlphaAttractor` | α-attractor (CFT) inflation: n_s = 0.9667, r = 0.0125 |
-| `ResonantLeptogenesis` | 3-flavour resonant leptogenesis, η_B = 6.1×10⁻¹⁰ |
-| `TorsionFifthForce` | Torsion as 5th force: α₅ ~ 10⁻⁶ (IUPUI 2025+) |
-| `AxionPhysics` | Axion from PQ-symmetry, m_a = 28.5 neV (CASPEr 2028) |
-
-### v9.0 — Enhanced Engine (`spin10_engine_v9.py`)
-
-Extends v8.0 with:
-- **2-loop RGE integration** with Split-SUSY threshold corrections
-- **Improved M_GUT calculation** (1.03×10¹⁶ GeV, sin²θ_W = 0.3779)
-- **Mukhanov-Sasaki quantum inflation** numerical solver
-- **Spectral dimension** Lazy Random Walk (no Laplacian diagonalization)
-
-### v10.0-PRO — Enterprise Edition (`spin10_enterprise_core.py`) ★
-
-Commercial-grade engine with 4 pillars:
-
-| Pillar | Technology | Capability |
-|---|---|---|
-| **1. HPC/GPU** | CUDA / CuPy | SO(10) matrix relaxation at 10⁷ edges/s on GPU |
-| **2. Quantum Bridge** | Qiskit / Cirq / D-Wave | Automatic compiler: ToE graph → QAOA/VQE circuits |
-| **3. SciML Digital Twins** | GNN / PINNs / PyTorch | Real-time Digital Twins for Industry 4.0 & Plasma Fusion |
-| **4. Cloud Microservice API** | FastAPI / REST / gRPC | SaaS deployment at `cloud.shz-quantum.com` |
-
-```python
-from src.spin10_enterprise_core import (
-    Spin10EnterpriseHPCEngine,    # Pillar 1: GPU/CUDA
-    QuantumHardwareBridge,         # Pillar 2: Quantum computing
-    SciMLDigitalTwinSurrogate,     # Pillar 3: Digital Twins
-    app                            # Pillar 4: FastAPI app
-)
-```
-
----
-
-## Test Results
-
-All 35 observables pass across 9 independent experiments:
-
-| Observable | Experiment | Prediction | χ² | Status |
-|---|---|---|---|---|
-| n_s | Planck PR4 | 0.9667 | 0.24 | ✅ pass |
-| r | LiteBIRD | 0.0125 | 0.30 | ✅ pass |
-| f_NL^eq | CMB-S4 | 14.5 | 2.94 | ✅ pass |
-| Ω_GW(1mHz) | LISA | 10⁻⁷ | 0.21 | ✅ pass |
-| m_axion | CASPEr | 28.5 neV | 0.16 | ✅ pass |
-| m_gluino | HE-LHC | 10.6 TeV | 0.11 | ✅ pass |
-| τ_p(e⁺π⁰) | Hyper-K | 4.9×10³⁶ yr | 0.09 | ✅ pass |
-| η_B | Planck ηB | 6.1×10⁻¹⁰ | 0.14 | ✅ pass |
-| α₅ (torsion) | IUPUI | ~10⁻⁶ | 0.08 | ✅ pass |
-| M_GUT | internal | 1.03×10¹⁶ GeV | 0.10 | ✅ pass |
-| g* (UV fixed pt) | internal | 0.83 | 0.12 | ✅ pass |
-| d_S (UV→IR) | internal | 2.0 → 4.0 | 0.07 | ✅ pass |
-| + 23 more | (Var_k, N_gen, H₀, Ω_DM, CF_bounce, Weyl anomaly…) | | | ✅ all pass |
-
-**Summary: 35/35 passed · mean χ² = 0.844 · verdict: THEORY CONSISTENT WITH DATA**
-
-Full results: [`results/test_results.json`](results/test_results.json)
-
----
-
-## Key Predictions (38 testable observables)
-
-### ⚡ Critical test — 2026
-| Observable | Prediction | Experiment | Note |
+| # | Remedy | Formula | Result |
 |---|---|---|---|
-| BR(μ→eγ) | **8×10⁻¹⁴** | MEG-II final 2026 | **1.3σ signal expected** |
-
-### Upcoming tests 2027–2035
-| Observable | Prediction | Experiment | Year |
-|---|---|---|---|
-| m_gluino | 10.6 TeV | HE-LHC | 2027+ |
-| m_axion | 28.5 neV | CASPEr | 2028 |
-| BR(μ→eee) | ~10⁻¹⁶ | Mu3e Phase-II | 2030 |
-| r (tensor ratio) | 0.0125 | LiteBIRD | 2030 |
-| f_NL^equil | 14.5 | CMB-S4 | 2028–2032 |
-| Ω_GW(1mHz) | 10⁻⁷ | LISA | 2034+ |
-| τ_p(e⁺π⁰) | 4.9×10³⁶ yr | Hyper-K | 2035+ |
-| α₅ (torsion) | ~10⁻⁶ | IUPUI | 2025+ |
-
-Full prediction set: [`docs/spin10_toe_hypothesis.md`](docs/spin10_toe_hypothesis.md)
+| 1 | **Split-SUSY** | $M_{\text{SUSY}}=5$ TeV | $m_{\tilde{g}}=10.6$ TeV |
+| 2 | **3-flavour Boltzmann** | $F=4.27\times 10^{11}$ | $\eta_B=6.2\times 10^{-10}$ ✅ |
+| 3 | **Hidden SUSY sector** | $N_{\text{hid}}=125$ multiplets | $a_4=0$ (Weyl anomaly free) ✅ |
+| 4 | **Network scaling** $N=10^6$ | $P=1-0.33/\sqrt{N}$ | >99.97% holographic bound |
+| 5 | **Spectral dim. flow** | $d_S=4(1-e^{-N/150})$ | $2\to 4$ ✅ |
 
 ---
 
-## Documentation
+## Demonstration Visualizations
 
-| Document | Description |
-|---|---|
-| [`docs/spin10_toe_hypothesis.md`](docs/spin10_toe_hypothesis.md) | Grand Unification Hypothesis — 5 axioms, symmetry breaking chain, all 38 predictions |
-| [`docs/comparative_brochure.md`](docs/comparative_brochure.md) | 12-model comparison: SU(5), SO(10), E₆, M-theory, LQG, CDT, Causal Sets and more |
-| [`docs/confrontation-manifest.md`](docs/confrontation-manifest.md) | Full experimental confrontation manifest |
-| [`docs/confrontation-megii-mu3e.md`](docs/confrontation-megii-mu3e.md) | MEG-II / Mu3e lepton-flavour-violation analysis |
-| [`docs/key-remedies.md`](docs/key-remedies.md) | 5 key remedies for open problems |
-| [`docs/remedies-5-problems.md`](docs/remedies-5-problems.md) | 5 open problems in physics and Spin(10) solutions |
-| [`docs/three-generations-e8.md`](docs/three-generations-e8.md) | Three fermion generations from E8 predictions |
-| [`docs/cosmological-constant.md`](docs/cosmological-constant.md) | Cosmological constant derivation |
-| [`docs/pub-I-extensions.md`](docs/pub-I-extensions.md) | Publication I — Cosmology & Lorentz extensions |
-| [`docs/pub-II-integration.md`](docs/pub-II-integration.md) | Publication II — Inflationary spectrum & entropy |
-| [`docs/pub-III-trilogy.md`](docs/pub-III-trilogy.md) | Publication III — α-attractors, CPT, SGWB, torsion |
-| [`docs/pub-IV-tetralogy.md`](docs/pub-IV-tetralogy.md) | Publication IV — Fermions, leptogenesis, f_NL, CMB |
-| [`docs/pub-V-pentalogy.md`](docs/pub-V-pentalogy.md) | Publication V — Resonant leptogenesis, RGE, bispectrum, axion |
-| [`docs/pub-VI-hexalogy.md`](docs/pub-VI-hexalogy.md) | Publication VI — SUSY, full QG, gravitino, emergence |
-| [`docs/pub-VII-final.md`](docs/pub-VII-final.md) | Publication VII — Final heptalogy synthesis |
+When running the demonstration suites, the engine produces publication-quality PNG visual targets directly in the active root directory:
+
+- **`rge_unification_trajectories.png`**: Multi-coupling convergence target confirming absolute gauge unification at $M_{\text{GUT}} \approx 1.03 \times 10^{16}\text{ GeV}$.
+- **`bayesian_mcmc_posterior_plot.png`**: Bayesian posterior corner plots across ToE parameters ($M_{\text{SUSY}}, \alpha_{\text{attractor}}, CF$) displaying MAP Best-Fits.
 
 ---
 
-## Theoretical Foundation (GUH-S10)
+## Publications (PDF)
 
-The **Grand Unification Hypothesis** rests on five axioms:
+All papers are in [`docs/publications/`](docs/publications/):
 
-| Axiom | Statement | Formula |
-|---|---|---|
-| **A1** Spin(10) | All 15 SM fermions + ν_R in a single spinor representation | Ψ ∈ 𝟙₆ ⊂ Spin(10) |
-| **A2** Relational | Spacetime emerges from a Metropolis-Hastings relational network | Var(k) → 32.67 |
-| **A3** Holographic | Network entropy saturates holographic bound >99.97% | P = 1 − 0.33/√N |
-| **A4** Asymptotic Safety | Non-trivial UV fixed point guarantees finiteness | g* = 0.83 |
-| **A5** Spectral Dimension | Dimension flows with energy scale: UV→IR | d_S = 4(1 − e^{−N/150}) |
-
-**Symmetry breaking chain:**
-```
-Spin(10) → SU(5)×U(1)_χ → SU(3)_C×SU(2)_L×U(1)_Y → SU(3)_C×U(1)_EM
-    ↓               ↓                    ↓                        ↓
- M_GUT        M_intermediate          M_EW ≈ 246 GeV            today
-1.03×10¹⁶ GeV
-```
+- **Pub. I** — Quantum Cosmology, Lorentz Invariance, Big Bounce
+- **Pub. II** — Inflationary Power Spectrum, dS Entropy, Holography
+- **Pub. III** — α-Attractors, CPT, SGWB, Torsion as 5th Force
+- **Pub. IV** — Fermion Generations, Leptogenesis, f_NL, CMB Bispectrum
+- **Pub. V** — Resonant Leptogenesis, RGE, Bispectrum, Axion
+- **Pub. VI** — SUSY, Full QG, Gravitino, Emergence
 
 ---
-
-## Related Repositories
-
-| Repository | Description |
-|---|---|
-| [mickzaw-ctrl/spin10-toe](https://github.com/mickzaw-ctrl/spin10-toe) | Main project — heptalogy, 7 publications, 6 PDFs, GitHub Pages |
-| [mickzaw-ctrl/spin10-toe-engine](https://github.com/mickzaw-ctrl/spin10-toe-engine) | This repo — computational engine, tests, Enterprise v10.0 |
-
-🌐 Main project site: [mickzaw-ctrl.github.io/spin10-toe](https://mickzaw-ctrl.github.io/spin10-toe)  
-🌐 Engine site: [mickzaw-ctrl.github.io/spin10-toe-engine](https://mickzaw-ctrl.github.io/spin10-toe-engine)
-
----
-
-## Author
-
-**Michał Ślusarczyk** — original concept, theoretical framework, and formulas  
-Engine implementation: SHZSpin10QuantumEngine v8.0 / v9.0 / v10.0-PRO
 
 ## Citation
 
+If you use this code or results in your research, please cite:
+
 ```bibtex
 @software{slusarczyk2026spin10toe,
-  author    = {Ślusarczyk, Michał},
-  title     = {Spin(10) Theory of Everything — Computational Engine},
-  year      = {2026},
-  version   = {10.0-PRO},
-  url       = {https://github.com/mickzaw-ctrl/spin10-toe-engine},
-  license   = {MIT}
+  author  = {Ślusarczyk, Michał},
+  title   = {{Spin(10) Theory of Everything — SHZSpin10QuantumEngine}},
+  year    = {2026},
+  url     = {https://github.com/YOUR_USERNAME/spin10-toe},
+  version = {9.7}
 }
 ```
 
-See also: [`CITATION.cff`](CITATION.cff)
+---
 
-## License
+## License & Commercial Dual-Licensing
 
-[MIT](LICENSE) — open-source core (v8.0/v9.0)  
-Commercial dual-license available for Enterprise v10.0-PRO — contact via GitHub Issues.
+This repository operates under a **Dual-Licensing Strategy** designed to maximize scientific collaboration while protecting the author's Intellectual Property in commercial settings:
+
+1. **Open-Source Academic License (`GNU AGPLv3`)**: 
+   Free for all academic, personal, scientific, and educational research purposes under the definitive copyleft network terms of the **[GNU Affero General Public License v3](LICENSE)**. If you modify or host this software on a publicly accessible network server / SaaS API, you must distribute your corresponding source code under the same AGPLv3 terms.
+2. **Proprietary Enterprise License (`Commercial License`)**: 
+   If you intend to integrate, adapt, or deploy this computational engine (or its valuable subcomponents, such as the Non-Abelian $SO(10)$ Link Variables, the $N=10^6$ Random Walk Wymiar Spektralny flow modules, the Multi-TeV Split-SUSY RGE ODE integration suites, or the SciML Bayesian Bliźniaki Cyfrowe) within proprietary, commercial oprogramowanie or closed SaaS cloud platforms without opening your internal product source code, you must secure an explicit **Commercial Enterprise License** directly from the author.
+
+---
+
+*SHZSpin10QuantumEngine v9.7 — complete Spin(10) heptalogy implementation with 5 key remedies, 38 testable predictions, and dual-licensed professional research laboratories.*
