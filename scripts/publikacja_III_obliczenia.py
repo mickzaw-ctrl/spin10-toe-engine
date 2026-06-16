@@ -1,6 +1,6 @@
 """
-Publikacja III - Alpha-Attractor, CPT, SGWB, Baryogeneza
-Finalna trylogia - wszystkie elementy obliczone
+Publication III - Alpha-Attractor, CPT, SGWB, Baryogeneza
+Finalna trylogia - wszystkie elementy computeone
 """
 import math
 import numpy as np
@@ -14,7 +14,7 @@ Var_k  = 0.262
 cos_Phi= 0.688
 CF     = 0.738
 
-# Nowe parametry α-attractor
+# Nowe parameters α-attractor
 SPIN10_DIM = 45
 alpha_attractor = SPIN10_DIM / 12.0   # = 3.75 - KLUCZOWE!
 
@@ -45,14 +45,14 @@ print(" 1. ALPHA-ATTRACTOR - widmo P(k)")
 print("="*65)
 
 print(f"α = dim(Spin10)/12 = {SPIN10_DIM}/12 = {alpha_attractor}")
-print(f"  Motywacja: topologia Spin(10) → geometria Kählera")
+print(f"  Motywacja: topology Spin(10) → geometry Kählera")
 
-# Analityczne formuły α-attractor (Kallosh-Linde)
+# Analityczne formuly α-attractor (Kallosh-Linde)
 n_s_analytic = 1 - 2.0/N_efolds
 r_analytic   = 12.0 * alpha_attractor / N_efolds**2
 A_s_analytic = 2.10e-9  # kalibrowane do COBE
 
-print(f"\nFormuły analityczne (Kallosh-Linde):")
+print(f"\nFormuly analityczne (Kallosh-Linde):")
 print(f"  n_s = 1 - 2/N      = 1 - 2/60 = {n_s_analytic:.4f}")
 print(f"  r   = 12α/N²       = 12·{alpha_attractor}/3600 = {r_analytic:.4f}")
 print(f"  A_s (po kalibracji)= {A_s_analytic:.2e}")
@@ -63,14 +63,14 @@ print(f"              r = {r_analytic} < 0.036 -> {'ZGODNE' if r_analytic < 0.03
 # Numeryczne z Publikacji III
 n_s_numerical = 1.0001
 r_numerical   = 0.000001
-print(f"\nWartości numeryczne (z PIII):")
+print(f"\nWartosci numeryczne (z PIII):")
 print(f"  n_s (numeryczne) = {n_s_numerical}")
 print(f"  r (numeryczne)   = {r_numerical}")
 print(f"  Uwaga: n_s=1.0001 jest 8σ od Planck 0.9649!")
 print(f"         (may include network effects, corrections)")
 
 # Poprawiony r dla detekcji
-r_for_LiteBIRD = r_analytic  # użyjemy analitycznej
+r_for_LiteBIRD = r_analytic  # uzyjemy analitycznej
 print(f"\nKLUCZOWE dla LiteBIRD:")
 print(f"  r = {r_for_LiteBIRD:.4f}")
 print(f"  LiteBIRD czulosc: σ(r) ~ 10^-3")
@@ -90,7 +90,7 @@ print("\n" + "="*65)
 print(" 2. CPT przy BIG BOUNCE")
 print("="*65)
 
-# Wyniki z PIII
+# Results z PIII
 S_bounce_norm = 0.000000
 S_CPT_norm    = 0.000000
 unitarity_pre = 0.000000
@@ -100,7 +100,7 @@ coherence_post= 0.139
 delta_CP      = -0.3581
 
 print(f"||S_bounce||/N     = {S_bounce_norm:.6f}  (ideal unitarity)")
-print(f"||S_CPT||/N        = {S_CPT_norm:.6f}  (idealna symetria CPT)")
+print(f"||S_CPT||/N        = {S_CPT_norm:.6f}  (idealna symmetry CPT)")
 print(f"Unitarity (pre)   = {unitarity_pre:.6f}  (S†S = I)")
 print(f"Unitarity (post)  = {unitarity_post:.6f}  (S†S = I po bounce)")
 print(f"Koherencja pre    = {coherence_pre:.4f}")
@@ -112,21 +112,21 @@ print(f"δ_CP              = {delta_CP:.4f}  (zviolation CP - Sacharow OK)")
 print(f"\nWarunki Sacharowa (1967):")
 print(f"  1. Zviolation B:     Δ_Pontryagin ≠ 0 → sphaleron       ✓")
 print(f"  2. Zviolation C+CP:  δ_CP = {delta_CP} ≠ 0, T·F̃ ≠ 0  ✓")
-print(f"  3. Brak równowagi: Big Bounce (niestacjonarna era)    ✓")
+print(f"  3. Brak rownowagi: Big Bounce (niestacjonarna era)    ✓")
 
 # =================================================================
-#  3. SGWB - STOCHASTYCZNE TŁO FAL GRAWITACYJNYCH
+#  3. SGWB - STOCHASTYCZNE TLO FAL GRAWITACYJNYCH
 # =================================================================
 print("\n" + "="*65)
-print(" 3. SGWB - Stochastyczne Tło Fal Grawitacyjnych")
+print(" 3. SGWB - Stochastyczne Tlo Fal Grawitacyjnych")
 print("="*65)
 
 # Omega_r0 - present-day radiation density
 Omega_r0 = 9.2e-5   # h² × Ω_r
 
-# A. Inflacja α-attractor
+# A. Inflation α-attractor
 def omega_gw_inflation(f, r=r_analytic, n_s=n_s_analytic, A_s=A_s_analytic):
-    """Ω_GW^inf(f) z tensor modes inflacji"""
+    """Ω_GW^inf(f) z tensor modes inflation"""
     if f <= 0:
         return 0
     k = 6.5e14 * f  # Hz -> Mpc^-1
@@ -134,7 +134,7 @@ def omega_gw_inflation(f, r=r_analytic, n_s=n_s_analytic, A_s=A_s_analytic):
     # Tensor spectrum
     P_t = r * A_s * (k/k_star)**(-r/8) if k > 0 else 0
     # Transfer function (radiation -> matter)
-    T2 = 1.0  # przybliżenie
+    T2 = 1.0  # przyblizenie
     return (Omega_r0 / 12.0) * P_t * T2
 
 # B. GUT Spin(10) transition
@@ -152,7 +152,7 @@ def omega_gw_bounce(f, f_b=1e-3):
     amplitude = 1e-7
     return amplitude * math.exp(-0.5*((f-f_b)/sigma_f)**2)
 
-# Widmo całkowite
+# Widmo calkowite
 def omega_gw_total(f):
     return omega_gw_inflation(f) + omega_gw_gut(f) + omega_gw_bounce(f)
 
@@ -162,7 +162,7 @@ Omega_peak = omega_gw_total(f_peak)
 Omega_max  = 5.18e-7
 
 print(f"Three SGWB sources:")
-print(f"  1. Inflacja α-att:  Ω_GW^inf ~ {omega_gw_inflation(1e-3):.2e} przy 1 mHz")
+print(f"  1. Inflation α-att:  Ω_GW^inf ~ {omega_gw_inflation(1e-3):.2e} przy 1 mHz")
 print(f"  2. GUT Spin(10):    peak przy {100} Hz, Ω_GW^GUT ~ {omega_gw_gut(100):.2e}")
 print(f"  3. Big Bounce:      peak przy 1 mHz, Ω_GW^bounce ~ {omega_gw_bounce(1e-3):.2e}")
 
@@ -172,19 +172,19 @@ print(f"  Przy f = {f_peak} Hz (pasmo LISA)")
 
 # Detector sensitivities
 print(f"\nComparison z detektorami:")
-print(f"  LISA:  próg ~ 10^-14 przy 1 mHz")
-print(f"  Spin(10) sygnał:  {omega_gw_total(1e-3):.2e}")
+print(f"  LISA:  prog ~ 10^-14 przy 1 mHz")
+print(f"  Spin(10) sygnal:  {omega_gw_total(1e-3):.2e}")
 print(f"  SNR:  {omega_gw_total(1e-3) / 1e-14:.0e} (dekad)")
 
-print(f"\n  Einstein T.:  próg ~ 10^-12 przy 100 Hz")
+print(f"\n  Einstein T.:  prog ~ 10^-12 przy 100 Hz")
 print(f"  Spin(10) GUT peak:  {omega_gw_gut(100):.2e}")
 print(f"  SNR:  {omega_gw_gut(100) / 1e-12:.0e}")
 
-print(f"\n  DECIGO:  próg ~ 10^-15 przy 0.1-10 Hz")
+print(f"\n  DECIGO:  prog ~ 10^-15 przy 0.1-10 Hz")
 print(f"  Spin(10):  {omega_gw_total(1):.2e}")
 print(f"  SNR:  {omega_gw_total(1) / 1e-15:.0e}")
 
-# Widmo w pełnym rangeie
+# Widmo w pelnym rangeie
 print(f"\nWidmo Ω_GW(f) [Hz]:")
 print(f"  {'f [Hz]':<12} | {'Ω_GW·h²':<14} | {'Detector':<20}")
 print(f"  " + "-"*50)
@@ -212,10 +212,10 @@ print("\n" + "="*65)
 print(" 4. TORSJA i BARYOGENEZA")
 print("="*65)
 
-# Wyniki z PIII
+# Results z PIII
 T2_rms    = 0.1959    # RMS torsji
-Delta_Pont= 11.38     # całka Pontryagina
-Delta_j5  = 2 * N_f * Delta_Pont + 1e11  # przybliżenie
+Delta_Pont= 11.38     # calka Pontryagina
+Delta_j5  = 2 * N_f * Delta_Pont + 1e11  # przyblizenie
 g_star    = 151.75    # SM + Spin(10)
 
 print(f"<T²> (RMS torsji)        = {T2_rms:.4f}")
@@ -223,76 +223,76 @@ print(f"Δ_Pontryagin              = {Delta_Pont:.4f}")
 print(f"Δj₅ (anomalia ABJ)         = {Delta_j5:.2e}")
 print(f"g* (stopnie swobody)      = {g_star:.2f}")
 
-# Formuła Sakharov-Kuzmin
+# Formula Sakharov-Kuzmin
 T_BBN = 1e10  # K - temperatura BBN
 s_entropy = (2*math.pi**2/45) * g_star * T_BBN**3  # przyblizenie
 
-# Asymetria barionowa
+# Asymmetry barionowa
 eta_B = (alpha_EW/math.pi) * (Delta_j5 / s_entropy) * (28.0/79.0)
 eta_B_obs = 6.10e-10
 
 print(f"\nBaryogeneza:")
-print(f"  T_BBN (przybliżenie)    = {T_BBN:.0e} K")
-print(f"  s (entropia)            = {s_entropy:.2e}")
+print(f"  T_BBN (przyblizenie)    = {T_BBN:.0e} K")
+print(f"  s (entropy)            = {s_entropy:.2e}")
 print(f"  η_B (model)             = {eta_B:.2e}")
 print(f"  η_B (observacja)        = {eta_B_obs:.2e}")
 print(f"  Stosunek                = {eta_B/eta_B_obs:.1f}×  ({'OK' if eta_B/eta_B_obs < 10 else 'poprawka potrzebna'})")
 print(f"  δ_CP                    = {delta_CP:.4f}  (≠0 = warunek Sacharow)")
 
 # =================================================================
-#  5. PEŁNA TRYKOGIA - PODSUMOWANIE PREDYKCJI
+#  5. PELNA TRYKOGIA - PODSUMOWANIE PREDYKCJI
 # =================================================================
 print("\n" + "="*72)
-print(" PEŁNA TRYKOGIA - macierz predykcji")
+print(" PELNA TRYKOGIA - matrix predykcji")
 print("="*72)
-print(f"{'Predykcja':<32} | {'Model':<18} | {'Eksperyment':<18} | Status")
+print(f"{'Prediction':<32} | {'Model':<18} | {'Eksperyment':<18} | Status")
 print("-"*72)
 print(f"{'n_s (α-att analityczne)':<32} | {n_s_analytic:<18.4f} | Planck           | {'OK'}")
 print(f"{'r (α-att analityczne)':<32} | {r_analytic:<18.4f} | BICEP/LiteBIRD   | {'OK'}")
-print(f"{'r (Pub II dla porównania)':<32} | {r_PII:<18.4f} | (wykluczone)     | ❌")
+print(f"{'r (Pub II dla porownania)':<32} | {r_PII:<18.4f} | (wykluczone)     | ❌")
 print(f"{'A_s (α-att)':<32} | {A_s_analytic:<18.2e} | COBE             | OK")
 print(f"{'SGWB peak (LISA)':<32} | {Omega_max:<18.2e} | LISA 2035        | ★★★")
 print(f"{'||S_bounce||/N':<32} | {S_bounce_norm:<18.6f} | (unitarity)     | ✓✓✓")
-print(f"{'||S_CPT||/N':<32} | {S_CPT_norm:<18.6f} | (symetria CPT)   | ✓✓✓")
+print(f"{'||S_CPT||/N':<32} | {S_CPT_norm:<18.6f} | (symmetry CPT)   | ✓✓✓")
 print(f"{'δ_CP':<32} | {delta_CP:<18.4f} | (Sacharow)       | ✓")
-print(f"{'η_B (Spin10)':<32} | {eta_B:<18.2e} | obserwacja       | {eta_B/eta_B_obs:.0f}× za dużo")
+print(f"{'η_B (Spin10)':<32} | {eta_B:<18.2e} | obserwacja       | {eta_B/eta_B_obs:.0f}× za duzo")
 print(f"{'η_B (obserwacja)':<32} | {eta_B_obs:<18.2e} | WMAP/BBN         | ✓")
-print(f"{'Δ_Pontryagin':<32} | {Delta_Pont:<18.4f} | (topologia)      | ✓")
+print(f"{'Δ_Pontryagin':<32} | {Delta_Pont:<18.4f} | (topology)      | ✓")
 print(f"{'T² RMS':<32} | {T2_rms:<18.4f} | (torsja)         | ✓")
 print("="*72)
 
 # =================================================================
-#  6. STRATEGIA TESTOWANIA - 3 NAJWAŻNIEJSZE TESTY
+#  6. STRATEGIA TESTOWANIA - 3 NAJWAZNIEJSZE TESTY
 # =================================================================
 print("\n" + "="*72)
-print(" TRZY KLUCZOWE TESTY NAJBLIŻSZYCH 10 LAT")
+print(" TRZY KLUCZOWE TESTY NAJBLIZSZYCH 10 LAT")
 print("="*72)
 
 # Test 1: SGWB w LISA
 print("\n[TEST 1] SGWB w LISA (2035)")
-print(f"  Predykcja:  Ω_GW(1 mHz) ~ {omega_gw_total(1e-3):.2e}")
-print(f"  LISA próg:  ~10^-14")
+print(f"  Prediction:  Ω_GW(1 mHz) ~ {omega_gw_total(1e-3):.2e}")
+print(f"  LISA prog:  ~10^-14")
 print(f"  Signal:     7 DECADES above noise")
-print(f"  Jeśli TAK:  POTWIERDZENIE modelu Spin(10)")
+print(f"  Jesli TAK:  POTWIERDZENIE modelu Spin(10)")
 print(f"  If NO:  STRONG signal against model")
 
 # Test 2: r w LiteBIRD
 print("\n[TEST 2] r w LiteBIRD (2030)")
-print(f"  Predykcja:  r = {r_analytic:.4f}")
+print(f"  Prediction:  r = {r_analytic:.4f}")
 print(f"  LiteBIRD:   σ(r) ~ 10^-3")
-print(f"  Jeśli 0.001 < r < 0.04:    POTWIERDZENIE")
+print(f"  Jesli 0.001 < r < 0.04:    POTWIERDZENIE")
 print(f"  If r > 0.04:            FALSIFICATION (α-att too weak)")
-print(f"  Jeśli r < 10^-4:           FALSYFIKACJA (α-att za mocne)")
+print(f"  Jesli r < 10^-4:           FALSYFIKACJA (α-att za mocne)")
 
 # Test 3: CMB-S4
 print("\n[TEST 3] n_s, A_s w CMB-S4 (2028)")
-print(f"  Predykcja:  n_s = {n_s_analytic:.4f}, A_s = {A_s_analytic:.2e}")
+print(f"  Prediction:  n_s = {n_s_analytic:.4f}, A_s = {A_s_analytic:.2e}")
 print(f"  CMB-S4:     σ(n_s) ~ 10^-3, σ(A_s) ~ 10^-11")
-print(f"  Jeśli 0.96 < n_s < 0.97:  POTWIERDZENIE")
-print(f"  Jeśli n_s > 0.99:         FALSYFIKACJA (numeryczne z PIII)")
+print(f"  Jesli 0.96 < n_s < 0.97:  POTWIERDZENIE")
+print(f"  Jesli n_s > 0.99:         FALSYFIKACJA (numeryczne z PIII)")
 
 # =================================================================
-#  7. COMPARISON Z LITERATURĄ - TABELA
+#  7. COMPARISON Z LITERATURA - TABELA
 # =================================================================
 print("\n" + "="*72)
 print(" COMPARISON Z INNYMI MODELAMI INFLACJI")
@@ -304,38 +304,38 @@ print(f"{'α-att (α=1, Kallosh)':<25} | {1-2/60:<8.4f} | {12/60**2:<10.4f} | re
 print(f"{'α-att Spin(10) α=3.75':<25} | {n_s_analytic:<8.4f} | {r_analytic:<10.4f} | NASZ MODEL")
 print(f"{'Natural inflation':<25} | 0.970    | 0.05     | wykluczone")
 print(f"{'Axion monodromy':<25} | 0.97     | 0.01-0.07| marginalne")
-print(f"{'String landscape':<25} | 0.96     | <0.001   | zbyt małe r")
+print(f"{'String landscape':<25} | 0.96     | <0.001   | zbyt male r")
 print(f"{'Higgs inflation':<25} | 0.967    | 0.003    | OK ale Λ problem")
 print(f"{'Pub. II (Spin10)':<25} | 0.981    | 0.19     | ❌ (przed α-att)")
 print("="*72)
 
 # =================================================================
-#  8. PODSUMOWANIE KOŃCOWE
+#  8. PODSUMOWANIE KONCOWE
 # =================================================================
 print("\n" + "="*72)
 print(" KOMPLETNY OBRAZ MODELU PO 4 PUBLIKACJACH")
 print("="*72)
-print("\n✓ ROZWIĄZANE:")
+print("\n✓ ROZWIAZANE:")
 print("  - Trzy generacje (z E₈×E₈)")
 print("  - Sygnatura Lorentzowska")
 print("  - Big Bounce and cyclicity")
-print("  - Tensor Riemanna i Weyla na grafie")
-print("  - Entropia dS i test holograficzny")
+print("  - Tensor Riemanna i Weyla na graphie")
+print("  - Entropy dS i test holographic")
 print("  - α-attractor (r z 0.19 → 0.0125)")
 print("  - CPT idealnie zachowana przy Bounce")
 print("  - Wszystkie 3 warunki Sacharowa")
 print()
 print("⚠ PARTIALLY:")
-print("  - Test holograficzny 67% (z sieci N=120)")
+print("  - Test holographic 67% (z network N=120)")
 print("  - θ_13 (nadal ~5σ od eksperymentu)")
-print("  - η_B 7× za duże (poprawka w PIV)")
+print("  - η_B 7× za duze (poprawka w PIV)")
 print()
-print("❌ DO ROZWIĄZANIA:")
-print("  - Problem hierarchii Λ (Λ ~ 10^-3 vs 10^-122)")
-print("  - Renormalizacja w sieci Spin(10) (publ. IV/V)")
+print("❌ DO ROZWIAZANIA:")
+print("  - Problem hierarchy Λ (Λ ~ 10^-3 vs 10^-122)")
+print("  - Renormalizacja w network Spin(10) (publ. IV/V)")
 print()
-print("★★★ NAJWAŻNIEJSZE NOWE PREDYKCJE:")
-print("  - SGWB w LISA: Ω_GW ~ 10^-7 (7 dekad powyżej szumu)")
+print("★★★ NAJWAZNIEJSZE NOWE PREDYKCJE:")
+print("  - SGWB w LISA: Ω_GW ~ 10^-7 (7 dekad powyzej szumu)")
 print("  - r w LiteBIRD: 0.0125 (in range σ(r)~10^-3)")
 print("  - n_s w CMB-S4: 0.967 (σ ~ 10^-3)")
 print("  - CPT unitarity przy bounce (numerycznie perfekcyjna)")
