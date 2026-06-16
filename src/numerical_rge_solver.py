@@ -1,17 +1,17 @@
 """
 numerical_rge_solver.py
 =======================
-Advanced numerical module for integrating the coupled system of
-Group Equations (RGE) for gauge coupling constants g_1, g_2, g_3
-from the electroweak scale (M_Z = 91.2 GeV) to the Planck scale (M_P ~ 1.22e19 GeV).
+Zaawansowany module numeryczny do calkowania polaczonego ukladu Rownan
+Grupy Renormalizacji (RGE) stalych sprzezenia cechowania g_1, g_2, g_3
+od scale elektroslabej (M_Z = 91.2 GeV) do scale Plancka (M_P ~ 1.22e19 GeV).
 
-Module precisely accounts for Split-SUSY thresholds (Remedy #1) at scale M_SUSY,
-switching 1-loop and 2-loop beta-function coefficients from the Standard Model (SM)
-to Split-SUSY / MSSM coefficients. Determines the unification scale M_GUT at which couplings
-converge to the common value alpha_GUT.
+Module precyzyjnie uwzglednia progi Split-SUSY (Remedy #1) na scale M_SUSY,
+przelaczajac wspolczynniki beta-function 1-petlowych i 2-petlowych z Modelu Standardowego (SM)
+na wspolczynniki Split-SUSY / MSSM. Wyznacza skale unification M_GUT, na ktorej sprzezenia
+zbiegaja sie do wspolnej wartosci alpha_GUT.
 
-Autor: SHZSpin10QuantumEngine Team
-Wersja: 9.4 (Numerical RGE Flow)
+Author: SHZSpin10QuantumEngine Team
+Version: 9.4 (Numerical RGE Flow)
 """
 
 import numpy as np
@@ -24,13 +24,13 @@ class NumericalRGESolver:
     Wysokowydajny solwer numeryczny RGE dla algebry cechowania w Spin(10) ToE.
     """
     
-    # 1-loop coefficients b_i = (b_1, b_2, b_3)
+    # 1-petlowe wspolczynniki b_i = (b_1, b_2, b_3)
     # Dla Modelu Standardowego (SM):
     B1_SM = np.array([41.0 / 10.0, -19.0 / 6.0, -7.0], dtype=np.float64)
-    # For Split-SUSY / MSSM (above M_SUSY):
+    # Dla Split-SUSY / MSSM (powyzej M_SUSY):
     B1_SUSY = np.array([33.0 / 5.0, 1.0, -3.0], dtype=np.float64)
 
-    # 2-loop macierze B_{ij} (3x3)
+    # 2-petlowe matrixe B_{ij} (3x3)
     # Dla Modelu Standardowego (SM):
     B2_SM = np.array([
         [199.0 / 50.0, 27.0 / 10.0, 44.0 / 5.0],
@@ -53,19 +53,19 @@ class NumericalRGESolver:
         n_points: int = 300
     ) -> Tuple[np.ndarray, np.ndarray, float, float]:
         """
-        Integrates 1-loop RGE equations: dg_i / dt = b_i * g_i^3 / (16 * pi^2).
+        Calkuje 1-petlowe rownania RGE: dg_i / dt = b_i * g_i^3 / (16 * pi^2).
         Gdzie t = ln(mu).
         
         Zwraca: (t_vals, g_vals, alpha_GUT, best_M_GUT)
         """
-        # Warunki initial na scale M_Z = 91.1876 GeV (w convention SU(5) GUT g_1 = sqrt(5/3) g_Y)
+        # Warunki poczatkowe na scale M_Z = 91.1876 GeV (w konwencji SU(5) GUT g_1 = sqrt(5/3) g_Y)
         g_Z = np.array([0.462, 0.652, 1.221], dtype=np.float64)
         t_Z = np.log(91.1876)
         t_GUT = np.log(M_GUT_target)
 
         def beta_1loop(t, g):
             mu = np.exp(t)
-            # Split-SUSY threshold switch
+            # Przelacznik progowy Split-SUSY
             b = cls.B1_SUSY if mu >= M_SUSY else cls.B1_SM
             return b * (g**3) / (16.0 * np.pi**2)
 
@@ -82,7 +82,7 @@ class NumericalRGESolver:
         g_GUT = sol.y[:, -1]
         alpha_GUT = float((np.mean(g_GUT)**2) / (4.0 * np.pi))
         
-        # Znalezienie punktu optymalnej unification (gdzie variance g_i jest minimalna)
+        # Znalezienie punktu optymalnej unification (gdzie wariancja g_i jest minimalna)
         variances = np.var(sol.y, axis=0)
         best_idx = np.argmin(variances)
         best_M_GUT = float(np.exp(sol.t[best_idx]))
@@ -97,12 +97,12 @@ class NumericalRGESolver:
         n_points: int = 300
     ) -> Tuple[np.ndarray, np.ndarray, float, float]:
         """
-        Integrates the full 2-loop RGE equations:
+        Calkuje pelne 2-petlowe rownania RGE:
         dg_i / dt = b_i * g_i^3 / (16*pi^2) + g_i^3 * sum(B_{ij} g_j^2) / (256*pi^4).
         
         Zwraca: (t_vals, g_vals, alpha_GUT, best_M_GUT)
         """
-        # Warunki initial M_Z = 91.1876 GeV w GUT convention SU(5)/Spin(10)
+        # Warunki poczatkowe M_Z = 91.1876 GeV w GUT konwencji SU(5)/Spin(10)
         # g_1(M_Z) = np.sqrt(5/3) * g_Y(M_Z)
         g_Z = np.array([0.462, 0.652, 1.221], dtype=np.float64)
         t_Z = np.log(91.1876)
@@ -117,9 +117,9 @@ class NumericalRGESolver:
                 b1 = cls.B1_SM
                 b2 = cls.B2_SM
 
-            # Element 1-loop
+            # Element 1-petlowy
             term1 = b1 * (g**3) / (16.0 * np.pi**2)
-            # Element 2-loop: B_{ij} * g_j^2
+            # Element 2-petlowy: B_{ij} * g_j^2
             g2 = g**2
             term2 = (g**3) * np.dot(b2, g2) / (256.0 * np.pi**4)
             
@@ -137,7 +137,7 @@ class NumericalRGESolver:
 
         # Scale najlepszej unification
         variances = np.var(sol.y, axis=0)
-        # We consider only high scales > 10^14 GeV
+        # Bierzemy pod uwage tylko wysokie skale > 10^14 GeV
         valid_mask = sol.t > np.log(1e14)
         if np.any(valid_mask):
             valid_indices = np.where(valid_mask)[0]
@@ -159,15 +159,15 @@ class NumericalRGESolver:
         g_vals: np.ndarray
     ) -> Dict[str, Any]:
         """
-        Performs advanced convergence point analysis and computes ToE unification parameters.
+        Dokonuje zaawansowanej analizy punktu zbieznosci i computea parameters unification ToE.
         """
         # Skale GeV
         mu_vals = np.exp(t_vals)
         
-        # Coupling variance at each step
+        # Wariancja sprzezen na kazdym kroku
         diffs = np.std(g_vals, axis=0) / np.mean(g_vals, axis=0)
         
-        # Find minimum divergence for mu > 1e14 GeV
+        # Znajdz minimum rozbieznosci dla mu > 1e14 GeV
         high_scale_mask = mu_vals > 1e14
         if np.any(high_scale_mask):
             idx_gut = np.where(high_scale_mask)[0][np.argmin(diffs[high_scale_mask])]
@@ -179,13 +179,13 @@ class NumericalRGESolver:
         alpha_gut = float(np.mean(g_gut)**2 / (4.0 * np.pi))
         alpha_gut_inv = float(1.0 / alpha_gut)
 
-        # Weinberg angle at scale Z and at GUT scale: sin^2(theta_W) = g'^2 / (g'^2 + g^2)
-        # Remembering the convention g_1^2 = (5/3) g'^2  => g'^2 = (3/5) g_1^2
+        # Kat Weinberga na scale Z oraz na scale GUT: sin^2(theta_W) = g'^2 / (g'^2 + g^2)
+        # Pamietajac o konwencji g_1^2 = (5/3) g'^2  => g'^2 = (3/5) g_1^2
         g_1_gut, g_2_gut, g_3_gut = g_gut
         gp_gut_sq = (3.0 / 5.0) * (g_1_gut**2)
         sin2_theta_W_GUT = float(gp_gut_sq / (gp_gut_sq + g_2_gut**2))
 
-        # In ideal ToE SU(5)/Spin(10) unification sin^2(theta_W) approaches 3/8 = 0.375
+        # W idealnej unification ToE SU(5)/Spin(10) mamy sin^2(theta_W) dazace do 3/8 = 0.375
         theo_sin2 = 3.0 / 8.0
 
         return {
