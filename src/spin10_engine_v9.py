@@ -1,19 +1,19 @@
 """
 SHZSpin10QuantumEngine v9.0
 ===========================
-Aktualizacja z Publ. VII — Pełna Teoria Wszystkiego.
+Aktualizacja z Publ. VII — Pelna Teoria Wszystkiego.
 
-Nowe moduły:
-  - Multi-Bounce S-Matrix (koherencja między cyklami)
+Nowe moduley:
+  - Multi-Bounce S-Matrix (koherencja miedzy cyklami)
   - 2-loop RGE z SUSY threshold corrections
   - SGWB Non-Gaussianity (f_NL^GW)
-  - Torsja jako 5. siła
+  - Torsja jako 5. sila
   - Asymptotic Safety UV fixed point
 
 Status: Spin(10) ToE v8.0 -> v9.0 with full heptalogy
 """
 
-# Import z poprzedniej wersji
+# Import z poprzedniej version
 from spin10_engine import (
     Spin10Constants, Spin10Graph, Spin10Action,
     MonteCarloSimulator, Spin10Observables,
@@ -25,21 +25,21 @@ from typing import Dict, List, Tuple, Optional, Any
 
 
 # ============================================================================
-# NOWE MODUŁY Z PUBL. VII
+# NOWE MODULY Z PUBL. VII
 # ============================================================================
 
 class MultiBounceModule:
     """
-    Moduł A: Multi-Bounce S-Matrix (Publ. VII)
+    Module A: Multi-Bounce S-Matrix (Publ. VII)
     
-    Sekwencja N cykli Big Bounce z koherencją pola inflacyjnego.
+    Sekwencja N cykli Big Bounce z koherencja field inflacyjnego.
     """
     
     @staticmethod
     def coherence_after_N_cycles(N_cycles: int, coherence_initial: float = 0.159) -> float:
         """
-        Koherencja pola inflacyjnego po N cyklach Big Bounce.
-        Formuła: <e^{iφ}>_N = <e^{iφ}>_0 · (0.87)^N
+        Koherencja field inflacyjnego po N cyklach Big Bounce.
+        Formula: <e^{iφ}>_N = <e^{iφ}>_0 · (0.87)^N
         """
         decay_factor = 0.87  # 13% decoherence per bounce
         return coherence_initial * (decay_factor ** N_cycles)
@@ -62,7 +62,7 @@ class MultiBounceModule:
     
     @staticmethod
     def multi_bounce_report(N_max: int = 10) -> Dict[str, Any]:
-        """Pełny raport multi-bounce"""
+        """Pelny report multi-bounce"""
         cycles = list(range(1, N_max + 1))
         coherence = [MultiBounceModule.coherence_after_N_cycles(n) for n in cycles]
         echo = [MultiBounceModule.multi_bounce_echo_amplitude(n) for n in cycles]
@@ -80,7 +80,7 @@ class MultiBounceModule:
 
 class TwoLoopRGEModule:
     """
-    Moduł B: 2-loop RGE z SUSY threshold corrections (Publ. VII)
+    Module B: 2-loop RGE z SUSY threshold corrections (Publ. VII)
     
     Full coupling unification in Spin(10) SUSY.
     """
@@ -88,8 +88,8 @@ class TwoLoopRGEModule:
     @staticmethod
     def compute_2loop_unification(M_SUSY: float = 5000.0) -> Dict[str, Any]:
         """
-        Całkuje 2-pętlowe równania RGE z korektami progów Split-SUSY Spin(10).
-        Używa zaawansowanego solwera numerycznego z modułu numerical_rge_solver.
+        Calkuje 2-petlowe rownania RGE z korektami progow Split-SUSY Spin(10).
+        Uzywa zaawansowanego solwera numerycznego z module numerical_rge_solver.
         """
         try:
             from numerical_rge_solver import NumericalRGESolver
@@ -120,7 +120,7 @@ class TwoLoopRGEModule:
 
 class SGWBNonGaussianityModule:
     """
-    Moduł C: SGWB Non-Gaussianity (Publ. VII)
+    Module C: SGWB Non-Gaussianity (Publ. VII)
     
     Bispektrum fal grawitacyjnych z α-Attractor Spin(10).
     """
@@ -145,7 +145,7 @@ class SGWBNonGaussianityModule:
     
     @staticmethod
     def sgwb_ng_report() -> Dict[str, Any]:
-        """Raport SGWB non-Gaussianity"""
+        """Report SGWB non-Gaussianity"""
         f_NL = SGWBNonGaussianityModule.f_NL_GW()
         g_NL = SGWBNonGaussianityModule.g_NL_GW()
         
@@ -172,7 +172,7 @@ class TorsionFifthForceModule:
     """
     Module D: Torsion as 5th Force (Publ. VII)
     
-    Modyfikacja potencjału Newtona z polem torsji Spin(10).
+    Modyfikacja potencjalu Newtona z fieldm torsji Spin(10).
     """
     
     @staticmethod
@@ -200,7 +200,7 @@ class TorsionFifthForceModule:
     
     @staticmethod
     def torsion_5th_force_report() -> Dict[str, Any]:
-        """Raport torsja jako 5. siła"""
+        """Report torsja jako 5. sila"""
         potential = TorsionFifthForceModule.torsion_potential_correction()
         edm = TorsionFifthForceModule.torsion_electron_EDM()
         
@@ -220,7 +220,7 @@ class TorsionFifthForceModule:
 
 class AsymptoticSafetyModule:
     """
-    Moduł E: Asymptotic Safety w Spin(10) (Publ. VII)
+    Module E: Asymptotic Safety w Spin(10) (Publ. VII)
     
     UV fixed point g* = 0.83 (relevant operator dimension > d).
     """
@@ -250,7 +250,7 @@ class AsymptoticSafetyModule:
     
     @staticmethod
     def asymptotic_safety_report() -> Dict[str, Any]:
-        """Raport Asymptotic Safety"""
+        """Report Asymptotic Safety"""
         uv_fp = AsymptoticSafetyModule.uv_fixed_point()
         n_s_AS = AsymptoticSafetyModule.modify_n_s_with_AS()
         
@@ -317,7 +317,7 @@ class Spin10TestsV7:
             'name': 'Torsion as 5th Force',
             'alpha_5_prediction': report['Spin10_prediction'],
             'IUPUI_sensitivity': 'α_5 < 10^-6',
-            'passes': True,  # W zasięgu IUPUI
+            'passes': True,  # W zasiegu IUPUI
         }
     
     @staticmethod
@@ -349,13 +349,13 @@ class Spin10TestsV7:
 
 class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
     """
-    Silnik Spin(10) v9.0 — pełna heptalogia (7 publikacji).
+    Engine Spin(10) v9.0 — pelna heptalogia (7 publikacji).
     
-    Rozszerza v8.0 o moduły z Publ. VII:
+    Rozszerza v8.0 o moduley z Publ. VII:
     - Multi-Bounce S-Matrix
     - 2-loop RGE z SUSY
     - SGWB Non-Gaussianity
-    - Torsja jako 5. siła
+    - Torsja jako 5. sila
     - Asymptotic Safety
     """
     
@@ -364,8 +364,8 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
         self.version = 'v9.0'
     
     def compute_predictions_v7(self) -> Dict[str, Any]:
-        """Predykcje z Publ. VII"""
-        # Obliczenia z solwera kwantowego Mukanova-Sasakiego
+        """Predictions z Publ. VII"""
+        # Computations z solwera quantum Mukanova-Sasakiego
         try:
             from mukhanov_sasaki_solver import MukhanovSasakiSolver
             k_m = np.geomspace(0.005, 0.5, 15)
@@ -376,7 +376,7 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
             warnings.warn(f"MukhanovSasakiSolver failed: {e}")
             ms_res = {'n_s_numeric': 0.9667, 'A_s': 2.1e-9}
 
-        # Obliczenia z estymatora Bayesowskiego MCMC
+        # Computations z estymatora Bayesowskiego MCMC
         try:
             from bayesian_mcmc_analysis import MultiExperimentLikelihood
             _, bayes_res = MultiExperimentLikelihood().run_mcmc(n_walkers=16, n_steps=300, burnin=100)
@@ -399,7 +399,7 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
         return Spin10TestsV7.run_all_v7_tests()
     
     def full_report_v7(self) -> Dict[str, Any]:
-        """Pełen raport v9.0"""
+        """Pelen report v9.0"""
         base_report = self.full_report()
         v7_report = {
             'predictions_v7': self.compute_predictions_v7(),
@@ -424,7 +424,7 @@ def demo_v9():
     engine = SHZSpin10QuantumEngineV9(N=120, k_target=4)
     engine.run_simulation(n_steps=300, verbose=True)
     
-    # Predykcje z Publ. VII
+    # Predictions z Publ. VII
     pred_v7 = engine.compute_predictions_v7()
     
     print("\n" + "="*70)
@@ -441,7 +441,7 @@ def demo_v9():
     print(f"  M_GUT = {rge['M_GUT']:.2e} GeV")
     print(f"  alpha_GUT^-1 = {rge['alpha_GUT_inv']}")
     print(f"  sin^2 theta_W(M_GUT) = {rge['sin2_theta_W_GUT']}")
-    print(f"  Unifikacja: {rge['unification_quality']}")
+    print(f"  Unification: {rge['unification_quality']}")
     
     print("\n[C] SGWB Non-Gaussianity:")
     sng = pred_v7['sgwb_ng']
@@ -463,14 +463,14 @@ def demo_v9():
     print("\n" + "="*70)
     print(" HEPTALOG - 7 PUBLICATIONS KOMPLETNE")
     print("="*70)
-    print("\n1. Raport I     (v1.0) Pre-geometria")
+    print("\n1. Report I     (v1.0) Pre-geometry")
     print("2. Publ. I      (v2.0) Lorentz + Big Bounce")
-    print("3. Publ. II     (v3.0) Riemann + Entropia + Holografia")
+    print("3. Publ. II     (v3.0) Riemann + Entropy + Holographia")
     print("4. Publ. III    (v4.0) α-Att + SGWB + Torsja")
-    print("5. Publ. IV     (v5.0) Fermiony + f_NL + Bispektrum")
+    print("5. Publ. IV     (v5.0) Fermions + f_NL + Bispektrum")
     print("6. Publ. V      (v6.0) RGE + Axion + B_TTB")
-    print("7. Publ. VI     (v7.0) SUSY + Pełna QG + SUGRA")
-    print("8. Publ. VII    (v8.0) Pełna ToE - HEPTALOG ← NOWE")
+    print("7. Publ. VI     (v7.0) SUSY + Pelna QG + SUGRA")
+    print("8. Publ. VII    (v8.0) Pelna ToE - HEPTALOG ← NOWE")
     print("\n6 kluczowych remedies + 50+ testowalnych predykcji")
     print("Spin(10) ToE v9.0 - KOMPLETNA")
 
