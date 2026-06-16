@@ -1,18 +1,18 @@
 """
-Rozszerzone predykcje z Publikacji I - Lorentzowski model z Big Bounce
-Laczy wszystkie elementy: sygnatura Lorentz, Big Bounce, inflacja, Causal Sets
+Rozszerzone predictions z Publikacji I - Lorentzowski model z Big Bounce
+Laczy wszystkie elementy: sygnatura Lorentz, Big Bounce, inflation, Causal Sets
 """
 import math
 import numpy as np
 
 # =================================================================
-#  PARAMETRY Z SYMULACJI (Publikacja I)
+#  PARAMETRY Z SYMULACJI (Publication I)
 # =================================================================
 N      = 150
 k_mean = 4
 Var_k  = 0.262
 cos_Phi= 0.688
-CF     = 0.738         # Causal Fraction w equilibrium (Raport I)
+CF     = 0.738         # Causal Fraction w equilibrium (Report I)
 N_efolds_one = 1.03    # e-folds per cycle
 
 # Stale fizyczne
@@ -69,7 +69,7 @@ print(f"Total efolds (60 cycles) = {total_efolds_60_cycles:.1f}")
 # Spectral index and tensor/scalar
 n_s = 1.0 - 2.0/60.0
 r_quad = 8.0/60.0
-print(f"\nInflacja quadratic V:")
+print(f"\nInflation quadratic V:")
 print(f"  n_s                     = {n_s:.4f}")
 print(f"  eksperyment:            = 0.9649 +/- 0.0042  -> {'ZGODNE' if abs(n_s-0.9649)<0.01 else 'niezgodne'}")
 print(f"  r                       = {r_quad:.4f}")
@@ -86,7 +86,7 @@ print("="*65)
 N_e_pre = N_efolds_one
 N_e_tot = 60.0
 A_circles = math.sqrt(N_e_pre / N_e_tot) * 1e-5
-print(f"Amplituda CMB circles    ~ {A_circles:.2e} (w multipolach l<10)")
+print(f"Amplituda CMB circles    ~ {A_circles:.2e} (w multifieldch l<10)")
 print(f"  Eksperyment:            szukane w Planck/LiteBIRD")
 
 # Suppresja niskich multipoli
@@ -106,7 +106,7 @@ print("\n" + "="*65)
 print(" 4. LORENTZ INVARIANCE VIOLATION")
 print("="*65)
 
-# LIV w sieci z CF<1
+# LIV w network z CF<1
 LIV_strength = (1.0 - CF) * 1e-3
 print(f"LIV parameter            = {LIV_strength:.2e}")
 print(f"  W stanie przejsciowym: (1-CF) ~ {1-CF:.3f}")
@@ -119,21 +119,21 @@ print(f"  Ferm-LAT limit:        < 10 ms  -> TESTABLE")
 print(f"  CTA (future):          sigma ~ 0.1 ms -> BARDZO TESTABLE")
 
 # =================================================================
-#  5. STOZKI SWIETLNE - rozkład
+#  5. STOZKI SWIETLNE - rozklad
 # =================================================================
 print("\n" + "="*65)
 print(" 5. STOZKI SWIETLNE - Causal Sets")
 print("="*65)
 
-# Stozki swietlne w modelu sieciowym
+# Stozki swietlne w modelu networkowym
 print(f"|J(p)|/N w equilibrium   ~ {1-CF:.3f} (forward + backward)")
 print(f"|J(p)|_forward           ~ {CF/2:.3f} N")
 print(f"|J(p)|_backward          ~ {(1-CF)/2:.3f} N")
-print(f"  Hierarchia: forward >> backward (strzalka czasu)")
+print(f"  Hierarchy: forward >> backward (strzalka time)")
 
 # Test
 print(f"\nTest (porownanie z simulation):")
-print(f"  Sorkin 'order + number': V_4D = N_count, metryka Lorentzowska")
+print(f"  Sorkin 'order + number': V_4D = N_count, metric Lorentzowska")
 print(f"  Sprawdzian: |J(p)| ~ t (linearnie w layer)")
 
 # =================================================================
@@ -146,7 +146,7 @@ print("="*65)
 A_CPT = 1 - 2*Var_k
 print(f"A_CPT (forward-backward) = {A_CPT:.3f}")
 print(f"  Stosunek forward:backward = {CF:.3f}:{1-CF:.3f}")
-print(f"  Wniosek: istotna asymmetry sieci (emergent CPT violation)")
+print(f"  Wniosek: istotna asymmetry network (emergent CPT violation)")
 
 # =================================================================
 #  7. ROZPAD PROTONU - poprawka Lorentz
@@ -157,7 +157,7 @@ print("="*65)
 
 f_top = 1.0 + 0.5*Var_k
 tau_e_pi0 = 1.4e36 * cos_Phi**(-4) * f_top**(-2)
-# Poprawka Lorentz (mniejsze Λ = slabsza grawitacja = dluzszy czas zycia protonu)
+# Poprawka Lorentz (mniejsze Λ = slabsza gravity = dluzszy time zycia protonu)
 tau_e_pi0_L = tau_e_pi0 * (1 + (1-CF_factor)/10)
 
 tau_nu_K = 5.0e35 * cos_Phi**(-4) * f_top**(-2)
@@ -204,9 +204,9 @@ print(f"  Test: eksperymenty sub-mm (Eot-Wash, IUPUI)")
 #  10. PODSUMOWANIE - wszystkie predictions
 # =================================================================
 print("\n" + "="*72)
-print(" PELNA MACIERZ PREDYKCJI (Raport I + Publikacja I)")
+print(" PELNA MACIERZ PREDYKCJI (Report I + Publication I)")
 print("="*72)
-print(f"{'Predykcja':<30} | {'Model':<14} | {'Eksperyment':<18} | Status")
+print(f"{'Prediction':<30} | {'Model':<14} | {'Eksperyment':<18} | Status")
 print("-"*72)
 print(f"{'Λ_Euclidean':<30} | {Lambda_Euclidean:.4f}        | theory              | -")
 print(f"{'Λ_Lorentz (eq)':<30} | {Lambda_Lorentz_eq:.4f}        | theory              | -")
@@ -217,16 +217,16 @@ print(f"{'n_s':<30} | {n_s:.4f}        | CMB-S4             | ✓")
 print(f"{'r':<30} | {r_quad:.4f}        | CMB-S4             | TESTABLE")
 print(f"{'CMB circles amplitude':<30} | {A_circles:.2e}   | Planck/LiteBIRD    | SEARCHABLE")
 print(f"{'LIV (1-CF)*1e-3':<30} | {LIV_strength:.2e}   | Fermi-LAT/CTA      | TESTABLE")
-print(f"{'A_CPT (forward-bkwd)':<30} | {A_CPT:.3f}        | sieciowa           | CONFIRMED")
-print(f"{'sin^2 th13 (CF-corrected)':<30} | {sin_th13_L**2:.4f}        | DUNE/JUNO          | napięcie")
-print(f"{'C_l ratio l=2':<30} | {1 - 0.2*Var_k*math.exp(-2/12):.3f}        | Planck             | ✓ (już!)")
-print(f"{'C_l ratio l=5':<30} | {1 - 0.2*Var_k*math.exp(-5/12):.3f}        | Planck             | ✓ (już!)")
-print(f"{'C_l ratio l=10':<30} | {1 - 0.2*Var_k*math.exp(-10/12):.3f}       | Planck             | ✓ (już!)")
+print(f"{'A_CPT (forward-bkwd)':<30} | {A_CPT:.3f}        | networkowa           | CONFIRMED")
+print(f"{'sin^2 th13 (CF-corrected)':<30} | {sin_th13_L**2:.4f}        | DUNE/JUNO          | napiecie")
+print(f"{'C_l ratio l=2':<30} | {1 - 0.2*Var_k*math.exp(-2/12):.3f}        | Planck             | ✓ (juz!)")
+print(f"{'C_l ratio l=5':<30} | {1 - 0.2*Var_k*math.exp(-5/12):.3f}        | Planck             | ✓ (juz!)")
+print(f"{'C_l ratio l=10':<30} | {1 - 0.2*Var_k*math.exp(-10/12):.3f}       | Planck             | ✓ (juz!)")
 print(f"{'delta G_N / G_N':<30} | {Var_k:.3f}        | Eot-Wash sub-mm    | TESTABLE")
 print("="*72)
 
 # =================================================================
-#  FALSYFIKOWALNOSC - podsumowanie
+#  FALSYFIKOWALNOSC - summary
 # =================================================================
 print("\nFALSYFIKACJE - JEDNOCZESNIE wymagane:")
 print(f"  1. Hyper-K NIE widzi proton decay do 1e35 (2030-2035)")
