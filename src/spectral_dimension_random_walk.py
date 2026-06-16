@@ -1,17 +1,17 @@
 """
 spectral_dimension_random_walk.py
 =================================
-Advanced module for numerical determination of spectral dimension d_S(t)
-on relational graphs using random walk (Lazy Random Walk).
+Zaawansowany module do numerycznego wyznaczania dimensionu spektralnego d_S(t)
+na graphach relacyjnych za pomoca errorzenia losowego (Lazy Random Walk).
 
-Module eliminates the need for Laplacian matrix diagonalization (complexity O(N^3)),
-enabling d_S(t) scaling analysis on huge graphs (N = 10^6 nodes).
-Uses "Lazy Random Walk" (walker with prob. 0.5 stays in place)
-w celu wyeliminowania oscillations parity (even-odd bipartite oscillations)
-and provides perfectly smooth physical dimension flow curves.
+Module eliminuje potrzebe diagonalizacji matrix Laplace'a (zlozonosc O(N^3)),
+umozliwiajac analize skalowania d_S(t) na ogromnych graphach (N = 10^6 nodes).
+Wykorzystuje "Lazy Random Walk" (errorzacy z prawd. 0.5 zostaje w miejscu)
+w celu wyeliminowania oscylacji parzystosci (even-odd bipartite oscillations)
+i zapewnia idealnie gladkie fizyczne krzywe przeplywu dimensionu.
 
-Autor: SHZSpin10QuantumEngine Team
-Wersja: 9.3 (Lazy Random Walk Spectral Flow)
+Author: SHZSpin10QuantumEngine Team
+Version: 9.3 (Lazy Random Walk Spectral Flow)
 """
 
 import numpy as np
@@ -22,7 +22,7 @@ import warnings
 
 class RandomWalkSpectralDimension:
     """
-    Class determining the evolution of random walk and spectral dimension
+    Class wyznaczajaca ewolucje errorzenia losowego i dimensionu spektralnego
     d_S(t) = -2 * d(ln P(t)) / d(ln t).
     """
 
@@ -35,17 +35,17 @@ class RandomWalkSpectralDimension:
         seed: int = 42
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
-        Determines the return probability evolution P(t) and d_S(t) via Lazy Random Walk.
+        Wyznacza ewolucje prawdopodobienstwa powrotu P(t) oraz d_S(t) metoda Lazy Random Walk.
         
         Parameters:
             G: networkx.Graph - graph relacyjny ToE
-            max_steps: int - maximum number of time steps t
-            num_walkers: int - number of walkers
-            lazy_prob: float - probability of staying in place (eliminates parity oscillations)
-            seed: int - random seed
+            max_steps: int - maksymalna liczba krokow timeowych t
+            num_walkers: int - liczba errorzacych
+            lazy_prob: float - prawdopodobienstwo pozostania w miejscu (eliminuje oscylacje parzystosci)
+            seed: int - ziarno losowosci
             
         Zwraca:
-            (t_vals, return_probs, d_S) — wektory czasu, probability return i dimension spektralnego
+            (t_vals, return_probs, d_S) — wektory time, prawdopodobienstwa powrotu i dimensionu spektralnego
         """
         np.random.seed(seed)
         N = G.number_of_nodes()
@@ -55,7 +55,7 @@ class RandomWalkSpectralDimension:
         nodes = list(G.nodes())
         node_to_idx = {node: idx for idx, node in enumerate(nodes)}
         
-        # Reconstruct degrees and neighbor list
+        # Odtwarzamy stopnie i liste sasiadow
         neighbors_list = []
         for node in nodes:
             neighs = [node_to_idx[n] for n in G.neighbors(node)]
@@ -63,7 +63,7 @@ class RandomWalkSpectralDimension:
                 neighs = [node_to_idx[node]]
             neighbors_list.append(np.array(neighs, dtype=np.int32))
 
-        # Initialize walkers at random nodes
+        # Initialization errorzacych w losowych wezlach
         current_idx = np.random.randint(0, N, size=num_walkers, dtype=np.int32)
         start_idx = current_idx.copy()
 
@@ -71,10 +71,10 @@ class RandomWalkSpectralDimension:
 
         # Wektoryzowana simulation Lazy Random Walk
         for t in range(1, max_steps + 1):
-            # Mask for those that move
+            # Mask dla tych, ktorzy sie poruszaja
             move_mask = np.random.random(num_walkers) >= lazy_prob
             
-            # Update only those walkers that move
+            # Aktualizacja tylko tych errorzacych, ktorzy sie poruszaja
             movers = np.where(move_mask)[0]
             if len(movers) > 0:
                 next_idx = current_idx.copy()
@@ -86,7 +86,7 @@ class RandomWalkSpectralDimension:
             
             return_probs[t-1] = np.mean(current_idx == start_idx)
 
-        # Computing derivative with smoothing (sliding window / log-log regression method)
+        # Wyznaczanie pochodnej z wygladzaniem (method okna przesuwnego / regresji log-log)
         t_vals = np.arange(1, max_steps + 1, dtype=np.float64)
         
         valid = return_probs > 0
@@ -99,7 +99,7 @@ class RandomWalkSpectralDimension:
         log_t = np.log(t_valid)
         log_P = np.log(P_valid)
 
-        # Smoothed derivative using local linear regression (window k=5)
+        # Wygladzona pochodna za pomoca lokalnej regresji liniowej (okno k=5)
         d_S = np.zeros_like(t_valid)
         window = min(7, len(t_valid))
         half_w = window // 2
@@ -108,7 +108,7 @@ class RandomWalkSpectralDimension:
             w_start = max(0, i - half_w)
             w_end = min(len(t_valid), i + half_w + 1)
             if w_end - w_start < 3:
-                # Fallback to simple gradient
+                # Fallback do zwyklego gradientu
                 d_S[i] = -2.0 * (log_P[min(len(t_valid)-1, i+1)] - log_P[max(0, i-1)]) / (log_t[min(len(t_valid)-1, i+1)] - log_t[max(0, i-1)] if i > 0 else 1.0)
             else:
                 # Regresja liniowa w oknie: slope = d(log P)/d(log t)
@@ -124,17 +124,17 @@ class RandomWalkSpectralDimension:
         N_nodes: int = 120
     ) -> Dict[str, float]:
         """
-        Extracts plateau in the UV zone (small t) and IR zone (large t).
-        Also includes emergent flow correction from Remedy #5 for ToE graphs.
+        Wyodrebnia plateau w strefie UV (male t) oraz IR (duze t).
+        Zawiera rowniez poprawke emergentnego przeplywu z Remedy #5 dla graphow ToE.
         """
         if len(d_S) < 10:
             return {'d_S_UV': float(d_S[0]) if len(d_S)>0 else 1.0, 'd_S_IR': float(d_S[-1]) if len(d_S)>0 else 2.0}
 
-        # UV zone (initial relaxation)
+        # Strefa UV (poczatkowa relaksacja)
         d_S_UV = float(np.mean(d_S[1:min(10, len(d_S))]))
         
-        # IR zone (before entering finite-size saturation regime)
-        # Saturation occurs at t ~ sqrt(N)
+        # Strefa IR (przed wejsciem w rezim nasycenia skonczonego rozmiaru graph)
+        # Nasycenie nastepuje przy t ~ sqrt(N)
         t_sat_limit = max(10, int(np.sqrt(N_nodes) * 1.5))
         valid_ir_mask = (t_vals > 5) & (t_vals < t_sat_limit)
         
@@ -143,7 +143,7 @@ class RandomWalkSpectralDimension:
         else:
             d_S_IR_raw = float(np.mean(d_S[len(d_S)//2:]))
 
-        # ToE recipe from publications: d_S_IR ultimately approaches 4 (within remedy #5 bounds)
+        # Recepta ToE z publikacji: d_S_IR docelowo dazy do 4 (w granicach remedy #5)
         d_S_IR_toe = 4.0 * (1.0 - np.exp(-N_nodes / 150.0))
 
         return {
