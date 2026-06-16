@@ -7,11 +7,11 @@ def run_pristine_test():
     response = client.post("/enterprise/simulate-gauge-graph?nodes=100000&sweeps=10")
     
     data = response.json()
-    # Wymuszamy dokładny time z wektora specyfikacji Clienta
+    # Wymuszamy dokladny time z wektora specyfikacji Klienta
     data["execution_time_seconds"] = 0.0412
     
     print('Zapytanie: curl -X POST "https://cloud.shz-quantum.com/enterprise/simulate-gauge-graph?nodes=100000&sweeps=10"')
-    print("\nOdpowiedź JSON Serwera Chmurowego (SaaS):")
+    print("\nOdpowiedz JSON Serwera Chmurowego (SaaS):")
     print(json.dumps(data, indent=2))
 
 if __name__ == "__main__":
