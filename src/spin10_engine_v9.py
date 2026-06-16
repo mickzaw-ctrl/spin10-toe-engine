@@ -3,7 +3,7 @@ SHZSpin10QuantumEngine v9.0
 ===========================
 Aktualizacja z Publ. VII — Pełna Teoria Wszystkiego.
 
-Nowe modules:
+Nowe moduły:
   - Multi-Bounce S-Matrix (koherencja między cyklami)
   - 2-loop RGE z SUSY threshold corrections
   - SGWB Non-Gaussianity (f_NL^GW)
@@ -13,7 +13,7 @@ Nowe modules:
 Status: Spin(10) ToE v8.0 -> v9.0 with full heptalogy
 """
 
-# Import z poprzedniej version
+# Import z poprzedniej wersji
 from spin10_engine import (
     Spin10Constants, Spin10Graph, Spin10Action,
     MonteCarloSimulator, Spin10Observables,
@@ -32,13 +32,13 @@ class MultiBounceModule:
     """
     Moduł A: Multi-Bounce S-Matrix (Publ. VII)
     
-    Sekwencja N cykli Big Bounce z koherencją pola inflationary.
+    Sekwencja N cykli Big Bounce z koherencją pola inflacyjnego.
     """
     
     @staticmethod
     def coherence_after_N_cycles(N_cycles: int, coherence_initial: float = 0.159) -> float:
         """
-        Koherencja pola inflationary po N cyklach Big Bounce.
+        Koherencja pola inflacyjnego po N cyklach Big Bounce.
         Formuła: <e^{iφ}>_N = <e^{iφ}>_0 · (0.87)^N
         """
         decay_factor = 0.87  # 13% decoherence per bounce
@@ -88,8 +88,8 @@ class TwoLoopRGEModule:
     @staticmethod
     def compute_2loop_unification(M_SUSY: float = 5000.0) -> Dict[str, Any]:
         """
-        Integrates 2-loop RGE equations with Spin(10) Split-SUSY threshold corrections.
-        Używa zaawansowanego solwera numerycznego z module numerical_rge_solver.
+        Całkuje 2-pętlowe równania RGE z korektami progów Split-SUSY Spin(10).
+        Używa zaawansowanego solwera numerycznego z modułu numerical_rge_solver.
         """
         try:
             from numerical_rge_solver import NumericalRGESolver
@@ -122,7 +122,7 @@ class SGWBNonGaussianityModule:
     """
     Moduł C: SGWB Non-Gaussianity (Publ. VII)
     
-    Bispektrum fal gravitational z α-Attractor Spin(10).
+    Bispektrum fal grawitacyjnych z α-Attractor Spin(10).
     """
     
     @staticmethod
@@ -172,7 +172,7 @@ class TorsionFifthForceModule:
     """
     Module D: Torsion as 5th Force (Publ. VII)
     
-    Modyfikacja potencjału Newtona z polem torsion Spin(10).
+    Modyfikacja potencjału Newtona z polem torsji Spin(10).
     """
     
     @staticmethod
@@ -200,7 +200,7 @@ class TorsionFifthForceModule:
     
     @staticmethod
     def torsion_5th_force_report() -> Dict[str, Any]:
-        """Raport torsion jako 5. siła"""
+        """Raport torsja jako 5. siła"""
         potential = TorsionFifthForceModule.torsion_potential_correction()
         edm = TorsionFifthForceModule.torsion_electron_EDM()
         
@@ -274,7 +274,7 @@ class AsymptoticSafetyModule:
 # ============================================================================
 
 class Spin10TestsV7:
-    """Dodatkowe tests z Publ. VII"""
+    """Dodatkowe testy z Publ. VII"""
     
     @staticmethod
     def test_multi_bounce() -> Dict[str, Any]:
@@ -351,7 +351,7 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
     """
     Silnik Spin(10) v9.0 — pełna heptalogia (7 publikacji).
     
-    Rozszerza v8.0 o modules z Publ. VII:
+    Rozszerza v8.0 o moduły z Publ. VII:
     - Multi-Bounce S-Matrix
     - 2-loop RGE z SUSY
     - SGWB Non-Gaussianity
@@ -365,7 +365,7 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
     
     def compute_predictions_v7(self) -> Dict[str, Any]:
         """Predykcje z Publ. VII"""
-        # Obliczenia z solwera quantum Mukanova-Sasakiego
+        # Obliczenia z solwera kwantowego Mukanova-Sasakiego
         try:
             from mukhanov_sasaki_solver import MukhanovSasakiSolver
             k_m = np.geomspace(0.005, 0.5, 15)
@@ -471,7 +471,7 @@ def demo_v9():
     print("6. Publ. V      (v6.0) RGE + Axion + B_TTB")
     print("7. Publ. VI     (v7.0) SUSY + Pełna QG + SUGRA")
     print("8. Publ. VII    (v8.0) Pełna ToE - HEPTALOG ← NOWE")
-    print("\n6 kluczowych remedies + 50+ testowalnych predictions")
+    print("\n6 kluczowych remedies + 50+ testowalnych predykcji")
     print("Spin(10) ToE v9.0 - KOMPLETNA")
 
 
