@@ -1,16 +1,16 @@
 """
 demo_ultima_frontiers.py
 ========================
-Research and demonstration script presenting 4 absolute frontiers of modern
-of modern science, implemented for the upcoming SHZSpin10 engine v12.0-ULTIMA.
+Script badawczo-demonstracyjny prezentujacy 4 absolutne horyzonty wspolczesnej
+nauki, zaimplementowane dla nadchodzacej version engine SHZSpin10 v12.0-ULTIMA.
 
-Presents live:
-  1. Evolution of Black Hole pairing on the graph and the Page Curve.
-  2. Derivation of exact Yukawa Masses from A_4 symmetry.
+Prezentuje na zywo:
+  1. Ewolucje parowania Czarnych Dziur na graphie i Krzywa Page'a.
+  2. Wyprowadzenie dokladnych Mas Yukawy z symmetry A_4.
   3. E_8 x E_8 String Theory Compactification.
-  4. Topological Quantum Error Correction on the Network (Surface Code).
+  4. Topologiczna Korekcje Bledow Quantumch na Sieci (Surface Code).
 
-Launch:
+Runienie:
     python scripts/demo_ultima_frontiers.py
 """
 
@@ -29,11 +29,11 @@ from ultima_frontiers_core import (
 
 def run_demonstracje_ultima():
     print("="*85)
-    print(" SHZ QUANTUM TECHNOLOGIES --- FRONTIER PRESENTATION v12.0-ULTIMA (ULTIMATE APEX)")
+    print(" SHZ QUANTUM TECHNOLOGIES --- PREZENTACJA HORYZONTOW v12.0-ULTIMA (ULTIMATE APEX)")
     print("="*85)
     
-    print("\n   Two breakthrough deployment pillars enrich the engine with definitive answers,")
-    print("   na ktore od dekad czeka theoretical physics i commercial engineering quantum:\n")
+    print("\n   Dwa przelomowe filary wdrozeniowe wzbogacaja engine o ostateczne odpowiedzi,")
+    print("   na ktore od dekad czeka fizyka teoretyczna i komercyjna inzynieria kwantowa:\n")
     
     # -------------------------------------------------------------------------
     # HORYZONT 1: CZARNE DZIURE NA GRAFIE I KRZYWA PAGE'A
@@ -42,17 +42,17 @@ def run_demonstracje_ultima():
     print(" [HORYZONT 1] DYNAMICZNE PAROWANIE CZARNYCH DZIUR NA GRAFIE (KRZYWA PAGE'A)")
     print("="*85)
     
-    print("   Simulation kolapsu podgraph network i emisji radiation Hawkinga...")
-    print("   We track the evolution of entanglement entropy in time, to confirm full recovery")
-    print("   information z evaporating Black Hole (Solution Paradoksu Hawkinga):\n")
+    print("   Simulation kolapsu podgraph network i emisji promieniowania Hawkinga...")
+    print("   Sledzimy ewolucje entropy entanglement w timeie, by potwierdzic pelne odzyskanie")
+    print("   informacji z parujacej Czarnej Dziury (Rozwiazanie Paradoksu Hawkinga):\n")
     
     bh = BlackHoleQuantumGraphity(internal_qubits=64)
     bh_res = bh.simulate_evaporation_page_curve(time_steps=20)
     
     print(f"   - Manifest mechanizmu:      {bh_res['black_hole_manifest']}")
     print(f"   - Zamkniete stany BH (UV):  {bh_res['initial_bh_states']} kubitow logicznych")
-    print(f"   - Punkt Zwrotny (Page Time): Step #{bh_res['page_time_turnaround_step']} (gdzie entropy zaczyna spadac)")
-    print(f"   - Solution Paradoksu Info: {'SUKCES ✓✓✓ (Entropy koncowa dazy do zera, info uratowane)' if bh_res['information_paradox_resolved'] else 'BLAD'}")
+    print(f"   - Punkt Zwrotny (Page Time): Krok #{bh_res['page_time_turnaround_step']} (gdzie entropy zaczyna spadac)")
+    print(f"   - Rozwiazanie Paradoksu Info: {'SUKCES ✓✓✓ (Entropy koncowa dazy do zera, info uratowane)' if bh_res['information_paradox_resolved'] else 'BLAD'}")
 
     # -------------------------------------------------------------------------
     # HORYZONT 2: HIERARCHIA MAS FERMIONOW I SYMETRIA A_4
@@ -61,14 +61,14 @@ def run_demonstracje_ultima():
     print(" [HORYZONT 2] ZROZUMIENIE HIERARCHII MAS FERMIONOW (MACIERZE Yukawy i PMNS)")
     print("="*85)
     
-    print("   Spajanie relational graph ToE z nieabelowa dyskretna symetria rodzin A_4")
+    print("   Spajanie relacyjnego graph ToE z nieabelowa dyskretna symetria rodzin A_4")
     print("   w celu wygenerowania scislych mas quarks i katow mieszania neutrin Plancka/DUNE:\n")
     
     yukawa = YukawaFlavourHierarchy.generate_exact_fermion_masses()
     
     print(f"   - Implementowana Symmetry:  {yukawa['flavour_symmetry']}")
-    print(f"   - Quark Top (t):            {yukawa['quark_masses_GeV']['top']} GeV (Najciezsza sygnatura emergencji)")
-    print(f"   - Quark Bottom (b):         {yukawa['quark_masses_GeV']['bottom']} GeV")
+    print(f"   - Kwark Top (t):            {yukawa['quark_masses_GeV']['top']} GeV (Najciezsza sygnatura emergencji)")
+    print(f"   - Kwark Bottom (b):         {yukawa['quark_masses_GeV']['bottom']} GeV")
     print(f"   - Lepton Tau (tau):         {yukawa['lepton_masses_GeV']['tau']} GeV")
     print(f"   - Katy mieszania neutrin:   sin²θ₁₂ = {yukawa['pmns_mixing_angles']['theta_12']}, sin²θ₂₃ = {yukawa['pmns_mixing_angles']['theta_23']}, sin²θ₁₃ = {yukawa['pmns_mixing_angles']['theta_13']}")
 
@@ -79,7 +79,7 @@ def run_demonstracje_ultima():
     print(" [HORYZONT 3] PELNE ZANURZENIE W TEORII STRUN E_8 x E_8 (F-THEORY SYNTHESIS)")
     print("="*85)
     
-    print("   Wyprowadzanie, jak nasza 45-dimensional grupa gauge Spin(10) oraz 125 ukrytych")
+    print("   Wyprowadzanie, jak nasza 45-dimensionowa grupa cechowania Spin(10) oraz 125 ukrytych")
     print("   multipletow SUSY (Remedy #3) w sposob absolutnie genialny i naturalny wylaniaja sie")
     print("   z rozpadu matrixstej, poteznej grupy E_8 na zakrzywionej space Calabi-Yau:\n")
     
@@ -98,13 +98,13 @@ def run_demonstracje_ultima():
     print(" [HORYZONT 4] ARCHITEKTURA B2B --- TOPOLOGICZNA KOREKCJA BLEDOW KWANTOWYCH")
     print("="*85)
     
-    print("   Mapowanie relational graph ToE na fizyczne uklady logicznych kubitow.")
+    print("   Mapowanie relacyjnego graph ToE na fizyczne uklady logicznych kubitow.")
     print("   Topologiczne niezmienniki Atiyaha-Singera tworza w pelni odporna na szumy")
-    print("   architekture Surface Code dla commercial systemow Google i Quantinuum:\n")
+    print("   architekture Surface Code dla komercyjnych systemow Google i Quantinuum:\n")
     
     qcode = TopologicalQuantumErrorCorrection.map_toe_to_surface_code(code_distance=7)
     
-    print(f"   - Stosowany Kod Quantum:    {qcode['code_typee']}")
+    print(f"   - Stosowany Kod Quantum:    {qcode['code_type']}")
     print(f"   - Rygoryzm Odpornosci (d):   Distance d = {qcode['error_correction_distance']} (Pozwala skorygowac 3 dowolne errors)")
     print(f"   - Wymagane fizyczne kubity:  {qcode['physical_qubits_required']} fizycznych kubitow na 1 logiczny")
     print(f"   - Komercyjne Zastosowanie:   {qcode['commercial_application']}")
