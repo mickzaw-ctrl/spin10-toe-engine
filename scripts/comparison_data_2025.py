@@ -252,10 +252,10 @@ print("\nKEY CONCLUSIONS:")
 print("="*75)
 print("""
 1. f_NL^equil = 14.5 IS WITHIN Planck windowlanck PR4 2025 (0.86σ)!
-   → To jest ogromny sukces Spin(10). Teraz CMB-S4 potwierdzi.
+   → To jest ogromny success Spin(10). Teraz CMB-S4 potwierdzi.
 
 2. τ_p = 4.9e36 years jest 280× ABOVE obecnego limitu SK.
-   → Spin(10) NIE jest excluded, ale też nie potwierdzone.
+   → Spin(10) NIE jest excluded, ale tez nie potwierdzone.
    → Hyper-K (2030+) will test.
 
 3. BR(μ→eγ) = 5e-11 jest 116× ABOVE limit MEG.
@@ -265,14 +265,14 @@ print("""
 4. m_gluino Split-SUSY = 10.6 TeV jest poza LHC (limit 2.4 TeV).
    → CONSISTENT. HE-LHC may partially test.
 
-5. δ_CP jest w napięciu z T2K.
+5. δ_CP jest w napieciu z T2K.
    → Wymaga dodatkowych analiz (PMNS matrix details).
 
 REKOMENDACJA:
 - Spin(10) in the baseline version is PARTIALLY CONFIRMED
 - Potrzebuje poprawek w sektorze LFV (BR μ→eγ)
-- f_NL^eq within window Planck to SILNY sygnał potwierdzenia
-- Hyper-K + CMB-S4 + CASPEr w 2027-2030 rozstrzygną
+- f_NL^eq within window Planck to SILNY sygnal potwierdzenia
+- Hyper-K + CMB-S4 + CASPEr w 2027-2030 rozstrzygna
 """)
 
 print("="*75)
