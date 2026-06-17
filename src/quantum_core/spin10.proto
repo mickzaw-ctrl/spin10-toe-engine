@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package spin10;
+
+// Quantum gateway service SHZ Spin10
+service QuantumGateway {
+  // Single-request MERA simulation
+  rpc Simulate(SimulationRequest) returns (SimulationResponse);
+
+  // Result streaming (progress + final result)
+  rpc StreamSimulate(SimulationRequest) returns (stream SimulationResponse);
+
+  // Compute cluster health check
+  rpc Health(Empty) returns (HealthResponse);
+}
+
+message SimulationRequest {
+  int32 priority = 1;      // 1=CRITICAL, 5=BACKGROUND
+  int32 batch_size = 2;    // state vector size
+  map<string, string> metadata = 3; // additional payload (np. ID czujnika)
+}
+
+message SimulationResponse {
+  string status = 1;       // SUCCESS, PENDING, IDLE, ERROR
+  int64 task_id = 2;
+  string source = 3;       // CACHE, COMPUTED, PENDING, UNKNOWN
+  double result = 4;       // mean_energy
+  string message = 5;
+  double latency_ms = 6;   // opcjonalnie: czas computations (ms)
+}
+
+message HealthResponse {
+  bool ray_initialized = 1;
+  bool healthy = 2;
+  string version = 3;
+}
+
+message Empty {}
