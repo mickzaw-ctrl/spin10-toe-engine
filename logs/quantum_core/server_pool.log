@@ -1,0 +1,111 @@
+2026-06-17 11:20:36,824 - INFO - [SciML Pool] Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2026-06-17 11:20:36,824 - WARNING - [SciML Pool] Brak akceleratorów – ustawiam MOCK_GPUS=8 dla benchmarku pool.
+/usr/local/lib/python3.13/subprocess.py:1921: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _fork_exec(
+I0617 11:20:36.843632    4124 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+I0617 11:20:36.995386    4124 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+/usr/local/lib/python3.13/subprocess.py:1921: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _fork_exec(
+I0617 11:20:37.192390    4124 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+2026-06-17 11:20:37,201	ERROR services.py:1405 -- Failed to start the dashboard , return code -6
+2026-06-17 11:20:37,201	ERROR services.py:1430 -- Error should be written to 'dashboard.log' or 'dashboard.err'. We are printing the last 20 lines for you. See 'https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#logging-directory-structure' to find where the log file is.
+2026-06-17 11:20:37,201	ERROR services.py:1440 -- Couldn't read dashboard.log file. Error: [Errno 2] No such file or directory: '/tmp/ray/session_2026-06-17_11-20-36_839177_4124/logs/dashboard.log'. It means the dashboard is broken even before it initializes the logger (mostly dependency issues). Reading the dashboard.err file which contains stdout/stderr.
+2026-06-17 11:20:37,202	ERROR services.py:1474 -- Failed to read dashboard.err file: [Errno 2] No such file or directory: '/tmp/ray/session_2026-06-17_11-20-36_839177_4124/logs/dashboard.err'. It is unexpected. Please report an issue to Ray github. https://github.com/ray-project/ray/issues
+I0617 11:20:37.210872    4124 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+I0617 11:20:37.221766    4124 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+2026-06-17 11:20:41,367	INFO worker.py:2012 -- Started a local Ray instance.
+/usr/local/lib/python3.13/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+2026-06-17 11:20:42,915 - WARNING - [SciML Pool] Brak GPU/TPU – pool fallback na 1 CPU actor.
+2026-06-17 11:20:42,932 - INFO - [SciML Pool] [Pool] Utworzono 1 aktorów.
+2026-06-17 11:20:42,934 - INFO - [SciML Pool] gRPC Pool serwer nasłuchuje na porcie 50051
+INFO:     Started server process [4124]
+INFO:     Waiting for application startup.
+2026-06-17 11:20:42,948 - INFO - [SciML Pool] FastAPI Pool: {'actors': 1, 'accelerator': False, 'platform': 'cpu'} aktorów gotowych.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:35882 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35888 - "GET /pool/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35890 - "POST /api/v1/simulate?priority=1&batch_size=500 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35902 - "POST /api/v1/simulate?priority=5&batch_size=500 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4124]
+2026-06-17 11:20:58,332 - ERROR - [SciML Pool] Task exception was never retrieved
+future: <Task finished name='Task-1' coro=<main() done, defined at /home/user/main_gpu_pool.py:24> exception=SystemExit(15)>
+Traceback (most recent call last):
+  File "/home/user/main_gpu_pool.py", line 59, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 194, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 206, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 712, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 683, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2061, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/main_gpu_pool.py", line 52, in main
+    await asyncio.gather(
+    ...<2 lines>...
+    )
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 712, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 683, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 2061, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/uvicorn/server.py", line 78, in serve
+    with self.capture_signals():
+         ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/contextlib.py", line 148, in __exit__
+    next(self.gen)
+    ~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/uvicorn/server.py", line 339, in capture_signals
+    signal.raise_signal(captured_signal)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/ray/_private/worker.py", line 1657, in sigterm_handler
+    sys.exit(signum)
+    ~~~~~~~~^^^^^^^^
+SystemExit: 15
+Exception ignored in: <function Server.__del__ at 0x7fa15ff38360>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/grpc/aio/_server.py", line 204, in __del__
+    cygrpc.schedule_coro_threadsafe(
+  File "src/python/grpcio/grpc/_cython/_cygrpc/aio/common.pyx.pxi", line 121, in grpc._cython.cygrpc.schedule_coro_threadsafe
+  File "src/python/grpcio/grpc/_cython/_cygrpc/aio/common.pyx.pxi", line 113, in grpc._cython.cygrpc.schedule_coro_threadsafe
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 466, in create_task
+    self._check_closed()
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 556, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+<sys>:0: RuntimeWarning: coroutine 'AioServer.shutdown' was never awaited
