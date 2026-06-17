@@ -1,0 +1,24 @@
+2026-06-17 11:22:35,831	INFO worker.py:2012 -- Started a local Ray instance.
+/usr/local/lib/python3.13/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+Traceback (most recent call last):
+  File "<string>", line 23, in <module>
+    asyncio.run(test())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "<string>", line 15, in test
+    r1 = await pool.process()
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/core_gpu_pool.py", line 220, in process
+    return await actor.process_next_task.remote()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ray.exceptions.OutOfMemoryError: 1 worker(s) were killed due to the node running low on memory. Memory on the node (IP: 169.254.0.21, ID: df20cce09f66d407d812cb27461c949dba7ec89f75094c411f51786e) was 1.86GB / 1.94GB (0.955023), which exceeds the memory usage threshold of 0.950000; Object store memory usage: [- objects spillable: 0; - bytes spillable: 0; - objects unsealed: 0; - bytes unsealed: 0; - objects in use: 0; - bytes in use: 0; - objects evictable: 0; - bytes evictable: 0; ; - objects created by worker: 0; - bytes created by worker: 0; - objects restored: 0; - bytes restored: 0; - objects received: 0; - bytes received: 0; - objects errored: 0; - bytes errored: 0; ; Eviction Stats:; (global lru) capacity: 222903091; (global lru) used: 0%; (global lru) num objects: 0; (global lru) num evictions: 0; (global lru) bytes evicted: 0]; Ray killed 1 worker(s) based on the killing policy: [(Task: job ID=01000000, lease ID=01000000f26e8fdb1562c1dae54979065e9f33cf051bc361e7bedce2fc55d95f, task name=CloudOrchestratorGPU.__init__, required resources={GPU: 1, CPU: 1}, pid=5426, actual memory used=0.09GB, worker ID=35f35673e49477d336ad48d062e21f1c9c0390ab9d6abdeff38e736d)]; To see more information about memory usage on this node, use `ray logs raylet.out -ip 169.254.0.21`; Top 10 memory users: PID	MEM(GB)	COMMAND, 5264	0.12	python -c, 4984	0.12	python -c, 5147	0.11	ray::CloudOrchestratorGPU, 5146	0.11	ray::CloudOrchestratorGPU, 5425	0.09	/usr/local/bin/python /usr/local/lib/python3.13/site-packages/ray/_private/workers/default_worker.py..., 5426	0.09	/usr/local/bin/python /usr/local/lib/python3.13/site-packages/ray/_private/workers/default_worker.py..., 5018	0.08	/usr/local/bin/python /usr/local/lib/python3.13/site-packages/ray/dashboard/dashboard.py --host=127...., 5299	0.08	/usr/local/bin/python /usr/local/lib/python3.13/site-packages/ray/dashboard/dashboard.py --host=127...., 5082	0.08	ray::DashboardAgent, 5361	0.08	ray::DashboardAgent, Refer to the documentation on how to address the out of memory issue: https://docs.ray.io/en/latest/ray-core/scheduling/ray-oom-prevention.html. Consider provisioning more memory on this node or reducing task parallelism by requesting more CPUs per task. Set max_restarts and max_task_retries to enable retry when the task crashes due to OOM. To adjust the kill threshold, set the environment variable `RAY_memory_usage_threshold` when starting Ray. To disable worker killing, set the environment variable `RAY_memory_monitor_refresh_ms` to zero.
+Actors: 2 | Accelerator: False
