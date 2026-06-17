@@ -1,0 +1,6 @@
+2026-06-17 11:22:00,067	INFO worker.py:2012 -- Started a local Ray instance.
+/usr/local/lib/python3.13/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[33m(raylet)[0m [2026-06-17 11:22:59,622 E 5058 5058] (raylet) node_manager.cc:3303: 1 Workers (tasks / actors) killed due to memory pressure (OOM), 0 Workers crashed due to other reasons at node (ID: 63cd3b7283b630dcf0153317b7178fd39891bd8166ddfa2e3fe6fe1a, IP: 169.254.0.21) over the last time period. To see more information about the Workers killed on this node, use `ray logs raylet.out -ip 169.254.0.21`
+[33m(raylet)[0m 
+[33m(raylet)[0m Refer to the documentation on how to address the out of memory issue: https://docs.ray.io/en/latest/ray-core/scheduling/ray-oom-prevention.html. Consider provisioning more memory on this node or reducing task parallelism by requesting more CPUs per task. To adjust the kill threshold, set the environment variable `RAY_memory_usage_threshold` when starting Ray. To disable worker killing, set the environment variable `RAY_memory_monitor_refresh_ms` to zero.
