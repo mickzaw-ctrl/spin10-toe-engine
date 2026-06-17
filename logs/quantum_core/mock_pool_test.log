@@ -1,0 +1,9 @@
+2026-06-17 11:21:04,259	INFO worker.py:2012 -- Started a local Ray instance.
+/usr/local/lib/python3.13/site-packages/ray/_private/worker.py:2051: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+Brak GPU/TPU – pool fallback na 1 CPU actor.
+Actors: 1
+Has accelerator: False
+Platform: cpu
+P=1 result: {'task_id': 0, 'source': 'COMPUTED', 'result': 99.35089874267578, 'status': 'SUCCESS'}
+P=5 result: {'task_id': 1, 'source': 'CACHE', 'result': 99.35089874267578, 'status': 'SUCCESS'}
