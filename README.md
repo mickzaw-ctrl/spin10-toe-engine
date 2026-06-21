@@ -2,14 +2,15 @@
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v13.0--PRO-blueviolet.svg)](#whats-new-in-v130-pro--physics-apex)
+[![Version](https://img.shields.io/badge/version-v14.5--ULTIMA-blueviolet.svg)](#whats-new-in-v145--ultima-cosmos-unified)
+[![Windows Package](https://img.shields.io/badge/Windows-pip%20install-blue.svg)](dist/shzspin10_ultima_apex-14.5.0-py3-none-any.whl)
 [![Quantum Core](https://img.shields.io/badge/Quantum%20Core-JAX%20%2B%20gRPC%20%2B%20Ray-orange.svg)](#quantum-core--production-inference-api)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen.svg)](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
 [![arXiv](https://img.shields.io/badge/arXiv-preprint-red.svg)](#publications)
 
 **Author:** Michal Slusarczyk  
-**Engine version:** v13.0-PRO — Physics Apex + Quantum Core  
-**Status:** Heptalogy complete (7 publications) · LQG Spin Foams · Ray HPC · Quantum Core JAX+gRPC · Commercial SaaS · 16-qubit QASM
+**Engine version:** v14.5 — ULTIMA COSMOS UNIFIED  
+**Status:** Heptalogy complete · LQG Spin Foams · Quantum Core JAX+gRPC · FRW Cosmology · **Windows pip package v14.5.0**
 
 🌐 **Live site:** [mickzaw-ctrl.github.io/spin10-toe-engine](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
 
@@ -30,6 +31,7 @@ A complete computational implementation of a **Spin(10) Theory of Everything** o
 - Full **heptalogy**: 7 publications from pre-geometry to complete ToE
 - **Physics Apex (v13.0-PRO):** LQG Spin Foams, EPRL, Immirzi γ=0.274, SM constants top-down
 - **Quantum Core:** JAX XLA JIT · gRPC async · Ray actor pool · GPU/TPU auto-scaling · ~357k states/s CPU, ~1B states/s A100
+- **v14.5 Windows Package:** `pip install shzspin10_ultima_apex-14.5.0-py3-none-any.whl` · CLI · Streamlit dashboard · FRW cosmology
 
 ---
 
@@ -236,11 +238,51 @@ python3 scripts/monte_carlo_queue_sim.py
 
 ---
 
+## 🪐 What's New in v14.5 — ULTIMA COSMOS UNIFIED
+
+**Release date:** 2026-06-21 · **Tag:** [v14.5.0](https://github.com/mickzaw-ctrl/spin10-toe-engine/releases/tag/v14.5.0)
+
+### First Windows distributable package
+
+```bash
+pip install dist/shzspin10_ultima_apex-14.5.0-py3-none-any.whl
+shzspin10 -o report.json
+shzspin10-menu
+shzspin10-dashboard
+```
+
+### New modules in `src/windows_package/`
+
+| File | Description |
+|------|-------------|
+| `shzspin10/engine.py` | Unified monolithic engine — all 8 labs + 6 cloud services + full FRW cosmology |
+| `shzspin10/cli.py` | CLI: `shzspin10`, `shzspin10-dashboard` |
+| `shzspin10/menu.py` | Interactive console menu: `shzspin10-menu` |
+| `shzspin10/streamlit_dashboard.py` | Streamlit web dashboard |
+| `shzspin10/dashboard.html` | Standalone HTML dashboard |
+| `setup_shzspin10.iss` | Inno Setup script → `.exe` Windows installer |
+| `build_windows.py` | PyInstaller standalone `.exe` builder |
+
+### Full FRW Cosmology (new in v14.5)
+
+The `CosmicEvolutionEngine` class adds a complete Big Bang simulation:
+
+| Module | Result |
+|--------|--------|
+| Starobinsky R² inflation | n_s=0.9667 (0.48σ from Planck PR4), r=0.0125 |
+| FRW numerical evolution | Age=13.8 Gyr, H₀=67.4 km/s/Mpc, Ω_Λ=0.685 |
+| CMB TT power spectrum | First peak l≈220, Planck-compatible |
+| Matter P(k) BBKS | Full linear matter power spectrum |
+| Output plot | `ultima_big_bang_simulation.png` — 4-panel figure |
+
+---
+
 ## Engine Generation History
 
 | Version | Codename | Key additions |
 |---------|----------|---------------|
-| **v13.0-PRO** ★ | **Physics Apex** | SpinFoamLQGBridge (EPRL, γ=0.274), SM constants top-down, **Quantum Core** (JAX+gRPC+Ray), Ray HPC, SaaS+Stripe, 16-qubit QASM, EIC €15M |
+| **v14.5** ★ | **ULTIMA COSMOS UNIFIED** | Windows pip package, unified monolithic wheel, FRW cosmology (Big Bang+CMB+P(k)), Streamlit dashboard, Inno Setup .exe |
+| v13.0-PRO | Physics Apex | SpinFoamLQGBridge (EPRL, γ=0.274), SM constants top-down, Quantum Core (JAX+gRPC+Ray), Ray HPC, SaaS+Stripe, 16-qubit QASM, EIC €15M |
 | v12.0-ULTIMA | Ultimate Frontiers | MERA AdS/CFT (Ryu-Takayanagi), AI equation discovery, Black Hole Page Curve, Yukawa A₄, E₈, Surface Code QEC |
 | v10.0-PRO | Enterprise | GPU/CUDA 10⁷ edges/s, Quantum Bridge QAOA/VQE, SciML Digital Twins, FastAPI REST |
 | v9.0 / v9.7 | Enhanced | 2-loop RGE, Mukhanov-Sasaki, Lazy Random Walk d_S, Bayesian MCMC (emcee) |
@@ -393,6 +435,15 @@ python3 tests/tests_synthetic_spin10_toe.py
 ```
 spin10-toe-engine/
 ├── src/
+│   ├── windows_package/               # ★ NEW 2026-06-21 — v14.5 Windows distributable
+│   │   ├── shzspin10/
+│   │   │   ├── engine.py              #   Unified monolithic engine (all labs + cosmology)
+│   │   │   ├── cli.py / menu.py       #   CLI & interactive menu
+│   │   │   ├── streamlit_dashboard.py #   Streamlit web dashboard
+│   │   │   └── dashboard.html         #   Standalone HTML dashboard
+│   │   ├── setup_shzspin10.iss        #   Inno Setup → .exe installer
+│   │   ├── build_windows.py           #   PyInstaller .exe builder
+│   │   └── WINDOWS_INSTALL.md         #   Installation guide (5 methods)
 │   ├── quantum_core/                     # ★ NEW 2026-06-17 — Production inference API
 │   │   ├── core.py                       #   Base JAX+Ray core, LRU cache, priority queue
 │   │   ├── core_optimized.py             #   bfloat16, double-buffering, auto GPU/TPU/CPU
@@ -462,13 +513,15 @@ spin10-toe-engine/
 │   │   ├── mock_gpu8.log / mock_gpu8_pool.log / mock_gpu2_pool.log
 │   │   └── tpu_direct_test.log / tpu_direct_test2.log / tpu_direct_test3.log
 │   └── build-log-v13-0-PRO.md
+├── dist/
+│   └── shzspin10_ultima_apex-14.5.0-py3-none-any.whl  # ★ NEW — pip installable wheel
 ├── spin10_toe_variational_ansatz.qasm    # v13 — 16-qubit OpenQASM 2.0 circuit
 ├── requirements.txt
 ├── CITATION.cff
 ├── LICENSE
 └── README.md
 
-Total: 161 files
+Total: 174 files
 ```
 
 ---
@@ -533,17 +586,17 @@ Total: 161 files
 ```bibtex
 @software{slusarczyk2026spin10,
   author    = {Slusarczyk, Michal},
-  title     = {SHZSpin10QuantumEngine v13.0-PRO — Physics Apex + Quantum Core},
+  title     = {SHZSpin10QuantumEngine v14.5 — ULTIMA COSMOS UNIFIED},
   year      = {2026},
-  version   = {v13.0-PRO},
+  version   = {v14.5.0},
   url       = {https://github.com/mickzaw-ctrl/spin10-toe-engine},
   note      = {LQG Spin Foams (EPRL, gamma=0.274), SM constants top-down,
                Quantum Core (JAX XLA + gRPC + Ray GPU pool, ~357k states/s CPU),
-               Ray HPC EuroHPC-ready, Commercial SaaS Stripe, 16-qubit QASM,
-               EIC Accelerator EUR 15M, 161 files, 38 predictions, 35/35 tests}
+               FRW Cosmology (Big Bang + CMB + P(k) BBKS), Windows pip package,
+               EIC Accelerator EUR 15M, 174 files, 38 predictions, 35/35 tests}
 }
 ```
 
 ---
 
-*Last updated: 2026-06-17 · Engine version: v13.0-PRO Physics Apex + Quantum Core · 161 files · 38 predictions · 35/35 tests*
+*Last updated: 2026-06-21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*
