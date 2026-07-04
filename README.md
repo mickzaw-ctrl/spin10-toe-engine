@@ -20,7 +20,7 @@
 
 A complete computational implementation of a **Spin(10) Theory of Everything** on a relational graph. The model unifies quantum gravity, gauge symmetry Spin(10), supersymmetry (SUSY), and cosmology into a single framework — confronted against 9 current and future experiments.
 
-**v13.0-PRO Physics Apex** is the definitive release: two theoretical breakthroughs (LQG Spin Foams + SM constants top-down derivation), a full commercial infrastructure stack (Ray HPC, SaaS+Stripe, Kubernetes, 16-qubit QASM), and a new **Quantum Core** production inference layer — dual REST+gRPC API backed by JAX XLA and a Ray GPU actor pool.
+**v14.5 ULTIMA COSMOS UNIFIED** is the latest release: a unified monolithic engine integrating all previous generations (Base, Ultima, Enterprise, Physics Apex, Quantum Core) into a single installable Python wheel, with full FRW cosmology (Big Bang, CMB, matter power spectrum), CLI tools, Streamlit dashboard, and Windows installer. The engine unifies LQG Spin Foams, SM constants top-down derivation, a Quantum Core production inference layer (dual REST+gRPC API, JAX XLA, Ray GPU actor pool), and a complete commercial infrastructure stack (Ray HPC, SaaS+Stripe, Kubernetes, 16-qubit QASM).
 
 ### Key features
 
@@ -292,6 +292,17 @@ The `CosmicEvolutionEngine` class adds a complete Big Bang simulation:
 
 ## Installation
 
+### v14.5 — Windows Package (pip install wheel)
+
+```bash
+pip install dist/shzspin10_ultima_apex-14.5.0-py3-none-any.whl
+```
+
+Windows-specific installers (Inno Setup `.exe`, batch, PowerShell) are in `src/windows_package/`.
+See `src/windows_package/WINDOWS_INSTALL.md` for all 5 installation methods.
+
+### From source (all versions)
+
 ```bash
 git clone https://github.com/mickzaw-ctrl/spin10-toe-engine.git
 cd spin10-toe-engine
@@ -324,6 +335,34 @@ qiskit              # QASM circuit compilation (optional)
 ---
 
 ## Quick Start
+
+### v14.5 — Windows Package (recommended)
+
+```bash
+pip install dist/shzspin10_ultima_apex-14.5.0-py3-none-any.whl
+shzspin10 -o report.json          # full simulation -> JSON report
+shzspin10-menu                     # interactive console menu
+shzspin10-dashboard                # open HTML dashboard in browser
+```
+
+```python
+from shzspin10 import SHZSpin10UltimaApex
+
+engine = SHZSpin10UltimaApex()
+report = engine.run_ultima_simulation()
+engine.display_ultima_dashboard(report)
+
+# Cosmology: Big Bang + FRW + CMB + P(k)
+from shzspin10.engine import CosmicEvolutionEngine
+cosmo = CosmicEvolutionEngine()
+inflation = cosmo.simulate_inflation_reheating()
+frw = cosmo.simulate_frw_evolution(n_points=10000)
+cmb = cosmo.compute_cmb_power_spectrum(l_max=200)
+print(f"n_s = {inflation['spectral_index_n_s_60']}, r = {inflation['tensor_ratio_r_60']}")
+print(f"Age of universe: {frw['age_universe_Gyr']} Gyr")
+```
+
+### Previous generations
 
 ```python
 # ── v8.0 Core ──────────────────────────────────────────────────
@@ -374,6 +413,20 @@ with grpc.insecure_channel("localhost:50051") as ch:
 ## Running the Demos
 
 ```bash
+# ★ v14.5: Windows package — full ULTIMA simulation
+shzspin10 -o report.json
+shzspin10 --no-dashboard -o results.json
+python -m shzspin10
+
+# ★ v14.5: Interactive console menu
+shzspin10-menu
+
+# ★ v14.5: HTML dashboard in browser
+shzspin10-dashboard
+
+# ★ v14.5: Streamlit web dashboard (requires: pip install streamlit)
+streamlit run src/windows_package/shzspin10/streamlit_dashboard.py
+
 # ★ Quantum Core: start server (REST + gRPC)
 python3 src/quantum_core/main.py
 
@@ -575,9 +628,10 @@ Total: 174 files
 ## License
 
 - **Core (v8.0–v9.0):** MIT License
-- **Enterprise (v10.0-PRO, v12.0-ULTIMA, v13.0-PRO, Quantum Core):** Commercial dual-license  
-  Production SaaS platform, Ray HPC, gRPC Quantum Core, and commercial modules require a separate commercial license.  
+- **Enterprise (v10.0-PRO, v12.0-ULTIMA, v13.0-PRO, v14.5, Quantum Core):** Commercial dual-license  
+  Production SaaS platform, Ray HPC, gRPC Quantum Core, FRW cosmology modules, and commercial modules require a separate commercial license.  
   Contact: SHZ Quantum Technologies Sp. z o.o.
+- **Windows Package (v14.5 `shzspin10` wheel):** Free for academic and personal use; commercial deployment requires Enterprise license.
 
 ---
 
