@@ -420,7 +420,108 @@ class CosmicEvolutionEngine:
 
 
 # =============================================================================
-# 7. MAIN ENGINE — ULTIMA APEX v14.5
+# 6b. TERMO-CHROMO-DYNAMIKA LAB v15.0-TCD — NEW
+# =============================================================================
+class ThermoChromoDynamicsLab:
+    """Laboratory 3: Termo-Chromo-Dynamika jako TOE (Publ. VIII v15.0-TCD)"""
+    def __init__(self, N: int = 10**6):
+        self.N = N
+        # Lazy import to avoid circular
+        try:
+            import sys, os
+            sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+            from termo_chromo_dynamics import ThermoChromoDynamicsEngine
+            self._tcd_engine = ThermoChromoDynamicsEngine(N=N)
+            self.available = True
+        except Exception as e:
+            # Fallback stub if src not in path
+            self._tcd_engine = None
+            self.available = False
+            self.import_error = str(e)
+
+    def run_thermo_sector(self) -> Dict[str, Any]:
+        if not self.available:
+            return {'status': f'fallback: {self.import_error}', 'P(N)': 1-0.33/math.sqrt(self.N)}
+        # free energy at today
+        free = self._tcd_engine.thermo.free_energy_density(T_GeV=2e-13)
+        jac = self._tcd_engine.thermo.jacobson_einstein_equation(T_GeV=2e-13)
+        return {
+            'sector': 'THERMO — Jacobson emergent gravity',
+            'free_energy_w_today': free['w'],
+            'P(N)': jac['P(N,T)'],
+            'G_eff/G0': jac['G_eff/G0'],
+            'Lambda_thermal_GeV4': jac['Lambda_thermal_GeV4'],
+            'derivation': jac['derivation']
+        }
+
+    def run_chromo_sector(self) -> Dict[str, Any]:
+        if not self.available:
+            # stub values matching full engine
+            return {
+                'sector': 'CHROMO — SU(3) ⊂ Spin(10) confinement ↔ holography',
+                'T_c_QCD_MeV': 155.0,
+                'Polyakov_L_Tc': 0.5,
+                'CF_from_Polyakov': 0.444,
+                'eta/s_Tc': 0.095,
+                'glueball_0++_MeV': 1710.0,
+                'alpha_5_phenom_1um': 1e-6,
+                'stub': True
+            }
+        chromo = self._tcd_engine.chromo
+        glue = chromo.glueball_spectrum()
+        return {
+            'sector': 'CHROMO — SU(3) ⊂ Spin(10) confinement ↔ holography',
+            'T_c_QCD_MeV': 155.0,
+            'Polyakov_L_Tc': chromo.polyakov_loop(155.0),
+            'CF_from_Polyakov': chromo.causal_fraction_from_polyakov(155.0),
+            'string_tension_GeV2': chromo.string_tension(155.0),
+            'eta/s_Tc': chromo.eta_over_s(155.0),
+            'glueball_0++_MeV': glue['0++_MeV'],
+            'alpha_5_phenom_1um': chromo.fifth_force_alpha(1.0)['alpha_5_with_torsion_resummed_phenom'],
+            'Wilson_area_law': 'exp(-σ Area) for T<Tc'
+        }
+
+    def run_coupling_sector(self) -> Dict[str, Any]:
+        if not self.available:
+            return {
+                'sector': 'DYNAMIKA — RG + d_S(T) + w(T)',
+                'd_S_UV': 2.0,
+                'd_S_IR': 4.0,
+                'w_today': -1.0,
+                'stub': True
+            }
+        coup = self._tcd_engine.coupling
+        return {
+            'sector': 'DYNAMIKA — RG + d_S(T) + w(T) + Carnot Bounce',
+            'd_S_Today': coup.spectral_dimension_T(2e-13),
+            'd_S_GUT': coup.spectral_dimension_T(1.03e16),
+            'd_S_Planck': coup.spectral_dimension_T(1.22e19),
+            'w_Today': coup.equation_of_state_w_T(2e-13),
+            'w_QCD': coup.equation_of_state_w_T(0.155),
+            'w_GUT': coup.equation_of_state_w_T(1e16),
+            'RG_method': '2-loop + thermo c_i (T/M_SUSY)^2'
+        }
+
+    def run_full_tcd(self) -> Dict[str, Any]:
+        if not self.available:
+            # build stub report
+            return {
+                'engine_version': 'v15.0-TCD — Thermo-Chromo-Dynamics TOE (STUB)',
+                'N_graph': self.N,
+                'critical_Tc_MeV': 155.0,
+                'eta/s_Tc': 0.095,
+                'glueball_MeV': 1710.0,
+                'alpha_5_1um': 1e-6,
+                'd_S_flow': '2 → 4',
+                'consistency': '40/40 STUB',
+                'Z_TCD': 'Σ_G ∫ DU exp(-β10 SΔ -β3 S□ -θ S_topo + S_ent)',
+                'motto': 'Kolor uwięziony to przestrzeń zakrzywiona. Ciepło grafu to czas.'
+            }
+        return self._tcd_engine.run_full_tcd_simulation()
+
+
+# =============================================================================
+# 7. MAIN ENGINE — ULTIMA APEX v14.5 + TCD v15.0
 # =============================================================================
 class SHZSpin10UltimaApex(SHZSpin10FullEngine):
     """
@@ -430,7 +531,7 @@ class SHZSpin10UltimaApex(SHZSpin10FullEngine):
 
     def __init__(self):
         super().__init__()
-        self.version = "v14.5-ULTIMA COSMOS UNIFIED"
+        self.version = "v15.0-TCD — ULTIMA COSMOS + TERMO-CHROMO-DYNAMIKA"
         self.bh_lab = BlackHoleQuantumGraphity(internal_qubits=128)
         self.flavour_lab = YukawaFlavourHierarchy()
         self.string_lab = E8HeteroticStringEmbedding()
@@ -441,6 +542,12 @@ class SHZSpin10UltimaApex(SHZSpin10FullEngine):
         self.lqg_lab = SpinFoamLQGBridge()
         self.sm_lab = StandardModelLowEnergyDerivation()
         self.cosmo_lab = CosmicEvolutionEngine()
+        self.tcd_lab = ThermoChromoDynamicsLab(N=10**6)
+
+    def run_termo_chromo_simulation(self) -> Dict[str, Any]:
+        """Publ. VIII — TCD jako TOE — pełna symulacja"""
+        print(">>> Activating TERMO-CHROMO-DYNAMIKA Laboratory — v15.0-TCD as TOE...")
+        return self.tcd_lab.run_full_tcd()
 
     def run_ultima_simulation(self) -> Dict[str, Any]:
         base_report = self.run_all()
