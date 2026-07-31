@@ -613,6 +613,7 @@ Total: 174 files
 | Document | Description |
 |----------|-------------|
 | `quantum-core-architecture.md` ★ | **Full Quantum Core module reference** — 411 lines, all classes, benchmarks, deployment |
+| `HPC_SIMULATION_ENDPOINTS.md` ★ | **Base44-to-HPC endpoint map**, deployment checks, API contract mismatch, and smoke-test procedure |
 | `systematic_confrontation_v13.md` ★ | 17 observables, full χ²/σ confrontation with 2024–2026 data |
 | `spin10_v13_corrected_table.md` ★ | Corrected prediction table (MEG-II limit updated to 6×10⁻¹⁴) |
 | `competitive_landscape_v2.md` ★ | Spin10 vs Quimb/TFQ/PennyLane/Qibo — throughput + feature matrix |
