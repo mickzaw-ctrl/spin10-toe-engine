@@ -1,0 +1,4 @@
+# Isolated dependencies for the IFT-EGR research module and validation suite.
+jax[cpu]>=0.4.38,<0.6
+equinox>=0.11.11,<0.14
+numpy>=1.26

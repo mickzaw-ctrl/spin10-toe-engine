@@ -1,0 +1,58 @@
+name: IFT-EGR validation
+
+on:
+  push:
+    paths:
+      - "src/ift_egr.py"
+      - "tests/test_ift_egr.py"
+      - "scripts/run_ift_egr_validation.py"
+      - "scripts/hpc/run_ift_egr_validation.slurm"
+      - "requirements-ift-egr.txt"
+      - ".github/workflows/ift-egr-ci.yml"
+  pull_request:
+    paths:
+      - "src/ift_egr.py"
+      - "tests/test_ift_egr.py"
+      - "scripts/run_ift_egr_validation.py"
+      - "scripts/hpc/run_ift_egr_validation.slurm"
+      - "requirements-ift-egr.txt"
+      - ".github/workflows/ift-egr-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-ift-egr.txt
+      - name: Install isolated IFT-EGR dependencies
+        run: python -m pip install -r requirements-ift-egr.txt
+      - name: Compile changed Python sources
+        run: python -m py_compile src/ift_egr.py tests/test_ift_egr.py scripts/run_ift_egr_validation.py
+      - name: Run scientific and numerical contracts
+        env:
+          PYTHONPATH: src
+          JAX_ENABLE_X64: "True"
+        run: python -m unittest -v tests.test_ift_egr
+      - name: Run 600-step stability validation
+        env:
+          PYTHONPATH: src
+          JAX_ENABLE_X64: "True"
+        run: >-
+          python scripts/run_ift_egr_validation.py
+          --steps 600 --nodes 32 --edge-modes 6
+          --output results/ift_egr_validation_ci.json
+      - name: Upload validation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ift-egr-validation
+          path: results/ift_egr_validation_ci.json
+          if-no-files-found: error
