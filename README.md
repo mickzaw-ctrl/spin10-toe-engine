@@ -35,13 +35,17 @@ A complete computational implementation of a **Spin(10) Theory of Everything** o
 
 ---
 
-## IFT-EGR v0.2 research module
+## IFT-EGR v0.2 stability and v0.3 closure research modules
 
-The engine now includes an isolated JAX/Equinox prototype for Information-Frequency Time and emergent graph gravity. Its local and Slurm validation establish numerical stability only; the proper-time, entropy-response, and continuum-gravity mappings remain project hypotheses.
+The engine includes an isolated JAX/Equinox prototype for Information-Frequency Time and emergent graph gravity. Its local and Slurm validation establish numerical stability only; the proper-time, entropy-response, causal-GFT, and continuum-gravity mappings remain project hypotheses.
 
-- Source: [`src/ift_egr.py`](src/ift_egr.py)
-- Contract tests: [`tests/test_ift_egr.py`](tests/test_ift_egr.py)
+- Stabilized source: [`src/ift_egr.py`](src/ift_egr.py)
+- Stability contract tests: [`tests/test_ift_egr.py`](tests/test_ift_egr.py)
 - Scientific status and validation: [`docs/IFT_EGR_VALIDATION.md`](docs/IFT_EGR_VALIDATION.md)
+- Cosmology closure gates: [`src/ift_egr_closure.py`](src/ift_egr_closure.py)
+- Closure contract tests: [`tests/test_ift_egr_closure.py`](tests/test_ift_egr_closure.py)
+- Falsifiability and causal-order audit: [`docs/IFT_EGR_COSMOLOGY_CLOSURE.md`](docs/IFT_EGR_COSMOLOGY_CLOSURE.md)
+- Machine-readable assumption ledger: [`docs/IFT_EGR_CLOSURE_ASSUMPTIONS.json`](docs/IFT_EGR_CLOSURE_ASSUMPTIONS.json)
 
 ---
 

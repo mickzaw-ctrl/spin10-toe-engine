@@ -61,6 +61,7 @@ A successful process exit and `numerical_status: PASS` establish numerical stabi
 2. No graph Poisson equation connects local information frequency to mass density.
 3. No perturbation or likelihood module predicts CMB, BAO, supernova, atomic-clock, lensing, or black-hole observables.
 4. The continuum and graph-refinement limits are untested.
+5. No sourced causal-GFT action or bulk-to-boundary map derives horizon punctures from condensate quanta; see `IFT_EGR_COSMOLOGY_CLOSURE.md`.
 
 ## External references
 

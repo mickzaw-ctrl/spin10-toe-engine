@@ -1,0 +1,70 @@
+{
+  "ledger_id": "IFT-EGR-CLOSURE-001",
+  "status": "OPEN",
+  "entries": [
+    {
+      "id": "E001",
+      "classification": "established_physics",
+      "statement": "In the standard improved-dynamics LQC convention, rho_c = 3/(8 pi G gamma^2 Delta) with Delta = 4 sqrt(3) pi gamma l_Pl^2.",
+      "impact": "Fixes the bounce density near 0.41 rho_Pl for gamma = 0.2375; it is inherited LQC physics, not a new IFT-EGR prediction.",
+      "confidence": "high",
+      "provenance": "arXiv:gr-qc/0607039; DOI:10.1103/PhysRevD.74.084003"
+    },
+    {
+      "id": "E002",
+      "classification": "established_physics",
+      "statement": "An LQG puncture of spin j contributes area 8 pi gamma l_Pl^2 sqrt(j(j+1)).",
+      "impact": "Determines the algebraic puncture-area and spherical-radius checks.",
+      "confidence": "high",
+      "provenance": "arXiv:gr-qc/9710007; DOI:10.1103/PhysRevLett.80.904"
+    },
+    {
+      "id": "H001",
+      "classification": "project_hypothesis",
+      "statement": "The relational graph boundary is represented by an isolated-horizon puncture Hilbert space.",
+      "impact": "Required before isolated-horizon state counting can be used as IFT-EGR graph entropy.",
+      "confidence": "low",
+      "provenance": "No repository derivation available"
+    },
+    {
+      "id": "U001",
+      "classification": "unverified_assumption",
+      "statement": "The bulk GFT condensate quantum number N_GFT equals the boundary puncture count N_p.",
+      "impact": "Without a bulk-boundary map, N_GFT(phi) cannot determine the horizon radius L(phi).",
+      "confidence": "speculative",
+      "provenance": "No source or repository derivation available"
+    },
+    {
+      "id": "U002",
+      "classification": "unverified_assumption",
+      "statement": "The interval 72 <= N_e <= 140 is required by the same bounce state and reheating history used for the document's N_e = 60 prediction.",
+      "impact": "The apparent e-fold contradiction is not a falsification result until both intervals use identical definitions and frozen inputs.",
+      "confidence": "low",
+      "provenance": "No immutable parameter manifest or likelihood available"
+    },
+    {
+      "id": "R001",
+      "classification": "rejected_assumption",
+      "statement": "The classical Padmanabhan integration constant can be fixed by substituting the LQC bounce into H^2 = 8 pi G rho/3 + C.",
+      "impact": "The substitution applies the classical equation where the quantum correction is order unity and produces a large negative C; the code fails closed.",
+      "confidence": "high",
+      "provenance": "Dimensional and regime audit; arXiv:1206.4916 and arXiv:gr-qc/0607039"
+    },
+    {
+      "id": "H002",
+      "classification": "project_hypothesis",
+      "statement": "A future-directed transition kernel with zero support outside a finite partial order is a necessary kinematic gate for causal GFT.",
+      "impact": "Provides a falsifiable implementation invariant but is not sufficient for a causal quantum-gravity theory.",
+      "confidence": "medium",
+      "provenance": "Project construction in src/ift_egr_closure.py"
+    },
+    {
+      "id": "U003",
+      "classification": "unverified_assumption",
+      "statement": "A causal-GFT bounce produces an observable joint low-l CMB power-spectrum and bispectrum correction.",
+      "impact": "Requires a perturbation-transfer module, frozen parameters, uncertainty model, and official likelihood before comparison with data.",
+      "confidence": "speculative",
+      "provenance": "No implementation or numerical prediction available"
+    }
+  ]
+}
