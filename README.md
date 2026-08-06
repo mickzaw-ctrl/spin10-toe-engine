@@ -46,6 +46,7 @@ The engine includes an isolated JAX/Equinox prototype for Information-Frequency 
 - Closure contract tests: [`tests/test_ift_egr_closure.py`](tests/test_ift_egr_closure.py)
 - Falsifiability and causal-order audit: [`docs/IFT_EGR_COSMOLOGY_CLOSURE.md`](docs/IFT_EGR_COSMOLOGY_CLOSURE.md)
 - Machine-readable assumption ledger: [`docs/IFT_EGR_CLOSURE_ASSUMPTIONS.json`](docs/IFT_EGR_CLOSURE_ASSUMPTIONS.json)
+- Independent closure audit: [`docs/IFT_EGR_INDEPENDENT_AUDIT.md`](docs/IFT_EGR_INDEPENDENT_AUDIT.md)
 
 ---
 
