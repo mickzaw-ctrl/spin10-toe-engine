@@ -519,7 +519,7 @@ class ThermoChromoDynamicsEngine:
             "T_c_QCD_MeV": tc_mev,
             "T_c_QCD_err_MeV": CONST.T_c_err_MeV,
             "T_c_status": "external lattice-QCD reference input",
-            "T_c_source": "arXiv:1407.6387; DOI:10.1103/PhysRevD.90.094503",
+            "T_c_source": "arXiv:1908.09552; DOI:10.1103/PhysRevD.100.094510",
             "T_GUT_GeV": CONST.gut_scale_gev,
             "T_planck_GeV": CONST.planck_mass_gev,
             "CF_T_c": self.chromo.causal_fraction_from_polyakov(tc_mev),

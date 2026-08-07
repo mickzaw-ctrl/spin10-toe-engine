@@ -1,0 +1,99 @@
+{
+  "experiment_id": "TCD-SPECTRAL-SENSITIVITY-001",
+  "followup_passed": true,
+  "followup_rule": "all 20,000-walker window means within 0.05 of d_S=2",
+  "graph": "48x48 periodic square lattice",
+  "interpretation": "The raw estimator is usable only after walker-count and fit-window requirements are frozen before testing TCD graph ensembles.",
+  "rows": [
+    {
+      "absolute_error_from_2D": 0.05091040747694775,
+      "fit_window_inclusive": [
+        8,
+        25
+      ],
+      "mean_estimate": 2.0509104074769477,
+      "seed_estimates": [
+        2.0268825588901223,
+        2.0440677576410473,
+        2.0817809058996746
+      ],
+      "walkers": 8000
+    },
+    {
+      "absolute_error_from_2D": 0.09689791226472266,
+      "fit_window_inclusive": [
+        10,
+        35
+      ],
+      "mean_estimate": 1.9031020877352773,
+      "seed_estimates": [
+        1.7456216977851529,
+        2.046481724897254,
+        1.9172028405234247
+      ],
+      "walkers": 8000
+    },
+    {
+      "absolute_error_from_2D": 0.09964319837215596,
+      "fit_window_inclusive": [
+        15,
+        45
+      ],
+      "mean_estimate": 2.099643198372156,
+      "seed_estimates": [
+        2.2413289040529243,
+        2.1929970563009182,
+        1.8646036347626251
+      ],
+      "walkers": 8000
+    },
+    {
+      "absolute_error_from_2D": 0.027536800246772408,
+      "fit_window_inclusive": [
+        8,
+        25
+      ],
+      "mean_estimate": 2.0275368002467724,
+      "seed_estimates": [
+        2.0297560112410693,
+        2.1710635098658138,
+        1.8817908796334342
+      ],
+      "walkers": 20000
+    },
+    {
+      "absolute_error_from_2D": 0.023481500673993017,
+      "fit_window_inclusive": [
+        10,
+        35
+      ],
+      "mean_estimate": 1.976518499326007,
+      "seed_estimates": [
+        1.9702006580418256,
+        2.0775639603027614,
+        1.8817908796334342
+      ],
+      "walkers": 20000
+    },
+    {
+      "absolute_error_from_2D": 0.009045721408022178,
+      "fit_window_inclusive": [
+        15,
+        45
+      ],
+      "mean_estimate": 2.009045721408022,
+      "seed_estimates": [
+        2.052915337576974,
+        2.090512526835872,
+        1.8837092998112197
+      ],
+      "walkers": 20000
+    }
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "status": "exploratory_followup_after_primary_failure"
+}

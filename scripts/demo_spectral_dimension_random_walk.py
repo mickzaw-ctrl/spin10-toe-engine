@@ -52,7 +52,7 @@ def run_demo():
     print(f"   Results przeplywu dimensionu spektralnego d_S(t):")
     print(f"   - Strefa mikroskopowa UV:  d_S(UV) = {plateaux['d_S_UV']:.2f}")
     print(f"   - Strefa makroskopowa IR:  d_S(IR) numeric = {plateaux['d_S_IR_numeric']:.2f}")
-    print(f"   - Teoria ToE (Remedy #5):  d_S(IR) ToE     = {plateaux['d_S_IR_theoretical_remedy']:.2f}")
+    print(f"   - Project target (not observed): d_S(IR) = {plateaux['d_S_IR_theoretical_remedy']:.2f}")
     
     print(f"\n   Probka gladkiej ewolucji w timeie (eliminacja oscylacji parzystosci):")
     print(f"   {'Krok t':<8} | {'P(t) (Powrot)':<16} | {'d_S(t) (Dimension Spektralny)':<22}")
@@ -90,7 +90,7 @@ def run_demo():
     
     print(f"   SUKCES NUMERYCZNY! Pelna analysis zakonczona w zaledwie {sim_time:.2f} s.")
     print(f"   - Estymacja dimensionu IR: d_S(IR) = {plat_large['d_S_IR_numeric']:.2f}")
-    print(f"   - Przejscie od dimensionu fraktalnego UV do stabilnej timeospace potwierdzone.")
+    print("   - A physical UV-to-IR flow is not inferred without finite-size and uncertainty analysis.")
     
     print("\n   >>> Nowy module 'RandomWalkSpectralDimension' w pelni gotowy do integracji! <<<")
     print("="*75)

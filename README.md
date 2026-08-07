@@ -56,9 +56,14 @@ The existing TCD module has been converted into a scientifically gated research 
 
 - Research module: [`src/termo_chromo_dynamics.py`](src/termo_chromo_dynamics.py)
 - Scientific-contract tests: [`tests/test_termo_chromo_dynamics.py`](tests/test_termo_chromo_dynamics.py)
+- Seven numerical-audit contracts: [`tests/test_tcd_v15_audit_experiments.py`](tests/test_tcd_v15_audit_experiments.py)
+- Spectral reporting integrity: [`tests/test_spectral_dimension_integrity.py`](tests/test_spectral_dimension_integrity.py)
 - Windows adapter contracts: [`tests/test_tcd_windows_adapter.py`](tests/test_tcd_windows_adapter.py)
+- Final research report: [`docs/TCD_V15_FINAL_RESEARCH_REPORT.md`](docs/TCD_V15_FINAL_RESEARCH_REPORT.md)
 - Audited Publication VIII: [`docs/TERMO-CHROMO-DYNAMIKA-TOE.md`](docs/TERMO-CHROMO-DYNAMIKA-TOE.md)
 - Machine-readable assumptions: [`docs/TCD_ASSUMPTION_LEDGER.json`](docs/TCD_ASSUMPTION_LEDGER.json)
+- Numerical audit runner: `PYTHONPATH=src python scripts/run_tcd_v15_audit_experiments.py`
+- Spectral benchmarks: `PYTHONPATH=src python scripts/run_spectral_dimension_reference_benchmark.py` and `PYTHONPATH=src python scripts/run_spectral_dimension_sensitivity.py`
 - CLI: `PYTHONPATH=src python scripts/demo_termo_chromo_dynamics.py`
 
 TCD currently reports **project hypotheses and diagnostics, not validated predictions or a completed TOE**.

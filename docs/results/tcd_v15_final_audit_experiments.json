@@ -1,0 +1,1969 @@
+{
+  "experiment_suite": "TCD v15.0 Reproducible Numerical Audit Experiments",
+  "git_commit": "bc93e27796a977a3774a62f5fa9f6e0910f6d144",
+  "repo_path": "/app/conversations/6a2f27d2efffeedb38477916/integration_work/spin10-toe-engine",
+  "scientific_disclaimer": "Diagnostic and audit calculations only. No physical validation of Thermo-Chromo-Dynamics is claimed.",
+  "results": {
+    "exp1_spectral_dimension": {
+      "experiment": "1_spectral_dimension_sweep",
+      "indexing_and_range": "25 decade-spaced points, index 0 (T/T*=1e-12) to index 24 (T/T*=1e12)",
+      "formula": "d_S(T) = 2 + 2 / [1 + (T / T*)^kappa] with T* = 1.22e19 GeV, kappa = 0.7",
+      "key_limits": {
+        "IR_limit_T_0": 4.0,
+        "midpoint_T_Tstar": 3.0,
+        "UV_limit_T_1e12_Tstar": 2.0000000079621434
+      },
+      "strictly_monotonically_decreasing": true,
+      "decade_sweep_data": [
+        {
+          "index": 0,
+          "log10_T_over_Tstar": -12.0,
+          "T_over_Tstar": 1e-12,
+          "T_GeV": 12200000.0,
+          "spectral_dimension_dS": 3.9999999920378566
+        },
+        {
+          "index": 1,
+          "log10_T_over_Tstar": -11.0,
+          "T_over_Tstar": 1e-11,
+          "T_GeV": 122000000.0,
+          "spectral_dimension_dS": 3.9999999600947547
+        },
+        {
+          "index": 2,
+          "log10_T_over_Tstar": -10.0,
+          "T_over_Tstar": 1e-10,
+          "T_GeV": 1220000000.0,
+          "spectral_dimension_dS": 3.99999980000002
+        },
+        {
+          "index": 3,
+          "log10_T_over_Tstar": -9.0,
+          "T_over_Tstar": 1e-09,
+          "T_GeV": 12200000000.0,
+          "spectral_dimension_dS": 3.999998997626035
+        },
+        {
+          "index": 4,
+          "log10_T_over_Tstar": -8.0,
+          "T_over_Tstar": 1e-08,
+          "T_GeV": 122000000000.0,
+          "spectral_dimension_dS": 3.9999949762397558
+        },
+        {
+          "index": 5,
+          "log10_T_over_Tstar": -7.0,
+          "T_over_Tstar": 1e-07,
+          "T_GeV": 1220000000000.0,
+          "spectral_dimension_dS": 3.999974821808739
+        },
+        {
+          "index": 6,
+          "log10_T_over_Tstar": -6.0,
+          "T_over_Tstar": 1e-06,
+          "T_GeV": 12200000000000.0,
+          "spectral_dimension_dS": 3.999873816492745
+        },
+        {
+          "index": 7,
+          "log10_T_over_Tstar": -5.0,
+          "T_over_Tstar": 1e-05,
+          "T_GeV": 122000000000000.02,
+          "spectral_dimension_dS": 3.999367744404741
+        },
+        {
+          "index": 8,
+          "log10_T_over_Tstar": -4.0,
+          "T_over_Tstar": 0.0001,
+          "T_GeV": 1220000000000000.0,
+          "spectral_dimension_dS": 3.996835229438396
+        },
+        {
+          "index": 9,
+          "log10_T_over_Tstar": -3.0,
+          "T_over_Tstar": 0.001,
+          "T_GeV": 1.22e+16,
+          "spectral_dimension_dS": 3.9842386322993395
+        },
+        {
+          "index": 10,
+          "log10_T_over_Tstar": -2.0,
+          "T_over_Tstar": 0.01,
+          "T_GeV": 1.22e+17,
+          "spectral_dimension_dS": 3.9234269922354907
+        },
+        {
+          "index": 11,
+          "log10_T_over_Tstar": -1.0,
+          "T_over_Tstar": 0.1,
+          "T_GeV": 1.22e+18,
+          "spectral_dimension_dS": 3.6673249383668765
+        },
+        {
+          "index": 12,
+          "log10_T_over_Tstar": 0.0,
+          "T_over_Tstar": 1.0,
+          "T_GeV": 1.22e+19,
+          "spectral_dimension_dS": 3.0
+        },
+        {
+          "index": 13,
+          "log10_T_over_Tstar": 1.0,
+          "T_over_Tstar": 10.0,
+          "T_GeV": 1.22e+20,
+          "spectral_dimension_dS": 2.332675061633124
+        },
+        {
+          "index": 14,
+          "log10_T_over_Tstar": 2.0,
+          "T_over_Tstar": 100.0,
+          "T_GeV": 1.22e+21,
+          "spectral_dimension_dS": 2.0765730077645097
+        },
+        {
+          "index": 15,
+          "log10_T_over_Tstar": 3.0,
+          "T_over_Tstar": 1000.0,
+          "T_GeV": 1.22e+22,
+          "spectral_dimension_dS": 2.0157613677006605
+        },
+        {
+          "index": 16,
+          "log10_T_over_Tstar": 4.0,
+          "T_over_Tstar": 10000.0,
+          "T_GeV": 1.22e+23,
+          "spectral_dimension_dS": 2.0031647705616034
+        },
+        {
+          "index": 17,
+          "log10_T_over_Tstar": 5.0,
+          "T_over_Tstar": 100000.0,
+          "T_GeV": 1.22e+24,
+          "spectral_dimension_dS": 2.000632255595259
+        },
+        {
+          "index": 18,
+          "log10_T_over_Tstar": 6.0,
+          "T_over_Tstar": 1000000.0,
+          "T_GeV": 1.22e+25,
+          "spectral_dimension_dS": 2.000126183507255
+        },
+        {
+          "index": 19,
+          "log10_T_over_Tstar": 7.0,
+          "T_over_Tstar": 10000000.0,
+          "T_GeV": 1.22e+26,
+          "spectral_dimension_dS": 2.0000251781912612
+        },
+        {
+          "index": 20,
+          "log10_T_over_Tstar": 8.0,
+          "T_over_Tstar": 100000000.0,
+          "T_GeV": 1.22e+27,
+          "spectral_dimension_dS": 2.000005023760244
+        },
+        {
+          "index": 21,
+          "log10_T_over_Tstar": 9.0,
+          "T_over_Tstar": 1000000000.0,
+          "T_GeV": 1.22e+28,
+          "spectral_dimension_dS": 2.0000010023739647
+        },
+        {
+          "index": 22,
+          "log10_T_over_Tstar": 10.0,
+          "T_over_Tstar": 10000000000.0,
+          "T_GeV": 1.22e+29,
+          "spectral_dimension_dS": 2.00000019999998
+        },
+        {
+          "index": 23,
+          "log10_T_over_Tstar": 11.0,
+          "T_over_Tstar": 100000000000.0,
+          "T_GeV": 1.22e+30,
+          "spectral_dimension_dS": 2.0000000399052453
+        },
+        {
+          "index": 24,
+          "log10_T_over_Tstar": 12.0,
+          "T_over_Tstar": 1000000000000.0,
+          "T_GeV": 1.22e+31,
+          "spectral_dimension_dS": 2.0000000079621434
+        }
+      ],
+      "kappa_sensitivity": [
+        {
+          "kappa": 0.1,
+          "dS_at_1e_minus_2_Tstar": 3.226273640306286,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.773726359693714
+        },
+        {
+          "kappa": 0.3,
+          "dS_at_1e_minus_2_Tstar": 3.5984799821737967,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.4015200178262033
+        },
+        {
+          "kappa": 0.5,
+          "dS_at_1e_minus_2_Tstar": 3.8181818181818183,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.1818181818181817
+        },
+        {
+          "kappa": 0.7,
+          "dS_at_1e_minus_2_Tstar": 3.9234269922354907,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.0765730077645097
+        },
+        {
+          "kappa": 1.0,
+          "dS_at_1e_minus_2_Tstar": 3.98019801980198,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.01980198019802
+        },
+        {
+          "kappa": 1.5,
+          "dS_at_1e_minus_2_Tstar": 3.9980019980019983,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.001998001998002
+        },
+        {
+          "kappa": 2.0,
+          "dS_at_1e_minus_2_Tstar": 3.999800019998,
+          "dS_at_Tstar": 3.0,
+          "dS_at_1e_plus_2_Tstar": 2.000199980002
+        }
+      ],
+      "classification": "project_parameterization_trend_and_analytical_asymptotic_identity"
+    },
+    "exp2_coherence_domain": {
+      "experiment": "2_coherence_domain_map",
+      "indexing_and_range": "N in [1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8] (7 steps, i=0..6); T/T_GUT in 1e-6..1e6 (13 steps, j=0..12)",
+      "analytical_condition_for_P_positive": "P(N,T) > 0 <=> T/T_GUT < sqrt(N/c^2 - 1) with c = 0.33",
+      "analytical_boundaries": {
+        "N_1e2": {
+          "N": 100,
+          "ratio_crit_T_over_TGUT": 30.28652580845767,
+          "T_crit_GeV": 3.1195121582711405e+17
+        },
+        "N_1e3": {
+          "N": 1000,
+          "ratio_crit_T_over_TGUT": 95.82137786247768,
+          "T_crit_GeV": 9.8696019198352e+17
+        },
+        "N_1e4": {
+          "N": 10000,
+          "ratio_crit_T_over_TGUT": 303.02865302581085,
+          "T_crit_GeV": 3.1211951261658516e+18
+        },
+        "N_1e5": {
+          "N": 100000,
+          "ratio_crit_T_over_TGUT": 958.2654358508256,
+          "T_crit_GeV": 9.870133989263503e+18
+        },
+        "N_1e6": {
+          "N": 1000000,
+          "ratio_crit_T_over_TGUT": 3030.3028653030256,
+          "T_crit_GeV": 3.1212119512621162e+19
+        },
+        "N_1e7": {
+          "N": 10000000,
+          "ratio_crit_T_over_TGUT": 9582.659524090233,
+          "T_crit_GeV": 9.87013930981294e+19
+        },
+        "N_1e8": {
+          "N": 100000000,
+          "ratio_crit_T_over_TGUT": 30303.030286530302,
+          "T_crit_GeV": 3.1212121195126214e+20
+        }
+      },
+      "numerical_boundary_checks": {
+        "N_1e2": {
+          "P_just_below_crit": 9.98910994565172e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e3": {
+          "P_just_below_crit": 9.99891099451311e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e4": {
+          "P_just_below_crit": 9.999891099510272e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e5": {
+          "P_just_below_crit": 9.999989109887863e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e6": {
+          "P_just_below_crit": 9.999998910936725e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e7": {
+          "P_just_below_crit": 9.999999891263656e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        },
+        "N_1e8": {
+          "P_just_below_crit": 9.999999988963282e-06,
+          "raises_exception_just_above_crit": true,
+          "numerical_match_exact": true
+        }
+      },
+      "domain_matrix": [
+        {
+          "N": 100,
+          "log10_N": 2,
+          "analytical_crit_ratio": 30.28652580845767,
+          "decade_grid": [
+            {
+              "N_index": 0,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 99.9999999999,
+              "P_N_T": 0.9669999999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 99.99999999,
+              "P_N_T": 0.96699999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 99.99999900000002,
+              "P_N_T": 0.966999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 99.99990000010001,
+              "P_N_T": 0.9669999835000042,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 99.9900009999,
+              "P_N_T": 0.9669983500412479,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 99.00990099009901,
+              "P_N_T": 0.9668354104503011,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 50.0,
+              "P_N_T": 0.9533309524416879,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 0.9900990099009901,
+              "P_N_T": 0.6683541045030106,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 0.009999000099990002,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 9.99999000001e-05,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 9.999999900000001e-07,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 9.999999999e-09,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 0,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-11,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 1000,
+          "log10_N": 3,
+          "analytical_crit_ratio": 95.82137786247768,
+          "decade_grid": [
+            {
+              "N_index": 1,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 999.9999999989999,
+              "P_N_T": 0.9895644837214391,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 999.9999999,
+              "P_N_T": 0.9895644837209225,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 999.9999900000001,
+              "P_N_T": 0.9895644836692667,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 999.9990000010001,
+              "P_N_T": 0.9895644785036876,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 999.9000099990001,
+              "P_N_T": 0.9895639619586741,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 990.09900990099,
+              "P_N_T": 0.9895124359358334,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 500.0,
+              "P_N_T": 0.9852419513485013,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 9.900990099009901,
+              "P_N_T": 0.8951243593583333,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 0.0999900009999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 0.000999999000001,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 9.999999900000001e-06,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 9.999999999e-08,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 1,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-10,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 10000,
+          "log10_N": 4,
+          "analytical_crit_ratio": 303.02865302581085,
+          "decade_grid": [
+            {
+              "N_index": 2,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 9999.99999999,
+              "P_N_T": 0.9966999999999984,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 9999.999999,
+              "P_N_T": 0.996699999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 9999.9999,
+              "P_N_T": 0.9966999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 9999.99000001,
+              "P_N_T": 0.9966999983500004,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 9999.00009999,
+              "P_N_T": 0.9966998350041248,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 9900.990099009901,
+              "P_N_T": 0.9966835410450301,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 5000.0,
+              "P_N_T": 0.9953330952441688,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 99.00990099009901,
+              "P_N_T": 0.9668354104503011,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 0.9999000099990001,
+              "P_N_T": 0.6699835004124794,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 0.00999999000001,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 9.999999900000001e-05,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 9.999999999e-07,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 2,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-09,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 100000,
+          "log10_N": 5,
+          "analytical_crit_ratio": 958.2654358508256,
+          "decade_grid": [
+            {
+              "N_index": 3,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 99999.99999989998,
+              "P_N_T": 0.9989564483721439,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 99999.99999,
+              "P_N_T": 0.9989564483720923,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 99999.99900000001,
+              "P_N_T": 0.9989564483669267,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 99999.90000010001,
+              "P_N_T": 0.9989564478503687,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 99990.00099990002,
+              "P_N_T": 0.9989563961958674,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 99009.900990099,
+              "P_N_T": 0.9989512435935833,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 50000.0,
+              "P_N_T": 0.9985241951348501,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 990.0990099009902,
+              "P_N_T": 0.9895124359358334,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 9.99900009999,
+              "P_N_T": 0.8956396195867417,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 0.0999999000001,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 0.00099999999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 9.999999999e-06,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 3,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-08,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 1000000,
+          "log10_N": 6,
+          "analytical_crit_ratio": 3030.3028653030256,
+          "decade_grid": [
+            {
+              "N_index": 4,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 999999.9999989999,
+              "P_N_T": 0.9996699999999998,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 999999.9998999999,
+              "P_N_T": 0.9996699999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 999999.9900000001,
+              "P_N_T": 0.99966999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 999999.0000010001,
+              "P_N_T": 0.999669999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 999900.0099990001,
+              "P_N_T": 0.9996699835004125,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 990099.0099009901,
+              "P_N_T": 0.999668354104503,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 500000.0,
+              "P_N_T": 0.9995333095244169,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 9900.990099009901,
+              "P_N_T": 0.9966835410450301,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 99.9900009999,
+              "P_N_T": 0.9669983500412479,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 0.999999000001,
+              "P_N_T": 0.6699998350000412,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 0.0099999999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 9.999999999e-05,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 4,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-07,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 10000000,
+          "log10_N": 7,
+          "analytical_crit_ratio": 9582.659524090233,
+          "decade_grid": [
+            {
+              "N_index": 5,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 9999999.99999,
+              "P_N_T": 0.9998956448372144,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 9999999.999,
+              "P_N_T": 0.9998956448372093,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 9999999.900000002,
+              "P_N_T": 0.9998956448366927,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 9999990.00001,
+              "P_N_T": 0.9998956447850369,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 9999000.099990001,
+              "P_N_T": 0.9998956396195867,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 9900990.099009901,
+              "P_N_T": 0.9998951243593583,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 5000000.0,
+              "P_N_T": 0.999852419513485,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 99009.900990099,
+              "P_N_T": 0.9989512435935833,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 999.9000099990001,
+              "P_N_T": 0.9895639619586741,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 9.99999000001,
+              "P_N_T": 0.8956447850368752,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 0.099999999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 0.0009999999999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 5,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-06,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        },
+        {
+          "N": 100000000,
+          "log10_N": 8,
+          "analytical_crit_ratio": 30303.030286530302,
+          "decade_grid": [
+            {
+              "N_index": 6,
+              "T_ratio_index": 0,
+              "log10_T_over_TGUT": -6.0,
+              "T_over_TGUT": 1e-06,
+              "N_eff": 99999999.9999,
+              "P_N_T": 0.9999669999999999,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 1,
+              "log10_T_over_TGUT": -5.0,
+              "T_over_TGUT": 1e-05,
+              "N_eff": 99999999.99,
+              "P_N_T": 0.9999669999999984,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 2,
+              "log10_T_over_TGUT": -4.0,
+              "T_over_TGUT": 0.0001,
+              "N_eff": 99999999.00000001,
+              "P_N_T": 0.999966999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 3,
+              "log10_T_over_TGUT": -3.0,
+              "T_over_TGUT": 0.001,
+              "N_eff": 99999900.0001,
+              "P_N_T": 0.9999669999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 4,
+              "log10_T_over_TGUT": -2.0,
+              "T_over_TGUT": 0.01,
+              "N_eff": 99990000.99990001,
+              "P_N_T": 0.9999669983500412,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 5,
+              "log10_T_over_TGUT": -1.0,
+              "T_over_TGUT": 0.1,
+              "N_eff": 99009900.99009901,
+              "P_N_T": 0.9999668354104503,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 6,
+              "log10_T_over_TGUT": 0.0,
+              "T_over_TGUT": 1.0,
+              "N_eff": 50000000.0,
+              "P_N_T": 0.9999533309524417,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 7,
+              "log10_T_over_TGUT": 1.0,
+              "T_over_TGUT": 10.0,
+              "N_eff": 990099.0099009901,
+              "P_N_T": 0.999668354104503,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 8,
+              "log10_T_over_TGUT": 2.0,
+              "T_over_TGUT": 100.0,
+              "N_eff": 9999.00009999,
+              "P_N_T": 0.9966998350041248,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 9,
+              "log10_T_over_TGUT": 3.0,
+              "T_over_TGUT": 1000.0,
+              "N_eff": 99.9999000001,
+              "P_N_T": 0.9669999835000042,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 10,
+              "log10_T_over_TGUT": 4.0,
+              "T_over_TGUT": 10000.0,
+              "N_eff": 0.9999999900000001,
+              "P_N_T": 0.66999999835,
+              "is_P_positive": true
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 11,
+              "log10_T_over_TGUT": 5.0,
+              "T_over_TGUT": 100000.0,
+              "N_eff": 0.009999999999,
+              "P_N_T": null,
+              "is_P_positive": false
+            },
+            {
+              "N_index": 6,
+              "T_ratio_index": 12,
+              "log10_T_over_TGUT": 6.0,
+              "T_over_TGUT": 1000000.0,
+              "N_eff": 9.99999999999e-05,
+              "P_N_T": null,
+              "is_P_positive": false
+            }
+          ]
+        }
+      ],
+      "classification": "exact_analytical_and_numerical_boundary"
+    },
+    "exp3_polyakov_cf": {
+      "experiment": "3_polyakov_cf_monotonicity_and_sensitivity",
+      "indexing_and_range": "31 temperature points T=0..300 MeV in 10 MeV steps (index 0..30); width sweep w in [5, 10, 15, 20, 30, 50] MeV",
+      "analytical_derivatives": {
+        "dL_dT": "dL/dT = (1/w) * L * (1 - L) > 0 for all T",
+        "dCF_dL": "dCF/dL = -0.3504 * (1 - L)^(-0.2) < 0 for all L in (0, 1)",
+        "dCF_dT": "dCF/dT = - (0.3504 / w) * L * (1 - L)^0.8 < 0 for all T"
+      },
+      "monotonicity_verified": {
+        "Polyakov_L_strictly_monotone_increasing": true,
+        "CausalFraction_CF_strictly_monotone_decreasing": true,
+        "CF_vs_L_anti_correlated": true
+      },
+      "grid_sample": [
+        {
+          "index": 0,
+          "T_MeV": 0.0,
+          "Polyakov_L": 2.9433921162157085e-05,
+          "CausalFraction_CF": 0.7379896863236672
+        },
+        {
+          "index": 5,
+          "T_MeV": 50.0,
+          "Polyakov_L": 0.0008244246863982953,
+          "CausalFraction_CF": 0.7377110977661794
+        },
+        {
+          "index": 10,
+          "T_MeV": 100.0,
+          "Polyakov_L": 0.022606172819682305,
+          "CausalFraction_CF": 0.7300607262710923
+        },
+        {
+          "index": 15,
+          "T_MeV": 150.0,
+          "Polyakov_L": 0.3933306438917885,
+          "CausalFraction_CF": 0.5936538893767979
+        },
+        {
+          "index": 20,
+          "T_MeV": 200.0,
+          "Polyakov_L": 0.9478464369215823,
+          "CausalFraction_CF": 0.3412383516805884
+        },
+        {
+          "index": 25,
+          "T_MeV": 250.0,
+          "Polyakov_L": 0.9980409474340998,
+          "CausalFraction_CF": 0.3029861456169674
+        },
+        {
+          "index": 30,
+          "T_MeV": 300.0,
+          "Polyakov_L": 0.9999299804933723,
+          "CausalFraction_CF": 0.30020780182029294
+        }
+      ],
+      "width_sensitivity": [
+        {
+          "width_w_MeV": 5.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.05,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.02012519517954805,
+          "CF_at_Tc_minus_10MeV": 0.6957079746820851,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.3798920622310303
+        },
+        {
+          "width_w_MeV": 10.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.025,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.010062597589774024,
+          "CF_at_Tc_minus_10MeV": 0.6409069480280242,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.4531793658177956
+        },
+        {
+          "width_w_MeV": 15.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.016666666666666666,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.006708398393182683,
+          "CF_at_Tc_minus_10MeV": 0.6144178522456367,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.4844520443663665
+        },
+        {
+          "width_w_MeV": 20.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.0125,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.005031298794887012,
+          "CF_at_Tc_minus_10MeV": 0.5997525566160428,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.5009301475501664
+        },
+        {
+          "width_w_MeV": 30.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.008333333333333333,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.0033541991965913417,
+          "CF_at_Tc_minus_10MeV": 0.584284202447416,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.5177413268038688
+        },
+        {
+          "width_w_MeV": 50.0,
+          "slope_dL_dT_at_Tc_MeV_inv": 0.005,
+          "slope_dCF_dT_at_Tc_MeV_inv": -0.002012519517954805,
+          "CF_at_Tc_minus_10MeV": 0.57143095967718,
+          "CF_at_Tc": 0.5515649397443506,
+          "CF_at_Tc_plus_10MeV": 0.5312982064220471
+        }
+      ],
+      "classification": "analytical_identity_and_parameter_sensitivity"
+    },
+    "exp4_qcd_crossover": {
+      "experiment": "4_qcd_crossover_sensitivity_and_domain",
+      "formula": "Tc = Lambda_QCD * sqrt(P) / CF",
+      "default_evaluation": {
+        "Lambda_QCD_GeV": 0.217,
+        "P": 0.99967,
+        "CF": 0.738,
+        "Tc_predicted_GeV": 0.29398942011598916,
+        "Tc_predicted_MeV": 293.98942011598916,
+        "lattice_reference_MeV": 156.5,
+        "relative_error": 0.8785266461085569
+      },
+      "analytical_partial_derivatives": {
+        "dTc_dLambda": 1.354789954451563,
+        "dTc_dP_GeV": 0.14704323432532193,
+        "dTc_dCF_GeV": -0.3983596478536438
+      },
+      "sweeps": {
+        "Lambda_QCD_sweep": [
+          {
+            "index": 0,
+            "Lambda_QCD_GeV": 0.15,
+            "Tc_predicted_GeV": 0.20321849316773444,
+            "Tc_predicted_MeV": 203.21849316773444,
+            "rel_error_to_156p5MeV": 0.29852072311651395
+          },
+          {
+            "index": 1,
+            "Lambda_QCD_GeV": 0.16999999999999998,
+            "Tc_predicted_GeV": 0.23031429225676567,
+            "Tc_predicted_MeV": 230.31429225676567,
+            "rel_error_to_156p5MeV": 0.471656819532049
+          },
+          {
+            "index": 2,
+            "Lambda_QCD_GeV": 0.19,
+            "Tc_predicted_GeV": 0.25741009134579695,
+            "Tc_predicted_MeV": 257.41009134579696,
+            "rel_error_to_156p5MeV": 0.6447929159475844
+          },
+          {
+            "index": 3,
+            "Lambda_QCD_GeV": 0.21,
+            "Tc_predicted_GeV": 0.2845058904348282,
+            "Tc_predicted_MeV": 284.5058904348282,
+            "rel_error_to_156p5MeV": 0.8179290123631195
+          },
+          {
+            "index": 4,
+            "Lambda_QCD_GeV": 0.22999999999999998,
+            "Tc_predicted_GeV": 0.31160168952385947,
+            "Tc_predicted_MeV": 311.6016895238595,
+            "rel_error_to_156p5MeV": 0.9910651087786547
+          },
+          {
+            "index": 5,
+            "Lambda_QCD_GeV": 0.25,
+            "Tc_predicted_GeV": 0.33869748861289073,
+            "Tc_predicted_MeV": 338.6974886128907,
+            "rel_error_to_156p5MeV": 1.16420120519419
+          },
+          {
+            "index": 6,
+            "Lambda_QCD_GeV": 0.27,
+            "Tc_predicted_GeV": 0.36579328770192204,
+            "Tc_predicted_MeV": 365.79328770192205,
+            "rel_error_to_156p5MeV": 1.3373373016097254
+          },
+          {
+            "index": 7,
+            "Lambda_QCD_GeV": 0.29000000000000004,
+            "Tc_predicted_GeV": 0.3928890867909533,
+            "Tc_predicted_MeV": 392.8890867909533,
+            "rel_error_to_156p5MeV": 1.5104733980252607
+          },
+          {
+            "index": 8,
+            "Lambda_QCD_GeV": 0.31,
+            "Tc_predicted_GeV": 0.4199848858799845,
+            "Tc_predicted_MeV": 419.9848858799845,
+            "rel_error_to_156p5MeV": 1.6836094944407958
+          },
+          {
+            "index": 9,
+            "Lambda_QCD_GeV": 0.32999999999999996,
+            "Tc_predicted_GeV": 0.44708068496901576,
+            "Tc_predicted_MeV": 447.08068496901575,
+            "rel_error_to_156p5MeV": 1.8567455908563308
+          },
+          {
+            "index": 10,
+            "Lambda_QCD_GeV": 0.35,
+            "Tc_predicted_GeV": 0.474176484058047,
+            "Tc_predicted_MeV": 474.17648405804704,
+            "rel_error_to_156p5MeV": 2.029881687271866
+          }
+        ],
+        "CF_sweep": [
+          {
+            "index": 0,
+            "CF": 0.3,
+            "Tc_predicted_GeV": 0.7232139734853333,
+            "Tc_predicted_MeV": 723.2139734853333,
+            "rel_error_to_156p5MeV": 3.62117554942705
+          },
+          {
+            "index": 1,
+            "CF": 0.35,
+            "Tc_predicted_GeV": 0.6198976915588572,
+            "Tc_predicted_MeV": 619.8976915588572,
+            "rel_error_to_156p5MeV": 2.961007613794615
+          },
+          {
+            "index": 2,
+            "CF": 0.4,
+            "Tc_predicted_GeV": 0.542410480114,
+            "Tc_predicted_MeV": 542.4104801139999,
+            "rel_error_to_156p5MeV": 2.4658816620702875
+          },
+          {
+            "index": 3,
+            "CF": 0.45,
+            "Tc_predicted_GeV": 0.4821426489902222,
+            "Tc_predicted_MeV": 482.1426489902222,
+            "rel_error_to_156p5MeV": 2.080783699618033
+          },
+          {
+            "index": 4,
+            "CF": 0.5,
+            "Tc_predicted_GeV": 0.4339283840912,
+            "Tc_predicted_MeV": 433.9283840912,
+            "rel_error_to_156p5MeV": 1.7727053296562298
+          },
+          {
+            "index": 5,
+            "CF": 0.55,
+            "Tc_predicted_GeV": 0.39448034917381813,
+            "Tc_predicted_MeV": 394.4803491738181,
+            "rel_error_to_156p5MeV": 1.5206412087783907
+          },
+          {
+            "index": 6,
+            "CF": 0.6000000000000001,
+            "Tc_predicted_GeV": 0.3616069867426666,
+            "Tc_predicted_MeV": 361.6069867426666,
+            "rel_error_to_156p5MeV": 1.3105877747135246
+          },
+          {
+            "index": 7,
+            "CF": 0.65,
+            "Tc_predicted_GeV": 0.33379106468553843,
+            "Tc_predicted_MeV": 333.79106468553846,
+            "rel_error_to_156p5MeV": 1.132850253581715
+          },
+          {
+            "index": 8,
+            "CF": 0.7,
+            "Tc_predicted_GeV": 0.3099488457794286,
+            "Tc_predicted_MeV": 309.9488457794286,
+            "rel_error_to_156p5MeV": 0.9805038068973074
+          },
+          {
+            "index": 9,
+            "CF": 0.75,
+            "Tc_predicted_GeV": 0.28928558939413335,
+            "Tc_predicted_MeV": 289.28558939413335,
+            "rel_error_to_156p5MeV": 0.8484702197708202
+          },
+          {
+            "index": 10,
+            "CF": 0.8,
+            "Tc_predicted_GeV": 0.271205240057,
+            "Tc_predicted_MeV": 271.20524005699997,
+            "rel_error_to_156p5MeV": 0.7329408310351436
+          },
+          {
+            "index": 11,
+            "CF": 0.8500000000000001,
+            "Tc_predicted_GeV": 0.2552519906418823,
+            "Tc_predicted_MeV": 255.25199064188232,
+            "rel_error_to_156p5MeV": 0.6310031350918998
+          },
+          {
+            "index": 12,
+            "CF": 0.9000000000000001,
+            "Tc_predicted_GeV": 0.24107132449511107,
+            "Tc_predicted_MeV": 241.07132449511107,
+            "rel_error_to_156p5MeV": 0.5403918498090164
+          },
+          {
+            "index": 13,
+            "CF": 0.95,
+            "Tc_predicted_GeV": 0.228383360048,
+            "Tc_predicted_MeV": 228.38336004800001,
+            "rel_error_to_156p5MeV": 0.45931859455591056
+          },
+          {
+            "index": 14,
+            "CF": 1.0,
+            "Tc_predicted_GeV": 0.2169641920456,
+            "Tc_predicted_MeV": 216.9641920456,
+            "rel_error_to_156p5MeV": 0.386352664828115
+          }
+        ]
+      },
+      "untuned_domain_reach_analysis": {
+        "CF_required_at_default_Lambda_and_P_eq_1": 1.3865814696485623,
+        "is_CF_req_within_physical_bound_CF_leq_1": false,
+        "P_required_at_default_Lambda_and_CF": 0.2832839306207394,
+        "N_eff_required_for_P_required": 0.21199889443147163,
+        "conclusion": "At default Lambda_QCD = 217 MeV and P <= 1, reaching Tc = 156.5 MeV requires CF = 1.3866 > 1.0 (unphysical). At CF = 0.738, reaching 156.5 MeV requires P = 0.2831 (N_eff = 0.212). Under the standard domain CF <= 1.0 and P <= 1.0, 156.5 MeV is ONLY reachable if Lambda_QCD <= 156.5 MeV."
+      },
+      "classification": "parameter_sensitivity_and_domain_non_closure_observation"
+    },
+    "exp5_dark_energy": {
+      "experiment": "5_dark_energy_scale_sweeps",
+      "candidate_1_dimensional": {
+        "formula": "Lambda_cand = Tc^4 / M_Pl^2 (GeV^2)",
+        "unit_note": "Lambda_cand has units GeV^2; rho_DE has units GeV^4",
+        "sweep_table": [
+          {
+            "Tc_GeV": 0.1,
+            "M_Pl_GeV": 1e+18,
+            "Lambda_candidate_GeV2": 1.0000000000000001e-40,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 2.37169e+43,
+            "log10_discrepancy_orders": 43.37505792242927
+          },
+          {
+            "Tc_GeV": 0.1,
+            "M_Pl_GeV": 2.435e+18,
+            "Lambda_candidate_GeV2": 1.6865610598349702e-41,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 4e+42,
+            "log10_discrepancy_orders": 42.60205999132796
+          },
+          {
+            "Tc_GeV": 0.1,
+            "M_Pl_GeV": 1.22e+19,
+            "Lambda_candidate_GeV2": 6.718624025799518e-43,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 1.5934493415748457e+41,
+            "log10_discrepancy_orders": 41.202338261079774
+          },
+          {
+            "Tc_GeV": 0.1565,
+            "M_Pl_GeV": 1e+18,
+            "Lambda_candidate_GeV2": 5.998703100625e-40,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 1.4227064156721305e+44,
+            "log10_discrepancy_orders": 44.15311528995914
+          },
+          {
+            "Tc_GeV": 0.1565,
+            "M_Pl_GeV": 2.435e+18,
+            "Lambda_candidate_GeV2": 1.011717905902542e-40,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 2.3994812402499996e+43,
+            "log10_discrepancy_orders": 43.38011735885783
+          },
+          {
+            "Tc_GeV": 0.1565,
+            "M_Pl_GeV": 1.22e+19,
+            "Lambda_candidate_GeV2": 4.030303077549718e-42,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 9.55862950599389e+41,
+            "log10_discrepancy_orders": 41.98039562860964
+          },
+          {
+            "Tc_GeV": 0.2,
+            "M_Pl_GeV": 1e+18,
+            "Lambda_candidate_GeV2": 1.6000000000000002e-39,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 3.794704e+44,
+            "log10_discrepancy_orders": 44.579177905085196
+          },
+          {
+            "Tc_GeV": 0.2,
+            "M_Pl_GeV": 2.435e+18,
+            "Lambda_candidate_GeV2": 2.6984976957359524e-40,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 6.4e+43,
+            "log10_discrepancy_orders": 43.80617997398389
+          },
+          {
+            "Tc_GeV": 0.2,
+            "M_Pl_GeV": 1.22e+19,
+            "Lambda_candidate_GeV2": 1.0749798441279228e-41,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 2.5495189465197532e+42,
+            "log10_discrepancy_orders": 42.4064582437357
+          },
+          {
+            "Tc_GeV": 0.25,
+            "M_Pl_GeV": 1e+18,
+            "Lambda_candidate_GeV2": 3.90625e-39,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 9.264414062499998e+44,
+            "log10_discrepancy_orders": 44.96681795711742
+          },
+          {
+            "Tc_GeV": 0.25,
+            "M_Pl_GeV": 2.435e+18,
+            "Lambda_candidate_GeV2": 6.588129139980352e-40,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 1.5625e+44,
+            "log10_discrepancy_orders": 44.19382002601611
+          },
+          {
+            "Tc_GeV": 0.25,
+            "M_Pl_GeV": 1.22e+19,
+            "Lambda_candidate_GeV2": 2.624462510077936e-41,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 6.22441149052674e+42,
+            "log10_discrepancy_orders": 42.794098295767924
+          },
+          {
+            "Tc_GeV": 0.3,
+            "M_Pl_GeV": 1e+18,
+            "Lambda_candidate_GeV2": 8.099999999999999e-39,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 1.9210688999999995e+45,
+            "log10_discrepancy_orders": 45.28354294130792
+          },
+          {
+            "Tc_GeV": 0.3,
+            "M_Pl_GeV": 2.435e+18,
+            "Lambda_candidate_GeV2": 1.3661144584663256e-39,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 3.2399999999999994e+44,
+            "log10_discrepancy_orders": 44.51054501020661
+          },
+          {
+            "Tc_GeV": 0.3,
+            "M_Pl_GeV": 1.22e+19,
+            "Lambda_candidate_GeV2": 5.442085460897607e-41,
+            "Lambda_reference_GeV2": 4.216402649587425e-84,
+            "ratio_to_reference": 1.2906939666756246e+43,
+            "log10_discrepancy_orders": 43.110823279958424
+          }
+        ],
+        "default_discrepancy_orders": 41.98039562860964
+      },
+      "candidate_2_instanton": {
+        "formula": "rho_inst = Tc^4 * exp(-1/alpha_GUT) (GeV^4)",
+        "sweep_table": [
+          {
+            "alpha_GUT": 0.01,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 3.720075976020837e-48,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 0.14880303904083347,
+            "log10_discrepancy_orders": -0.8273881989972203
+          },
+          {
+            "alpha_GUT": 0.01,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 2.2315631291916766e-47,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 0.8926252516766706,
+            "log10_discrepancy_orders": -0.04933083146735114
+          },
+          {
+            "alpha_GUT": 0.01,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 3.013261540576877e-46,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 12.053046162307508,
+            "log10_discrepancy_orders": 1.0810968198814295
+          },
+          {
+            "alpha_GUT": 0.02,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 1.9287498479639182e-26,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 7.714999391855673e+20,
+            "log10_discrepancy_orders": 20.88733589616537
+          },
+          {
+            "alpha_GUT": 0.02,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 1.1569997693311152e-25,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 4.627999077324461e+21,
+            "log10_discrepancy_orders": 21.66539326369524
+          },
+          {
+            "alpha_GUT": 0.02,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 1.5622873768507733e-24,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 6.249149507403093e+22,
+            "log10_discrepancy_orders": 22.795820915044022
+          },
+          {
+            "alpha_GUT": 0.0381,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 3.9920383129022437e-16,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.5968153251608975e+31,
+            "log10_discrepancy_orders": 31.203254692030015
+          },
+          {
+            "alpha_GUT": 0.0381,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 2.3947052605420483e-15,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 9.578821042168194e+31,
+            "log10_discrepancy_orders": 31.981312059559883
+          },
+          {
+            "alpha_GUT": 0.0381,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 3.2335510334508166e-14,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.2934204133803267e+33,
+            "log10_discrepancy_orders": 33.111739710908665
+          },
+          {
+            "alpha_GUT": 0.05,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 2.0611536224385584e-13,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 8.244614489754234e+33,
+            "log10_discrepancy_orders": 33.91617035326293
+          },
+          {
+            "alpha_GUT": 0.05,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 1.2364248625786628e-12,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 4.945699450314651e+34,
+            "log10_discrepancy_orders": 34.694227720792796
+          },
+          {
+            "alpha_GUT": 0.05,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 1.6695344341752318e-11,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 6.678137736700927e+35,
+            "log10_discrepancy_orders": 35.82465537214158
+          },
+          {
+            "alpha_GUT": 0.08,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 3.7266531720786715e-10,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.4906612688314686e+37,
+            "log10_discrepancy_orders": 37.17337896753732
+          },
+          {
+            "alpha_GUT": 0.08,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 2.2355085938302317e-09,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 8.942034375320926e+37,
+            "log10_discrepancy_orders": 37.951436335067186
+          },
+          {
+            "alpha_GUT": 0.08,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 3.018589069383723e-08,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.2074356277534893e+39,
+            "log10_discrepancy_orders": 39.08186398641596
+          },
+          {
+            "alpha_GUT": 0.1,
+            "Tc_GeV": 0.1,
+            "rho_instanton_GeV4": 4.539992976248486e-09,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.8159971904993947e+38,
+            "log10_discrepancy_orders": 38.259115172295445
+          },
+          {
+            "alpha_GUT": 0.1,
+            "Tc_GeV": 0.1565,
+            "rho_instanton_GeV4": 2.7234069943437512e-08,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.0893627977375005e+39,
+            "log10_discrepancy_orders": 39.03717253982531
+          },
+          {
+            "alpha_GUT": 0.1,
+            "Tc_GeV": 0.3,
+            "rho_instanton_GeV4": 3.677394310761273e-07,
+            "rho_reference_GeV4": 2.5e-47,
+            "ratio_to_reference": 1.470957724304509e+40,
+            "log10_discrepancy_orders": 40.167600191174095
+          }
+        ],
+        "default_discrepancy_orders": 31.981312059559883,
+        "alpha_GUT_required_to_match_reference": 0.010011371760721454
+      },
+      "classification": "physical_discrepancy_and_parameter_sweep"
+    },
+    "exp6_thermal_delta_g": {
+      "experiment": "6_thermal_delta_g",
+      "formula": "DeltaG/G = (T / M_GUT)^2 * (N_hidden / N_spin10) with M_GUT=1.03e16 GeV, N_hidden=125, N_spin10=45",
+      "group_ratio_125_over_45": 2.7777777777777777,
+      "epoch_results": [
+        {
+          "epoch": "today_2.73K",
+          "T_GeV": 2.35e-13,
+          "DeltaG_over_G_evaluated": 1.445968307830877e-57,
+          "claimed_heuristic": 1e-32,
+          "discrepancy_orders_of_magnitude": -24.83984122563416
+        },
+        {
+          "epoch": "recombination_0.25eV",
+          "T_GeV": 2.5e-10,
+          "DeltaG_over_G_evaluated": 1.6364512311349906e-51,
+          "claimed_heuristic": null,
+          "discrepancy_orders_of_magnitude": null
+        },
+        {
+          "epoch": "BBN_1MeV",
+          "T_GeV": 0.001,
+          "DeltaG_over_G_evaluated": 2.6183219698159843e-38,
+          "claimed_heuristic": 0.01,
+          "discrepancy_orders_of_magnitude": -35.58197695017763
+        },
+        {
+          "epoch": "EW_100GeV",
+          "T_GeV": 100.0,
+          "DeltaG_over_G_evaluated": 2.6183219698159845e-28,
+          "claimed_heuristic": null,
+          "discrepancy_orders_of_magnitude": null
+        },
+        {
+          "epoch": "GUT_1.03e16GeV",
+          "T_GeV": 1.03e+16,
+          "DeltaG_over_G_evaluated": 2.7777777777777777,
+          "claimed_heuristic": null,
+          "discrepancy_orders_of_magnitude": null
+        }
+      ],
+      "key_observations": [
+        "At today (2.35e-13 GeV), evaluated DeltaG/G = 1.45e-57 (25 orders of magnitude below claimed 1e-32).",
+        "At BBN (1 MeV), evaluated DeltaG/G = 2.62e-38 (36 orders of magnitude below claimed 1e-2).",
+        "The ansatz behaves purely as a tiny high-temperature expansion term, vanishing rapidly at low temperatures."
+      ],
+      "classification": "analytical_identity_and_phenomenological_discrepancy"
+    },
+    "exp7_rge_sensitivity": {
+      "experiment": "7_rge_m_susy_sensitivity",
+      "indexing_and_range": "7 SUSY mass scales [1, 2, 5, 10, 20, 50, 100] TeV",
+      "beta_coefficients": {
+        "SM": [
+          4.1,
+          -3.1666666666666665,
+          -7.0
+        ],
+        "MSSM": [
+          6.6,
+          1.0,
+          -3.0
+        ],
+        "delta_b": [
+          2.5,
+          4.166666666666666,
+          4.0
+        ]
+      },
+      "analytical_sensitivity_d_alpha_inv_d_ln_Msusy": {
+        "gauge_1": 0.3978873577297384,
+        "gauge_2": 0.6631455962162305,
+        "gauge_3_alphas": 0.6366197723675814
+      },
+      "sweep_table": [
+        {
+          "M_SUSY_TeV": 1.0,
+          "M_SUSY_GeV": 1000.0,
+          "alpha_1_MZ": 0.0168681224373316,
+          "alpha_2_MZ": 0.0335474444819583,
+          "alpha_s_MZ": 0.10784797429654844,
+          "g1_MZ": 0.4604031690984505,
+          "g2_MZ": 0.6492839290517874,
+          "g3_MZ": 1.164155322548632,
+          "pct_change_alpha_1_vs_1TeV": 0.0,
+          "pct_change_alpha_2_vs_1TeV": 0.0,
+          "pct_change_alpha_s_vs_1TeV": 0.0
+        },
+        {
+          "M_SUSY_TeV": 2.0,
+          "M_SUSY_GeV": 2000.0,
+          "alpha_1_MZ": 0.016946961999115256,
+          "alpha_2_MZ": 0.03407285936988091,
+          "alpha_s_MZ": 0.11323694366697092,
+          "g1_MZ": 0.46147784916325457,
+          "g2_MZ": 0.6543486675564213,
+          "g3_MZ": 1.1928861644584818,
+          "pct_change_alpha_1_vs_1TeV": 0.4673878914298821,
+          "pct_change_alpha_2_vs_1TeV": 1.5661845366646978,
+          "pct_change_alpha_s_vs_1TeV": 4.996820205082838
+        },
+        {
+          "M_SUSY_TeV": 5.0,
+          "M_SUSY_GeV": 5000.0,
+          "alpha_1_MZ": 0.017052320303206487,
+          "alpha_2_MZ": 0.034793212239821694,
+          "alpha_s_MZ": 0.12124575569156801,
+          "g1_MZ": 0.46291011737145504,
+          "g2_MZ": 0.6612294608300943,
+          "g3_MZ": 1.2343496674112613,
+          "pct_change_alpha_1_vs_1TeV": 1.0919879587026806,
+          "pct_change_alpha_2_vs_1TeV": 3.713450538783547,
+          "pct_change_alpha_s_vs_1TeV": 12.422840097283453
+        },
+        {
+          "M_SUSY_TeV": 10.0,
+          "M_SUSY_GeV": 10000.0,
+          "alpha_1_MZ": 0.017132895215557553,
+          "alpha_2_MZ": 0.0353587025901613,
+          "alpha_s_MZ": 0.12809936102991967,
+          "g1_MZ": 0.4640024902688317,
+          "g2_MZ": 0.6665812487543199,
+          "g3_MZ": 1.2687568900954072,
+          "pct_change_alpha_1_vs_1TeV": 1.5696636019191552,
+          "pct_change_alpha_2_vs_1TeV": 5.399094137191542,
+          "pct_change_alpha_s_vs_1TeV": 18.777716378507222
+        },
+        {
+          "M_SUSY_TeV": 20.0,
+          "M_SUSY_GeV": 20000.0,
+          "alpha_1_MZ": 0.01721423520142945,
+          "alpha_2_MZ": 0.03594287834044424,
+          "alpha_s_MZ": 0.13577420988871997,
+          "g1_MZ": 0.465102633172411,
+          "g2_MZ": 0.6720651234611459,
+          "g3_MZ": 1.306211713824924,
+          "pct_change_alpha_1_vs_1TeV": 2.0518748626809367,
+          "pct_change_alpha_2_vs_1TeV": 7.140436165783637,
+          "pct_change_alpha_s_vs_1TeV": 25.894075224243945
+        },
+        {
+          "M_SUSY_TeV": 50.0,
+          "M_SUSY_GeV": 50000.0,
+          "alpha_1_MZ": 0.017322953615653527,
+          "alpha_2_MZ": 0.036745402367781156,
+          "alpha_s_MZ": 0.14745260458882548,
+          "g1_MZ": 0.466569025193117,
+          "g2_MZ": 0.6795265591036814,
+          "g3_MZ": 1.3612288849843508,
+          "pct_change_alpha_1_vs_1TeV": 2.6963948122365924,
+          "pct_change_alpha_2_vs_1TeV": 9.5326423076509,
+          "pct_change_alpha_s_vs_1TeV": 36.72264643875146
+        },
+        {
+          "M_SUSY_TeV": 100.0,
+          "M_SUSY_GeV": 100000.0,
+          "alpha_1_MZ": 0.01740611263002003,
+          "alpha_2_MZ": 0.03737670614004371,
+          "alpha_s_MZ": 0.15771455235964638,
+          "g1_MZ": 0.46768756907160763,
+          "g2_MZ": 0.68533899764991,
+          "g3_MZ": 1.4077995298440298,
+          "pct_change_alpha_1_vs_1TeV": 3.189389896161647,
+          "pct_change_alpha_2_vs_1TeV": 11.414466041205522,
+          "pct_change_alpha_s_vs_1TeV": 46.23784395428729
+        }
+      ],
+      "calibration_diagnostic": {
+        "target_alpha_s_MZ": 0.118,
+        "fitted_M_SUSY_TeV_for_exact_alpha_s": 3.501107642489837,
+        "note": "Calibration diagnostic only \u2014 target alpha_s is imported from experiment, not predicted."
+      },
+      "classification": "parameter_sensitivity_and_baseline_running"
+    }
+  }
+}

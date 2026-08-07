@@ -57,7 +57,7 @@
       "statement": "T_c=Lambda_QCD sqrt(P)/CF evaluates to approximately 156 MeV for the supplied constants.",
       "impact": "The formula evaluates near 294 MeV; 156.5 MeV is retained only as an external lattice-QCD reference.",
       "confidence": "high",
-      "provenance": "Numerical audit in qcd_crossover_formula_audit; lattice reference arXiv:1407.6387"
+      "provenance": "Numerical audit in qcd_crossover_formula_audit; lattice reference arXiv:1908.09552; DOI:10.1103/PhysRevD.100.094510"
     },
     {
       "id": "TCD-R003",

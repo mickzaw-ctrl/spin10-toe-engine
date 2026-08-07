@@ -128,7 +128,17 @@ class RandomWalkSpectralDimension:
         Zawiera rowniez poprawke emergentnego przeplywu z Remedy #5 dla graphow ToE.
         """
         if len(d_S) < 10:
-            return {'d_S_UV': float(d_S[0]) if len(d_S)>0 else 1.0, 'd_S_IR': float(d_S[-1]) if len(d_S)>0 else 2.0}
+            d_uv = float(d_S[0]) if len(d_S) > 0 else 1.0
+            d_ir = float(d_S[-1]) if len(d_S) > 0 else 2.0
+            return {
+                'd_S_UV': d_uv,
+                'd_S_IR': d_ir,
+                'd_S_IR_numeric': d_ir,
+                'd_S_IR_theoretical_remedy': float(4.0 * (1.0 - np.exp(-N_nodes / 150.0))),
+                'theoretical_remedy_status': 'project_hypothesis_not_observation',
+                'flow_observed': None,
+                'flow_status': 'not_inferred_without_uncertainty_and_finite_size_model',
+            }
 
         # Strefa UV (poczatkowa relaksacja)
         d_S_UV = float(np.mean(d_S[1:min(10, len(d_S))]))
@@ -149,6 +159,9 @@ class RandomWalkSpectralDimension:
         return {
             'd_S_UV': max(1.0, d_S_UV),
             'd_S_IR_numeric': max(1.0, d_S_IR_raw),
+            # Compatibility value only: never treat this target curve as data.
             'd_S_IR_theoretical_remedy': d_S_IR_toe,
-            'flow_observed': True
+            'theoretical_remedy_status': 'project_hypothesis_not_observation',
+            'flow_observed': None,
+            'flow_status': 'not_inferred_without_uncertainty_and_finite_size_model',
         }

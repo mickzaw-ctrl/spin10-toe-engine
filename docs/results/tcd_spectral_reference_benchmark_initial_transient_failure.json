@@ -1,0 +1,43 @@
+{
+  "benchmark_id": "TCD-SPECTRAL-REFERENCE-001",
+  "classification": "numerical_method_validation_not_TCD_validation",
+  "method": "lazy random walk; median d_S for steps 10..35 inclusive",
+  "parameters": {
+    "lazy_probability": 0.5,
+    "max_steps": 100,
+    "num_walkers": 8000,
+    "seeds": [
+      11,
+      22,
+      33
+    ]
+  },
+  "pass_rule": "absolute error below 0.15 for each reference graph",
+  "passed": false,
+  "results": [
+    {
+      "absolute_error": 0.028095504082634837,
+      "graph": "cycle_1d",
+      "mean_estimate": 0.9719044959173652,
+      "nodes": 512,
+      "seed_estimates": [
+        0.9263427197751176,
+        1.0102768347757416,
+        0.9790939332012363
+      ],
+      "target_dimension": 1.0
+    },
+    {
+      "absolute_error": 0.1956062421473228,
+      "graph": "periodic_torus_2d",
+      "mean_estimate": 2.195606242147323,
+      "nodes": 1024,
+      "seed_estimates": [
+        2.092652407230063,
+        2.2333025989884,
+        2.2608637202235053
+      ],
+      "target_dimension": 2.0
+    }
+  ]
+}

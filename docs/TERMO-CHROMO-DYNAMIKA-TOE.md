@@ -292,7 +292,7 @@ Only after one item passes all five stages should it be promoted from diagnostic
 - T. Jacobson, “Thermodynamics of Spacetime,” arXiv:`gr-qc/9504004`, DOI:`10.1103/PhysRevLett.75.1260`.
 - K. G. Wilson, “Confinement of Quarks,” DOI:`10.1103/PhysRevD.10.2445`.
 - A. M. Polyakov, “Thermal Properties of Gauge Fields and Quark Liberation,” DOI:`10.1016/0370-2693(78)90737-2`.
-- A. Bazavov et al., “Equation of state in (2+1)-flavor QCD,” arXiv:`1407.6387`, DOI:`10.1103/PhysRevD.90.094503`.
+- A. Bazavov et al., “Equation of state in (2+1)-flavor QCD,” arXiv:`1908.09552`, DOI:`10.1103/PhysRevD.100.094510`.
 - P. Kovtun, D. Son, and A. Starinets, “Viscosity in Strongly Interacting Quantum Field Theories,” arXiv:`hep-th/0405231`, DOI:`10.1103/PhysRevLett.94.111601`.
 - Y. Chen et al., “Glueball spectrum and matrix elements on anisotropic lattices,” arXiv:`hep-lat/0510074`, DOI:`10.1103/PhysRevD.73.014516`.
 - S. Carlip, “Dimension and Dimensional Reduction in Quantum Gravity,” arXiv:`1705.05417`, DOI:`10.1088/1361-6382/aa8535`.
