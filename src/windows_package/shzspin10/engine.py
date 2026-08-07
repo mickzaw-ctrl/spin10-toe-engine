@@ -420,103 +420,91 @@ class CosmicEvolutionEngine:
 
 
 # =============================================================================
-# 6b. TERMO-CHROMO-DYNAMIKA LAB v15.0-TCD — NEW
+# 6b. THERMO-CHROMO-DYNAMICS RESEARCH LAB v15.0-TCD
 # =============================================================================
 class ThermoChromoDynamicsLab:
-    """Laboratory 3: Termo-Chromo-Dynamika jako TOE (Publ. VIII v15.0-TCD)"""
+    """Scientifically gated TCD research adapter for the monolithic package."""
+
     def __init__(self, N: int = 10**6):
         self.N = N
-        # Lazy import to avoid circular
         try:
-            import sys, os
-            sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+            import os
+            import sys
+
+            source_root = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "..", "..")
+            )
+            if source_root not in sys.path:
+                sys.path.insert(0, source_root)
             from termo_chromo_dynamics import ThermoChromoDynamicsEngine
+
             self._tcd_engine = ThermoChromoDynamicsEngine(N=N)
             self.available = True
-        except Exception as e:
-            # Fallback stub if src not in path
+            self.import_error = None
+        except Exception as exc:
             self._tcd_engine = None
             self.available = False
-            self.import_error = str(e)
+            self.import_error = str(exc)
+
+    def _unavailable(self, sector: str) -> Dict[str, Any]:
+        return {
+            "sector": sector,
+            "status": "unavailable",
+            "reason": self.import_error,
+            "scientific_status": "no fallback physics values were generated",
+        }
 
     def run_thermo_sector(self) -> Dict[str, Any]:
         if not self.available:
-            return {'status': f'fallback: {self.import_error}', 'P(N)': 1-0.33/math.sqrt(self.N)}
-        # free energy at today
-        free = self._tcd_engine.thermo.free_energy_density(T_GeV=2e-13)
-        jac = self._tcd_engine.thermo.jacobson_einstein_equation(T_GeV=2e-13)
+            return self._unavailable("THERMO")
+        jacobian_audit = self._tcd_engine.thermo.jacobson_einstein_equation(
+            T_GeV=2e-13
+        )
         return {
-            'sector': 'THERMO — Jacobson emergent gravity',
-            'free_energy_w_today': free['w'],
-            'P(N)': jac['P(N,T)'],
-            'G_eff/G0': jac['G_eff/G0'],
-            'Lambda_thermal_GeV4': jac['Lambda_thermal_GeV4'],
-            'derivation': jac['derivation']
+            "sector": "THERMO — Jacobson-inspired graph diagnostics",
+            "P(N,T)": jacobian_audit["P(N,T)"],
+            "G_eff/G0_ansatz": jacobian_audit["G_eff/G0"],
+            "dark_energy_scale_audit": jacobian_audit["scale_audit"],
+            "status": jacobian_audit["status"],
         }
 
     def run_chromo_sector(self) -> Dict[str, Any]:
         if not self.available:
-            # stub values matching full engine
-            return {
-                'sector': 'CHROMO — SU(3) ⊂ Spin(10) confinement ↔ holography',
-                'T_c_QCD_MeV': 155.0,
-                'Polyakov_L_Tc': 0.5,
-                'CF_from_Polyakov': 0.444,
-                'eta/s_Tc': 0.095,
-                'glueball_0++_MeV': 1710.0,
-                'alpha_5_phenom_1um': 1e-6,
-                'stub': True
-            }
+            return self._unavailable("CHROMO")
         chromo = self._tcd_engine.chromo
-        glue = chromo.glueball_spectrum()
+        crossover = self._tcd_engine.compute_critical_temperatures()
         return {
-            'sector': 'CHROMO — SU(3) ⊂ Spin(10) confinement ↔ holography',
-            'T_c_QCD_MeV': 155.0,
-            'Polyakov_L_Tc': chromo.polyakov_loop(155.0),
-            'CF_from_Polyakov': chromo.causal_fraction_from_polyakov(155.0),
-            'string_tension_GeV2': chromo.string_tension(155.0),
-            'eta/s_Tc': chromo.eta_over_s(155.0),
-            'glueball_0++_MeV': glue['0++_MeV'],
-            'alpha_5_phenom_1um': chromo.fifth_force_alpha(1.0)['alpha_5_with_torsion_resummed_phenom'],
-            'Wilson_area_law': 'exp(-σ Area) for T<Tc'
+            "sector": "CHROMO — finite-temperature toy diagnostics",
+            "T_c_QCD_MeV": crossover["T_c_QCD_MeV"],
+            "T_c_status": crossover["T_c_status"],
+            "Polyakov_L_Tc": chromo.polyakov_loop(crossover["T_c_QCD_MeV"]),
+            "CF_from_Polyakov": chromo.causal_fraction_from_polyakov(
+                crossover["T_c_QCD_MeV"]
+            ),
+            "CF_mapping_status": crossover["CF_Polyakov_map_status"],
+            "eta/s_Tc_toy": chromo.eta_over_s(crossover["T_c_QCD_MeV"]),
+            "glueball_diagnostic": chromo.glueball_spectrum(),
+            "fifth_force_audit": chromo.fifth_force_alpha(1.0),
         }
 
     def run_coupling_sector(self) -> Dict[str, Any]:
         if not self.available:
-            return {
-                'sector': 'DYNAMIKA — RG + d_S(T) + w(T)',
-                'd_S_UV': 2.0,
-                'd_S_IR': 4.0,
-                'w_today': -1.0,
-                'stub': True
-            }
-        coup = self._tcd_engine.coupling
+            return self._unavailable("DYNAMICS")
+        coupling = self._tcd_engine.coupling
         return {
-            'sector': 'DYNAMIKA — RG + d_S(T) + w(T) + Carnot Bounce',
-            'd_S_Today': coup.spectral_dimension_T(2e-13),
-            'd_S_GUT': coup.spectral_dimension_T(1.03e16),
-            'd_S_Planck': coup.spectral_dimension_T(1.22e19),
-            'w_Today': coup.equation_of_state_w_T(2e-13),
-            'w_QCD': coup.equation_of_state_w_T(0.155),
-            'w_GUT': coup.equation_of_state_w_T(1e16),
-            'RG_method': '2-loop + thermo c_i (T/M_SUSY)^2'
+            "sector": "DYNAMICS — RG baseline and project parametrizations",
+            "d_S_Today": coupling.spectral_dimension_T(2e-13),
+            "d_S_GUT": coupling.spectral_dimension_T(1.03e16),
+            "d_S_Planck": coupling.spectral_dimension_T(1.22e19),
+            "d_S_status": "project_hypothesis; d_S(T*)=3, not 2",
+            "w_Today_toy": coupling.equation_of_state_w_T(2e-13),
+            "w_BBN_toy": coupling.equation_of_state_w_T(1e-3),
+            "RGE_method": "one-loop SM/MSSM threshold baseline; thermal term disabled",
         }
 
     def run_full_tcd(self) -> Dict[str, Any]:
         if not self.available:
-            # build stub report
-            return {
-                'engine_version': 'v15.0-TCD — Thermo-Chromo-Dynamics TOE (STUB)',
-                'N_graph': self.N,
-                'critical_Tc_MeV': 155.0,
-                'eta/s_Tc': 0.095,
-                'glueball_MeV': 1710.0,
-                'alpha_5_1um': 1e-6,
-                'd_S_flow': '2 → 4',
-                'consistency': '40/40 STUB',
-                'Z_TCD': 'Σ_G ∫ DU exp(-β10 SΔ -β3 S□ -θ S_topo + S_ent)',
-                'motto': 'Kolor uwięziony to przestrzeń zakrzywiona. Ciepło grafu to czas.'
-            }
+            return self._unavailable("FULL_TCD")
         return self._tcd_engine.run_full_tcd_simulation()
 
 
@@ -545,8 +533,8 @@ class SHZSpin10UltimaApex(SHZSpin10FullEngine):
         self.tcd_lab = ThermoChromoDynamicsLab(N=10**6)
 
     def run_termo_chromo_simulation(self) -> Dict[str, Any]:
-        """Publ. VIII — TCD jako TOE — pełna symulacja"""
-        print(">>> Activating TERMO-CHROMO-DYNAMIKA Laboratory — v15.0-TCD as TOE...")
+        """Run the v15.0-TCD research diagnostics without validation claims."""
+        print(">>> Activating Thermo-Chromo-Dynamics research diagnostics...")
         return self.tcd_lab.run_full_tcd()
 
     def run_ultima_simulation(self) -> Dict[str, Any]:

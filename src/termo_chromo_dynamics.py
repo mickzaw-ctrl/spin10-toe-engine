@@ -1,325 +1,659 @@
-"""
-Termo-Chromo-Dynamika jako Teoria Wszystkiego — Engine v15.0-TCD
-Publ. VIII — reinterpretacja Spin(10) TOE
-Author: SHZ Quantum Technologies v15.0-TCD 2026-07-20
+"""Thermo-Chromo-Dynamics (TCD) v15.0 research module.
+
+TCD is implemented here as a collection of explicit toy parametrizations and
+scientific-integrity gates.  It is not a completed Theory of Everything and it
+does not turn reference lattice/QCD values into independent predictions.
+
+All quantities use natural units (c = hbar = k_B = 1) unless a field name
+states otherwise.  Energy is measured in GeV.
 """
 
-import numpy as np
-import math
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Dict, Any, Optional, List
-from scipy.integrate import solve_ivp, cumulative_trapezoid
+import math
+from typing import Any, Dict, Iterable, Optional
 
-@dataclass
+
+class TCDInputError(ValueError):
+    """Raised when a TCD calculation receives an invalid scientific input."""
+
+
+ESTABLISHED = "established_physics"
+PROJECT_HYPOTHESIS = "project_hypothesis"
+UNVERIFIED = "unverified_assumption"
+REJECTED = "rejected_as_stated"
+INCOMPLETE = "incomplete_prediction"
+
+
+@dataclass(frozen=True)
 class TCDConstants:
-    Lambda_QCD_MeV: float = 217.0
-    T_c_QCD_MeV: float = 155.0
-    T_c_err_MeV: float = 5.0
-    sigma_0_GeV2: float = 0.18
-    m_glueball_0pp_MeV: float = 1710.0
-    eta_over_s_KSS: float = 1.0/(4.0*np.pi)
-    M_Planck_GeV: float = 1.22e19
-    M_GUT_GeV: float = 1.03e16
-    alpha_GUT: float = 0.0381
-    alpha_GUT_inv: float = 26.246
-    M_SUSY_GeV: float = 5000.0
-    N_hidden: int = 125
-    dim_Spin10: int = 45
-    N_graph: int = 10**6
-    c_holo: float = 0.33
-    N_c_spectral: float = 150.0
-    CF_eq: float = 0.738
-    Var_k_eq: float = 0.262
-    cos_Phi_eq: float = 0.688
-    g_star_AS: float = 0.83
-    T0_CMB_K: float = 2.7255
-    Omega_Lambda_obs: float = 0.685
-    H0_km_s_Mpc: float = 67.4
-    kappa_spectral: float = 0.7
-    T_star_GeV: float = 1.22e19
-    c_thermo_RG: float = 2.77
+    """Declared reference inputs; none is inferred by this module."""
+
+    lambda_qcd_gev: float = 0.217
+    qcd_crossover_gev: float = 0.1565
+    qcd_crossover_uncertainty_gev: float = 0.0015
+    string_tension_zero_gev2: float = 0.18
+    glueball_reference_gev: float = 1.71
+    planck_mass_gev: float = 1.22e19
+    reduced_planck_mass_gev: float = 2.435e18
+    gut_scale_gev: float = 1.03e16
+    alpha_gut: float = 0.0381
+    susy_scale_gev: float = 5.0e3
+    hidden_generators: int = 125
+    spin10_dimension: int = 45
+    default_graph_nodes: int = 10**6
+    coherence_coefficient: float = 0.33
+    causal_fraction_reference: float = 0.738
+    spectral_kappa: float = 0.7
+    spectral_transition_gev: float = 1.22e19
+    newton_si: float = 6.67430e-11
+    dark_energy_density_reference_gev4: float = 2.5e-47
+
+    # Compatibility aliases retained for older callers.
+    @property
+    def Lambda_QCD_MeV(self) -> float:  # noqa: N802
+        return 1.0e3 * self.lambda_qcd_gev
+
+    @property
+    def T_c_QCD_MeV(self) -> float:  # noqa: N802
+        return 1.0e3 * self.qcd_crossover_gev
+
+    @property
+    def T_c_err_MeV(self) -> float:  # noqa: N802
+        return 1.0e3 * self.qcd_crossover_uncertainty_gev
+
+    @property
+    def M_Planck_GeV(self) -> float:  # noqa: N802
+        return self.planck_mass_gev
+
+    @property
+    def M_GUT_GeV(self) -> float:  # noqa: N802
+        return self.gut_scale_gev
+
+    @property
+    def M_SUSY_GeV(self) -> float:  # noqa: N802
+        return self.susy_scale_gev
+
+    @property
+    def N_graph(self) -> int:  # noqa: N802
+        return self.default_graph_nodes
+
+    @property
+    def CF_eq(self) -> float:  # noqa: N802
+        return self.causal_fraction_reference
+
 
 CONST = TCDConstants()
 
+
+def _positive_finite(value: float, name: str) -> float:
+    if isinstance(value, bool):
+        raise TCDInputError(f"{name} must be numeric, not boolean")
+    result = float(value)
+    if not math.isfinite(result) or result <= 0.0:
+        raise TCDInputError(f"{name} must be positive and finite")
+    return result
+
+
+def _nonnegative_finite(value: float, name: str) -> float:
+    if isinstance(value, bool):
+        raise TCDInputError(f"{name} must be numeric, not boolean")
+    result = float(value)
+    if not math.isfinite(result) or result < 0.0:
+        raise TCDInputError(f"{name} must be non-negative and finite")
+    return result
+
+
+def qcd_dark_energy_scale_audit(
+    crossover_temperature_gev: float,
+    planck_mass_gev: float,
+    reduced_planck_mass_gev: float,
+    alpha_gut: float,
+    dark_energy_density_reference_gev4: float,
+) -> Dict[str, Any]:
+    """Audit, rather than fit, proposed QCD-to-dark-energy scale relations.
+
+    ``T_c^4 / M_Pl^2`` has units GeV^2 and is a candidate cosmological
+    constant, not an energy density.  ``T_c^4 exp(-1/alpha_GUT)`` has units
+    GeV^4 but remains many orders of magnitude above the reference dark-energy
+    density for the declared inputs.
+    """
+
+    tc = _positive_finite(crossover_temperature_gev, "crossover_temperature_gev")
+    mp = _positive_finite(planck_mass_gev, "planck_mass_gev")
+    mpr = _positive_finite(reduced_planck_mass_gev, "reduced_planck_mass_gev")
+    alpha = _positive_finite(alpha_gut, "alpha_gut")
+    rho_ref = _positive_finite(
+        dark_energy_density_reference_gev4,
+        "dark_energy_density_reference_gev4",
+    )
+    qcd_density = tc**4
+    lambda_candidate = qcd_density / mp**2
+    lambda_reference = rho_ref / mpr**2
+    instanton_density = qcd_density * math.exp(-1.0 / alpha)
+    return {
+        "qcd_scale_density_GeV4": qcd_density,
+        "lambda_candidate_Tc4_over_Mp2_GeV2": lambda_candidate,
+        "lambda_reference_GeV2": lambda_reference,
+        "lambda_ratio_candidate_to_reference": lambda_candidate / lambda_reference,
+        "instanton_density_Tc4_exp_minus_inv_alpha_GeV4": instanton_density,
+        "instanton_density_ratio_to_reference": instanton_density / rho_ref,
+        "status": REJECTED,
+        "reason": (
+            "T_c^4/M_Pl^2 is not a GeV^4 density and misses the observed "
+            "cosmological-constant scale by about 42 orders of magnitude; "
+            "the declared instanton factor does not close the remaining gap"
+        ),
+    }
+
+
+def qcd_crossover_formula_audit(
+    lambda_qcd_gev: float,
+    coherence: float,
+    causal_fraction: float,
+    lattice_reference_gev: float,
+) -> Dict[str, Any]:
+    """Audit T_c = Lambda_QCD sqrt(P)/CF against a declared reference."""
+
+    scale = _positive_finite(lambda_qcd_gev, "lambda_qcd_gev")
+    coherence_value = _positive_finite(coherence, "coherence")
+    cf = _positive_finite(causal_fraction, "causal_fraction")
+    reference = _positive_finite(lattice_reference_gev, "lattice_reference_gev")
+    predicted = scale * math.sqrt(coherence_value) / cf
+    return {
+        "formula_value_GeV": predicted,
+        "lattice_reference_GeV": reference,
+        "relative_error": abs(predicted - reference) / reference,
+        "status": REJECTED,
+        "reason": "the supplied formula evaluates near 0.294 GeV, not 0.156 GeV",
+    }
+
+
+def lattice_beta_from_alpha(alpha: float, normalization: float = 1.0) -> float:
+    """Return normalization/g^2 with g^2=4 pi alpha.
+
+    Lattice Wilson-action conventions can use other group-dependent
+    normalizations, so callers must declare the normalization explicitly.
+    """
+
+    alpha_value = _positive_finite(alpha, "alpha")
+    norm = _positive_finite(normalization, "normalization")
+    return norm / (4.0 * math.pi * alpha_value)
+
+
+def thermal_delta_g_fraction(
+    temperature_gev: float,
+    gut_scale_gev: float,
+    hidden_generators: int = 125,
+    spin10_dimension: int = 45,
+) -> float:
+    """Evaluate the user's dimensionless Delta G/G ansatz without validating it."""
+
+    temperature = _nonnegative_finite(temperature_gev, "temperature_gev")
+    gut_scale = _positive_finite(gut_scale_gev, "gut_scale_gev")
+    if isinstance(hidden_generators, bool) or int(hidden_generators) != hidden_generators:
+        raise TCDInputError("hidden_generators must be a non-negative integer")
+    if isinstance(spin10_dimension, bool) or int(spin10_dimension) != spin10_dimension:
+        raise TCDInputError("spin10_dimension must be a positive integer")
+    hidden = int(hidden_generators)
+    dimension = int(spin10_dimension)
+    if hidden < 0 or dimension <= 0:
+        raise TCDInputError("invalid group dimensions")
+    return (temperature / gut_scale) ** 2 * hidden / dimension
+
+
+def thermal_beta_correction(
+    gauge_coupling: float,
+    temperature_gev: float,
+    susy_scale_gev: float,
+    coefficient: float,
+) -> float:
+    """Evaluate the proposed thermal beta-function term as a project ansatz."""
+
+    coupling = _positive_finite(gauge_coupling, "gauge_coupling")
+    temperature = _nonnegative_finite(temperature_gev, "temperature_gev")
+    susy_scale = _positive_finite(susy_scale_gev, "susy_scale_gev")
+    coeff = _nonnegative_finite(coefficient, "coefficient")
+    return coupling**3 * coeff * (temperature / susy_scale) ** 2 / (4.0 * math.pi) ** 2
+
+
+def carnot_efficiency(hot_temperature: float, cold_temperature: float) -> float:
+    """Return the standard Carnot efficiency for declared reservoir temperatures."""
+
+    hot = _positive_finite(hot_temperature, "hot_temperature")
+    cold = _nonnegative_finite(cold_temperature, "cold_temperature")
+    if cold > hot:
+        raise TCDInputError("cold_temperature must not exceed hot_temperature")
+    return 1.0 - cold / hot
+
+
 class ThermoSector:
-    def __init__(self, N: int = None):
-        self.N = N or CONST.N_graph
-    def holographic_coherence(self, N: Optional[int]=None, T_GeV: Optional[float]=None) -> float:
-        N_eff = N or self.N
+    """Thermal graph diagnostics; graph-to-gravity mappings remain hypotheses."""
+
+    def __init__(self, N: Optional[int] = None):
+        node_count = CONST.default_graph_nodes if N is None else N
+        if isinstance(node_count, bool) or int(node_count) != node_count or int(node_count) <= 0:
+            raise TCDInputError("N must be a positive integer")
+        self.N = int(node_count)
+
+    def holographic_coherence(
+        self,
+        N: Optional[int] = None,
+        T_GeV: Optional[float] = None,
+    ) -> float:
+        """Return P=1-c/sqrt(N_eff), explicitly a project parametrization."""
+
+        node_count = self.N if N is None else N
+        if isinstance(node_count, bool) or int(node_count) != node_count or int(node_count) <= 0:
+            raise TCDInputError("N must be a positive integer")
+        n_eff = float(node_count)
         if T_GeV is not None:
-            T_scale = CONST.M_GUT_GeV
-            thermal_factor = 1.0 / (1.0 + (T_GeV / T_scale)**2)
-            N_eff = N_eff * thermal_factor + 10.0
-        return 1.0 - CONST.c_holo / math.sqrt(max(N_eff, 1.0))
-    def free_energy_density(self, T_GeV: float) -> Dict[str, float]:
-        T_MeV = T_GeV * 1e3
-        SB_gluon = 8 * 2 * np.pi**2 / 90.0
-        SB_quark = 7.0/8.0 * 3 * 3 * 2 * 2 * np.pi**2 /90.0
-        SB_Spin10 = CONST.dim_Spin10 * 2 * np.pi**2 / 90.0
-        def smooth_step(T, Tc, width):
-            return 1.0 / (1.0 + np.exp(-(T-Tc)/width))
-        Tc_MeV = CONST.T_c_QCD_MeV
-        p_QCD = (SB_gluon + SB_quark) * (T_MeV**4) * smooth_step(T_MeV, Tc_MeV, 10.0) / (1.0 + (Tc_MeV/max(T_MeV,1.0))**4)
-        T_GUT_GeV = CONST.M_GUT_GeV
-        p_GUT = SB_Spin10 * (T_GeV**4) * smooth_step(T_GeV, T_GUT_GeV/10.0, T_GUT_GeV/20.0) * math.exp(-T_GUT_GeV/max(T_GeV,1.0))
-        p_QCD_GeV4 = p_QCD * 1e-12
-        p_total_GeV4 = p_QCD_GeV4 + p_GUT*0.01
-        if T_GeV < 1e-6:
-            epsilon = 3.9e-47
-            p_vac = -epsilon
-            s_density = 0.0
-            w = -1.0
-        else:
-            epsilon = 3.0 * p_total_GeV4 * (1.0 + 0.1*math.exp(-T_GeV/0.2))
-            s_density = (epsilon + p_total_GeV4)/max(T_GeV,1e-12)
-            w = p_total_GeV4 / max(epsilon,1e-100)
-        return {'T_GeV': T_GeV,'p_GeV4': float(p_total_GeV4) if T_GeV>1e-6 else float(p_vac),'epsilon_GeV4': float(epsilon),'s_density_GeV3': float(s_density),'w': float(w),'SB_QCD': float(SB_gluon+SB_quark),'SB_Spin10': float(SB_Spin10)}
+            temperature = _nonnegative_finite(T_GeV, "T_GeV")
+            n_eff /= 1.0 + (temperature / CONST.gut_scale_gev) ** 2
+        value = 1.0 - CONST.coherence_coefficient / math.sqrt(n_eff)
+        if value <= 0.0:
+            raise TCDInputError("coherence ansatz is non-positive for the declared N_eff")
+        return value
+
+    def free_energy_density(self, T_GeV: float) -> Dict[str, Any]:
+        """Return an ideal-gas high-temperature diagnostic, not a QCD EOS fit."""
+
+        temperature = _nonnegative_finite(T_GeV, "T_GeV")
+        if temperature == 0.0:
+            return {
+                "T_GeV": 0.0,
+                "p_GeV4": 0.0,
+                "epsilon_GeV4": 0.0,
+                "s_density_GeV3": 0.0,
+                "w": None,
+                "regime": "zero-temperature limit",
+                "status": PROJECT_HYPOTHESIS,
+            }
+        # Three-flavour ideal QCD gas: 16 gluonic + 7/8 * 36 fermionic dof.
+        effective_degrees = 16.0 + 7.0 / 8.0 * 36.0
+        pressure = math.pi**2 * effective_degrees * temperature**4 / 90.0
+        energy = 3.0 * pressure
+        entropy = (energy + pressure) / temperature
+        return {
+            "T_GeV": temperature,
+            "p_GeV4": pressure,
+            "epsilon_GeV4": energy,
+            "s_density_GeV3": entropy,
+            "w": 1.0 / 3.0,
+            "regime": "ideal three-flavour QCD gas diagnostic",
+            "status": ESTABLISHED if temperature >= 1.0 else PROJECT_HYPOTHESIS,
+        }
+
     def emergent_newton_constant(self, T_GeV: float) -> float:
-        P = self.holographic_coherence(T_GeV=T_GeV)
-        G0 = 6.674e-11
-        return G0 / max(P,0.01)
+        """Return G0/P(N,T), a declared project hypothesis."""
+
+        return CONST.newton_si / self.holographic_coherence(T_GeV=T_GeV)
+
     def jacobson_einstein_equation(self, T_GeV: float) -> Dict[str, Any]:
-        P = self.holographic_coherence(T_GeV=T_GeV)
-        Tc_GeV = CONST.T_c_QCD_MeV * 1e-3
-        Lambda_GeV4_predicted = (Tc_GeV**4) * math.exp(-1/CONST.alpha_GUT) * (Tc_GeV/CONST.M_Planck_GeV)**2
-        Omega_Lambda_TCD = Lambda_GeV4_predicted / 2.8e-47 * 0.685
-        calib_factor = 0.685 / max(Omega_Lambda_TCD,1e-200) if Omega_Lambda_TCD>0 else 1.0
-        return {'T_GeV': T_GeV,'P(N,T)': float(P),'G_eff/G0': float(1.0/max(P,0.01)),'Lambda_thermal_GeV4': float(Lambda_GeV4_predicted),'Lambda_observed_GeV4': 2.8e-47,'Omega_Lambda_TCD_raw': float(Omega_Lambda_TCD),'calibration_factor': float(calib_factor),'Omega_Lambda_TCD_calib': 0.685,'derivation': 'Jacobson δQ=TdS → Einstein','CF_TCD': float(CONST.CF_eq * P)}
+        """Return a Jacobson-inspired audit without claiming field-equation closure."""
+
+        temperature = _nonnegative_finite(T_GeV, "T_GeV")
+        coherence = self.holographic_coherence(T_GeV=temperature)
+        scale_audit = qcd_dark_energy_scale_audit(
+            CONST.qcd_crossover_gev,
+            CONST.planck_mass_gev,
+            CONST.reduced_planck_mass_gev,
+            CONST.alpha_gut,
+            CONST.dark_energy_density_reference_gev4,
+        )
+        return {
+            "T_GeV": temperature,
+            "P(N,T)": coherence,
+            "G_eff/G0": 1.0 / coherence,
+            "Lambda_thermal_GeV4": None,
+            "Omega_Lambda_TCD_raw": None,
+            "Omega_Lambda_TCD_calib": None,
+            "scale_audit": scale_audit,
+            "derivation": (
+                "Jacobson's local Clausius derivation is established under its "
+                "own assumptions; the P(N,T) modification is not derived"
+            ),
+            "status": PROJECT_HYPOTHESIS,
+        }
+
 
 class ChromoSector:
+    """Finite-temperature chromodynamic toy diagnostics."""
+
     def polyakov_loop(self, T_MeV: float) -> float:
-        Tc = CONST.T_c_QCD_MeV
+        """Return a logistic crossover diagnostic, not a lattice calculation."""
+
+        temperature = _nonnegative_finite(T_MeV, "T_MeV")
+        tc = CONST.T_c_QCD_MeV
         width = 15.0
-        L = 1.0 / (1.0 + np.exp(-(T_MeV - Tc)/width))
-        L = max(L, 0.05 * math.exp(-Tc/max(T_MeV,1.0)))
-        return float(L)
+        return 1.0 / (1.0 + math.exp(-(temperature - tc) / width))
+
     def causal_fraction_from_polyakov(self, T_MeV: float) -> float:
-        L = self.polyakov_loop(T_MeV)
-        CF_confined = CONST.CF_eq
-        CF_deconf = 0.30
-        CF = CF_deconf + (CF_confined - CF_deconf)*(1.0-L)**0.8
-        return float(CF)
+        """Map a toy Polyakov diagnostic to CF; this map is unverified."""
+
+        loop = self.polyakov_loop(T_MeV)
+        cf_deconfined = 0.30
+        return cf_deconfined + (CONST.causal_fraction_reference - cf_deconfined) * (1.0 - loop) ** 0.8
+
     def string_tension(self, T_MeV: float) -> float:
-        Tc = CONST.T_c_QCD_MeV
-        if T_MeV >= Tc:
-            return CONST.sigma_0_GeV2 * math.exp(-2*(T_MeV-Tc)/Tc)
-        else:
-            return CONST.sigma_0_GeV2 * math.sqrt(max(0.0, 1.0 - (T_MeV/Tc)**2))
-    def alpha_s_running(self, Q_GeV: float, include_thermal: bool=True, T_GeV: float=0.0) -> float:
-        Lambda = CONST.Lambda_QCD_MeV * 1e-3
-        Nf = 3 if Q_GeV < 4.0 else 5
-        b0 = 11 - 2/3*Nf
-        if Q_GeV < 0.5: Q_GeV = 0.5
-        t = math.log(Q_GeV**2 / Lambda**2)
-        alpha = 4*math.pi / (b0 * t) if t>0 else 0.5
-        if include_thermal and T_GeV>0:
-            thermal_corr = 1.0 + (T_GeV / max(Q_GeV,0.1))**2 * 0.5
-            alpha = alpha * thermal_corr
-        return min(float(alpha), 0.5)
+        """Return a continuous toy string-tension parametrization."""
+
+        temperature = _nonnegative_finite(T_MeV, "T_MeV")
+        tc = CONST.T_c_QCD_MeV
+        if temperature >= tc:
+            return CONST.string_tension_zero_gev2 * math.exp(-2.0 * (temperature - tc) / tc)
+        return CONST.string_tension_zero_gev2 * math.sqrt(max(0.0, 1.0 - (temperature / tc) ** 2))
+
+    def alpha_s_running(
+        self,
+        Q_GeV: float,
+        include_thermal: bool = False,
+        T_GeV: float = 0.0,
+    ) -> float:
+        """Return one-loop alpha_s above the declared perturbative floor."""
+
+        scale = _positive_finite(Q_GeV, "Q_GeV")
+        temperature = _nonnegative_finite(T_GeV, "T_GeV")
+        if scale <= CONST.lambda_qcd_gev:
+            raise TCDInputError("one-loop alpha_s is invalid at or below Lambda_QCD")
+        flavours = 3 if scale < 4.0 else 5
+        b0 = 11.0 - 2.0 * flavours / 3.0
+        logarithm = math.log(scale**2 / CONST.lambda_qcd_gev**2)
+        alpha = 4.0 * math.pi / (b0 * logarithm)
+        if include_thermal:
+            # Explicitly a toy correction; disabled by default.
+            alpha *= 1.0 + 0.5 * (temperature / scale) ** 2
+        return alpha
+
     def wilson_loop_expectation(self, area_fm2: float, T_MeV: float) -> float:
-        sigma_GeV2 = self.string_tension(T_MeV)
-        if T_MeV < CONST.T_c_QCD_MeV:
-            return math.exp(-sigma_GeV2 * 5.0 * area_fm2)
+        """Return a toy area-law diagnostic with explicit fm-to-GeV conversion."""
+
+        area = _nonnegative_finite(area_fm2, "area_fm2")
+        temperature = _nonnegative_finite(T_MeV, "T_MeV")
+        fm_to_gev_inverse = 5.0677307
+        if temperature < CONST.T_c_QCD_MeV:
+            exponent = -self.string_tension(temperature) * area * fm_to_gev_inverse**2
         else:
-            mu = 0.05
-            perim = math.sqrt(area_fm2)*4
-            return math.exp(-mu * perim)
+            perimeter_fm = 4.0 * math.sqrt(area)
+            screening_mass_gev = 0.05
+            exponent = -screening_mass_gev * perimeter_fm * fm_to_gev_inverse
+        return math.exp(exponent)
+
     def eta_over_s(self, T_MeV: float) -> float:
-        KSS = CONST.eta_over_s_KSS
-        Tc = CONST.T_c_QCD_MeV
-        if abs(T_MeV-Tc)<20:
-            eta_s = 0.09 + (T_MeV-Tc)/1000.0
-        else:
-            x = (T_MeV - Tc)/Tc
-            delta = 0.02 + 0.15*x**2 if abs(x)<1 else 0.15 + 0.1*abs(x)
-            eta_s = KSS + delta*0.15 + 0.01
-        return float(max(eta_s, KSS))
-    def glueball_spectrum(self) -> Dict[str, float]:
-        P = 1.0 - CONST.c_holo / math.sqrt(CONST.N_graph)
-        m0_base = 1680.0
-        m_0pp = m0_base / P
-        m_2pp = 2390.0 / P
-        m_0mp = 2560.0 / P
-        return {'0++_MeV': float(m_0pp),'target_lattice_0++_MeV': CONST.m_glueball_0pp_MeV,'2++_MeV': float(m_2pp),'0-+_MeV': float(m_0mp),'P_factor': float(P),'agreement_0++_%': float(100*(1-abs(m_0pp-CONST.m_glueball_0pp_MeV)/CONST.m_glueball_0pp_MeV))}
-    def fifth_force_alpha(self, distance_um: float = 1.0) -> Dict[str, float]:
-        Lambda_QCD_GeV = CONST.Lambda_QCD_MeV * 1e-3
-        alpha_bare = (Lambda_QCD_GeV / CONST.M_Planck_GeV)**2
-        CF = CONST.CF_eq
-        alpha_torsion_resummed = 1e-6 * math.exp(-distance_um/100.0)
-        alpha_full_bare = alpha_bare * math.exp(CF) * CONST.N_hidden
-        return {'distance_um': distance_um,'alpha_5_bare_G^2': float(alpha_bare),'alpha_5_with_torsion_resummed_phenom': float(alpha_torsion_resummed),'alpha_5_bare_x_hidden': float(alpha_full_bare),'lambda_5_um': 100.0,'IUPUI_reach': 1e-6,'within_IUPUI': bool(alpha_torsion_resummed <= 1e-3 and alpha_torsion_resummed >= 1e-9)}
+        """Return a transparent phenomenological interpolation, not a prediction."""
+
+        temperature = _positive_finite(T_MeV, "T_MeV")
+        tc = CONST.T_c_QCD_MeV
+        kss = 1.0 / (4.0 * math.pi)
+        return kss + 0.010 + 0.020 * ((temperature - tc) / tc) ** 2
+
+    def glueball_spectrum(self) -> Dict[str, Any]:
+        """Return a reference-calibrated scaling diagnostic."""
+
+        coherence = 1.0 - CONST.coherence_coefficient / math.sqrt(CONST.default_graph_nodes)
+        return {
+            "0++_MeV": 1.0e3 * CONST.glueball_reference_gev / coherence,
+            "target_lattice_0++_MeV": 1.0e3 * CONST.glueball_reference_gev,
+            "P_factor": coherence,
+            "status": PROJECT_HYPOTHESIS,
+            "warning": "the lattice reference is an input, so agreement is not an independent prediction",
+        }
+
+    def fifth_force_alpha(self, distance_um: float = 1.0) -> Dict[str, Any]:
+        """Audit the bare dimensional ansatz; no torsion resummation is supplied."""
+
+        distance = _positive_finite(distance_um, "distance_um")
+        bare = (CONST.lambda_qcd_gev / CONST.planck_mass_gev) ** 2
+        with_cf = bare * math.exp(CONST.causal_fraction_reference)
+        with_hidden = with_cf * CONST.hidden_generators
+        return {
+            "distance_um": distance,
+            "alpha_5_bare": bare,
+            "alpha_5_bare_times_exp_CF": with_cf,
+            "alpha_5_bare_x_hidden": with_hidden,
+            "alpha_5_with_torsion_resummed_phenom": None,
+            "status": INCOMPLETE,
+            "reason": "no sourced torsion-resummation map derives an effective 1e-6 coupling",
+        }
+
 
 class ThermoChromoCoupling:
+    """Cross-sector project parametrizations and standard one-loop RGE baseline."""
+
     def __init__(self, thermo: ThermoSector, chromo: ChromoSector):
         self.thermo = thermo
         self.chromo = chromo
+
     def spectral_dimension_T(self, T_GeV: float) -> float:
-        T_star = CONST.T_star_GeV
-        kappa = CONST.kappa_spectral
-        d_S_corrected = 2.0 + 2.0 * (1.0 - 1.0/(1.0 + (T_star / max(T_GeV,1e-30))**kappa))
-        return float(d_S_corrected)
+        """Return d_S=2+2/[1+(T/T*)^kappa], a project ansatz."""
+
+        temperature = _nonnegative_finite(T_GeV, "T_GeV")
+        ratio = temperature / CONST.spectral_transition_gev
+        return 2.0 + 2.0 / (1.0 + ratio**CONST.spectral_kappa)
+
     def equation_of_state_w_T(self, T_GeV: float) -> float:
-        if T_GeV > CONST.M_GUT_GeV/10.0:
+        """Return the declared piecewise cosmological history as a toy schedule."""
+
+        temperature = _nonnegative_finite(T_GeV, "T_GeV")
+        if temperature > CONST.gut_scale_gev / 10.0:
             return -0.99
-        elif T_GeV > 0.2:
-            return 1.0/3.0
-        elif T_GeV > 1e-6:
-            T_MeV = T_GeV*1e3
-            return 0.1 if T_MeV > 10.0 else 0.0
-        else:
-            return -1.0
-    def integrate_thermo_chromo_rge(self, M_GUT: float=None, alpha_GUT: float=None, M_SUSY: float=None, n_points: int=600) -> Dict[str, Any]:
-        M_GUT = M_GUT or CONST.M_GUT_GeV
-        alpha_GUT = alpha_GUT or CONST.alpha_GUT
-        M_SUSY = M_SUSY or CONST.M_SUSY_GeV
-        g_GUT = math.sqrt(4*math.pi*alpha_GUT)
-        g_init = np.array([g_GUT,g_GUT,g_GUT], dtype=float)
-        t_GUT = math.log(M_GUT)
-        t_Z = math.log(91.1876)
-        b_SM = np.array([41.0/10.0, -19.0/6.0, -7.0])
-        b_MSSM = np.array([33.0/5.0, 1.0, -3.0])
-        b_ij_SM = np.array([[199/25,27/5,88/5],[9/5,25.0,24.0],[11/5,9.0,14.0]]) * 0.12
-        b_ij_MSSM = b_ij_SM * 1.1
-        def beta_thr(t,g):
-            g = np.clip(g,0.05,3.0)
-            mu = float(np.exp(t))
-            is_SUSY = mu >= M_SUSY
-            b = b_MSSM if is_SUSY else b_SM
-            b_ij = b_ij_MSSM if is_SUSY else b_ij_SM
-            dg = np.zeros(3)
-            loop = 16*math.pi**2
-            loop2 = loop**2
-            for i in range(3):
-                gi = float(g[i])
-                t1 = b[i]*gi**3/loop
-                sum_b = sum(b_ij[i,j]*float(g[j])**2 for j in range(3))
-                t2 = gi**3*sum_b/loop2
-                if is_SUSY:
-                    ratio = min(mu,M_GUT)/M_GUT
-                    t_th = CONST.c_thermo_RG*0.002*ratio**2*gi**3/loop
-                else:
-                    t_th = 0.0
-                dg[i]=np.clip(t1+t2+t_th,-0.8,0.8)
-            return dg
-        sol = solve_ivp(beta_thr,[t_GUT,t_Z],g_init,method='RK45',t_eval=np.linspace(t_GUT,t_Z,n_points),rtol=1e-8,atol=1e-11)
-        g_final = sol.y[:,-1] if sol.success else g_init*1.6
-        g1_Z,g2_Z,g3_Z = g_final
-        ln_GUT_SUSY = math.log(M_GUT/M_SUSY)
-        ln_SUSY_Z = math.log(M_SUSY/91.1876)
-        inv_alpha_GUT = 1.0/alpha_GUT
-        # correct RGE: inv_low = inv_high + (b*ln_high_low)/2π, b negative => decrease
-        inv_alpha_s_analytic = inv_alpha_GUT + (b_MSSM[2]*ln_GUT_SUSY + b_SM[2]*ln_SUSY_Z)/(2*math.pi)
-        alpha_s_analytic = 1.0/max(inv_alpha_s_analytic,1.0)
-        alpha_s_num = (g3_Z**2)/(4*math.pi)
-        alpha_s_MZ = float(0.35*alpha_s_num + 0.65*alpha_s_analytic)
-        alpha_s_MZ *= (1.0 + (0.33/math.sqrt(self.thermo.N))*0.05)
-        gy2 = 3.0/5.0*g1_Z**2
-        g2_2 = g2_Z**2
-        alpha_em_MZ = (gy2*g2_2)/(4*math.pi*(gy2+g2_2)) if (gy2+g2_2)>0 else 1/127.9
-        sin2thetaW = gy2/(gy2+g2_2) if (gy2+g2_2)>0 else 0.231
-        tau_p = 1e36*(M_GUT/1.03e16)**4*(0.0381/alpha_GUT)**2
-        return {'M_GUT_GeV': float(M_GUT),'alpha_GUT': float(alpha_GUT),'alpha_GUT_inv': float(1/alpha_GUT),'g_Z': [float(g1_Z),float(g2_Z),float(g3_Z)],'alpha_s_MZ': float(alpha_s_MZ),'alpha_s_MZ_analytic_1loop': float(alpha_s_analytic),'alpha_s_num': float(alpha_s_num),'alpha_s_PDG_target':0.1180,'alpha_s_match': bool(abs(alpha_s_MZ-0.118)<0.015),'alpha_em_MZ_inv': float(1/alpha_em_MZ) if alpha_em_MZ>0 else 0,'alpha_em_0_inv_TCD':137.036,'sin2_thetaW_MZ': float(sin2thetaW),'sin2_thetaW_GUT_pred':0.375,'tau_p_yr': float(tau_p),'unification_method':'MSSM(5 TeV)+SM 1-loop+2-loop-small + thermo','success': bool(sol.success),'ln_MGUT_MSUSY': float(ln_GUT_SUSY),'ln_MSUSY_MZ': float(ln_SUSY_Z)}
+        # Radiation domination persists through QCD, BBN, and recombination
+        # until the matter-radiation equality scale (order 0.8 eV).
+        if temperature > 8.0e-10:
+            return 1.0 / 3.0
+        # Temperature alone is not a complete cosmic clock; these late-time
+        # thresholds are an explicit toy schedule, not a derived EOS.
+        if temperature > 3.0e-13:
+            return 0.0
+        return -1.0
+
+    def integrate_thermo_chromo_rge(
+        self,
+        M_GUT: Optional[float] = None,
+        alpha_GUT: Optional[float] = None,
+        M_SUSY: Optional[float] = None,
+        n_points: int = 600,
+    ) -> Dict[str, Any]:
+        """Run a one-loop SM/MSSM threshold baseline; thermal term stays disabled."""
+
+        gut = _positive_finite(CONST.gut_scale_gev if M_GUT is None else M_GUT, "M_GUT")
+        alpha = _positive_finite(CONST.alpha_gut if alpha_GUT is None else alpha_GUT, "alpha_GUT")
+        susy = _positive_finite(CONST.susy_scale_gev if M_SUSY is None else M_SUSY, "M_SUSY")
+        if not (91.1876 < susy < gut):
+            raise TCDInputError("require M_Z < M_SUSY < M_GUT")
+        if isinstance(n_points, bool) or int(n_points) != n_points or int(n_points) < 2:
+            raise TCDInputError("n_points must be an integer >= 2")
+        b_sm = (41.0 / 10.0, -19.0 / 6.0, -7.0)
+        b_mssm = (33.0 / 5.0, 1.0, -3.0)
+        log_high = math.log(gut / susy)
+        log_low = math.log(susy / 91.1876)
+        inverse = [
+            1.0 / alpha + b_mssm[i] * log_high / (2.0 * math.pi) + b_sm[i] * log_low / (2.0 * math.pi)
+            for i in range(3)
+        ]
+        if min(inverse) <= 0.0:
+            raise TCDInputError("one-loop running reached a non-perturbative branch")
+        alphas = [1.0 / value for value in inverse]
+        couplings = [math.sqrt(4.0 * math.pi * value) for value in alphas]
+        return {
+            "M_GUT_GeV": gut,
+            "M_SUSY_GeV": susy,
+            "alpha_GUT": alpha,
+            "alpha_GUT_inv": 1.0 / alpha,
+            "g_Z": couplings,
+            "alpha_1_MZ": alphas[0],
+            "alpha_2_MZ": alphas[1],
+            "alpha_s_MZ": alphas[2],
+            "thermal_correction_enabled": False,
+            "thermal_term_status": UNVERIFIED,
+            "unification_method": "one-loop SM/MSSM threshold baseline",
+            "success": True,
+            "n_points_compatibility_argument": int(n_points),
+        }
+
 
 class ThermoChromoDynamicsEngine:
-    def __init__(self, N: int=10**6, M_SUSY_GeV: float=5000.0, seed: int=42):
-        np.random.seed(seed)
-        self.N=N
-        self.M_SUSY=M_SUSY_GeV
-        self.thermo=ThermoSector(N=N)
-        self.chromo=ChromoSector()
-        self.coupling=ThermoChromoCoupling(self.thermo,self.chromo)
-        self.const=CONST
+    """Compatibility facade for the scientifically gated TCD research module."""
+
+    def __init__(self, N: int = 10**6, M_SUSY_GeV: float = 5000.0, seed: int = 42):
+        if isinstance(seed, bool) or int(seed) != seed:
+            raise TCDInputError("seed must be an integer")
+        self.thermo = ThermoSector(N=N)
+        self.N = self.thermo.N
+        self.M_SUSY = _positive_finite(M_SUSY_GeV, "M_SUSY_GeV")
+        self.seed = int(seed)
+        self.chromo = ChromoSector()
+        self.coupling = ThermoChromoCoupling(self.thermo, self.chromo)
+        self.const = CONST
+
     def compute_critical_temperatures(self) -> Dict[str, Any]:
-        return {'T_c_QCD_MeV': CONST.T_c_QCD_MeV,'T_c_QCD_err_MeV': CONST.T_c_err_MeV,'T_GUT_GeV': CONST.M_GUT_GeV,'T_planck_GeV': CONST.M_Planck_GeV,'T_EW_GeV':246.0,'T_BBN_MeV':0.7,'T_CMB_eV':0.25,'CF_T_c': float(self.chromo.causal_fraction_from_polyakov(CONST.T_c_QCD_MeV)),'Polyakov_T_c': float(self.chromo.polyakov_loop(CONST.T_c_QCD_MeV)),'string_tension_T_c_GeV2': float(self.chromo.string_tension(CONST.T_c_QCD_MeV)),'relation_Tc_Lambda':'Λ ~ T_c^4 / M_P^2 * exp(-1/α_GUT)'}
+        tc_mev = CONST.T_c_QCD_MeV
+        formula_audit = qcd_crossover_formula_audit(
+            CONST.lambda_qcd_gev,
+            self.thermo.holographic_coherence(),
+            CONST.causal_fraction_reference,
+            CONST.qcd_crossover_gev,
+        )
+        return {
+            "T_c_QCD_MeV": tc_mev,
+            "T_c_QCD_err_MeV": CONST.T_c_err_MeV,
+            "T_c_status": "external lattice-QCD reference input",
+            "T_c_source": "arXiv:1407.6387; DOI:10.1103/PhysRevD.90.094503",
+            "T_GUT_GeV": CONST.gut_scale_gev,
+            "T_planck_GeV": CONST.planck_mass_gev,
+            "CF_T_c": self.chromo.causal_fraction_from_polyakov(tc_mev),
+            "Polyakov_T_c": self.chromo.polyakov_loop(tc_mev),
+            "CF_Polyakov_map_status": UNVERIFIED,
+            "T_c_formula_audit": formula_audit,
+            "relation_Tc_Lambda": REJECTED,
+        }
+
     def compute_eos_history(self) -> Dict[str, Any]:
-        temps_GeV=[1e19,1e16,1e13,1e3,1.0,0.155,1e-3,1e-9,2e-13]
-        eos=[]
-        for T in temps_GeV:
-            fd=self.thermo.free_energy_density(T)
-            dS=self.coupling.spectral_dimension_T(T)
-            w=self.coupling.equation_of_state_w_T(T)
-            eos.append({'T_GeV':T,'w':w,'d_S':dS,'p_GeV4':fd['p_GeV4'],'epsilon_GeV4':fd['epsilon_GeV4'],'G_eff/G0':self.thermo.emergent_newton_constant(T)/6.674e-11})
-        return {'eos_history':eos}
+        temperatures = [1e20, 1e19, 1e16, 1e3, 1.0, 0.155, 1e-3, 1e-9, 2e-13]
+        history = []
+        for temperature in temperatures:
+            free = self.thermo.free_energy_density(temperature)
+            try:
+                gravity_ratio = self.thermo.emergent_newton_constant(temperature) / CONST.newton_si
+                gravity_status = PROJECT_HYPOTHESIS
+            except TCDInputError as exc:
+                gravity_ratio = None
+                gravity_status = f"outside_ansatz_domain: {exc}"
+            history.append(
+                {
+                    "T_GeV": temperature,
+                    "w_toy": self.coupling.equation_of_state_w_T(temperature),
+                    "d_S_ansatz": self.coupling.spectral_dimension_T(temperature),
+                    "ideal_gas_diagnostic": free,
+                    "G_eff/G0_ansatz": gravity_ratio,
+                    "G_eff_status": gravity_status,
+                    "status": PROJECT_HYPOTHESIS,
+                }
+            )
+        return {"eos_history": history, "status": PROJECT_HYPOTHESIS}
+
     def run_tcd_predictions(self) -> Dict[str, Any]:
-        T_c=CONST.T_c_QCD_MeV
-        tcd1_Tc={'observable':'T_c QCD / Polyakov-CF transition','TCD_value_MeV': float(T_c),'formula':'T_c = Λ_QCD * sqrt(P(N))/CF','lattice_QCD_value_MeV':155.0,'agreement_sigma': float(abs(T_c-155.0)/5.0),'status':'✅ CONFIRMED'}
-        eta_s_Tc=self.chromo.eta_over_s(T_c)
-        eta_s_2Tc=self.chromo.eta_over_s(2*T_c)
-        tcd2={'observable':'η/s shear viscosity to entropy','eta/s_Tc':float(eta_s_Tc),'eta/s_2Tc':float(eta_s_2Tc),'KSS_bound':CONST.eta_over_s_KSS,'RHIC/LHC_exp':'0.09±0.02','status':'✅ CONFIRMED near bound'}
-        fifth=self.chromo.fifth_force_alpha(distance_um=1.0)
-        tcd3={'observable':'5th force chromo-torsional',**fifth,'TCD_phenom_prediction':'α_5=1e-6 at 1 μm (torsion resummed)','status':'⏳ IUPUI 2025+ testable'}
-        glue=self.chromo.glueball_spectrum()
-        tcd4={'observable':'lightest glueball 0++',**glue,'lattice_target_MeV':1710.0,'status':'✅ CONFIRMED' if glue['agreement_0++_%']>95 else 'marginal'}
-        G0=6.674e-11
-        G_Tc=self.thermo.emergent_newton_constant(T_GeV=0.155)
-        G_today=self.thermo.emergent_newton_constant(T_GeV=2e-13)
-        G_BBN=self.thermo.emergent_newton_constant(T_GeV=1e-3)
-        tcd5={'observable':'thermal ΔG/G','G_Tc/G0':float(G_Tc/G0),'G_BBN/G0':float(G_BBN/G0),'G_today/G0':float(G_today/G0),'DeltaG_BBN':float((G_BBN-G0)/G0),'BBN_constraint':'<0.1','passes_BBN':bool(abs((G_BBN-G0)/G0)<0.1),'status':'✅ safe'}
-        reinterpret={'axion_28.5neV':'Goldstone of Z16 center thermal rotation (TCD: f_a=M_GUT * P(N))','m_gluino_10.6TeV':'thermal mass gap g* T_GUT freeze-out','f_NL_eq_14.5':'45 gluons thermal fluctuation N_gauge*(δT/T)^3','eta_B_6.1e-10':'Seebeck B-L transport across Polyakov domain wall (θ term)','n_s_0.9667_r_0.0125':'α-attractor with d_S(T) flow, α=dim/12=3.75','Lambda_0.685':'T_c^4/M_P^2*exp(-1/α_GUT) thermo-instanton + CF tuning','N_gen_3':'3 thermal phases: deconf, semi-conf, conf + hidden','CF_0.738_Var_0.262':'Gibbs equilibrium of graph free energy min'}
-        return {'TCD-1_Tc_QCD':tcd1_Tc,'TCD-2_eta_s':tcd2,'TCD-3_fifth_force':tcd3,'TCD-4_glueball':tcd4,'TCD-5_DeltaG':tcd5,'reinterpreted_38':reinterpret}
+        tc = CONST.T_c_QCD_MeV
+        fifth = self.chromo.fifth_force_alpha(1.0)
+        glueball = self.chromo.glueball_spectrum()
+        delta_g_today = thermal_delta_g_fraction(2.35e-13, CONST.gut_scale_gev)
+        delta_g_bbn = thermal_delta_g_fraction(1.0e-3, CONST.gut_scale_gev)
+        return {
+            "TCD-1_Tc_QCD": {
+                "observable": "QCD crossover temperature",
+                "value_MeV": tc,
+                "status": INCOMPLETE,
+                "reason": "the value is an external lattice reference input, not a TCD output",
+            },
+            "TCD-2_eta_s": {
+                "observable": "eta/s toy interpolation",
+                "eta/s_Tc": self.chromo.eta_over_s(tc),
+                "eta/s_2Tc": self.chromo.eta_over_s(2.0 * tc),
+                "status": PROJECT_HYPOTHESIS,
+                "reason": "no TCD stress-tensor correlator or uncertainty model is implemented",
+            },
+            "TCD-3_fifth_force": {"observable": "chromo-torsional fifth force", **fifth},
+            "TCD-4_glueball": {"observable": "lightest scalar glueball scaling", **glueball},
+            "TCD-5_DeltaG": {
+                "observable": "thermal Delta G/G ansatz",
+                "DeltaG_today": delta_g_today,
+                "DeltaG_BBN_1MeV": delta_g_bbn,
+                "status": PROJECT_HYPOTHESIS,
+                "reason": "the formula yields neither 1e-32 today nor 1e-2 at BBN",
+            },
+            "reinterpreted_38": {
+                name: {"status": UNVERIFIED, "reason": "no implementing derivation in the TCD module"}
+                for name in (
+                    "axion_28.5neV",
+                    "m_gluino_10.6TeV",
+                    "f_NL_eq_14.5",
+                    "eta_B_6.1e-10",
+                    "n_s_0.9667_r_0.0125",
+                    "Lambda_0.685",
+                    "N_gen_3",
+                    "CF_0.738_Var_0.262",
+                )
+            },
+        }
+
     def run_full_tcd_simulation(self) -> Dict[str, Any]:
-        crit=self.compute_critical_temperatures()
-        eos=self.compute_eos_history()
-        rge=self.coupling.integrate_thermo_chromo_rge(M_GUT=CONST.M_GUT_GeV,alpha_GUT=CONST.alpha_GUT)
-        einstein=self.thermo.jacobson_einstein_equation(T_GeV=2e-13)
-        spectral_points={f"T_{T:.2e}_GeV": self.coupling.spectral_dimension_T(T) for T in [1e19,1e16,1e3,0.155,1e-9,0]}
-        predictions=self.run_tcd_predictions()
-        w_today=self.coupling.equation_of_state_w_T(2e-13)
-        report={'engine_version':'v15.0-TCD — Thermo-Chromo-Dynamics as TOE','N_graph':self.N,'M_SUSY_GeV':self.M_SUSY,'critical_temperatures':crit,'eos_and_spectral_history':eos,'spectral_dimension_flow':spectral_points,'rge_thermo_chromo':rge,'emergent_gravity_Jacobson':einstein,'tcd_predictions':predictions,'w_today':w_today,'consistency_with_heptalogy':{'35/35_tests_heptalogy':'preserved','new_5_TCD_tests':'added','total_40/40_TCD':True,'0_new_parameters':True,'M_GUT_unchanged':rge['M_GUT_GeV'],'alpha_s_match':rge['alpha_s_match']},'falsification_criteria':{'lattice_Tc':'156±5 MeV else falsified','eta_s_RHIC':'0.08-0.12 else falsified','glueball_0pp':'1710±50 MeV else falsified','alpha_5_IUPUI':'<1e-3 at μm','Omega_Lambda_Tc_relation':'Omega_L ∝ T_c^4'},'equation_Z_TCD':'Z= Σ_G ∫ DU exp(-β10 S△^Spin10 -β3 S□^QCD -θ S_topo + S_ent)','motto':{'pl':'Kolor uwięziony to przestrzeń zakrzywiona. Ciepło grafu to czas.','en':'Confined color is curved space. Heat of graph is time.'}}
-        return report
+        rge = self.coupling.integrate_thermo_chromo_rge(
+            M_GUT=CONST.gut_scale_gev,
+            alpha_GUT=CONST.alpha_gut,
+            M_SUSY=self.M_SUSY,
+        )
+        return {
+            "engine_version": "v15.0-TCD research prototype",
+            "scientific_status": "PROJECT HYPOTHESIS — NOT A VALIDATED TOE",
+            "N_graph": self.N,
+            "M_SUSY_GeV": self.M_SUSY,
+            "critical_temperatures": self.compute_critical_temperatures(),
+            "eos_and_spectral_history": self.compute_eos_history(),
+            "spectral_dimension_flow": {
+                f"T_{temperature:.2e}_GeV": self.coupling.spectral_dimension_T(temperature)
+                for temperature in (1e21, 1e20, 1e19, 1e16, 1e3, 0.155, 0.0)
+            },
+            "rge_thermo_chromo": rge,
+            "emergent_gravity_Jacobson": self.thermo.jacobson_einstein_equation(2e-13),
+            "tcd_predictions": self.run_tcd_predictions(),
+            "w_today": self.coupling.equation_of_state_w_T(2e-13),
+            "consistency_with_heptalogy": {
+                "tests_executed_by_report": False,
+                "total_40/40_TCD": False,
+                "zero_new_parameters": False,
+                "status": INCOMPLETE,
+            },
+            "falsification_criteria": {
+                "status": INCOMPLETE,
+                "reason": "no TCD item currently has a derived signal, covariance, and frozen external-data likelihood",
+            },
+            "equation_Z_TCD": (
+                "formal project ansatz only; measure, gauge fixing, graph ensemble, "
+                "and continuum limit are not specified"
+            ),
+            "assumption_ledger": "docs/TCD_ASSUMPTION_LEDGER.json",
+        }
+
 
 class TCDLabForApex:
-    def __init__(self, N=10**6):
-        self.engine=ThermoChromoDynamicsEngine(N=N)
-    def run_termo_chromo_simulation(self):
+    """Compatibility adapter retained for the Windows/Ultima facade."""
+
+    def __init__(self, N: int = 10**6):
+        self.engine = ThermoChromoDynamicsEngine(N=N)
+
+    def run_termo_chromo_simulation(self) -> Dict[str, Any]:
         return self.engine.run_full_tcd_simulation()
 
-def demo():
-    print("="*80)
-    print(" TERMO-CHROMO-DYNAMIKA jako Teoria Wszystkiego — v15.0-TCD DEMO")
-    print("="*80)
-    eng=ThermoChromoDynamicsEngine(N=10**6,M_SUSY_GeV=5000.0)
-    print("\n[1] Critical temperatures...")
-    crit=eng.compute_critical_temperatures()
-    for k,v in crit.items():
-        print(f"  {k}: {v}")
-    print("\n[2] RGE integration (MSSM+SM + thermo)...")
-    rge=eng.coupling.integrate_thermo_chromo_rge()
-    for k in ['M_GUT_GeV','alpha_GUT','alpha_GUT_inv','alpha_s_MZ','alpha_s_MZ_analytic_1loop','sin2_thetaW_MZ','tau_p_yr']:
-        print(f"  {k}: {rge[k]}")
-    print("\n[3] Thermo — emergent gravity...")
-    jac=eng.thermo.jacobson_einstein_equation(T_GeV=2e-13)
-    for k in ['P(N,T)','G_eff/G0','Lambda_thermal_GeV4','Omega_Lambda_TCD_calib']:
-        print(f"  {k}: {jac[k]}")
-    print("\n[4] Chromo — Polyakov, eta/s, glueball, 5th force...")
-    T_MeV=155.0
-    print(f"  Polyakov L(T_c={T_MeV}MeV) = {eng.chromo.polyakov_loop(T_MeV):.3f}")
-    print(f"  CF from Polyakov = {eng.chromo.causal_fraction_from_polyakov(T_MeV):.3f} (target 0.738 at T=0)")
-    print(f"  sigma(T_c) = {eng.chromo.string_tension(T_MeV):.4f} GeV2")
-    print(f"  eta/s(T_c) = {eng.chromo.eta_over_s(T_MeV):.4f} (KSS 0.0796, RHIC ~0.09)")
-    print(f"  glueball 0++ = {eng.chromo.glueball_spectrum()['0++_MeV']:.1f} MeV (lattice 1710)")
-    print(f"  α5 phenom 1μm = {eng.chromo.fifth_force_alpha(1.0)['alpha_5_with_torsion_resummed_phenom']:.2e}")
-    print("\n[5] Spectral dimension flow d_S(T)...")
-    for T in [1e19,1e16,1e3,0.155,1e-6,0]:
-        dS=eng.coupling.spectral_dimension_T(T if T>0 else 0)
-        print(f"  T={T:.2e} GeV => d_S={dS:.2f}")
-    print("\n[6] TCD predictions 5 + reinterpret...")
-    preds=eng.run_tcd_predictions()
-    for key in ['TCD-1_Tc_QCD','TCD-2_eta_s','TCD-3_fifth_force','TCD-4_glueball','TCD-5_DeltaG']:
-        print(f"  {key}: status={preds[key].get('status','')}")
-        if key=='TCD-2_eta_s':
-            print(f"    eta/s(Tc)={preds[key]['eta/s_Tc']:.3f}")
-    print("\n[7] Full report...")
-    full=eng.run_full_tcd_simulation()
-    print(f"  Engine: {full['engine_version']}")
-    print(f"  Consistency: {full['consistency_with_heptalogy']}")
-    print(f"  w_today = {full['w_today']}")
-    print(f"  Equation: {full['equation_Z_TCD']}")
-    print("\n"+"="*80)
-    print(" DEMO COMPLETE — TCD jako TOE potwierdzona")
-    print(" Motto:",full['motto']['pl'])
-    print("="*80)
-    return eng
 
-if __name__=="__main__":
+def demo() -> None:
+    """Print a concise scientific-status report."""
+
+    report = ThermoChromoDynamicsEngine().run_full_tcd_simulation()
+    print(report["engine_version"])
+    print(report["scientific_status"])
+    print("TCD contract outputs are diagnostics, not validated predictions.")
+
+
+if __name__ == "__main__":
     demo()

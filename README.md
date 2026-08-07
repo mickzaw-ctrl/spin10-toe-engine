@@ -50,6 +50,21 @@ The engine includes an isolated JAX/Equinox prototype for Information-Frequency 
 
 ---
 
+## Thermo-Chromo-Dynamics v15.0 research prototype
+
+The existing TCD module has been converted into a scientifically gated research prototype. It preserves the public engine facade while separating standard gauge/thermal formulas from graph hypotheses and rejecting dimensionally or numerically inconsistent claims.
+
+- Research module: [`src/termo_chromo_dynamics.py`](src/termo_chromo_dynamics.py)
+- Scientific-contract tests: [`tests/test_termo_chromo_dynamics.py`](tests/test_termo_chromo_dynamics.py)
+- Windows adapter contracts: [`tests/test_tcd_windows_adapter.py`](tests/test_tcd_windows_adapter.py)
+- Audited Publication VIII: [`docs/TERMO-CHROMO-DYNAMIKA-TOE.md`](docs/TERMO-CHROMO-DYNAMIKA-TOE.md)
+- Machine-readable assumptions: [`docs/TCD_ASSUMPTION_LEDGER.json`](docs/TCD_ASSUMPTION_LEDGER.json)
+- CLI: `PYTHONPATH=src python scripts/demo_termo_chromo_dynamics.py`
+
+TCD currently reports **project hypotheses and diagnostics, not validated predictions or a completed TOE**.
+
+---
+
 ## 🚀 What's New in v13.0-PRO — Physics Apex
 
 ### 1. `SpinFoamLQGBridge` — LQG Spin Foams (EPRL)

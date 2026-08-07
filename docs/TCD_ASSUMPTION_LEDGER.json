@@ -1,0 +1,111 @@
+{
+  "ledger_id": "TCD-V15-001",
+  "version": "15.0-audited",
+  "status": "OPEN_RESEARCH_PROTOTYPE",
+  "entries": [
+    {
+      "id": "TCD-E001",
+      "classification": "established_physics",
+      "statement": "Jacobson's local Clausius construction derives the Einstein equation under local-equilibrium, area-entropy, and local-Rindler-horizon assumptions.",
+      "impact": "Provides motivation only; it does not derive the graph correction P(N,T).",
+      "confidence": "high",
+      "provenance": "arXiv:gr-qc/9504004; DOI:10.1103/PhysRevLett.75.1260"
+    },
+    {
+      "id": "TCD-E002",
+      "classification": "established_physics",
+      "statement": "Wilson-loop area behavior and Polyakov-loop deconfinement diagnostics are standard gauge-theory constructs, with qualifications for full QCD with dynamical quarks.",
+      "impact": "Supports chromodynamic diagnostics but not their identification with graph causal fraction.",
+      "confidence": "high",
+      "provenance": "DOI:10.1103/PhysRevD.10.2445; DOI:10.1016/0370-2693(78)90737-2"
+    },
+    {
+      "id": "TCD-H001",
+      "classification": "project_hypothesis",
+      "statement": "Graph coherence follows P(N,T)=1-0.33/sqrt(N_eff(T)) and rescales Newton's constant as G_eff=G0/P.",
+      "impact": "Introduces an effective scalar dependence and requires a covariant action with gradient terms.",
+      "confidence": "low",
+      "provenance": "Project ansatz in src/termo_chromo_dynamics.py"
+    },
+    {
+      "id": "TCD-H002",
+      "classification": "project_hypothesis",
+      "statement": "Spectral dimension is parametrized by d_S(T)=2+2/[1+(T/T*)^kappa].",
+      "impact": "Interpolates between 4 and 2 but is not derived from a graph heat kernel; d_S(T*)=3.",
+      "confidence": "low",
+      "provenance": "Project ansatz; comparison context arXiv:1705.05417"
+    },
+    {
+      "id": "TCD-U001",
+      "classification": "unverified_assumption",
+      "statement": "Graph causal fraction is mapped monotonically to one minus a toy Polyakov-loop crossover curve.",
+      "impact": "The map is inverse to the usual Polyakov-loop ordering and has no operator correspondence.",
+      "confidence": "speculative",
+      "provenance": "No derivation available"
+    },
+    {
+      "id": "TCD-R001",
+      "classification": "rejected_assumption",
+      "statement": "T_c^4/M_Pl^2 is approximately 1e-47 GeV^4 and explains dark energy.",
+      "impact": "The expression has units GeV^2, not GeV^4, and the corresponding cosmological-constant scale is about 42 orders above the reference value.",
+      "confidence": "high",
+      "provenance": "Dimensional and numerical audit in qcd_dark_energy_scale_audit"
+    },
+    {
+      "id": "TCD-R002",
+      "classification": "rejected_assumption",
+      "statement": "T_c=Lambda_QCD sqrt(P)/CF evaluates to approximately 156 MeV for the supplied constants.",
+      "impact": "The formula evaluates near 294 MeV; 156.5 MeV is retained only as an external lattice-QCD reference.",
+      "confidence": "high",
+      "provenance": "Numerical audit in qcd_crossover_formula_audit; lattice reference arXiv:1407.6387"
+    },
+    {
+      "id": "TCD-R003",
+      "classification": "rejected_assumption",
+      "statement": "A torsion resummation raises the bare fifth-force coupling to 1e-6 at one micrometre.",
+      "impact": "No field-theoretic resummation derives the required enhancement of more than 30 orders of magnitude.",
+      "confidence": "high",
+      "provenance": "No derivation available"
+    },
+    {
+      "id": "TCD-R004",
+      "classification": "rejected_assumption",
+      "statement": "The declared DeltaG/G formula gives about 1e-32 today and 1e-2 at BBN.",
+      "impact": "Direct evaluation gives approximately 1.45e-57 today and 2.62e-38 at T=1 MeV.",
+      "confidence": "high",
+      "provenance": "Numerical audit in thermal_delta_g_fraction"
+    },
+    {
+      "id": "TCD-R005",
+      "classification": "rejected_assumption",
+      "statement": "For alpha_GUT inverse near 24, beta_10=1/g_10^2 is near 24.",
+      "impact": "Since g^2=4 pi alpha, 1/g^2 is near 1.91 before any group-dependent lattice normalization.",
+      "confidence": "high",
+      "provenance": "Algebraic audit in lattice_beta_from_alpha"
+    },
+    {
+      "id": "TCD-R006",
+      "classification": "rejected_assumption",
+      "statement": "The Planck-to-GUT temperature ratio gives Carnot efficiency 0.87.",
+      "impact": "The declared scales give approximately 0.99916; a cosmological bounce is not thereby shown to be a Carnot cycle.",
+      "confidence": "high",
+      "provenance": "Numerical audit in carnot_efficiency"
+    },
+    {
+      "id": "TCD-U002",
+      "classification": "unverified_assumption",
+      "statement": "Thermal terms modify vacuum gauge beta functions as c g^3(T/M_SUSY)^2/(4 pi)^2.",
+      "impact": "The term is available only as an isolated diagnostic and is disabled in the default RGE baseline.",
+      "confidence": "low",
+      "provenance": "Project ansatz; finite-temperature context DOI:10.1103/PhysRevD.9.3320"
+    },
+    {
+      "id": "TCD-U003",
+      "classification": "unverified_assumption",
+      "statement": "TCD derives the axion mass, gluino mass, f_NL, baryon asymmetry, three generations, and graph equilibrium constants without new parameters.",
+      "impact": "No implementing derivations or controlled likelihoods exist; these outputs must remain incomplete.",
+      "confidence": "speculative",
+      "provenance": "No repository derivation available"
+    }
+  ]
+}

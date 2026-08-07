@@ -29,7 +29,7 @@ block_cipher = None
 
 a = Analysis(
     ['shzspin10/__main__.py'],
-    pathex=['.'],
+    pathex=['.', '..'],
     binaries=[],
     datas=[
         ('shzspin10/dashboard.html', 'shzspin10'),
@@ -37,6 +37,7 @@ a = Analysis(
     hiddenimports=[
         'numpy', 'scipy', 'matplotlib', 'matplotlib.backends.backend_tkagg',
         'shzspin10.engine', 'shzspin10.cli', 'shzspin10.menu',
+        'termo_chromo_dynamics',
     ],
     hookspath=[],
     hooksconfig={},
@@ -74,19 +75,19 @@ exe = EXE(
 
 def main():
     if sys.platform not in ('win32', 'cygwin'):
-        print("[WARNING] Ten build jest przeznaczony na Windows.")
-        print("  Obecna platforma: %s" % sys.platform)
-        print("  PyInstaller na Linux tworzy ELF, nie PE (.exe).")
-        print("  Skrypt zostanie wykonany, ale wynik NIE będzie .exe compatible z Windows.")
+        print("[WARNING] This build target is intended for Windows.")
+        print("  Current platform: %s" % sys.platform)
+        print("  PyInstaller on Linux produces ELF, not a Windows PE executable.")
+        print("  The script can run, but its output will not be Windows-compatible.")
         print()
 
-    print("[INFO] Tworzenie spec file dla PyInstaller...")
+    print("[INFO] Creating the PyInstaller spec file...")
     with open("SHZSpin10.spec", "w", encoding="utf-8") as f:
         f.write(SPECS)
-    print("[OK] Zapisano SHZSpin10.spec")
+    print("[OK] Wrote SHZSpin10.spec")
 
-    print("[INFO] Budowanie przez PyInstaller...")
-    print("  To może potrwać 2-5 minut przy pierwszym uruchomieniu.")
+    print("[INFO] Building with PyInstaller...")
+    print("  The first build can take 2-5 minutes.")
 
     PyInstaller.__main__.run([
         'SHZSpin10.spec',
@@ -95,11 +96,11 @@ def main():
     ])
 
     if os.path.exists("dist/SHZSpin10.exe"):
-        print("\n[SUKCES] Standalone EXE zbudowany:")
+        print("\n[SUCCESS] Standalone executable built:")
         print("  dist/SHZSpin10.exe")
-        print("\n  Rozmiar pliku:", os.path.getsize("dist/SHZSpin10.exe"), "bajtów")
+        print("\n  File size:", os.path.getsize("dist/SHZSpin10.exe"), "bytes")
     else:
-        print("\n[INFO] PyInstaller zakończony. Sprawdź katalog dist/.")
+        print("\n[INFO] PyInstaller finished. Check the dist/ directory.")
 
 
 if __name__ == "__main__":

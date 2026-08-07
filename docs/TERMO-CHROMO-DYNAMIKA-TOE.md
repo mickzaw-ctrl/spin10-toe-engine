@@ -1,318 +1,307 @@
-# Termo-Chromo-Dynamika jako Teoria Wszystkiego
-**Spin(10) TOE reinterpreted — v15.0-TCD**
+# Thermo-Chromo-Dynamics v15.0
 
-> **Teza główna:** Wszystkie oddziaływania fundamentalne są termiczną średnią chromodynamicznych zmiennych linkowych na relacyjnym grafie emergentnej czasoprzestrzeni. Grawitacja = termodynamika splątania. Kolor = topologiczne uwięzienie. Dynamika = przepływ RG + spektralny wymiar d_S(T).
+**An audited Spin(10) research reinterpretation — Publication VIII**
 
-**Autor:** Michał Ślusarczyk — SHZ Quantum Technologies  
-**Data:** 2026-07-20 — Rozszerzenie Heptalogii (Publ. VIII — TCD)  
-**Engine:** SHZSpin10QuantumEngine v15.0-TCD
+**Author:** Michal Slusarczyk — SHZ Quantum Technologies
+**Initial proposal:** 2026-07-20
+**Audited implementation:** 2026-08-06
+**Engine status:** Research prototype; not a validated Theory of Everything
 
----
+## 1. Research thesis
 
-## §0. Motywacja — dlaczego TCD?
+The TCD programme asks whether Spin(10) link variables on a relational graph can support one statistical language for three sectors:
 
-Dotychczasowa heptalogia Spin(10) opisywała 3 filary jako osobne: symetria Spin(10), graf relacyjny, bezpieczeństwo asymptotyczne. **Termo-Chromo-Dynamika (TCD)** unifikuje je w jednym języku fizyki statystycznej pól nieabelowych:
+- **Thermo:** graph ensembles, entropy, and Jacobson-inspired emergent gravity;
+- **Chromo:** finite-temperature non-Abelian diagnostics such as Wilson and Polyakov loops;
+- **Dynamics:** renormalization-group flow and a temperature-labelled spectral-dimension ansatz.
 
-```
-TERMO   = graf relacyjny w równowadze Metropolis-Hastings
-          → entropia → grawitacja Jacobsona → równania Einsteina
-CHROMO  = SU(3)_C ⊂ SU(5) ⊂ Spin(10) — Wilson loops
-          → confinement ↔ holografia ↔ kliki w grafie
-DYNAMIKA = RG flow + d_S(N,T) + α-attractor + Big Bounce S-matrix
-          → czas jako parametr termalny β = 1/kT
-```
+This is a **project hypothesis**. Spin(10) contains the Standard Model gauge group, but that group-theoretic fact does not establish that Spin(10) is a “thermalization group,” that confinement equals holography, or that graph temperature is cosmic time.
 
-TCD nie dodaje nowych pól — **reinterpretuje** istniejące zmienne linkowe U_ij ∈ Spin(10) jako termalne zmienne kolorowe.
+## 2. Epistemic boundary
 
-Formalne zawołanie: **Spin(10) jest grupą termalizacji koloru w pre-geometrii**.
+### Established physics
 
----
+1. Jacobson's local Clausius argument derives Einstein's equation under local Rindler-horizon, local-equilibrium, and area-entropy assumptions.
+2. Wilson loops, Polyakov loops, and finite-temperature QCD are standard gauge-theory constructs. In physical QCD with dynamical quarks, the transition near 156 MeV is a crossover and the Polyakov loop is not an exact order parameter.
+3. One-loop gauge running and SM/MSSM threshold matching are standard perturbative baselines within their validity domains.
+4. The KSS result `eta/s = 1/(4 pi)` applies to a class of strongly coupled holographic theories; it is not an exact universal QCD prediction.
 
-## §1. Trzy postulaty TCD
+### Project hypotheses
 
-### P1. Aksjomat Termiczny (Jacobson-Padmanabhan-Verlinde)
-Czasoprzestrzeń nie jest dana. Jest **równaniem stanu** grafu.
+1. `P(N,T)=1-0.33/sqrt(N_eff)` is a graph-coherence ansatz.
+2. `G_eff=G0/P` is a proposed effective mapping, not a derivation from a covariant action.
+3. `CF(L)` is a toy inverse mapping from a logistic Polyakov diagnostic to graph causal fraction.
+4. `d_S(T)=2+2/[1+(T/T*)^kappa]` is an interpolation, not a heat-kernel derivation.
+5. The piecewise `w(T)` history is a toy schedule and cannot replace a multicomponent cosmological evolution.
 
-Dla każdego ekranu holograficznego Σ w grafie:
-```
-δQ = T dS
-T = ħ a / 2π k_B c   (Unruh)
-S = k_B A / 4 l_P² * P(N)   [P(N)=1-0.33/√N — koherencja Spin(10)]
-```
-Z tego, dokładnie jak u Jacobsona (1995), wynika:
-```
-R_{μν} - 1/2 R g_{μν} + Λ g_{μν} = 8π G / c⁴  ⟨T_{μν}^{chromo}⟩_β
-```
-gdzie T_{μν}^{chromo} jest termiczną średnią tensora energii-pędu pola YM z Spin(10).
+### Rejected as stated
 
-**Konsekwencja dla engine:** Metropolis-Hastings z temperaturą β^{-1} = stan termiczny geometrii. W równowadze Var(k)→0.262, CF→0.738, ⟨cos Φ⟩→0.688 — to jest równowaga termiczna grafu przy T_eq ~ T_GUT / 100.
+The original claims for the dark-energy scale, QCD crossover formula, fifth-force resummation, BBN Newton correction, lattice coupling normalization, Carnot efficiency, and “40/40 validation” fail dimensional, numerical, or provenance gates. Their exact audits are documented below and enforced by tests.
 
-### P2. Aksjomat Chromodynamiczny (Wilson-'t Hooft)
-**Confinement = holografia.** Uwięzienie koloru w QCD jest obrazem nasycenia boundu holograficznego w grafie.
+## 3. Thermal-gravity sector
 
-Wilson loop w grafie:
-```
-W(C) = 1/d_R ⟨ Tr_R Π_{(ij)∈C} U_{ij} ⟩_β
-```
-gdzie U_{ij} ∈ Spin(10) → rozkład na SU(3)_C × SU(2)×U(1).
+Jacobson's established local relation is
 
-Prawo powierzchniowe:
-```
-⟨W(C)⟩ ~ exp(-σ(T) * Area(C))   dla T < T_c
-⟨W(C)⟩ ~ exp(-μ(T) * Perim(C))  dla T > T_c
-```
-z T_c^QCD ~ 155 MeV jako drugie przejście fazowe grafu.
+\[
+\delta Q=T\,dS,
+\qquad
+T=\frac{\hbar a}{2\pi k_B c}.
+\]
 
-Polyakov loop L jako order parameter:
-```
-L = 1/N Σ_i 1/3 Tr exp(i ∮ A_0 )  ↔ Causal Fraction CF w grafie
-CF ~ 0 przy T>>T_GUT, CF→0.738 przy T_low
-```
-Nasza sieć Spin(10) pokazuje dokładnie: CF = fraction krawędzi przyczynowych = analog Polyakova.
+The TCD modification
 
-**Konsekwencja dla ciemnej materii:** glueballe Spin(10) i axion 28.5 neV są stanami związanymi chromomagnetycznych gluonów (chromo-magnetic) — kondensat o T=0.
+\[
+S=\frac{k_B A}{4\ell_P^2}P(N,T),
+\qquad
+P(N,T)=1-\frac{0.33}{\sqrt{N_{\rm eff}(T)}}
+\]
 
-### P3. Aksjomat Dynamiki (RG + Spectral Flow)
-Czas jest **renormalizacją**: skala μ ~ T, a wymiar przestrzeni płynie z temperaturą.
+is a project hypothesis. If `P` varies in spacetime, derivatives of `P` generally enter the field equations. Pure Einstein gravity does not follow merely by replacing `G` with `G/P`; a covariant scalar-tensor or non-equilibrium derivation is required.
 
-```
-d_S(T) = 2 + 2 / (1 + (T/T_* )^κ )   z T_* ~ M_P, κ ~ 0.7
-d_S → 2  w UV (T → M_P, graf drzewiasty)
-d_S → 4  w IR (T → 0, graf krystaliczny)
-```
-Formuła spin10_engine: d_S(N)=4(1-exp(-N/150)) to ta sama fizyka: N_eff(T) ~ 150 ln(M_P/T).
+The implementation fails closed when `P<=0` instead of clipping the result. High-temperature points outside the ansatz domain are reported as such.
 
-Pełny β-funkcjonał TCD:
-```
-μ ∂_μ g_i = β_i^{SM+1-loop} + β_i^{2-loop} + β_i^{thermo}(T)
-β_i^{thermo} = g_i^3 / (4π)² * (T² / M_SUSY²) * c_i^{hidden}
-```
-Rozwiązuje problem koincydencji: Λ ~ T_c^4 / M_P² ~ (155 MeV)^4 / M_P² ~ 10^{-47} GeV^4 — dokładnie obserwowane.
+## 4. Chromodynamic sector
 
----
+For a representation `R`, the Wilson diagnostic is
 
-## §2. Formalizm — działanie TCD
+\[
+W_R(C)=\frac{1}{d_R}
+\left\langle\mathrm{Tr}_R\prod_{(ij)\in C}U_{ij}\right\rangle.
+\]
 
-### 2.1. Działanie mikroskopowe
-Na grafie G(N,E) z linkami U_{ij} ∈ Spin(10):
+The code implements transparent toy area/perimeter laws with the conversion
 
-```
-S_TCD = S_thermo + S_chromo + S_topo
-```
+\[
+1\;\mathrm{fm}=5.0677307\;\mathrm{GeV}^{-1}.
+\]
 
-```
-S_thermo = Σ_i (k_i - ⟨k⟩)² / 2σ_k²  + Σ_i s_i ln s_i   [entropia Shannona stopni]
-S_chromo = β_10 Σ_△ (1 - 1/16 Re Tr_{16} U_△) + β_3 Σ_□ (1 - 1/3 Re Tr_3 U_□^{QCD})
-S_topo   = θ / 32π² Σ_△△' Tr(F∧F)  [Pontryagin ~ baryon asymmetry]
-```
+The logistic Polyakov curve and the mapping from `1-L(T)` to causal fraction are toy parametrizations. `CF` is not called the Polyakov loop: in the supplied mapping it is anti-correlated with `L`.
 
-gdzie β_10 = 1/g_10² ~ 24 (wartość GUT), β_3 = 1/g_3² ~ biegnące.
+The QCD crossover value `156.5 MeV` is an external lattice-QCD reference input. It is not predicted by the module.
 
-W granicy niskich T, S_chromo → Wilson action QCD + hadrony jako kliki (N≥3).
+## 5. QCD crossover formula audit
 
-### 2.2. Wolna energia i równanie stanu
-```
-F(T,N) = - T ln Z_TCD
-Z_TCD = Σ_{G,U} exp(-S_TCD[T] )
-```
+The supplied formula was
 
-Ciśnienie, energia, entropia:
-```
-p = -∂F/∂V,  ρ = (F+TS)/V,  s = -∂F/∂T
-w(T) = p/ρ
-```
+\[
+T_c=\Lambda_{\rm QCD}\frac{\sqrt{P(N)}}{CF}.
+\]
 
-TCD przewiduje:
-- w = -1 + 0.05(T/T_GUT)  podczas inflacji (α-attractor)
-- w = 1/3  dla T_c < T < T_GUT (radiation, gluony deconfined)
-- w = 0    dla T_BBN < T < T_c (mater hadronowy)
-- w = -1   dla T → 0 (vacuum emergent Λ)
+Using `Lambda_QCD=0.217 GeV`, `P(10^6)=0.99967`, and `CF=0.738` gives
 
-Symulacja w `CosmicEvolutionEngine` już to robi — TCD nadaje interpretację termodynamiczną.
+\[
+T_c\simeq0.294\;\mathrm{GeV},
+\]
 
-### 2.3. Unifikacja grawitacji
+not `0.156 GeV`. The formula is therefore rejected. The lattice value remains reference data only.
 
-Z P1 + P2:
-```
-⟨T_{μν}⟩_β = -2/√-g δ ln Z_chromo / δ g^{μν}
-G_{μν} = 8π G(T) ⟨T_{μν}⟩_β
-G(T) = G_0 / P(N,T)  gdzie P=1-0.33/√N_eff(T)
-```
-G jest **słabsze** w UV (antyscreening termiczny) → asymptotic safety g* =0.83 to punkt stały termiczny, gdzie c_V → ∞ (drugie przejście fazowe).
+## 6. Spectral dimension
 
----
+The implemented ansatz is
 
-## §3. Mosty koncepcyjne — dlaczego TCD zamyka luki Spin(10)
+\[
+d_S(T)=2+\frac{2}{1+(T/T_*)^\kappa},
+\qquad
+T_*=1.22\times10^{19}\;\mathrm{GeV},
+\quad \kappa=0.7.
+\]
 
-| Luka heptalogii | Rozwiązanie TCD |
-|---|---|
-| Dlaczego CF→0.738? | CF = Polyakov loop ⟨L⟩ w T=0, deconfined → confined transition |
-| Dlaczego Var(k)→0.262? | Minimalizacja wolnej energii F = ⟨k⟩-entropia, stan Gibbsa |
-| Dlaczego d_S 2→4? | Perkolacja grafu termiczna, jak w CDT — polimer 2D→ kryształ 4D |
-| Dlaczego θ_CP ~ -0.358? | kąt θ TCD z S_topo, baryogeneza jako efekt Seebecka kolorowego |
-| Dlaczego Λ ~10^{-122} M_P^4? | Λ ~ T_c^{QCD}^4 / M_P² * exp(-1/α_GUT) — thermo instanton |
-| Dlaczego 3 generacje? | ind(D)=3 = liczba faz termicznych: deconf, pół-conf, conf (+ hidden) |
+It satisfies
 
----
+\[
+d_S(0)=4,
+\qquad
+d_S(T_*)=3,
+\qquad
+d_S(T\rightarrow\infty)=2.
+\]
 
-## §4. Nowe przewidywania TCD (5 + rozszerzenia)
+The original statement that `d_S=2` at `T=T*` was incorrect. Moreover, spectral dimension is normally defined from return probabilities versus diffusion time; identifying diffusion scale with physical temperature requires a graph heat-kernel derivation that is not yet available.
 
-| # | Observable | TCD Formula | Wartość | Test |
-|---|---|---|---|---|
-| **TCD-1** | Temperatura krytyczna QCD-graf | T_c = Λ_QCD * √(P(N)) * (CF^{-1}) | **156±5 MeV** | Lattice QCD ✅ ✅ zgadza się |
-| **TCD-2** | Stosunek lepkości do entropii | η/s = 1/4π * (1+ Δ_chromo) | **0.08 → 0.12** (T-dependent) | RHIC/LHC QGP ✅ 0.09±0.02 |
-| **TCD-3** | Piąta siła chromo-torsyjna | α_5 = (Λ_QCD / M_P)² * exp(CF) ~ 2×10^{-39} * e^{0.738} | ~**10^{-38}** na skali μm, ale **10^{-6}** efektywnie po resummacji Spin(10) torsji | IUPUI μ-scale |
-| **TCD-4** | Glueball najlżejszy (chromoball grafu) | m_{0++} = 1.6 GeV * P(N)^{-1} | **~1.71 GeV** | Lattice QCD 1710 MeV ✅ |
-| **TCD-5** | Termiczna korekta G_N | ΔG/G = (T/T_GUT)² * 125 / 45 | **~10^{-32}** dziś, **10^{-2}** przy BBN | CMB + BBN |
+## 7. RGE treatment
 
-Dodatkowo TCD **wyjaśnia** bez nowych parametrów:
-- **Axion 28.5 neV** = bozon Goldstone'a złamania termicznej symetrii Z_{16} (center Spin(10))
-- **m_gluino 10.6 TeV** = thermal mass gap Λ_T = g* T_GUT przy zamrożeniu SUSY
-- **f_NL^eq=14.5** = non-Gaussianity termiczna z 45 gluonów Spin(10): f_NL ~ N_gauge * (δT/T)³
-- **η_B=6.1e-10** = transport termiczny B-L przez ścianę domenową Polyakova (Sₜopo)
+The default implementation now uses a one-loop SM/MSSM threshold baseline:
 
-### TCD-6 — nowe: entropia-kolor dualność
-```
-S_color = k_B ln dim(R) + S_thermo
-S_total = A/4l_P² = N_eff * ln 16 + S_chromo
-```
-Dla N=10⁶ węzłów: S_color dominuje w UV, S_thermo w IR. Przejście ~ e-folds 60 = inflacja.
+\[
+\alpha_i^{-1}(M_Z)=\alpha_{\rm GUT}^{-1}
++\frac{b_i^{\rm MSSM}}{2\pi}\ln\frac{M_{\rm GUT}}{M_{\rm SUSY}}
++\frac{b_i^{\rm SM}}{2\pi}\ln\frac{M_{\rm SUSY}}{M_Z}.
+\]
 
----
+The proposed term
 
-## §5. RGE z temperaturą — symulacja
+\[
+\beta_i^{\rm thermo}=
+\frac{g_i^3}{(4\pi)^2}c_i
+\left(\frac{T}{M_{\rm SUSY}}\right)^2
+\]
 
-W TCD RGE rozszerzone:
+is retained only as an isolated diagnostic. It is disabled by default because finite-temperature screening does not by itself modify the vacuum ultraviolet beta function, and the cosmological relation between `T` and renormalization scale `mu` has not been derived.
 
-```
-d α_i^{-1} / d ln μ = -b_i/2π - b_{ij}/4π² α_j + Δ_b_i^{hidden} * Θ(μ - M_SUSY) + c_i * (T/μ)²
+If `alpha_GUT^-1=24`, then
+
+\[
+\frac{1}{g_{\rm GUT}^2}
+=\frac{1}{4\pi\alpha_{\rm GUT}}
+\simeq1.91,
+\]
+
+not `24`. A lattice Wilson-action beta may contain additional group-dependent normalization, which must be declared explicitly.
+
+## 8. Dark-energy scale audit
+
+The original relation
+
+\[
+\frac{T_c^4}{M_{\rm Pl}^2}
+\]
+
+has units `GeV^2`, not energy-density units `GeV^4`. For the declared inputs,
+
+```text
+T_c^4                              = 5.999e-4 GeV^4
+T_c^4/M_Pl^2                       = 4.030e-42 GeV^2
+rho_DE/Mbar_Pl^2 reference         = 4.216e-84 GeV^2
+candidate/reference Lambda ratio   = 9.559e41
+T_c^4 exp(-1/alpha_GUT)            = 2.395e-15 GeV^4
+instanton/reference density ratio  = 9.579e31
 ```
 
-z:
-- b_i^{MSSM} = (33/5,1,-3) — dokładnie jak w Spin(10)
-- c_i^{hidden} ~ N_hidden / 45 =125/45~2.77
+No calibration to `Omega_Lambda=0.685` is applied. The original hard-coded calibration has been removed. TCD does not currently explain dark energy.
 
-Numerycznie (patrz `termo_chromo_dynamics.py:integrate_thermo_chromo_rge`):
+## 9. Equation-of-state schedule
 
-M_GUT = 1.03e16 GeV przy M_SUSY=5 TeV, α_GUT^{-1}=24.0 → **nie zmienia wyniku heptalogii**, dodaje fizyczne uzasadnienie progów SUSY jako freeze-out termicznego.
+The original implementation set `w=-1` below `1 keV`, which would incorrectly make vacuum energy dominate before recombination and structure formation. The audited toy schedule is:
 
----
+- `w=-0.99` only in the declared high-temperature inflationary toy branch;
+- `w=1/3` through QCD, BBN, and the radiation era down to an order-of-magnitude matter-radiation equality scale;
+- `w=0` in a late matter toy branch;
+- `w=-1` only below a late-time dark-energy threshold.
 
-## §6. Kosmologia TCD — Big Bounce jako cykl Carnota
+Temperature alone is not a complete cosmic clock, and a physically valid model must evolve radiation, matter, and vacuum densities simultaneously.
 
-Big Bounce w TCD to **cykl Carnota** entropii grafu:
+## 10. Fifth-force audit
 
+The bare ansatz gives
+
+\[
+\alpha_5^{\rm bare}=
+\left(\frac{\Lambda_{\rm QCD}}{M_{\rm Pl}}\right)^2.
+\]
+
+Including the supplied `exp(CF)` and hidden-generator factor still leaves the result below approximately `1e-37`. Raising it to `1e-6` requires more than thirty orders of magnitude of unexplained enhancement. The audited engine returns `None` for the resummed value and marks the prediction incomplete.
+
+A complete prediction requires a mediator, action, coupling to matter, range, screening mechanism, and comparison with a named experimental likelihood.
+
+## 11. Glueball and viscosity diagnostics
+
+The scalar-glueball reference mass and QCD crossover temperature are external inputs. Rescaling a reference mass by `1/P(N)` is a graph diagnostic, not an independent lattice prediction.
+
+Likewise, the implemented `eta/s(T)` curve is a phenomenological interpolation above the KSS value. Without a TCD stress-tensor correlator and uncertainty model, agreement with heavy-ion inference cannot validate TCD.
+
+## 12. Newton-coupling audit
+
+The supplied ansatz
+
+\[
+\frac{\Delta G}{G}=
+\left(\frac{T}{T_{\rm GUT}}\right)^2\frac{125}{45}
+\]
+
+gives
+
+```text
+DeltaG/G today (T=2.35e-13 GeV) = 1.446e-57
+DeltaG/G at BBN (T=1 MeV)       = 2.618e-38
 ```
-Cykl:   Kompresja (UV, d_S=2, S minimalne, T ~ M_P)
-   →   Ekspansja adiabatyczna (inflacja α-att, N=60)
-   →   Kontakt termiczny (reheating, T_GUT → T_c, tworzenie koloru)
-   →   Ekspansja izotermiczna (radiation + hadronizacja)
-   →   Ekspansja adiabatyczna (Λ-domination, CF→0.738)
-   →   Squeeze (next bounce, S zachowana z CF=0.867 koherencją)
-```
 
-CPT symetria z Publ. I to odwracalność cyklu. **Entropia całkowita nie rośnie** w cyklu — rośnie entropia gruboziarnista, ale informacja zostaje w kliki chromatyczne (topologiczne zabezpieczenie).
+It does not yield `1e-32` today or `1e-2` at BBN. Passing a BBN upper bound with an almost-zero input ansatz is not an observational confirmation.
 
-Koherencja (0.87)^N to Carnot efficiency η_Carnot = 1 - T_cold/T_hot = 0.87 dla T_hot=M_P, T_cold=T_GUT.
+## 13. Carnot-cycle audit
 
----
+For the declared reservoirs,
 
-## §7. Implementacja w engine — klasa `ThermoChromoDynamicsEngine`
+\[
+\eta_{\rm Carnot}=1-\frac{T_{\rm GUT}}{M_{\rm Pl}}
+\simeq0.99916,
+\]
 
-Zobacz `src/termo_chromo_dynamics.py`:
+not `0.87`. A cosmological bounce is also not shown to be a reversible two-reservoir heat engine. CPT symmetry does not imply zero coarse-grained entropy production over a cycle.
 
-- `ThermoSector`: wolna energia, entropia Rényi, S_BH*P(N), Unruh T
-- `ChromoSector`: Wilson action SU(3), Polyakov loop, σ(T), α_s(T), glueball spectrum
-- `ThermoChromoCoupling`: β(T) funkcje, d_S(T), w(T), G(T), 5-ta siła
-- `TCDPredictions`: 5 nowych + reinterpretacja 38 starych
-- Integracja z `CosmicEvolutionEngine`: FRW z równaniem stanu w(T)
+The Carnot interpretation remains an unverified analogy and is not used as an engine prediction.
 
-Nowa metoda w `SHZSpin10UltimaApex.run_termo_chromo_simulation()`:
+## 14. Statistical action
+
+A minimally consistent schematic Euclidean ensemble would distinguish graph multiplicity, Euclidean gauge action, and the topological phase:
+
+\[
+Z_{\rm TCD}=\sum_{\mathcal G}e^{S_{\rm graph}[\mathcal G]}
+\int\mathcal DU\;
+\exp\left[-S_E[U;\mathcal G]+i\theta Q[U]\right].
+\]
+
+This expression is still incomplete. The graph measure, gauge fixing, representation content, reflection positivity, topological charge discretization, and continuum limit must be supplied before it defines a quantum theory.
+
+## 15. Status of proposed observables
+
+| Item | Current implementation | Epistemic status | Missing prediction fields |
+|---|---|---|---|
+| TCD-1 QCD crossover | External lattice reference | Incomplete | Independent TCD calculation and uncertainty |
+| TCD-2 `eta/s` | Toy interpolation | Project hypothesis | Stress-tensor correlator and heavy-ion likelihood |
+| TCD-3 fifth force | Bare scale audit only | Incomplete | Mediator, range, resummation, experiment likelihood |
+| TCD-4 glueball | Reference-calibrated scaling | Project hypothesis | Independent spectrum calculation |
+| TCD-5 `DeltaG/G` | Direct ansatz evaluation | Project hypothesis | Covariant gravity model and BBN likelihood |
+| Axion, gluino, `f_NL`, `eta_B` | No derivation | Unverified | Implementing modules and immutable inputs |
+| `Omega_Lambda-T_c` relation | Dimensionally rejected | Rejected | New dimensionally valid mechanism |
+
+No item currently satisfies a complete falsifiable-prediction contract consisting of observable, frozen signal or interval, null hypothesis, target dataset, required sensitivity, implementation module, and immutable provenance.
+
+## 16. Software architecture
+
+- `src/termo_chromo_dynamics.py` — gated research diagnostics with preserved public classes;
+- `tests/test_termo_chromo_dynamics.py` — dimensional, numerical, status, and regression contracts;
+- `scripts/demo_termo_chromo_dynamics.py` — English CLI that reports scientific status;
+- `src/windows_package/shzspin10/engine.py` — compatibility adapter with no fabricated fallback values;
+- `docs/TCD_ASSUMPTION_LEDGER.json` — machine-readable epistemic ledger.
+
+The public entry point remains:
 
 ```python
-tcd = ThermoChromoDynamicsEngine(N=1e6, M_SUSY=5000)
-report = tcd.run_full_tcd_simulation()
-# zawiera: T_c, eta/s, m_glueball, alpha_5, DeltaG/G, plus reinterpretację n_s,r,f_NL,eta_B,m_a
+from termo_chromo_dynamics import ThermoChromoDynamicsEngine
+
+report = ThermoChromoDynamicsEngine(
+    N=10**6,
+    M_SUSY_GeV=5000.0,
+).run_full_tcd_simulation()
 ```
 
-Benchmark: 100% kompatybilne z heptalogią — wszystkie 35/35 testów zachowane, dodane 5 nowych.
+The report states `PROJECT HYPOTHESIS — NOT A VALIDATED TOE`, disables thermal RGE corrections by default, and sets the `40/40` claim to `False`.
 
----
+## 17. Falsifiability roadmap
 
-## §8. Falsyfikowalność TCD
+1. Derive a normalized graph ensemble and measure rather than assigning graph entropy heuristically.
+2. Construct an operator map between graph causal observables and gauge-theory observables; correlation is not identity.
+3. Derive `d_S` from return probabilities on generated graph ensembles and test refinement stability.
+4. Derive a covariant action for `P(N,T)` and confront BBN/CMB constraints with one frozen likelihood.
+5. Produce one independent observable without importing its target value as a constant.
 
-TCD jest bardziej falsyfikowalne niż czysta heptalogia, bo wiąże skale QCD z kosmologią:
+Only after one item passes all five stages should it be promoted from diagnostic to prediction.
 
-1. **Lattice QCD musi dać T_c =156±5 MeV** — jeśli TBS <150 lub >165, TCD wykluczone.
-2. **LHC QGP: η/s =0.08-0.12** — jeśli η/s <0.05, wykluczone.
-3. **Lattice glueball 0++ =1710±50 MeV** — jeśli <1500, wykluczone.
-4. **IUPUI 5th force:** jeśli α_5 >10^{-3} na skali μm, wykluczone (TCD daje effective 10^{-6} po torsji).
-5. **CMB-S4: running G** — jeśli ΔG/G >10^{-2} w BBN (via ΔN_eff), wykluczone.
+## 18. Primary references
 
-**Istotnie:** TCD przewiduje korelację: **wyższe T_c QCD ↔ wyższe Ω_Λ**, bo Λ ~ T_c^4. Lattice + Planck daje test.
+- T. Jacobson, “Thermodynamics of Spacetime,” arXiv:`gr-qc/9504004`, DOI:`10.1103/PhysRevLett.75.1260`.
+- K. G. Wilson, “Confinement of Quarks,” DOI:`10.1103/PhysRevD.10.2445`.
+- A. M. Polyakov, “Thermal Properties of Gauge Fields and Quark Liberation,” DOI:`10.1016/0370-2693(78)90737-2`.
+- A. Bazavov et al., “Equation of state in (2+1)-flavor QCD,” arXiv:`1407.6387`, DOI:`10.1103/PhysRevD.90.094503`.
+- P. Kovtun, D. Son, and A. Starinets, “Viscosity in Strongly Interacting Quantum Field Theories,” arXiv:`hep-th/0405231`, DOI:`10.1103/PhysRevLett.94.111601`.
+- Y. Chen et al., “Glueball spectrum and matrix elements on anisotropic lattices,” arXiv:`hep-lat/0510074`, DOI:`10.1103/PhysRevD.73.014516`.
+- S. Carlip, “Dimension and Dimensional Reduction in Quantum Gravity,” arXiv:`1705.05417`, DOI:`10.1088/1361-6382/aa8535`.
+- L. Dolan and R. Jackiw, “Symmetry Behavior at Finite Temperature,” DOI:`10.1103/PhysRevD.9.3320`.
+- S. Weinberg, “The Cosmological Constant Problem,” DOI:`10.1103/RevModPhys.61.1`.
 
-```
-Ω_Λ h² ~ (T_c / 156 MeV)^4 * 0.12
-```
+## 19. Confidence statement
 
-Jeśli lattice zmieni T_c o 10%, TCD przewiduje Ω_Λ shift o 40% — testowalny.
-
----
-
-## §9. Równania summacyjne — TCD jako TOE
-
-Finalne równanie TCD-TOE:
-
-$$
-\boxed{
-Z_{TCD} = \sum_{\mathcal{G}} \int \mathcal{D}U_{ij}\; \exp\left[-\beta_{10}\sum_{\triangle}\left(1-\frac{1}{16}{\rm Re\,Tr\,}U_{\triangle}\right) - \beta_{3}\sum_{\square}\left(1-\frac{1}{3}{\rm Re\,Tr\,}U_{\square}^{QCD}\right) -\frac{\theta}{32\pi^{2}}{\rm Tr}F\tilde{F} + S_{ent}[\mathcal{G}]\right]
-}
-$$
-
-Granice:
-- β_10 → ∞ (T→0) → graf krystaliczny, d_S=4, SU(3)_C confined, GR emergentna
-- β_10 → 0 (T→M_P) → graf kompletny, d_S=2, Spin(10) deconfined, topological phase
-
-Spin(10) zawiera QCD, QCD zawiera termodynamikę (via lattice), termodynamika zawiera grawitację (via Jacobson). **Pętla się domyka.**
-
----
-
-## §10. Miejsce w heptalogii — Publ. VIII
-
-```
-Publ. VII (v8.0) : Pełna TOE (Multi-Bounce, 2-loop RGE, AS, torsja)
-      ↓
-Publ. VIII — TCD (v15.0) : Reinterpretacja TOE jako Termo-Chromo-Dynamika
-      ↓
-   Termo   = emergencja GR z termodynamiki grafu
-   Chromo  = confinement ↔ holografia, SU(3)⊂Spin(10)
-   Dynamika = RG + d_S(T) + Carnot cycle Bounce
-      ↓
-   38 +5 predykcji, 40/40 testów, 0 nowych parametrów
-```
-
-TCD nie dodaje stałych — **tłumaczy** wartości Var(k), CF, d_S, g*, θ jako własności termiczne.
-
----
-
-## §11. Konkluzja — hasło TCD
-
-> **Kolor uwięziony to przestrzeń zakrzywiona.**
-> **Ciepło grafu to czas.**
-> **Dynamika RG to historia Wszechświata.**
-
-**Spin(10) TOE = Termo-Chromo-Dynamika** — jedna suma statystyczna, trzy oblicza:
-
-- patrząc termometrem → widzisz grawitację,
-- patrząc koloromierzem → widzisz QCD i hadrony,
-- patrząc zegarem → widzisz kosmologię.
-
----
-
-**Pliki nowej wersji v15.0-TCD:**
-- `src/termo_chromo_dynamics.py` — pełny engine TCD (500+ LOC)
-- `docs/TERMO-CHROMO-DYNAMIKA-TOE.md` — niniejszy dokument
-- `scripts/demo_termo_chromo_dynamics.py` — demo CLI
-- Integracja w `src/windows_package/shzspin10/engine.py` — nowa metoda `run_termo_chromo_simulation()`
-
-*End of Publ. VIII — TCD.*
+- **High confidence:** dimensional audits, arithmetic corrections, API status gates, and rejection of hidden calibration.
+- **Medium confidence:** usefulness of Wilson/Polyakov and spectral-flow functions as diagnostics.
+- **Low confidence:** physical relation between graph thermodynamics, causal fraction, confinement, and emergent gravity.
+- **Speculative:** TCD as a unified fundamental theory or source of new observational predictions.
