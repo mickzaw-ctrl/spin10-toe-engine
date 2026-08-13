@@ -35,6 +35,22 @@ class QuantumMeasureTests(unittest.TestCase):
         for ident in ("M2", "M3", "M4", "M5", "M6"):
             self.assertEqual(by_id[ident]["status"], UNMET)
 
+    def test_four_holes_are_named_and_not_filled(self) -> None:
+        report = gate5_quantum_measure()
+        pieces = report["pieces"]
+        self.assertTrue(pieces["mu_graph"]["normalisable"])
+        self.assertFalse(pieces["mu_graph"]["is_quantum_gravity"])
+        self.assertEqual(pieces["discrete_matter"]["S_H"]["status"], "established_physics")
+        self.assertEqual(pieces["discrete_matter"]["S_16"]["status"], INCOMPLETE)
+        self.assertEqual(pieces["refinement"]["status"], UNMET)
+        self.assertFalse(pieces["refinement"]["done"])
+        self.assertFalse(pieces["os_or_lorentz"]["euclidean"]["applies_to_rewired_torus"])
+        self.assertEqual(pieces["os_or_lorentz"]["lorentzian"]["status"], UNMET)
+        causal = report["causal_necessary_gate"]
+        self.assertTrue(causal["is_partial_order"])
+        self.assertEqual(causal["violation_causal"], 0.0)
+        self.assertGreater(causal["violation_backward"], 0.0)
+
     def test_t3_stays_unmet(self) -> None:
         self.assertFalse(T3_MET)
         verdict = t3_verdict()

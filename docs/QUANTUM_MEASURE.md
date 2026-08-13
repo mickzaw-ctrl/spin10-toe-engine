@@ -67,6 +67,18 @@ graph. Quantum gravity is the sum over \(\Gamma\) and the continuum.
 
 ---
 
+## The four holes, named
+
+| Hole | Candidate | Status |
+|---|---|---|
+| \(\mu(\Gamma)\) | Boltzmann weight on the finite Gate-1 rewiring class, \(S_{\mathrm{graph}}=\sum \ell_{\mathrm{Manhattan}}\) | Normalisable combinatorics. **Not** a sum over geometries. |
+| \(S_H\) | \(\sum_{\langle ij\rangle}\|U_{ij}\Phi_j-\Phi_i\|^2+V(\Phi)\) | Established lattice Higgs on a graph. \(V\) free. |
+| \(S_{16}\) | hopping \(\bar\psi_i P_{ij} U_{ij}\psi_j\) | **Incomplete:** no Clifford / soldering form on a random graph. |
+| Continuum | freeze one gauge-invariant \(O\), refine twice, demand stability | Protocol only. Not done. Gate 1 is not this limit. |
+| OS / Lorentz | OS for cubic compact YM (Osterwalder–Seiler); causal kernel on a poset | OS **does not** apply to a rewired graph. A diamond poset with zero violation is necessary, not a reconstruction. |
+
+---
+
 ## What this does not do
 
 - It does not define \(Z\).

@@ -92,9 +92,9 @@ def evaluate_toe_conditions() -> dict[str, Any]:
             ),
             UNMET,
             (
-                "Gate 5 writes Z_disc and Z_cont and scores M1–M6. Only M1 "
-                "(configuration names) is MET. Haar-on-fixed-Γ exists; "
-                "μ(Γ), continuum, OS/Lorentz and matter measure do not."
+                "Gate 5 names the four holes. A finite rewiring μ(Γ) is "
+                "normalisable combinatorics, not QG. Lattice S_H is written; "
+                "S_16 has no frames. Continuum and OS/Lorentz stay UNMET."
             ),
         ),
         _item(
