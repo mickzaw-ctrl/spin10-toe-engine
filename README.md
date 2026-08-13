@@ -27,7 +27,8 @@ Open `http://127.0.0.1:8000`. The lab exposes six live benches:
 4. **LQC bounce** — imported loop-quantum-cosmology algebra, not an IFT-EGR derivation
 5. **α-inflation** — standard attractor formulae; `α = 3.75` is a project hypothesis
 6. **Theory v16** — Spin(10) 16, independent Gate-1 spectral ensemble, U(1) mass gap, prediction registry
-7. **Claim ledger** — every legacy engine number with an epistemic label
+7. **Data** — frozen Planck / BK18 / Super-K / MEG-II card; pull and limits; 0 validated predictions
+8. **Claim ledger** — every legacy engine number with an epistemic label
 
 Specification: [`docs/THEORY.md`](docs/THEORY.md) · lab: [`lab/README.md`](lab/README.md) · audit: [`docs/TCD_V15_FINAL_RESEARCH_REPORT.md`](docs/TCD_V15_FINAL_RESEARCH_REPORT.md)
 

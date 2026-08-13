@@ -67,6 +67,13 @@ class TheoryRequest(BaseModel):
     fast: bool = True
 
 
+class ConfrontationRequest(BaseModel):
+    alpha: float = Field(3.75, ge=0.1, le=20.0)
+    n_efolds: float = Field(60.0, ge=40.0, le=80.0)
+    m_susy: float = Field(5000.0, ge=200.0, le=1.0e7)
+    alpha_h_gev3: float = Field(0.015, ge=0.001, le=0.05)
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, dict):
         return {str(key): _jsonable(item) for key, item in value.items()}
@@ -138,6 +145,17 @@ def ledger() -> dict:
 @app.post("/api/theory")
 def theory(body: TheoryRequest) -> dict:
     return _call(services.run_theory, fast=body.fast)
+
+
+@app.post("/api/confrontation")
+def confrontation(body: ConfrontationRequest) -> dict:
+    return _call(
+        services.run_confrontation,
+        alpha=body.alpha,
+        n_efolds=body.n_efolds,
+        m_susy=body.m_susy,
+        alpha_h_gev3=body.alpha_h_gev3,
+    )
 
 
 @app.post("/api/gauge")

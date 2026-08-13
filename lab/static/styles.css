@@ -220,10 +220,22 @@ canvas.chart { width: 100%; height: 100%; display: block; }
   border-radius: 999px; padding: 2px 8px; font-size: 11px; font-weight: 600;
   border: 1px solid var(--line);
 }
-.badge.established { color: var(--green); border-color: rgba(52,211,153,.35); }
-.badge.hypothesis { color: var(--amber); border-color: rgba(251,191,36,.35); }
-.badge.unverified, .badge.incomplete, .badge.calibration { color: var(--orange); border-color: rgba(251,146,60,.35); }
-.badge.rejected { color: var(--rose); border-color: rgba(251,113,133,.35); }
+.badge.established,
+.badge.established_physics,
+.badge.compatible { color: var(--green); border-color: rgba(52,211,153,.35); }
+.badge.hypothesis,
+.badge.project_hypothesis { color: var(--amber); border-color: rgba(251,191,36,.35); }
+.badge.unverified,
+.badge.unverified_assumption,
+.badge.incomplete,
+.badge.incomplete_prediction,
+.badge.calibration,
+.badge.circular { color: var(--orange); border-color: rgba(251,146,60,.35); }
+.badge.rejected,
+.badge.rejected_as_stated,
+.badge.rejected_formula,
+.badge.excluded { color: var(--rose); border-color: rgba(251,113,133,.35); }
+.badge.not_excluded { color: var(--cyan); border-color: rgba(34,211,238,.35); }
 
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th {

@@ -145,6 +145,7 @@ def lab_status() -> dict[str, Any]:
             {"id": "lqc", "label": "LQC / IFT-EGR closure", "status": ESTABLISHED},
             {"id": "inflation", "label": "α-attractor phenomenology", "status": ESTABLISHED},
             {"id": "theory", "label": "v16 theoretical specification", "status": ESTABLISHED},
+            {"id": "data", "label": "Observational confrontation", "status": ESTABLISHED},
             {"id": "ledger", "label": "Assumption ledger", "status": ESTABLISHED},
         ],
     }
@@ -691,6 +692,24 @@ def run_theory(fast: bool = True) -> dict[str, Any]:
     from theory_core import complete_theory
 
     return complete_theory(run_gates=True, fast=bool(fast))
+
+
+def run_confrontation(
+    alpha: float = 3.75,
+    n_efolds: float = 60.0,
+    m_susy: float = 5000.0,
+    alpha_h_gev3: float = 0.015,
+) -> dict[str, Any]:
+    """Confront declared-input theory numbers with the frozen data card."""
+
+    from observational_confrontation import confront_observables
+
+    return confront_observables(
+        alpha=_clamp_float(alpha, 0.1, 20.0, "alpha"),
+        n_efolds=_clamp_float(n_efolds, 40.0, 80.0, "n_efolds"),
+        m_susy=_clamp_float(m_susy, 200.0, 1.0e7, "m_susy"),
+        alpha_h_gev3=_clamp_float(alpha_h_gev3, 0.001, 0.05, "alpha_h_gev3"),
+    )
 
 
 def run_gauge_snapshot(n_nodes: int = 24, seed: int = 7) -> dict[str, Any]:

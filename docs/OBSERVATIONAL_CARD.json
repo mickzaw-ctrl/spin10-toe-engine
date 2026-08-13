@@ -1,0 +1,64 @@
+{
+  "card_id": "OBS-2026-08",
+  "frozen": true,
+  "note": "Published central values and limits only. This card is not an official likelihood.",
+  "entries": {
+    "n_s": {
+      "kind": "gaussian",
+      "value": 0.9682,
+      "sigma": 0.0032,
+      "pivot": "k=0.05 Mpc^-1",
+      "source": "Planck PR4 combined analyses; A&A 682, A37 (2024); quoted also in arXiv:2512.10613"
+    },
+    "r": {
+      "kind": "upper",
+      "limit": 0.036,
+      "cl": 0.95,
+      "source": "BICEP/Keck BK18, arXiv:2203.16556"
+    },
+    "mu_e_gamma": {
+      "kind": "upper",
+      "limit": 3.1e-13,
+      "cl": 0.90,
+      "source": "MEG-II first dataset combined with MEG, Eur. Phys. J. C 84 (2024) 216"
+    },
+    "tau_p_eppi0": {
+      "kind": "lower",
+      "limit": 2.4e34,
+      "cl": 0.90,
+      "unit": "years",
+      "source": "Super-Kamiokande I–IV, Phys. Rev. D 102, 112011 (2020)"
+    },
+    "eta_B": {
+      "kind": "gaussian",
+      "value": 6.12e-10,
+      "sigma": 0.04e-10,
+      "source": "Planck + BBN baryon-to-photon ratio (order-of-magnitude card; dataset-dependent)"
+    },
+    "sum_m_nu": {
+      "kind": "upper",
+      "limit": 0.12,
+      "cl": 0.95,
+      "unit": "eV",
+      "source": "Planck cosmological mass bound (dataset-dependent; used as an order-of-magnitude gate)"
+    },
+    "alpha_em_inv": {
+      "kind": "gaussian",
+      "value": 137.035999084,
+      "sigma": 2.1e-8,
+      "source": "CODATA 2018"
+    },
+    "alpha_s_mz": {
+      "kind": "gaussian",
+      "value": 0.1180,
+      "sigma": 0.0009,
+      "source": "PDG World Average"
+    },
+    "sin2_theta_w_mz": {
+      "kind": "gaussian",
+      "value": 0.23122,
+      "sigma": 0.00004,
+      "source": "PDG MSbar at M_Z"
+    }
+  }
+}

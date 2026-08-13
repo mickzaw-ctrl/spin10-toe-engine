@@ -15,6 +15,7 @@ const I18N = {
       lqc: "LQC / bounce",
       inflation: "Inflacja α",
       theory: "Teoria v16",
+      data: "Dane",
       ledger: "Rejestr twierdzeń",
     },
     run: "Oblicz",
@@ -62,6 +63,7 @@ const I18N = {
       lqc: "LQC / bounce",
       inflation: "α-inflation",
       theory: "Theory v16",
+      data: "Data",
       ledger: "Claim ledger",
     },
     run: "Compute",
@@ -102,6 +104,8 @@ const NAV = [
   ["tcd", "audit"],
   ["lqc", "bounce"],
   ["inflation", "slow-roll"],
+  ["theory", "spec"],
+  ["data", "data"],
   ["ledger", "claims"],
 ];
 
@@ -112,6 +116,12 @@ const STATUS_LABEL = {
   rejected_as_stated: "rejected",
   incomplete_prediction: "incomplete",
   calibration: "calibration",
+  compatible: "compatible",
+  not_excluded: "not excluded",
+  excluded: "excluded",
+  circular: "circular",
+  rejected_formula: "rejected formula",
+  incomplete: "incomplete",
 };
 
 let lang = "pl";
@@ -140,8 +150,9 @@ function fmt(value, digits = 4) {
 }
 
 function badge(status) {
-  const cls = STATUS_LABEL[status] || "hypothesis";
-  return `<span class="badge ${cls}">${cls}</span>`;
+  const label = STATUS_LABEL[status] || status;
+  const cls = String(status || "hypothesis").replace(/\s+/g, "_");
+  return `<span class="badge ${cls}">${label}</span>`;
 }
 
 async function api(path, body) {
@@ -384,6 +395,7 @@ function showPanel(id) {
   if (id === "lqc") (cache.lqc ? displayLQC(cache.lqc) : runLQC());
   if (id === "inflation") (cache.inflation ? displayInflation(cache.inflation) : runInflation());
   if (id === "theory") (cache.theory ? displayTheory(cache.theory) : runTheory());
+  if (id === "data") (cache.data ? displayData(cache.data) : runData());
   if (id === "ledger") (cache.ledger ? displayLedger(cache.ledger) : runLedger());
 }
 
@@ -927,6 +939,96 @@ function displayTheory(data) {
   }
 }
 
+function renderDataPanel() {
+  const p = $("panel-data");
+  p.innerHTML = `
+    <div class="controls">
+      <div class="field"><label>${t("alpha")}</label><input id="da-a" type="range" min="0.2" max="10" step="0.05" value="3.75"><div class="val" id="da-a-v">3.75</div></div>
+      <div class="field"><label>${t("nefolds")}</label><input id="da-n" type="range" min="45" max="75" step="0.5" value="60"><div class="val" id="da-n-v">60</div></div>
+      <div class="field"><label>${t("mSusy")}</label><input id="da-m" type="range" min="500" max="20000" step="100" value="5000"><div class="val" id="da-m-v">5000</div></div>
+      <div class="field"><label>α_H [GeV³]</label><input id="da-h" type="range" min="0.005" max="0.03" step="0.001" value="0.015"><div class="val" id="da-h-v">0.015</div></div>
+      <button class="run" type="button">${t("run")}</button>
+    </div>
+    <div id="da-out"></div>
+  `;
+  ["da-a", "da-n", "da-m", "da-h"].forEach((id) => {
+    $(id).addEventListener("input", (e) => { $(id + "-v").textContent = e.target.value; });
+  });
+  bindRun(p, runData);
+}
+
+async function runData() {
+  const panel = $("panel-data");
+  setBusy(panel, true);
+  try {
+    const data = await api("/api/confrontation", {
+      alpha: Number($("da-a").value),
+      n_efolds: Number($("da-n").value),
+      m_susy: Number($("da-m").value),
+      alpha_h_gev3: Number($("da-h").value),
+    });
+    cache.data = data;
+    displayData(data);
+  } catch (err) {
+    $("da-out").innerHTML = "";
+    showError($("da-out"), err);
+  } finally {
+    setBusy(panel, false);
+  }
+}
+
+function displayData(data) {
+  if (!$("da-out")) return;
+  const c = data.counts || {};
+  const pulls = (data.rows || []).filter((row) => row.pull !== null && row.pull !== undefined);
+  $("da-out").innerHTML = `
+    <div class="metrics">
+      <div class="metric"><span>validated</span><b>${data.validated_observational_predictions}</b><em>full contract</em></div>
+      <div class="metric"><span>compatible</span><b>${c.compatible || 0}</b><em>|pull| &lt; 2</em></div>
+      <div class="metric"><span>not excluded</span><b>${c.not_excluded || 0}</b></div>
+      <div class="metric"><span>excluded</span><b>${c.excluded || 0}</b></div>
+    </div>
+    <div class="note warn">${data.validation_rule}</div>
+    <article class="card" style="margin-top:14px">
+      <h3>Frozen data card ${data.card_id}</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ID</th><th>Observable</th><th>Theory</th><th>Data / limit</th><th>Pull</th><th>Verdict</th></tr></thead>
+        <tbody>
+          ${(data.rows || []).map((row) => `<tr>
+            <td class="mono">${row.id}</td>
+            <td>${row.observable}</td>
+            <td class="mono">${row.theory === null || row.theory === undefined ? "—" : fmt(row.theory)}</td>
+            <td class="mono">${fmt(row.data)}</td>
+            <td class="mono">${row.pull === null || row.pull === undefined ? "—" : fmt(row.pull, 2)}</td>
+            <td>${badge(row.verdict)}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div>
+    </article>
+    <article class="card" style="margin-top:14px">
+      <h3>Gaussian pulls</h3>
+      <div class="chart-wrap"><canvas class="chart" id="da-pull"></canvas></div>
+      <div class="note">χ² = ${fmt(data.chi2_compatible_gaussian, 3)} for ${data.ndof_compatible_gaussian} compatible Gaussian row(s) only. Circular rows are shown but not counted as confirmation.</div>
+    </article>
+    <article class="card" style="margin-top:14px">
+      <h3>Why nothing is validated</h3>
+      <ul>${(data.rows || []).map((row) => `<li><span class="mono">${row.id}</span> — ${row.why_not_validated}</li>`).join("")}</ul>
+    </article>
+  `;
+  if (pulls.length && $("da-pull")) {
+    drawChart($("da-pull"), {
+      xLabel: "index",
+      yLabel: "pull",
+      hlines: [{ y: 0, color: "#64748b", dashed: true }, { y: 2, color: "#fb7185", dashed: true }, { y: -2, color: "#fb7185", dashed: true }],
+      series: [{
+        x: pulls.map((_, i) => i + 1),
+        y: pulls.map((row) => row.pull),
+        color: "#22d3ee",
+      }],
+    });
+  }
+}
+
 function renderLedgerPanel() {
   $("panel-ledger").innerHTML = `<div id="led-out"></div>`;
 }
@@ -985,6 +1087,8 @@ function paintStaticPanels() {
   renderTCDPanel();
   renderLQCPanel();
   renderInflationPanel();
+  renderTheoryPanel();
+  renderDataPanel();
   renderLedgerPanel();
 }
 
@@ -1000,6 +1104,7 @@ async function boot() {
     if (currentPanel === "lqc" && cache.lqc) displayLQC(cache.lqc);
     if (currentPanel === "inflation" && cache.inflation) displayInflation(cache.inflation);
     if (currentPanel === "theory" && cache.theory) displayTheory(cache.theory);
+    if (currentPanel === "data" && cache.data) displayData(cache.data);
   });
   try {
     statusData = await api("/api/status");
