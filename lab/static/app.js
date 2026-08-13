@@ -1,11 +1,11 @@
 const I18N = {
   pl: {
     kicker: "Laboratorium badawcze",
-    title: "Uczciwy pulpit nad audytowanymi modułami",
-    lede: "To nie jest ukończona Teoria Wszystkiego. To interaktywny, fail-closed warsztat: standardowe wzory RGE i LQC, estymator wymiaru spektralnego oraz diagnostyki TCD z jawnym statusem epistemicznym.",
-    chipPred: "zwalidowanych predykcji TCD",
-    chipStatus: "warunkowy pass programistyczny",
-    chipTheory: "teoria fizyczna otwarta",
+    title: "Specyfikacja v16 — domknięta wewnętrznie",
+    lede: "To nie jest ukończona Teoria Wszystkiego. To domknięty program: grupa Spin(10), standardowe oszacowania GUT, niezależna bramka d_S oraz szczelina masowa bez wkładania celu. Empirycznie nadal otwarty.",
+    chipPred: "zwalidowanych predykcji obserwacyjnych",
+    chipStatus: "program wewnętrznie domknięty",
+    chipTheory: "empirycznie otwarty",
     side: "Silnik liczy na żywo w Pythonie. Wynik referencyjny ≠ potwierdzenie obserwacyjne.",
     nav: {
       dash: "Pulpit",
@@ -14,6 +14,7 @@ const I18N = {
       tcd: "Audyt TCD",
       lqc: "LQC / bounce",
       inflation: "Inflacja α",
+      theory: "Teoria v16",
       ledger: "Rejestr twierdzeń",
     },
     run: "Oblicz",
@@ -47,11 +48,11 @@ const I18N = {
   },
   en: {
     kicker: "Research laboratory",
-    title: "An honest bench over audited modules",
-    lede: "This is not a completed Theory of Everything. It is an interactive, fail-closed workbench: standard RGE and LQC formulae, a spectral-dimension estimator, and TCD diagnostics with explicit epistemic status.",
-    chipPred: "validated TCD predictions",
-    chipStatus: "conditional software pass",
-    chipTheory: "physical theory open",
+    title: "v16 specification — internally closed",
+    lede: "This is not a completed Theory of Everything. It is a closed programme: Spin(10) group theory, standard GUT estimates, an independent d_S gate, and a mass gap that does not import its target. Empirically it remains open.",
+    chipPred: "validated observational predictions",
+    chipStatus: "internally closed programme",
+    chipTheory: "empirically open",
     side: "The engine computes live in Python. A reference match is not observational confirmation.",
     nav: {
       dash: "Overview",
@@ -60,6 +61,7 @@ const I18N = {
       tcd: "TCD audit",
       lqc: "LQC / bounce",
       inflation: "α-inflation",
+      theory: "Theory v16",
       ledger: "Claim ledger",
     },
     run: "Compute",
@@ -381,6 +383,7 @@ function showPanel(id) {
   if (id === "tcd") (cache.tcd ? displayTCD(cache.tcd) : runTCD());
   if (id === "lqc") (cache.lqc ? displayLQC(cache.lqc) : runLQC());
   if (id === "inflation") (cache.inflation ? displayInflation(cache.inflation) : runInflation());
+  if (id === "theory") (cache.theory ? displayTheory(cache.theory) : runTheory());
   if (id === "ledger") (cache.ledger ? displayLedger(cache.ledger) : runLedger());
 }
 
@@ -817,6 +820,113 @@ function displayInflation(data) {
     });
 }
 
+function renderTheoryPanel() {
+  const p = $("panel-theory");
+  p.innerHTML = `
+    <div class="controls"><button class="run" type="button">${t("run")}</button></div>
+    <div id="th-out"></div>
+  `;
+  bindRun(p, runTheory);
+}
+
+async function runTheory() {
+  const panel = $("panel-theory");
+  setBusy(panel, true);
+  try {
+    const data = await api("/api/theory", { fast: true });
+    cache.theory = data;
+    displayTheory(data);
+  } catch (err) {
+    $("th-out").innerHTML = "";
+    showError($("th-out"), err);
+  } finally {
+    setBusy(panel, false);
+  }
+}
+
+function displayTheory(data) {
+  if (!$("th-out")) return;
+  const g1 = data.gate1_independent_spectral_flow || {};
+  const g2 = data.gate2_mass_gap || {};
+  const u = data.unification || {};
+  const points = g1.points || [];
+  $("th-out").innerHTML = `
+    <div class="metrics">
+      <div class="metric"><span>spec</span><b>v${data.version}</b><em>${data.scientific_status}</em></div>
+      <div class="metric"><span>Gate 1 d_S</span><b>${g1.decision || "—"}</b><em>${g1.n_fail ?? "—"} / ${g1.n_points ?? "—"} fail</em></div>
+      <div class="metric"><span>Gate 2 R=m/√σ</span><b>${fmt(g2.R_m_over_sqrt_sigma, 3)}</b><em>2D U(1), no 1.71 GeV input</em></div>
+      <div class="metric"><span>τ_p</span><b>${fmt(data.proton?.tau_years)} yr</b><em>declared α_H</em></div>
+    </div>
+    <div class="grid grid-2eq">
+      <article class="card">
+        <h3>Axioms</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ID</th><th>Status</th><th>Statement</th></tr></thead>
+          <tbody>
+            ${(data.axioms || []).map((a) => `<tr><td class="mono">${a.id}</td><td>${badge(a.status)}</td><td>${a.statement}</td></tr>`).join("")}
+          </tbody>
+        </table></div>
+      </article>
+      <article class="card">
+        <h3>Spin(10) 16</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>field</th><th>SU(3)</th><th>SU(2)</th><th>Y</th></tr></thead>
+          <tbody>
+            ${(data.group?.spinor_16 || []).map((f) => `<tr><td class="mono">${f.field}</td><td>${f.SU3}</td><td>${f.SU2}</td><td class="mono">${f.Y}</td></tr>`).join("")}
+          </tbody>
+        </table></div>
+        <div class="note">${data.group?.n_generations?.reason || ""}</div>
+      </article>
+    </div>
+    <article class="card" style="margin-top:14px">
+      <h3>Gate 1 — independent d_S vs HOLD interpolation</h3>
+      <div class="chart-wrap"><canvas class="chart" id="th-ds"></canvas></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:#22d3ee"></i>measured</span>
+        <span><i class="swatch" style="background:#fb7185"></i>HOLD ansatz</span>
+      </div>
+      <div class="note ${g1.decision === "NO-GO" ? "bad" : "warn"}">${g1.protocol || ""} Decision: <b>${g1.decision}</b>. ${g1.note || ""}</div>
+    </article>
+    <article class="card" style="margin-top:14px">
+      <h3>Prediction registry</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ID</th><th>Observable</th><th>Value</th><th>Status</th></tr></thead>
+        <tbody>
+          ${(data.registry || []).map((row) => `<tr>
+            <td class="mono">${row.id}</td>
+            <td>${row.observable}</td>
+            <td class="mono">${row.value === null || row.value === undefined ? "—" : (typeof row.value === "number" ? fmt(row.value) : row.value)}</td>
+            <td>${badge(row.status)}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div>
+    </article>
+    <div class="grid grid-2eq" style="margin-top:14px">
+      <article class="card gate keep"><h3>Closed</h3><ul>${(data.what_is_closed || []).map((x) => `<li>${x}</li>`).join("")}</ul></article>
+      <article class="card gate nogo"><h3>Not closed</h3><ul>${(data.what_is_not_closed || []).map((x) => `<li>${x}</li>`).join("")}</ul></article>
+    </div>
+    <div class="metrics" style="margin-top:14px">
+      <div class="metric"><span>M_GUT diagnostic</span><b>${fmt(u.M_GUT_GeV)} GeV</b></div>
+      <div class="metric"><span>sin²θ_W(GUT)</span><b>${fmt(u.sin2_theta_W_GUT, 4)}</b><em>3/8 = 0.375</em></div>
+      <div class="metric"><span>m_ν (declared seesaw)</span><b>${fmt(data.seesaw?.m_nu_eV)} eV</b></div>
+      <div class="metric"><span>observational validations</span><b>${data.validated_observational_predictions}</b></div>
+    </div>
+  `;
+  if (points.length) {
+    drawChart($("th-ds"), {
+      xLog: true,
+      xLabel: "T / T* (convention)",
+      yLabel: "d_S",
+      yMin: 1.5,
+      yMax: 5,
+      series: [
+        { x: points.map((p) => p.T_over_Tstar_convention), y: points.map((p) => p.d_S_measured), color: "#22d3ee" },
+        { x: points.map((p) => p.T_over_Tstar_convention), y: points.map((p) => p.d_S_hold), color: "#fb7185", dashed: true },
+      ],
+    });
+  }
+}
+
 function renderLedgerPanel() {
   $("panel-ledger").innerHTML = `<div id="led-out"></div>`;
 }
@@ -889,6 +999,7 @@ async function boot() {
     if (currentPanel === "tcd" && cache.tcd) displayTCD(cache.tcd);
     if (currentPanel === "lqc" && cache.lqc) displayLQC(cache.lqc);
     if (currentPanel === "inflation" && cache.inflation) displayInflation(cache.inflation);
+    if (currentPanel === "theory" && cache.theory) displayTheory(cache.theory);
   });
   try {
     statusData = await api("/api/status");

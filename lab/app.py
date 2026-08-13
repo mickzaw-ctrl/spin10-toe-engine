@@ -18,8 +18,8 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(
     title="Spin(10) Research Lab",
-    version="15.1.0",
-    description="Fail-closed interactive workbench over audited research modules.",
+    version="16.0.0",
+    description="Fail-closed workbench and internally closed Spin(10) specification.",
 )
 app.add_middleware(
     CORSMiddleware,
@@ -63,6 +63,10 @@ class GaugeRequest(BaseModel):
     seed: int = Field(7, ge=0, le=1_000_000_000)
 
 
+class TheoryRequest(BaseModel):
+    fast: bool = True
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, dict):
         return {str(key): _jsonable(item) for key, item in value.items()}
@@ -86,7 +90,7 @@ def _call(fn, **kwargs):
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"ok": True, "service": "spin10-research-lab", "version": "15.1.0"}
+    return {"ok": True, "service": "spin10-research-lab", "version": "16.0.0"}
 
 
 @app.get("/api/status")
@@ -129,6 +133,11 @@ def inflation(body: InflationRequest) -> dict:
 @app.get("/api/ledger")
 def ledger() -> dict:
     return services.run_ledger()
+
+
+@app.post("/api/theory")
+def theory(body: TheoryRequest) -> dict:
+    return _call(services.run_theory, fast=body.fast)
 
 
 @app.post("/api/gauge")

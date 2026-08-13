@@ -2,9 +2,9 @@
 
 Interactive, fail-closed workbench over the audited modules in this repository.
 
-This is **not** a completed Theory of Everything. It runs the solvers that actually
-exist, labels every output as established / hypothesis / rejected / calibration,
-and refuses to treat a reference input as a confirmed prediction.
+This is **not** a completed Theory of Everything. v16 closes the *internal*
+specification — axioms, Spin(10) embedding, independent Gate-1 / Gate-2
+computations, and a prediction registry. Empirically the programme stays open.
 
 ## Run
 

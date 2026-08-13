@@ -103,12 +103,13 @@ def lab_status() -> dict[str, Any]:
         counts[key] = counts.get(key, 0) + 1
     return {
         "name": "Spin(10) Research Lab",
-        "version": "15.1.0",
-        "scientific_status": "conditional software pass; physical theory open",
+        "version": "16.0.0",
+        "scientific_status": "internally closed research programme; physical theory empirically open",
         "validated_predictions": 0,
         "what_this_is": (
-            "An interactive, fail-closed workbench over the audited TCD, "
-            "RGE, spectral-dimension, LQC-closure, and alpha-attractor modules."
+            "A fail-closed workbench plus the v16 theoretical specification: "
+            "Spin(10) group theory, standard GUT estimates, and independent "
+            "Gate-1 / Gate-2 computations."
         ),
         "what_this_is_not": (
             "Not a completed Theory of Everything, not an observational "
@@ -120,9 +121,9 @@ def lab_status() -> dict[str, Any]:
                 "Standard one-loop / two-loop SM–MSSM RGE baseline",
                 "Random-walk spectral estimator on reference graphs",
                 "Standard LQC bounce algebra (imported, not derived here)",
+                "Spin(10) 16-embedding and sin²θ_W=3/8 at a GUT point",
             ],
             "HOLD": [
-                "TCD spectral interpolation d_S(T)",
                 "Causal-fraction ↔ Polyakov map",
                 "Graph coherence P(N,T) and G_eff = G0/P",
                 "Spin(10) identification of the alpha-attractor parameter",
@@ -132,6 +133,8 @@ def lab_status() -> dict[str, Any]:
                 "Dark energy from T_c^4 / M_Pl^2",
                 "Torsion-resummed fifth force at 10^{-6}",
                 "Thermal ΔG/G ~ 10^{-2} at BBN",
+                "TCD d_S(T) interpolation on the independent 3D-torus ensemble",
+                "N_gen=3 from Atiyah–Singer or E8 as stated",
             ],
         },
         "ledger_counts": counts,
@@ -141,6 +144,7 @@ def lab_status() -> dict[str, Any]:
             {"id": "tcd", "label": "TCD audit diagnostics", "status": HYPOTHESIS},
             {"id": "lqc", "label": "LQC / IFT-EGR closure", "status": ESTABLISHED},
             {"id": "inflation", "label": "α-attractor phenomenology", "status": ESTABLISHED},
+            {"id": "theory", "label": "v16 theoretical specification", "status": ESTABLISHED},
             {"id": "ledger", "label": "Assumption ledger", "status": ESTABLISHED},
         ],
     }
@@ -679,6 +683,14 @@ def run_ledger() -> dict[str, Any]:
         "legacy_claims": legacy,
         "validated_predictions": 0,
     }
+
+
+def run_theory(fast: bool = True) -> dict[str, Any]:
+    """Run the v16 specification, including independent gates."""
+
+    from theory_core import complete_theory
+
+    return complete_theory(run_gates=True, fast=bool(fast))
 
 
 def run_gauge_snapshot(n_nodes: int = 24, seed: int = 7) -> dict[str, Any]:
