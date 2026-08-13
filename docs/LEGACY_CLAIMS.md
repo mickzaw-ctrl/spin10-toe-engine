@@ -16,8 +16,9 @@ Confrontation verdicts: `compatible` · `not_excluded` · `excluded` ·
 
 | ID | Observable | Legacy claim | Published number used here | Verdict |
 |---|---|---|---|---|
-| C1 | \(n_s\), \(N\) from reheating | 0.9629–0.9667 (hand \(N\)) | \(0.9682\pm0.0032\) Planck PR4 proxy | **compatible** for α-attractor + instant reheating only; not TOE |
-| C1b / C23 | \(n_s\) at hand \(N=50\)–\(60\) | 0.9629–0.9667 | same Planck proxy | **circular** |
+| C1 | \(n_s\), \(N\) from reheating | not the marketing band | \(0.9682\pm0.0032\) Planck PR4 proxy | **compatible** for α-attractor + instant reheating (\(N\approx57.47\Rightarrow n_s\approx0.9652\)). Not TOE. |
+| C1b | \(n_s\) at hand \(N=60\) | \(0.9667\) | same Planck proxy | **circular** |
+| C23 | legacy band \(0.9629\)–\(0.9667\) | invert \(N=2/(1-n_s)\in[53.91,60.06]\) | same Planck proxy | **circular by construction** |
 | C2 | \(r\) | 0.0125 at \(N=60\) | \(r<0.036\) BK18 | **not excluded**; an upper limit cannot confirm |
 | C4 | BR(\(\mu\to e\gamma\)) | \(8\times10^{-14}\) | \(<3.1\times10^{-13}\) MEG-II+MEG | **not excluded** · **incomplete** (no loop) |
 | C5 | \(\eta_B\) | \(6.11\times10^{-10}\) | \(6.12\times10^{-10}\) Planck+BBN card | **incomplete** (no Boltzmann solver) |

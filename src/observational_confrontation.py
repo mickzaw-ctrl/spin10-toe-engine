@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from numerical_rge_solver import NumericalRGESolver
-from inflation_contract import evaluate_ns_contract
+from inflation_contract import evaluate_ns_contract, legacy_ns_band_audit
 from theory_core import (
     CALIBRATION,
     ESTABLISHED,
@@ -90,6 +90,7 @@ def _legacy_marketing_rows(
 
     fnl = data["f_nl_equilateral"]
     gluino = data["gluino_lhc"]
+    band = legacy_ns_band_audit()
     return [
         _row(
             "C11",
@@ -260,12 +261,18 @@ def _legacy_marketing_rows(
             sigma=data["n_s"]["sigma"],
             verdict=CIRCULAR,
             why=(
-                "That band is 1−2/N for hand-chosen N∈[50,60]. Row C1 already "
-                "treats the non-circular contract. This row exists so the old "
-                "table cannot be mistaken for extra evidence."
+                f"The band is 1−2/N for hand-chosen N∈[{band['N_lo']:.2f}, "
+                f"{band['N_hi']:.2f}]. That inverts the quoted tilt. "
+                "Contract C1 derives N from reheating and is a different row."
             ),
             source=data["n_s"]["source"],
             status=CALIBRATION,
+            extra={
+                "N_lo": band["N_lo"],
+                "N_hi": band["N_hi"],
+                "formula": band["formula"],
+                "distinct_from_contract": band["distinct_from_contract"],
+            },
         ),
     ]
 

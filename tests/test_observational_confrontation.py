@@ -84,6 +84,9 @@ class ObservationalConfrontationTests(unittest.TestCase):
         self.assertEqual(by_id["C19"]["verdict"], REJECTED_FORMULA)
         self.assertEqual(by_id["C20"]["verdict"], REJECTED_FORMULA)
         self.assertEqual(by_id["C23"]["verdict"], CIRCULAR)
+        self.assertAlmostEqual(by_id["C23"]["N_lo"], 2.0 / (1.0 - 0.9629), places=6)
+        self.assertAlmostEqual(by_id["C23"]["N_hi"], 2.0 / (1.0 - 0.9667), places=6)
+        self.assertEqual(by_id["C23"]["distinct_from_contract"], "NS-AT-INSTANT-01")
         self.assertEqual(report["validated_observational_predictions"], 0)
         self.assertIn("f_nl_equilateral", load_card()["entries"])
 

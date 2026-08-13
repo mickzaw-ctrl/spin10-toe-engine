@@ -11,9 +11,13 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from inflation_contract import (  # noqa: E402
+    LEGACY_NS_HI,
+    LEGACY_NS_LO,
     NOGO_ABS_PULL,
     derived_efolds,
     evaluate_ns_contract,
+    legacy_ns_band_audit,
+    n_from_leading_tilt,
     predict_tilt,
 )
 
@@ -42,6 +46,21 @@ class InflationContractTests(unittest.TestCase):
     def test_absurd_data_fails_nogo(self) -> None:
         report = evaluate_ns_contract(3.75, 0.99, 0.0032)
         self.assertFalse(report["passes_nogo"])
+
+    def test_legacy_band_is_exactly_hand_chosen_n(self) -> None:
+        band = legacy_ns_band_audit()
+        self.assertEqual(band["status"], "circular")
+        self.assertTrue(band["not_a_prediction"])
+        self.assertAlmostEqual(n_from_leading_tilt(LEGACY_NS_LO), 2.0 / (1.0 - 0.9629))
+        self.assertAlmostEqual(n_from_leading_tilt(LEGACY_NS_HI), 2.0 / (1.0 - 0.9667))
+        self.assertGreater(band["N_lo"], 53.9)
+        self.assertLess(band["N_lo"], 54.0)
+        self.assertGreater(band["N_hi"], 60.0)
+        self.assertLess(band["N_hi"], 60.1)
+        # C1 must not obtain N by inverting the observed tilt.
+        contract = evaluate_ns_contract(3.75, 0.9682, 0.0032)
+        inverted_obs = n_from_leading_tilt(0.9682)
+        self.assertGreater(abs(contract["prediction"]["N"] - inverted_obs), 1.0)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,26 @@
 # Validation contract NS-AT-INSTANT-01
 
 **Hypothesis:** α-attractor inflation with a declared `α` and instantaneous reheating.  
-**Not claimed:** a Theory of Everything.
+**Not claimed:** a Theory of Everything.  
+**Not claimed:** the legacy band \(n_s\in[0.9629,0.9667]\).
 
-## The four fields
+## Two different \(n_s\) stories
+
+| Path | How \(N\) is obtained | \(n_s=1-2/N\) | Verdict |
+|---|---|---|---|
+| **C1** · NS-AT-INSTANT-01 | \(N\) from \(a_*=k_*/H_*\) and \(T_{\rm reh}=T_{\rm end}\) | \(\approx 0.9652\) at \(\alpha=3.75\) | **compatible** with the frozen Planck proxy (\(\lvert\mathrm{pull}\rvert<2\)). Phenomena only. Not TOE. |
+| **C1b** | hand \(N=60\) | \(0.9667\) | **circular** |
+| **C23** · v8–v14 band \(0.9629\)–\(0.9667\) | invert the quoted tilt: \(N=2/(1-n_s)\in[53.91,60.06]\) | the band itself | **circular by construction** |
+
+The marketing band is not an independent prediction. It is the image of a
+hand-chosen \(N\) interval under the leading α-attractor map. Contract C1
+never inverts the observed tilt: \(n_s\) is not an input of
+`derived_efolds`.
+
+\(\alpha=3.75=\dim\mathrm{Spin}(10)/12\) remains a **project choice** on
+both paths.
+
+## The four fields (C1 only)
 
 | Field | Implementation |
 |---|---|
@@ -14,7 +31,8 @@
 
 ## Control
 
-Row **C1b** still uses a hand-chosen `N` and is labelled **circular**, so the old “pick N=60” move cannot be mistaken for the contract.
+Rows **C1b** and **C23** stay labelled **circular**, so the old “pick \(N\)
+until \(n_s\) looks like Planck” move cannot be mistaken for the contract.
 
 ## Result
 

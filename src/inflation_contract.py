@@ -48,8 +48,54 @@ G_STAR_S_TODAY = 3.91
 GEV_PER_MPC_INV = 1.973269804e-16 / 3.085677581e22  # = 6.394e-39
 H0_GEV = H0_KM_S_MPC * 2.1332e-44
 
+# Legacy marketing band from the v8–v14 table. It is 1−2/N for hand-chosen N.
+LEGACY_NS_LO = 0.9629
+LEGACY_NS_HI = 0.9667
+
 # Preregistered no-go. Do not edit after looking at the pull.
 NOGO_ABS_PULL = 2.0
+
+
+def n_from_leading_tilt(n_s: float) -> float:
+    """Invert n_s = 1 − 2/N. Used only to audit a hand-chosen-N band."""
+
+    if isinstance(n_s, bool) or not math.isfinite(float(n_s)):
+        raise ValueError("n_s must be a finite number")
+    tilt = 1.0 - float(n_s)
+    if tilt <= 0.0:
+        raise ValueError("leading-order inversion requires n_s < 1")
+    return 2.0 / tilt
+
+
+def legacy_ns_band_audit(
+    n_s_lo: float = LEGACY_NS_LO,
+    n_s_hi: float = LEGACY_NS_HI,
+) -> dict[str, Any]:
+    """Show that the README band is the image of a hand-chosen N interval.
+
+    This is not a prediction.  N is read off from the quoted n_s, so the
+    comparison with Planck is circular by construction.
+    """
+
+    n_lo = n_from_leading_tilt(n_s_lo)
+    n_hi = n_from_leading_tilt(n_s_hi)
+    return {
+        "status": "circular",
+        "formula": "n_s = 1 − 2/N  ⇔  N = 2/(1 − n_s)",
+        "n_s_lo": float(n_s_lo),
+        "n_s_hi": float(n_s_hi),
+        "N_lo": float(n_lo),
+        "N_hi": float(n_hi),
+        "hand_N_interval": (float(min(n_lo, n_hi)), float(max(n_lo, n_hi))),
+        "not_a_prediction": True,
+        "distinct_from_contract": "NS-AT-INSTANT-01",
+        "note": (
+            "The v8–v14 band 0.9629–0.9667 is exactly 1−2/N for "
+            "N ∈ [2/(1−0.9629), 2/(1−0.9667)] ≈ [53.91, 60.06]. "
+            "That N was chosen by hand. Contract C1 derives N from "
+            "reheating and never inverts the observed tilt."
+        ),
+    }
 
 
 def _potential_over_mpl4(alpha: float, n_efolds: float, a_s: float) -> float:
