@@ -169,3 +169,8 @@ def index() -> FileResponse:
 
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+app.mount(
+    "/www",
+    StaticFiles(directory=Path(__file__).resolve().parents[1] / "docs", html=True),
+    name="www",
+)
