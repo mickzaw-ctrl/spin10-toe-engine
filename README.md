@@ -6,7 +6,7 @@
 [![Status](https://img.shields.io/badge/validated%20TCD%20predictions-0-lightgrey.svg)](docs/TCD_V15_FINAL_RESEARCH_REPORT.md)
 
 **Author:** Michal Slusarczyk  
-**Current product:** Research Lab + internally closed v16 specification  
+**Current product:** Research Lab + internally closed v16.1 specification  
 **Scientific status:** programme internally closed · empirically open · **0 validated observational predictions**
 
 This repository is a research codebase, not a completed Theory of Everything.
@@ -722,3 +722,4 @@ Total: 174 files
 ---
 
 *Last updated: 2026-06-21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*
+21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*

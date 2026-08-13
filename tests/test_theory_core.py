@@ -61,15 +61,22 @@ class TheoryCoreTests(unittest.TestCase):
 
     def test_complete_theory_stays_empirically_open(self) -> None:
         report = complete_theory(run_gates=True, fast=True)
-        self.assertEqual(report["version"], "16.0")
+        self.assertEqual(report["version"], "16.1")
         self.assertEqual(report["validated_observational_predictions"], 0)
         statuses = {row["id"]: row["status"] for row in report["registry"]}
         self.assertEqual(statuses["P7"], CALIBRATION)
         self.assertEqual(statuses["P8"], REJECTED)
         self.assertEqual(statuses["P9"], REJECTED)
         self.assertEqual(statuses["P10"], REJECTED)
+        self.assertEqual(statuses["P11"], ESTABLISHED)
+        self.assertEqual(statuses["P12"], REJECTED)
+        self.assertEqual(statuses["P13"], REJECTED)
         self.assertIn(report["gate1_independent_spectral_flow"]["decision"], {"NO-GO", "HOLD"})
         self.assertEqual(len(report["gate1_independent_spectral_flow"]["points"]), 5)
+        gate3 = report["gate3_jacobson_action"]
+        self.assertEqual(gate3["decisions"]["jacobson_derives_P"], "NO-GO")
+        self.assertEqual(gate3["decisions"]["geff_is_the_field_equation"], "NO-GO")
+        self.assertEqual(gate3["validated_observational_predictions"], 0)
 
 
 if __name__ == "__main__":

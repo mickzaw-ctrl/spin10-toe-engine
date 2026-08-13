@@ -291,7 +291,11 @@ class ThermoSector:
         return CONST.newton_si / self.holographic_coherence(T_GeV=T_GeV)
 
     def jacobson_einstein_equation(self, T_GeV: float) -> Dict[str, Any]:
-        """Return a Jacobson-inspired audit without claiming field-equation closure."""
+        """Return a Jacobson-inspired audit without claiming field-equation closure.
+
+        Extra-term sizes come from ``jacobson_clausius`` (Gate 3).  The
+        algebraic map G_eff = G0/P is not the metric equation unless ∇P = 0.
+        """
 
         temperature = _nonnegative_finite(T_GeV, "T_GeV")
         coherence = self.holographic_coherence(T_GeV=temperature)
@@ -302,6 +306,13 @@ class ThermoSector:
             CONST.alpha_gut,
             CONST.dark_energy_density_reference_gev4,
         )
+        extras: Dict[str, Any]
+        try:
+            from jacobson_clausius import JacobsonInputError, extras_for_project_ansatz
+
+            extras = extras_for_project_ansatz(self.N, temperature)
+        except JacobsonInputError as exc:
+            extras = {"status": PROJECT_HYPOTHESIS, "error": str(exc), "extras": None}
         return {
             "T_GeV": temperature,
             "P(N,T)": coherence,
@@ -310,11 +321,22 @@ class ThermoSector:
             "Omega_Lambda_TCD_raw": None,
             "Omega_Lambda_TCD_calib": None,
             "scale_audit": scale_audit,
+            "prescribed_action": (
+                "S[g; P] = (1/16π G0) ∫ d⁴x √−g P R + S_m"
+            ),
+            "metric_equation": (
+                "P G_μν + (g_μν □ − ∇_μ ∇_ν) P = 8π G0 T_μν"
+            ),
+            "extras": extras.get("extras") if isinstance(extras, dict) else None,
+            "geff_substitution": "rejected_as_stated unless ∇P = 0",
             "derivation": (
                 "Jacobson's local Clausius derivation is established under its "
-                "own assumptions; the P(N,T) modification is not derived"
+                "own assumptions; the P(N,T) modification is not derived.  "
+                "Gate 3 supplies the covariant action for prescribed P and "
+                "rejects Einstein-with-G_eff as the general field equation."
             ),
             "status": PROJECT_HYPOTHESIS,
+            "gate3": "src/jacobson_clausius.py",
         }
 
 

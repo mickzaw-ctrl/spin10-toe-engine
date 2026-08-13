@@ -18,7 +18,7 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(
     title="Spin(10) Research Lab",
-    version="16.0.0",
+    version="16.1.0",
     description="Fail-closed workbench and internally closed Spin(10) specification.",
 )
 app.add_middleware(
@@ -67,6 +67,12 @@ class TheoryRequest(BaseModel):
     fast: bool = True
 
 
+class JacobsonRequest(BaseModel):
+    n_nodes: int = Field(1_000_000, ge=100, le=10**10)
+    omega: float = Field(0.0, ge=0.0, le=1.0e5)
+    points: int = Field(80, ge=20, le=200)
+
+
 class ConfrontationRequest(BaseModel):
     alpha: float = Field(3.75, ge=0.1, le=20.0)
     n_efolds: float = Field(60.0, ge=40.0, le=80.0)
@@ -97,7 +103,7 @@ def _call(fn, **kwargs):
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"ok": True, "service": "spin10-research-lab", "version": "16.0.0"}
+    return {"ok": True, "service": "spin10-research-lab", "version": "16.1.0"}
 
 
 @app.get("/api/status")
@@ -145,6 +151,16 @@ def ledger() -> dict:
 @app.post("/api/theory")
 def theory(body: TheoryRequest) -> dict:
     return _call(services.run_theory, fast=body.fast)
+
+
+@app.post("/api/jacobson")
+def jacobson(body: JacobsonRequest) -> dict:
+    return _call(
+        services.run_jacobson,
+        n_nodes=body.n_nodes,
+        omega=body.omega,
+        points=body.points,
+    )
 
 
 @app.post("/api/confrontation")

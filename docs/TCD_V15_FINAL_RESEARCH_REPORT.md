@@ -22,7 +22,7 @@ The complete numerical artifact is available at [`results/tcd_v15_final_audit_ex
 | CF–Polyakov map | Polyakov diagnostic increases while CF decreases | Unverified operator mapping | HOLD |
 | QCD crossover | `293.989 MeV`, not `156.5 MeV`; required `CF=1.386>1` | Rejected as stated | NO-GO |
 | Dark-energy candidates | Cosmological-constant scale missed by `9.56e41`; density candidate missed by about `9.58e31` | Rejected | NO-GO |
-| Thermal gravity | `DeltaG/G=2.62e-38` at BBN; `2.78` at the GUT scale | Project ansatz; invalid as a small correction at GUT | NO-GO without covariant derivation |
+| Thermal gravity | `DeltaG/G=2.62e-38` at BBN; `2.78` at the GUT scale | Project ansatz; invalid as a small correction at GUT | NO-GO as a field equation; Gate 3 now supplies the prescribed-P extras |
 | One-loop RGE | `alpha_s(M_Z)` spans `0.10785–0.15771` for `M_SUSY=1–100 TeV`; fit gives `3.501 TeV` | Established baseline with declared inputs | Calibration only, not TCD prediction |
 | Lattice normalization | `beta_10=1.90986` for unit normalization, not `24` | Established algebra | Corrected |
 | Carnot efficiency | `0.9991557`, not `0.87` | Established thermodynamics | Corrected |

@@ -103,13 +103,13 @@ def lab_status() -> dict[str, Any]:
         counts[key] = counts.get(key, 0) + 1
     return {
         "name": "Spin(10) Research Lab",
-        "version": "16.0.0",
+        "version": "16.1.0",
         "scientific_status": "internally closed research programme; physical theory empirically open",
         "validated_predictions": 0,
         "what_this_is": (
-            "A fail-closed workbench plus the v16 theoretical specification: "
-            "Spin(10) group theory, standard GUT estimates, and independent "
-            "Gate-1 / Gate-2 computations."
+            "A fail-closed workbench plus the v16.1 theoretical specification: "
+            "Spin(10) group theory, standard GUT estimates, independent "
+            "Gate-1 / Gate-2 computations, and the prescribed-P Jacobson action."
         ),
         "what_this_is_not": (
             "Not a completed Theory of Everything, not an observational "
@@ -122,10 +122,11 @@ def lab_status() -> dict[str, Any]:
                 "Random-walk spectral estimator on reference graphs",
                 "Standard LQC bounce algebra (imported, not derived here)",
                 "Spin(10) 16-embedding and sin²θ_W=3/8 at a GUT point",
+                "Prescribed-P action ∫ P R and the extra-term theorem (Gate 3)",
             ],
             "HOLD": [
                 "Causal-fraction ↔ Polyakov map",
-                "Graph coherence P(N,T) and G_eff = G0/P",
+                "Graph coherence ansatz P(N,T)=1−c/√N_eff (still underived)",
                 "Spin(10) identification of the alpha-attractor parameter",
             ],
             "NO-GO": [
@@ -135,6 +136,8 @@ def lab_status() -> dict[str, Any]:
                 "Thermal ΔG/G ~ 10^{-2} at BBN",
                 "TCD d_S(T) interpolation on the independent 3D-torus ensemble",
                 "N_gen=3 from Atiyah–Singer or E8 as stated",
+                "Einstein with G_eff=G0/P as the field equation for variable P",
+                "P(N,T) from the local Clausius argument",
             ],
         },
         "ledger_counts": counts,
@@ -144,7 +147,8 @@ def lab_status() -> dict[str, Any]:
             {"id": "tcd", "label": "TCD audit diagnostics", "status": HYPOTHESIS},
             {"id": "lqc", "label": "LQC / IFT-EGR closure", "status": ESTABLISHED},
             {"id": "inflation", "label": "α-attractor phenomenology", "status": ESTABLISHED},
-            {"id": "theory", "label": "v16 theoretical specification", "status": ESTABLISHED},
+            {"id": "theory", "label": "v16.1 theoretical specification", "status": ESTABLISHED},
+            {"id": "jacobson", "label": "Jacobson / prescribed-P action", "status": ESTABLISHED},
             {"id": "data", "label": "Observational confrontation", "status": ESTABLISHED},
             {"id": "ledger", "label": "Assumption ledger", "status": ESTABLISHED},
         ],
@@ -692,6 +696,40 @@ def run_theory(fast: bool = True) -> dict[str, Any]:
     from theory_core import complete_theory
 
     return complete_theory(run_gates=True, fast=bool(fast))
+
+
+def run_jacobson(
+    n_nodes: int = 1_000_000,
+    omega: float = 0.0,
+    points: int = 80,
+) -> dict[str, Any]:
+    """Gate 3: prescribed-P action, extra-term sizes, no derivation of P."""
+
+    from jacobson_clausius import (
+        JacobsonInputError,
+        gate3_jacobson_action,
+        temperature_sweep,
+    )
+
+    nodes = _clamp_int(n_nodes, 100, 10**10, "n_nodes")
+    omega_v = _clamp_float(omega, 0.0, 1.0e5, "omega")
+    n_points = _clamp_int(points, 20, 200, "points")
+    try:
+        report = gate3_jacobson_action(n_nodes=nodes, omega=omega_v)
+        sweep = temperature_sweep(n_nodes=nodes, omega=omega_v, points=n_points)
+    except JacobsonInputError as exc:
+        raise ValueError(str(exc)) from exc
+    return {
+        **report,
+        "sweep": sweep,
+        "status": ESTABLISHED,
+        "hypothesis_status": HYPOTHESIS,
+        "note": (
+            "Jacobson 1995 is established under its own assumptions. "
+            "The covariant action is for prescribed P. "
+            "P(N,T) is still a project ansatz. TOE validated = 0."
+        ),
+    }
 
 
 def run_confrontation(

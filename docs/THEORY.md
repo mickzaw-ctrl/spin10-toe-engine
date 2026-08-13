@@ -1,4 +1,4 @@
-# Relational Spin(10) Programme — Complete Specification v16.0
+# Relational Spin(10) Programme — Complete Specification v16.1
 
 **Status:** internally closed research programme.  
 **Validated observational predictions:** 0.  
@@ -11,8 +11,9 @@ invalid expressions. This document replaces that claim with a specification
 that can actually be finished: what follows from group theory, what is a
 declared input, what has been independently computed, and what remains open.
 
-Implementation: [`src/theory_core.py`](../src/theory_core.py).  
-Interactive bench: Research Lab → *Theory*.
+Implementation: [`src/theory_core.py`](../src/theory_core.py),
+[`src/jacobson_clausius.py`](../src/jacobson_clausius.py).  
+Interactive bench: Research Lab → *Theory* / *Jacobson*.
 
 ---
 
@@ -170,6 +171,42 @@ validate TCD: 2D U(1) is not 4D SU(3).
 A complete glueball prediction still needs a 4D non-Abelian transfer
 matrix and a continuum extrapolation.
 
+### Gate 3 — prescribed-\(P\) action without deriving \(P\)
+
+Jacobson’s local Clausius argument derives Einstein’s equation from
+\(\delta Q=T\,dS\) under local-equilibrium, local-Rindler, and
+*constant* area-entropy assumptions. It does **not** produce the graph
+factor \(P(N,T)\).  The illegal step \(S\to\eta P A\Rightarrow
+G_{\mu\nu}=8\pi(G_0/P)T_{\mu\nu}\) is rejected as a general field
+equation.
+
+For *any* prescribed \(P(x)>0\) the covariant action is
+
+\[
+S[g;P]
+=\frac{1}{16\pi G_0}
+\int\mathrm{d}^4x\,\sqrt{-g}\,P\,R[g]
++S_{\mathrm{m}},
+\]
+
+with metric equation
+
+\[
+P\,G_{\mu\nu}
++(g_{\mu\nu}\square-\nabla_\mu\nabla_\nu)P
+=8\pi G_0\,T_{\mu\nu}.
+\]
+
+Extra terms vanish iff \(\nabla P=0\).  On FLRW the relative 00-correction
+is \(\varepsilon_F=T|P'(T)|/P\).  A preregistered rule accepts
+\(G_{\mathrm{eff}}=G_0/P\) as an *infrared approximation* only if
+\(\varepsilon_F<0.01\) at today and at BBN.  For the TCD ansatz with
+\(N=10^6\) that IR rule passes; at the Planck temperature
+\(\varepsilon_F=\mathcal{O}(1)\).  Neither fact derives \(P\) or
+validates a TOE.
+
+Write-up: [`JACOBSON_CLAUSIUS.md`](JACOBSON_CLAUSIUS.md).
+
 ---
 
 ## 4. Prediction registry
@@ -186,6 +223,9 @@ matrix and a continuum extrapolation.
 | P8 | \(N_{\mathrm{gen}}=3\) from Atiyah–Singer / \(E_8\) | Rejected as stated | false theorem / extra breaking |
 | P9 | \(\Omega_\Lambda\) from \(T_c^4/M_{\mathrm{Pl}}^2\) | Rejected | wrong dimensions |
 | P10 | late-time \(\Lambda\) from the LQC bounce | Rejected | invalid classical substitution |
+| P11 | prescribed-\(P\) action \(\int P R\) | Established | metric variation; \(P\) not derived |
+| P12 | Einstein with \(G_{\rm eff}=G_0/P\) | **NO-GO** unless \(\nabla P=0\) | extra Hessian terms required |
+| P13 | \(P(N,T)\) from local Clausius | Rejected as stated | Jacobson assumes constant \(\eta\) |
 
 No row is an observational validation.
 
@@ -200,22 +240,25 @@ No row is an observational validation.
 - Gate 1 as a protocol that does not inject \(d_S(T)\)
 - Gate 2 as an estimator that does not import 1.71 GeV
 - standard GUT lifetime and seesaw formulae with declared inputs
+- Gate 3: prescribed-\(P\) Jordan-frame action and the extra-term theorem
 
 **Not closed**
 
 - a derivation of the cosmological constant
 - a derivation of \(\alpha_{\mathrm{em}}\) without calibration
 - a derivation of three generations
+- a derivation of \(P(N,T)\) from Jacobson or from a graph entropy
 - a causal GFT with a bulk–boundary map
 - any official-likelihood comparison
 
 **Open problems (in order)**
 
-1. Covariant action for any graph correction \(P(N,T)\).
-2. Bulk–boundary map from GFT quanta to isolated-horizon punctures.
-3. Yukawa sector that fixes \(m_D\) and \(M_R\) without SM mass inputs.
-4. 4D non-Abelian transfer matrix for \(R_{0^{++}}\) with continuum limit.
-5. Frozen MEG-II / Hyper-K / Planck likelihoods.
+1. Microscopic derivation of \(P(N,T)\) from a graph entropy.
+2. Kinetic term \(\omega(P)\) and potential \(V(P)\) if \(P\) is dynamical.
+3. Bulk–boundary map from GFT quanta to isolated-horizon punctures.
+4. Yukawa sector that fixes \(m_D\) and \(M_R\) without SM mass inputs.
+5. 4D non-Abelian transfer matrix for \(R_{0^{++}}\) with continuum limit.
+6. Frozen MEG-II / Hyper-K / Planck likelihoods.
 
 ---
 
@@ -231,4 +274,4 @@ python -m lab   # Theory bench
 
 ---
 
-*v16.0 · August 2026 · fail-closed*
+*v16.1 · August 2026 · fail-closed*

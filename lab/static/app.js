@@ -1,7 +1,7 @@
 const I18N = {
   pl: {
     kicker: "Laboratorium badawcze",
-    title: "Specyfikacja v16 — domknięta wewnętrznie",
+    title: "Specyfikacja v16.1 — Jacobson / P",
     lede: "To nie jest ukończona Teoria Wszystkiego. To domknięty program: grupa Spin(10), standardowe oszacowania GUT, niezależna bramka d_S oraz szczelina masowa bez wkładania celu. Empirycznie nadal otwarty.",
     chipPred: "zwalidowanych predykcji obserwacyjnych",
     chipStatus: "program wewnętrznie domknięty",
@@ -14,7 +14,8 @@ const I18N = {
       tcd: "Audyt TCD",
       lqc: "LQC / bounce",
       inflation: "Inflacja α",
-      theory: "Teoria v16",
+      theory: "Teoria v16.1",
+      jacobson: "Jacobson / P",
       data: "Dane",
       ledger: "Rejestr twierdzeń",
     },
@@ -31,7 +32,10 @@ const I18N = {
     tcdNote: "Diagnostyki zabawkowe z bramkami wymiarowymi. T_c sieciowe jest wejściem. Wzór TCD na crossover jest NO-GO.",
     lqcNote: "Standardowa algebra LQC: H² ∝ ρ(1−ρ/ρ_c). Nie jest to predykcja IFT-EGR ani wyprowadzenie stałej kosmologicznej.",
     infNote: "Fenomenologia α-attractorów. Identyfikacja α = dim(Spin(10))/12 = 3.75 to hipoteza projektu.",
+    jacNote: "Lokalny Clausius Jacobsona jest ustalony. Akcja ∫ P R jest dla zadanego P. P(N,T) nadal nie jest wyprowadzone. G_eff=G0/P to nie równanie pola.",
     ledgerNote: "Księga założeń TCD v15 oraz legacy-claimy silnika z jawną klasyfikacją.",
+    nNodes: "N węzłów",
+    omega: "ω (kinetyczny, niepochodny)",
     mSusy: "M_SUSY [GeV]",
     loops: "Pętle",
     graph: "Graf",
@@ -49,7 +53,7 @@ const I18N = {
   },
   en: {
     kicker: "Research laboratory",
-    title: "v16 specification — internally closed",
+    title: "v16.1 specification — Jacobson / P",
     lede: "This is not a completed Theory of Everything. It is a closed programme: Spin(10) group theory, standard GUT estimates, an independent d_S gate, and a mass gap that does not import its target. Empirically it remains open.",
     chipPred: "validated observational predictions",
     chipStatus: "internally closed programme",
@@ -62,7 +66,8 @@ const I18N = {
       tcd: "TCD audit",
       lqc: "LQC / bounce",
       inflation: "α-inflation",
-      theory: "Theory v16",
+      theory: "Theory v16.1",
+      jacobson: "Jacobson / P",
       data: "Data",
       ledger: "Claim ledger",
     },
@@ -105,6 +110,7 @@ const NAV = [
   ["lqc", "bounce"],
   ["inflation", "slow-roll"],
   ["theory", "spec"],
+  ["jacobson", "clausius"],
   ["data", "data"],
   ["ledger", "claims"],
 ];
@@ -395,6 +401,7 @@ function showPanel(id) {
   if (id === "lqc") (cache.lqc ? displayLQC(cache.lqc) : runLQC());
   if (id === "inflation") (cache.inflation ? displayInflation(cache.inflation) : runInflation());
   if (id === "theory") (cache.theory ? displayTheory(cache.theory) : runTheory());
+  if (id === "jacobson") (cache.jacobson ? displayJacobson(cache.jacobson) : runJacobson());
   if (id === "data") (cache.data ? displayData(cache.data) : runData());
   if (id === "ledger") (cache.ledger ? displayLedger(cache.ledger) : runLedger());
 }
@@ -867,7 +874,7 @@ function displayTheory(data) {
       <div class="metric"><span>spec</span><b>v${data.version}</b><em>${data.scientific_status}</em></div>
       <div class="metric"><span>Gate 1 d_S</span><b>${g1.decision || "—"}</b><em>${g1.n_fail ?? "—"} / ${g1.n_points ?? "—"} fail</em></div>
       <div class="metric"><span>Gate 2 R=m/√σ</span><b>${fmt(g2.R_m_over_sqrt_sigma, 3)}</b><em>2D U(1), no 1.71 GeV input</em></div>
-      <div class="metric"><span>τ_p</span><b>${fmt(data.proton?.tau_years)} yr</b><em>declared α_H</em></div>
+      <div class="metric"><span>Gate 3 G_eff</span><b>${g3.decisions?.geff_is_the_field_equation || "—"}</b><em>prescribed P; P not derived</em></div>
     </div>
     <div class="grid grid-2eq">
       <article class="card">
@@ -935,6 +942,124 @@ function displayTheory(data) {
         { x: points.map((p) => p.T_over_Tstar_convention), y: points.map((p) => p.d_S_measured), color: "#22d3ee" },
         { x: points.map((p) => p.T_over_Tstar_convention), y: points.map((p) => p.d_S_hold), color: "#fb7185", dashed: true },
       ],
+    });
+  }
+}
+
+function renderJacobsonPanel() {
+  const p = $("panel-jacobson");
+  p.innerHTML = `
+    <div class="controls">
+      <div class="field"><label>${t("nNodes")}</label>
+        <input id="jc-n" type="range" min="3" max="9" step="0.1" value="6">
+        <div class="val" id="jc-n-v">1e6</div>
+      </div>
+      <div class="field"><label>${t("omega")}</label>
+        <input id="jc-w" type="range" min="0" max="40" step="1" value="0">
+        <div class="val" id="jc-w-v">0</div>
+      </div>
+      <button class="run" type="button">${t("run")}</button>
+    </div>
+    <div id="jc-out"></div>
+  `;
+  const syncN = () => {
+    const exp = Number($("jc-n").value);
+    $("jc-n-v").textContent = `1e${exp}`;
+  };
+  $("jc-n").addEventListener("input", syncN);
+  $("jc-w").addEventListener("input", (e) => { $("jc-w-v").textContent = e.target.value; });
+  bindRun(p, runJacobson);
+}
+
+async function runJacobson() {
+  const panel = $("panel-jacobson");
+  setBusy(panel, true);
+  try {
+    const nNodes = Math.round(10 ** Number($("jc-n").value));
+    const data = await api("/api/jacobson", {
+      n_nodes: nNodes,
+      omega: Number($("jc-w").value),
+      points: 80,
+    });
+    cache.jacobson = data;
+    displayJacobson(data);
+  } catch (err) {
+    $("jc-out").innerHTML = "";
+    showError($("jc-out"), err);
+  } finally {
+    setBusy(panel, false);
+  }
+}
+
+function displayJacobson(data) {
+  if (!$("jc-out")) return;
+  const d = data.decisions || {};
+  const ir = data.ir_approximation || {};
+  const geff = data.geff_substitution || {};
+  const action = data.prescribed_action || {};
+  const ident = data.identity_check || {};
+  const domain = data.domain || {};
+  const epochs = data.epochs || [];
+  const sweep = data.sweep || {};
+  $("jc-out").innerHTML = `
+    <div class="metrics">
+      <div class="metric"><span>Jacobson ⇒ P</span><b>${d.jacobson_derives_P || "—"}</b><em>${badge("rejected_as_stated")}</em></div>
+      <div class="metric"><span>G_eff = G0/P</span><b>${d.geff_is_the_field_equation || "—"}</b><em>unless ∇P = 0</em></div>
+      <div class="metric"><span>IR approximation</span><b>${d.ir_geff_approximation || "—"}</b><em>ε_F &lt; ${fmt(ir.threshold, 3)} today + BBN</em></div>
+      <div class="metric"><span>P ansatz</span><b>${d.p_ansatz || "HOLD"}</b><em>${badge("project_hypothesis")}</em></div>
+    </div>
+    <div class="grid grid-2eq">
+      <article class="card">
+        <h3>Prescribed action</h3>
+        <p class="mono">${action.action || ""}</p>
+        <p class="mono" style="margin-top:8px">${action.metric_equation || ""}</p>
+        <div class="note">${action.note || data.note || ""}</div>
+      </article>
+      <article class="card">
+        <h3>What this does not do</h3>
+        <ul>
+          <li>does not derive P(N,T) from δQ = T dS</li>
+          <li>does not make Einstein-with-G_eff the field equation</li>
+          <li>does not supply ω(P) or V(P) for a dynamical scalar</li>
+          <li>does not increment TOE validated (still 0)</li>
+        </ul>
+        <div class="note warn">${geff.nogo_rule || ""}</div>
+      </article>
+    </div>
+    <article class="card" style="margin-top:14px">
+      <h3>ε_F(T) = T |P′| / P</h3>
+      <div class="chart-wrap"><canvas class="chart" id="jc-eps"></canvas></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:#22d3ee"></i>ε_F</span>
+        <span><i class="swatch" style="background:#fb7185"></i>threshold ${fmt(ir.threshold, 3)}</span>
+      </div>
+    </article>
+    <article class="card" style="margin-top:14px">
+      <h3>Frozen clocks</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Clock</th><th>T [GeV]</th><th>P</th><th>ε_F</th><th>IR</th><th>Note</th></tr></thead>
+        <tbody>
+          ${epochs.map((row) => `<tr>
+            <td class="mono">${row.id}</td>
+            <td class="mono">${fmt(row.T_GeV)}</td>
+            <td class="mono">${row.P == null ? "—" : fmt(row.P, 6)}</td>
+            <td class="mono">${row.eps_friedmann == null ? "—" : fmt(row.eps_friedmann)}</td>
+            <td>${row.inside_domain ? (row.ir_ok ? badge("compatible") : badge("excluded")) : badge("rejected_as_stated")}</td>
+            <td>${row.note || ""}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div>
+      <div class="note">Domain wall: T_max = ${domain.T_max_GeV != null ? fmt(domain.T_max_GeV) + " GeV" : "—"}. Identity check ${ident.passed ? "PASS" : "—" } (algebra, not nature). ${data.p_derivation?.statement || ""}</div>
+    </article>
+  `;
+  if (sweep.T_GeV?.length && $("jc-eps")) {
+    drawChart($("jc-eps"), {
+      xLog: true,
+      yLog: true,
+      xLabel: "T [GeV]",
+      yLabel: "ε_F",
+      hlines: [{ y: ir.threshold || 0.01, color: "#fb7185", dashed: true }],
+      series: [{ x: sweep.T_GeV, y: sweep.eps_friedmann, color: "#22d3ee" }],
     });
   }
 }
@@ -1089,6 +1214,7 @@ function paintStaticPanels() {
   renderLQCPanel();
   renderInflationPanel();
   renderTheoryPanel();
+  renderJacobsonPanel();
   renderDataPanel();
   renderLedgerPanel();
 }
@@ -1109,6 +1235,14 @@ async function boot() {
   });
   try {
     statusData = await api("/api/status");
+  } catch (err) {
+    statusData = { gates: { KEEP: [], HOLD: [], "NO-GO": [] }, modules: [], what_this_is: err.message, what_this_is_not: "" };
+  }
+  showPanel("dash");
+}
+
+boot();
+t api("/api/status");
   } catch (err) {
     statusData = { gates: { KEEP: [], HOLD: [], "NO-GO": [] }, modules: [], what_this_is: err.message, what_this_is_not: "" };
   }

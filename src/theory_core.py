@@ -6,6 +6,8 @@ This module closes the *internal* structure of the research programme:
 - standard GUT estimates with every input declared;
 - an independent thermal-graph ensemble that never injects d_S(T);
 - a lattice mass-gap diagnostic that never imports 1.71 GeV;
+- the prescribed-P Jacobson–Clausius action (Gate 3), which does
+  not derive P(N,T);
 - a prediction registry that satisfies the five-field contract or
   is marked incomplete.
 
@@ -567,15 +569,20 @@ def complete_theory(
     analysis = NumericalRGESolver.analyze_unification(t_vals, g_vals)
     proton = proton_lifetime_estimate(analysis["M_GUT_GeV"], analysis["alpha_GUT"])
     seesaw = type_i_seesaw(m_dirac_gev, m_majorana_gev)
+    from jacobson_clausius import gate3_jacobson_action
+
     if not run_gates:
         gate1 = {"decision": "SKIPPED", "status": INCOMPLETE, "points": []}
         gate2 = {"R_m_over_sqrt_sigma": None, "prediction_contract": {"complete": False}}
+        gate3 = {"decisions": {"geff_is_the_field_equation": "SKIPPED"}, "status": INCOMPLETE}
     elif fast:
         gate1 = independent_spectral_flow(sweeps=30, walkers=800, steps=28)
         gate2 = u1_wilson_mass_gap(side=6, sweeps=40)
+        gate3 = gate3_jacobson_action(run_identity_check=True)
     else:
         gate1 = independent_spectral_flow()
         gate2 = u1_wilson_mass_gap()
+        gate3 = gate3_jacobson_action()
 
     registry = [
         {
@@ -648,9 +655,31 @@ def complete_theory(
             "status": REJECTED,
             "contract": "classical integration is invalid at ρ=ρ_c",
         },
+        {
+            "id": "P11",
+            "observable": "prescribed-P covariant action ∫ P R",
+            "value": "P G_μν + (g_μν □ − ∇_μ ∇_ν) P = 8π G0 T_μν",
+            "status": ESTABLISHED,
+            "contract": "metric variation only; P is not derived",
+        },
+        {
+            "id": "P12",
+            "observable": "Einstein with G_eff = G0/P as the field equation",
+            "value": gate3.get("decisions", {}).get("geff_is_the_field_equation"),
+            "status": REJECTED,
+            "contract": "NO-GO unless ∇P = 0; extra Hessian terms are required",
+        },
+        {
+            "id": "P13",
+            "observable": "P(N,T) from the local Clausius argument",
+            "value": None,
+            "status": REJECTED,
+            "contract": "Jacobson 1995 assumes constant η; P remains a project ansatz",
+        },
     ]
     open_problems = [
-        "Covariant action for any graph correction P(N,T).",
+        "Microscopic derivation of P(N,T) from a graph entropy (Jacobson does not supply it).",
+        "Kinetic term ω(P) and potential V(P) if P is promoted to a dynamical scalar.",
         "Bulk–boundary map from GFT quanta to isolated-horizon punctures.",
         "Yukawa sector that fixes m_D and M_R without SM mass inputs.",
         "4D non-Abelian transfer matrix for R_0++ with continuum limit.",
@@ -658,7 +687,7 @@ def complete_theory(
     ]
     return {
         "title": "Relational Spin(10) programme — complete specification",
-        "version": "16.0",
+        "version": "16.1",
         "scientific_status": "internally closed research programme; not a validated TOE",
         "validated_observational_predictions": 0,
         "axioms": AXIOMS,
@@ -676,6 +705,7 @@ def complete_theory(
         "seesaw": seesaw,
         "gate1_independent_spectral_flow": gate1,
         "gate2_mass_gap": gate2,
+        "gate3_jacobson_action": gate3,
         "registry": registry,
         "open_problems": open_problems,
         "what_is_closed": [

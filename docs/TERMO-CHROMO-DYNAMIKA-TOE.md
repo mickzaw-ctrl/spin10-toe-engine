@@ -56,7 +56,18 @@ S=\frac{k_B A}{4\ell_P^2}P(N,T),
 P(N,T)=1-\frac{0.33}{\sqrt{N_{\rm eff}(T)}}
 \]
 
-is a project hypothesis. If `P` varies in spacetime, derivatives of `P` generally enter the field equations. Pure Einstein gravity does not follow merely by replacing `G` with `G/P`; a covariant scalar-tensor or non-equilibrium derivation is required.
+is a project hypothesis. Gate 3 (`src/jacobson_clausius.py`) now writes the
+covariant action for *any prescribed* \(P(x)>0\),
+
+\[
+S[g;P]=\frac{1}{16\pi G_0}\int\mathrm{d}^4x\,\sqrt{-g}\,P\,R+S_{\mathrm{m}},
+\]
+
+whose metric equation contains the extra terms
+\((g_{\mu\nu}\square-\nabla_\mu\nabla_\nu)P\). Pure Einstein gravity with
+\(G_{\rm eff}=G_0/P\) follows only when \(\nabla P=0\). Jacobson 1995 still
+does not derive the function \(P(N,T)\). See
+[`JACOBSON_CLAUSIUS.md`](JACOBSON_CLAUSIUS.md).
 
 The implementation fails closed when `P<=0` instead of clipping the result. High-temperature points outside the ansatz domain are reported as such.
 
@@ -282,7 +293,7 @@ The report states `PROJECT HYPOTHESIS — NOT A VALIDATED TOE`, disables thermal
 1. Derive a normalized graph ensemble and measure rather than assigning graph entropy heuristically.
 2. Construct an operator map between graph causal observables and gauge-theory observables; correlation is not identity.
 3. Derive `d_S` from return probabilities on generated graph ensembles and test refinement stability.
-4. Derive a covariant action for `P(N,T)` and confront BBN/CMB constraints with one frozen likelihood.
+4. The prescribed-`P` action is now specified (Gate 3). Still missing: a microscopic derivation of `P(N,T)` and one frozen BBN/CMB likelihood for the extra terms.
 5. Produce one independent observable without importing its target value as a constant.
 
 Only after one item passes all five stages should it be promoted from diagnostic to prediction.

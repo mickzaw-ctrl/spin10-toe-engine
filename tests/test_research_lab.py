@@ -62,6 +62,20 @@ class ResearchLabTests(unittest.TestCase):
         statuses = {row["observable"]: row["status"] for row in result["legacy_claims"]}
         self.assertEqual(statuses["α_em"], services.CALIBRATION)
         self.assertEqual(statuses["T_c QCD"], services.REJECTED)
+        ids = {entry["id"] for entry in result["ledger"]["entries"]}
+        self.assertIn("TCD-E003", ids)
+        self.assertIn("TCD-R007", ids)
+
+    def test_jacobson_gate_rejects_geff_and_keeps_p_underived(self) -> None:
+        result = services.run_jacobson(n_nodes=1_000_000, omega=0.0, points=24)
+        self.assertEqual(result["validated_observational_predictions"], 0)
+        self.assertEqual(result["decisions"]["jacobson_derives_P"], "NO-GO")
+        self.assertEqual(result["decisions"]["geff_is_the_field_equation"], "NO-GO")
+        self.assertEqual(result["ir_approximation"]["decision"], "IR_OK")
+        self.assertTrue(result["identity_check"]["passed"])
+        today = next(row for row in result["epochs"] if row["id"] == "today")
+        self.assertLess(today["eps_friedmann"], 1.0e-20)
+        self.assertTrue(result["sweep"]["T_GeV"])
 
     def test_invalid_inputs_fail_closed(self) -> None:
         with self.assertRaises(ValueError):

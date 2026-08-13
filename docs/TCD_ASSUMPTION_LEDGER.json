@@ -1,13 +1,13 @@
 {
   "ledger_id": "TCD-V15-001",
-  "version": "15.0-audited",
+  "version": "15.1-audited+gate3",
   "status": "OPEN_RESEARCH_PROTOTYPE",
   "entries": [
     {
       "id": "TCD-E001",
       "classification": "established_physics",
       "statement": "Jacobson's local Clausius construction derives the Einstein equation under local-equilibrium, area-entropy, and local-Rindler-horizon assumptions.",
-      "impact": "Provides motivation only; it does not derive the graph correction P(N,T).",
+      "impact": "Provides motivation only; it does not derive the graph correction P(N,T). Gate 3 writes the prescribed-P action and rejects Einstein-with-G_eff as the general field equation.",
       "confidence": "high",
       "provenance": "arXiv:gr-qc/9504004; DOI:10.1103/PhysRevLett.75.1260"
     },
@@ -106,6 +106,38 @@
       "impact": "No implementing derivations or controlled likelihoods exist; these outputs must remain incomplete.",
       "confidence": "speculative",
       "provenance": "No repository derivation available"
+    },
+    {
+      "id": "TCD-E003",
+      "classification": "established_physics",
+      "statement": "For any prescribed P(x)>0 the metric variation of (1/16π G0) ∫ P R yields P G_μν + (g_μν □ − ∇_μ ∇_ν) P = 8π G0 T_μν.",
+      "impact": "Closes the covariant-action specification for a graph correction that is not varied. Extra terms vanish iff ∇P=0.",
+      "confidence": "high",
+      "provenance": "Standard Jordan-frame / Brans–Dicke metric variation; src/jacobson_clausius.py; docs/JACOBSON_CLAUSIUS.md"
+    },
+    {
+      "id": "TCD-H003",
+      "classification": "project_hypothesis",
+      "statement": "The prescribed scalar in that action is identified with the TCD coherence ansatz P=1-0.33/√N_eff(T).",
+      "impact": "Supplies a concrete P(T) so extra-term sizes can be computed. The identification is not implied by Jacobson 1995.",
+      "confidence": "low",
+      "provenance": "Project choice; Gate 3 evaluates it without promoting it to a derivation"
+    },
+    {
+      "id": "TCD-R007",
+      "classification": "rejected_assumption",
+      "statement": "The local Clausius relation with S=η P A implies Einstein gravity with G_eff=G0/P for spacetime-dependent P.",
+      "impact": "Rejected as a general field equation. The 00 FLRW extra-term fraction is ε_F=T|P'(T)|/P. The IR substitution remains only an approximation when ε_F is small.",
+      "confidence": "high",
+      "provenance": "Eling–Guedens–Jacobson 2006; Gate 3 analytic no-go in src/jacobson_clausius.py"
+    },
+    {
+      "id": "TCD-U004",
+      "classification": "unverified_assumption",
+      "statement": "If P is promoted to an independent Brans–Dicke scalar, some graph-derived ω(P) and V(P) exist.",
+      "impact": "The dynamical reading of the action is incomplete. Cassini/VLBI excludes a light ω=0 BD field; that bound does not apply to prescribed P(T).",
+      "confidence": "speculative",
+      "provenance": "No graph derivation of ω or V; Cassini: Bertotti et al., Nature 425, 374 (2003)"
     }
   ]
 }

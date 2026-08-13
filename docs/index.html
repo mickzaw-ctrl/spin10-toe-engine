@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spin(10) Research Programme — v16</title>
+  <title>Spin(10) Research Programme — v16.1</title>
   <meta name="description" content="Internally closed Spin(10) research programme. Not a Theory of Everything. 0 validated observational predictions. One α-attractor phenomenology contract."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -86,7 +86,7 @@
 </head>
 <body>
 <nav>
-  <div class="logo">Spin(10) Lab <span class="vbadge">v16</span></div>
+  <div class="logo">Spin(10) Lab <span class="vbadge">v16.1</span></div>
   <ul>
     <li><a href="#status" data-i="navStatus">Status</a></li>
     <li><a href="#theory" data-i="navTheory">Teoria</a></li>
@@ -103,7 +103,7 @@
 
 <section class="hero">
   <div class="hwrap">
-    <div class="pill" data-i="pill">v16 · program wewnętrznie domknięty · empirycznie otwarty</div>
+    <div class="pill" data-i="pill">v16.1 · program wewnętrznie domknięty · empirycznie otwarty</div>
     <h1><span class="g1" data-i="h1a">Nie Teoria Wszystkiego.</span><br><span class="g2" data-i="h1b">Specyfikacja, którą da się skończyć.</span></h1>
     <p class="lede" data-i="lede">Spin(10) jako uczciwy program badawczy: grupa i oszacowania GUT, niezależne bramki, zamrożona karta Planck / Super-K / MEG-II. Zero zwalidowanych predykcji obserwacyjnych TOE. Jeden kontrakt fenomenologiczny α-attractor.</p>
     <div class="btns">
@@ -135,7 +135,7 @@
       </ul></article>
       <article class="card hold"><h3>HOLD</h3><ul>
         <li data-i="h1">Mapa CF ↔ Polyakov</li>
-        <li data-i="h2">Koherencja P(N,T) i G_eff=G0/P</li>
+        <li data-i="h2">Ansatz P(N,T)=1−c/√N_eff (nadal niewyprowadzony)</li>
         <li data-i="h3">Identyfikacja α = 45/12 = 3.75</li>
         <li data-i="h4">Yukawy, które ustalałyby m_D, M_R</li>
       </ul></article>
@@ -146,6 +146,8 @@
         <li data-i="n4">Interpolacja d_S(T) na niezależnym zespole</li>
         <li data-i="n5">N_gen=3 z „Atiyah–Singera” / E8 jak było</li>
         <li data-i="n6">α_em=1/137 z ukrytym −6.5504</li>
+        <li data-i="n7">Einstein z G_eff=G0/P jako równanie pola</li>
+        <li data-i="n8">P(N,T) z lokalnego Clausiusa Jacobsona</li>
       </ul></article>
     </div>
   </div>
@@ -164,6 +166,7 @@
           <li>Gate 1: zespół 3D-torusa bez wstrzykiwania d_S(T) → NO-GO interpolacji</li>
           <li>Gate 2: R=m/√σ w 2D U(1) bez 1.71 GeV na wejściu</li>
           <li>τ_p i seesaw ze zadeklarowanymi wejściami</li>
+          <li>Gate 3: akcja ∫ P R dla zadanego P; extra termy; G_eff NO-GO</li>
         </ul>
       </article>
       <article class="card nogo">
@@ -174,6 +177,7 @@
           <li data-i="o3">α_em bez kalibracji</li>
           <li data-i="o4">Causal GFT i mapa bulk–boundary</li>
           <li data-i="o5">Oficjalny likelihood Planck Plik / MEG-II</li>
+          <li data-i="o6">Mikroskopowe wyprowadzenie P(N,T)</li>
         </ul>
       </article>
     </div>
@@ -221,7 +225,8 @@ python -m lab
     <div class="stag" data-i="docTag">Dokumenty kanoniczne</div>
     <h2 data-i="docH">Najpierw to, potem archiwum</h2>
     <div class="docs">
-      <a class="dc" href="THEORY.md"><div class="dtp">v16</div><div class="dtit">THEORY.md</div><div class="dd">Specyfikacja programu: aksjomaty, bramki, rejestr</div></a>
+      <a class="dc" href="THEORY.md"><div class="dtp">v16.1</div><div class="dtit">THEORY.md</div><div class="dd">Specyfikacja programu: aksjomaty, bramki, rejestr</div></a>
+      <a class="dc" href="JACOBSON_CLAUSIUS.md"><div class="dtp">Gate 3</div><div class="dtit">JACOBSON_CLAUSIUS.md</div><div class="dd">Akcja dla zadanego P; Jacobson nie daje P(N,T)</div></a>
       <a class="dc" href="VALIDATION_CONTRACT.md"><div class="dtp">kontrakt</div><div class="dtit">VALIDATION_CONTRACT.md</div><div class="dd">NS-AT-INSTANT-01 — N z reheatingu</div></a>
       <a class="dc" href="OBSERVATIONAL_CARD.json"><div class="dtp">dane</div><div class="dtit">OBSERVATIONAL_CARD.json</div><div class="dd">Zamrożona karta Planck / SK / MEG-II</div></a>
       <a class="dc" href="TCD_V15_FINAL_RESEARCH_REPORT.md"><div class="dtp">audyt</div><div class="dtit">TCD v15 final report</div><div class="dd">KEEP / HOLD / NO-GO TCD</div></a>
@@ -242,7 +247,7 @@ python -m lab
 const I = {
   pl: {
     navStatus:"Status", navTheory:"Teoria", navData:"Dane", navLab:"Laboratorium", navDocs:"Dokumenty",
-    pill:"v16 · program wewnętrznie domknięty · empirycznie otwarty",
+    pill:"v16.1 · program wewnętrznie domknięty · empirycznie otwarty",
     h1a:"Nie Teoria Wszystkiego.", h1b:"Specyfikacja, którą da się skończyć.",
     lede:"Spin(10) jako uczciwy program badawczy: grupa i oszacowania GUT, niezależne bramki, zamrożona karta Planck / Super-K / MEG-II. Zero zwalidowanych predykcji obserwacyjnych TOE. Jeden kontrakt fenomenologiczny α-attractor.",
     btnTheory:"Czytaj THEORY.md", btnContract:"Kontrakt n_s", btnLab:"Uruchom laboratorium",
@@ -250,24 +255,24 @@ const I = {
     stTag:"Status", stH:"KEEP / HOLD / NO-GO", stSub:"Wersje v8–v14.5 to historia oprogramowania, nie potwierdzenie eksperymentalne.",
     k1:"Algebra Spin(10), 16 = jedna generacja + ν_R", k2:"RGE SM/MSSM; sprzężenia w M_Z są wejściem",
     k3:"Estymator d_S na grafach referencyjnych", k4:"LQC H²∝ρ(1−ρ/ρ_c) jako import", k5:"Kontrakt n_s z N z reheatingu",
-    h1:"Mapa CF ↔ Polyakov", h2:"Koherencja P(N,T) i G_eff=G0/P", h3:"Identyfikacja α = 45/12 = 3.75", h4:"Yukawy, które ustalałyby m_D, M_R",
+    h1:"Mapa CF ↔ Polyakov", h2:"Ansatz P(N,T)=1−c/√N_eff (nadal niewyprowadzony)", h3:"Identyfikacja α = 45/12 = 3.75", h4:"Yukawy, które ustalałyby m_D, M_R",
     n1:"T_c QCD ze wzoru TCD (~294 MeV)", n2:"Ω_Λ z T_c⁴/M_Pl² (złe wymiary)", n3:"Piąta siła 10⁻⁶ z resummacji torsji",
-    n4:"Interpolacja d_S(T) na niezależnym zespole", n5:"N_gen=3 z „Atiyah–Singera” / E8 jak było", n6:"α_em=1/137 z ukrytym −6.5504",
+    n4:"Interpolacja d_S(T) na niezależnym zespole", n5:"N_gen=3 z „Atiyah–Singera” / E8 jak było", n6:"α_em=1/137 z ukrytym −6.5504", n7:"Einstein z G_eff=G0/P jako równanie pola", n8:"P(N,T) z lokalnego Clausiusa Jacobsona",
     thH:"Co jest domknięte, a co nie", thSub:"Specyfikacja w docs/THEORY.md i src/theory_core.py.",
     thC:"Domknięte wewnętrznie", thN:"Nie jest domknięte",
     o1:"Wyprowadzenie stałej kosmologicznej", o2:"Trzy generacje z topologii", o3:"α_em bez kalibracji",
-    o4:"Causal GFT i mapa bulk–boundary", o5:"Oficjalny likelihood Planck Plik / MEG-II",
+    o4:"Causal GFT i mapa bulk–boundary", o5:"Oficjalny likelihood Planck Plik / MEG-II", o6:"Mikroskopowe wyprowadzenie P(N,T)",
     daTag:"Konfrontacja", daH:"Zamrożona karta vs. teoria", daSub:"Planck PR4, BICEP/Keck BK18, Super-K, MEG-II. Żaden wiersz nie jest walidacją TOE.",
     cObs:"Observable", cTh:"Teoria", cDa:"Dane / limit",
     daNote:"C1 spełnia cztery pola kontraktu dla hipotezy α-attractor + instant reheating. α=3.75 nadal jest wyborem. TOE validated = 0.",
-    labH:"Interaktywny warsztat", labSub:"RGE, d_S, audyt TCD, LQC, inflacja, teoria v16, karta danych.",
+    labH:"Interaktywny warsztat", labSub:"RGE, d_S, audyt TCD, LQC, inflacja, teoria v16.1, Jacobson / P, karta danych.",
     labNote:"Laboratorium liczy na żywo w Pythonie. Zgodność referencyjna ≠ potwierdzenie obserwacyjne.",
     docTag:"Dokumenty kanoniczne", docH:"Najpierw to, potem archiwum",
     foot:"Nie Teoria Wszystkiego. Michał Ślusarczyk · MIT (rdzeń) · 2026"
   },
   en: {
     navStatus:"Status", navTheory:"Theory", navData:"Data", navLab:"Lab", navDocs:"Docs",
-    pill:"v16 · internally closed programme · empirically open",
+    pill:"v16.1 · internally closed programme · empirically open",
     h1a:"Not a Theory of Everything.", h1b:"A specification that can be finished.",
     lede:"Spin(10) as an honest research programme: group theory and GUT estimates, independent gates, a frozen Planck / Super-K / MEG-II card. Zero TOE-validated observational predictions. One α-attractor phenomenology contract.",
     btnTheory:"Read THEORY.md", btnContract:"n_s contract", btnLab:"Run the lab",
@@ -275,17 +280,17 @@ const I = {
     stTag:"Status", stH:"KEEP / HOLD / NO-GO", stSub:"Versions v8–v14.5 are software history, not experimental confirmation.",
     k1:"Spin(10) algebra; 16 = one generation + ν_R", k2:"SM/MSSM RGE; M_Z couplings are inputs",
     k3:"d_S estimator on reference graphs", k4:"LQC H²∝ρ(1−ρ/ρ_c) as an import", k5:"n_s contract with N from reheating",
-    h1:"CF ↔ Polyakov map", h2:"Coherence P(N,T) and G_eff=G0/P", h3:"Identification α = 45/12 = 3.75", h4:"Yukawas that would fix m_D, M_R",
+    h1:"CF ↔ Polyakov map", h2:"Ansatz P(N,T)=1−c/√N_eff (still underived)", h3:"Identification α = 45/12 = 3.75", h4:"Yukawas that would fix m_D, M_R",
     n1:"TCD QCD crossover formula (~294 MeV)", n2:"Ω_Λ from T_c⁴/M_Pl² (wrong dimensions)", n3:"10⁻⁶ fifth force from torsion resummation",
-    n4:"d_S(T) interpolation on the independent ensemble", n5:"N_gen=3 from “Atiyah–Singer” / E8 as stated", n6:"α_em=1/137 via hidden −6.5504",
+    n4:"d_S(T) interpolation on the independent ensemble", n5:"N_gen=3 from “Atiyah–Singer” / E8 as stated", n6:"α_em=1/137 via hidden −6.5504", n7:"Einstein with G_eff=G0/P as the field equation", n8:"P(N,T) from local Jacobson–Clausius",
     thH:"What is closed, and what is not", thSub:"Specification in docs/THEORY.md and src/theory_core.py.",
     thC:"Internally closed", thN:"Not closed",
     o1:"A derivation of the cosmological constant", o2:"Three generations from topology", o3:"α_em without calibration",
-    o4:"Causal GFT and a bulk–boundary map", o5:"Official Planck Plik / MEG-II likelihoods",
+    o4:"Causal GFT and a bulk–boundary map", o5:"Official Planck Plik / MEG-II likelihoods", o6:"A microscopic derivation of P(N,T)",
     daTag:"Confrontation", daH:"Frozen card vs theory", daSub:"Planck PR4, BICEP/Keck BK18, Super-K, MEG-II. No row is a TOE validation.",
     cObs:"Observable", cTh:"Theory", cDa:"Data / limit",
     daNote:"C1 meets the four contract fields for α-attractor + instant reheating. α=3.75 is still a project choice. TOE validated = 0.",
-    labH:"Interactive workbench", labSub:"RGE, d_S, TCD audit, LQC, inflation, theory v16, data card.",
+    labH:"Interactive workbench", labSub:"RGE, d_S, TCD audit, LQC, inflation, theory v16.1, Jacobson / P, data card.",
     labNote:"The lab computes live in Python. A reference match is not observational confirmation.",
     docTag:"Canonical documents", docH:"These first, then the archive",
     foot:"Not a Theory of Everything. Michał Ślusarczyk · MIT (core) · 2026"
