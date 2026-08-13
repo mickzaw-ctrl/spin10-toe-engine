@@ -139,6 +139,13 @@ class TCDScientificContractTests(unittest.TestCase):
         self.assertIsNone(
             report["emergent_gravity_Jacobson"]["Omega_Lambda_TCD_calib"]
         )
+        extras = report["emergent_gravity_Jacobson"]["extras"]
+        self.assertIsNotNone(extras)
+        self.assertIn("eps_friedmann", extras)
+        self.assertEqual(
+            report["emergent_gravity_Jacobson"]["geff_substitution"],
+            "rejected_as_stated unless ∇P = 0",
+        )
 
     def test_piecewise_eos_is_explicitly_a_toy_schedule(self) -> None:
         history = self.engine.compute_eos_history()

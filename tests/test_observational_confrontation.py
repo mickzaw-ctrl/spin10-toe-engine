@@ -1,0 +1,95 @@
+"""Contracts for the frozen observational confrontation."""
+
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+SRC = Path(__file__).resolve().parents[1] / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from observational_confrontation import (  # noqa: E402
+    CIRCULAR,
+    COMPATIBLE,
+    EXCLUDED,
+    INCOMPLETE_ROW,
+    NOT_EXCLUDED,
+    REJECTED_FORMULA,
+    confront_observables,
+    load_card,
+)
+
+
+class ObservationalConfrontationTests(unittest.TestCase):
+    def test_card_is_frozen_and_has_required_experiments(self) -> None:
+        card = load_card()
+        self.assertTrue(card["frozen"])
+        for key in ("n_s", "r", "mu_e_gamma", "tau_p_eppi0"):
+            self.assertIn(key, card["entries"])
+
+    def test_no_row_is_a_validated_prediction(self) -> None:
+        report = confront_observables()
+        self.assertEqual(report["validated_observational_predictions"], 0)
+        self.assertTrue(all(not row["validated"] for row in report["rows"]))
+
+    def test_ns_contract_derives_N_and_passes_nogo(self) -> None:
+        report = confront_observables(alpha=3.75, n_efolds=60.0)
+        by_id = {row["id"]: row for row in report["rows"]}
+        self.assertTrue(by_id["C1"]["contract_complete"])
+        self.assertTrue(by_id["C1"]["validated_phenomenology"])
+        self.assertFalse(by_id["C1"]["validated"])
+        self.assertGreater(by_id["C1"]["N_derived"], 50.0)
+        self.assertLess(by_id["C1"]["N_derived"], 65.0)
+        self.assertLess(abs(by_id["C1"]["pull"]), 2.0)
+        self.assertEqual(by_id["C1"]["verdict"], COMPATIBLE)
+        self.assertEqual(by_id["C1b"]["verdict"], CIRCULAR)
+        self.assertEqual(by_id["C2"]["verdict"], NOT_EXCLUDED)
+        self.assertEqual(report["phenomenology_contracts_passed"], 1)
+        self.assertEqual(report["validated_observational_predictions"], 0)
+
+    def test_default_proton_estimate_is_below_super_k(self) -> None:
+        report = confront_observables(alpha_h_gev3=0.015)
+        proton = next(row for row in report["rows"] if row["id"] == "C3")
+        self.assertEqual(proton["verdict"], EXCLUDED)
+        self.assertLess(proton["theory"], proton["data"])
+
+    def test_smaller_hadronic_element_survives_super_k(self) -> None:
+        report = confront_observables(alpha_h_gev3=0.008)
+        proton = next(row for row in report["rows"] if row["id"] == "C3")
+        self.assertEqual(proton["verdict"], NOT_EXCLUDED)
+
+    def test_circular_and_incomplete_rows_are_not_counted_as_data(self) -> None:
+        report = confront_observables()
+        by_id = {row["id"]: row for row in report["rows"]}
+        self.assertEqual(by_id["C7"]["verdict"], CIRCULAR)
+        self.assertEqual(by_id["C9"]["verdict"], CIRCULAR)
+        self.assertEqual(by_id["C5"]["verdict"], INCOMPLETE_ROW)
+        self.assertEqual(by_id["C10"]["verdict"], REJECTED_FORMULA)
+        self.assertEqual(report["ndof_compatible_gaussian"], 1)
+
+    def test_legacy_marketing_table_stays_unvalidated(self) -> None:
+        report = confront_observables()
+        by_id = {row["id"]: row for row in report["rows"]}
+        for ident in (
+            "C11", "C12", "C13", "C14", "C15", "C16", "C17",
+            "C18", "C19", "C20", "C21", "C22", "C23",
+        ):
+            self.assertIn(ident, by_id)
+            self.assertFalse(by_id[ident]["validated"])
+            self.assertNotEqual(by_id[ident]["verdict"], COMPATIBLE)
+        self.assertEqual(by_id["C14"]["verdict"], INCOMPLETE_ROW)
+        self.assertEqual(by_id["C15"]["verdict"], INCOMPLETE_ROW)
+        self.assertEqual(by_id["C19"]["verdict"], REJECTED_FORMULA)
+        self.assertEqual(by_id["C20"]["verdict"], REJECTED_FORMULA)
+        self.assertEqual(by_id["C23"]["verdict"], CIRCULAR)
+        self.assertAlmostEqual(by_id["C23"]["N_lo"], 2.0 / (1.0 - 0.9629), places=6)
+        self.assertAlmostEqual(by_id["C23"]["N_hi"], 2.0 / (1.0 - 0.9667), places=6)
+        self.assertEqual(by_id["C23"]["distinct_from_contract"], "NS-AT-INSTANT-01")
+        self.assertEqual(report["validated_observational_predictions"], 0)
+        self.assertIn("f_nl_equilateral", load_card()["entries"])
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spin(10) Research Lab</title>
+  <meta name="description" content="Fail-closed interactive workbench for audited Spin(10) research modules." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e8eef8" stroke-width="1.6">
+            <circle cx="12" cy="12" r="3.2"/>
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>
+          </svg>
+        </div>
+        <div>
+        <h1>Spin(10) Lab</h1>
+        <p>v16.1 · closed spec</p>
+        </div>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="side-foot">
+        <div class="lang">
+          <button type="button" id="lang-pl" class="active">PL</button>
+          <button type="button" id="lang-en">EN</button>
+        </div>
+        <p class="tiny" id="side-note"></p>
+        <a class="ghost" href="/www/" style="text-align:center;font-size:12px">www</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="kicker" id="kicker"></div>
+          <h2 id="title"></h2>
+          <p class="lede" id="lede"></p>
+        </div>
+        <div class="chips">
+          <div class="chip good"><b>0</b> <span id="chip-pred"></span></div>
+          <div class="chip warn" id="chip-status"></div>
+          <div class="chip" id="chip-theory"></div>
+        </div>
+      </header>
+
+      <section class="panel active" id="panel-dash"></section>
+      <section class="panel" id="panel-rge"></section>
+      <section class="panel" id="panel-spectral"></section>
+      <section class="panel" id="panel-tcd"></section>
+      <section class="panel" id="panel-lqc"></section>
+      <section class="panel" id="panel-inflation"></section>
+      <section class="panel" id="panel-theory"></section>
+      <section class="panel" id="panel-jacobson"></section>
+      <section class="panel" id="panel-data"></section>
+      <section class="panel" id="panel-ledger"></section>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

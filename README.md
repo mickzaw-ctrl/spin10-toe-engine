@@ -1,18 +1,50 @@
-# Spin(10) Theory of Everything — SHZSpin10QuantumEngine
+# Spin(10) Research Lab
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Lab](https://img.shields.io/badge/lab-v15.1%20fail--closed-0e7490.svg)](lab/README.md)
+[![Status](https://img.shields.io/badge/validated%20TCD%20predictions-0-lightgrey.svg)](docs/TCD_V15_FINAL_RESEARCH_REPORT.md)
+
+**Author:** Michal Slusarczyk  
+**Current product:** Research Lab + internally closed v16.1 specification  
+**Scientific status:** programme internally closed · empirically open · **0 validated observational predictions**
+
+This repository is a research codebase, not a completed Theory of Everything.
+The usable entry point is a fail-closed workbench that runs the solvers that
+actually exist and refuses to convert reference inputs into “confirmed” claims.
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements-lab.txt
+python -m lab
+```
+
+Open `http://127.0.0.1:8000`. The lab exposes six live benches:
+
+1. **RGE unification** — standard SM / MSSM running; M_Z couplings are inputs
+2. **Spectral dimension** — random-walk estimator on cycle / torus / 4-regular graphs
+3. **TCD audit** — toy diagnostics with KEEP / HOLD / NO-GO gates
+4. **LQC bounce** — imported loop-quantum-cosmology algebra, not an IFT-EGR derivation
+5. **α-inflation** — standard attractor formulae; `α = 3.75` is a project hypothesis
+6. **Theory v16** — Spin(10) 16, independent Gate-1 spectral ensemble, U(1) mass gap, prediction registry
+7. **Data** — frozen Planck / BK18 / Super-K / MEG-II card; pull and limits; 0 validated predictions
+8. **Claim ledger** — every legacy engine number with an epistemic label
+
+Specification: [`docs/THEORY.md`](docs/THEORY.md) · lab: [`lab/README.md`](lab/README.md) · audit: [`docs/TCD_V15_FINAL_RESEARCH_REPORT.md`](docs/TCD_V15_FINAL_RESEARCH_REPORT.md)
+
+---
+
+# Historical engine notes — SHZSpin10QuantumEngine
+
+The material below documents earlier generations of the repository (v8–v14.5).
+Version labels are software history, not experimental confirmation.
+
 [![Version](https://img.shields.io/badge/version-v14.5--ULTIMA-blueviolet.svg)](#whats-new-in-v145--ultima-cosmos-unified)
 [![Windows Package](https://img.shields.io/badge/Windows-pip%20install-blue.svg)](dist/shzspin10_ultima_apex-14.5.0-py3-none-any.whl)
 [![Quantum Core](https://img.shields.io/badge/Quantum%20Core-JAX%20%2B%20gRPC%20%2B%20Ray-orange.svg)](#quantum-core--production-inference-api)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen.svg)](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
-[![arXiv](https://img.shields.io/badge/arXiv-preprint-red.svg)](#publications)
 
-**Author:** Michal Slusarczyk  
-**Engine version:** v14.5 — ULTIMA COSMOS UNIFIED  
-**Status:** Heptalogy complete · LQG Spin Foams · Quantum Core JAX+gRPC · FRW Cosmology · **Windows pip package v14.5.0**
-
-🌐 **Live site:** [mickzaw-ctrl.github.io/spin10-toe-engine](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
+🌐 **Legacy site:** [mickzaw-ctrl.github.io/spin10-toe-engine](https://mickzaw-ctrl.github.io/spin10-toe-engine/)
 
 ---
 
@@ -690,3 +722,4 @@ Total: 174 files
 ---
 
 *Last updated: 2026-06-21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*
+21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*
