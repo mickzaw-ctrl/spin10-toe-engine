@@ -34,12 +34,20 @@ class ObservationalConfrontationTests(unittest.TestCase):
         self.assertEqual(report["validated_observational_predictions"], 0)
         self.assertTrue(all(not row["validated"] for row in report["rows"]))
 
-    def test_ns_is_compatible_and_r_is_not_excluded(self) -> None:
+    def test_ns_contract_derives_N_and_passes_nogo(self) -> None:
         report = confront_observables(alpha=3.75, n_efolds=60.0)
         by_id = {row["id"]: row for row in report["rows"]}
+        self.assertTrue(by_id["C1"]["contract_complete"])
+        self.assertTrue(by_id["C1"]["validated_phenomenology"])
+        self.assertFalse(by_id["C1"]["validated"])
+        self.assertGreater(by_id["C1"]["N_derived"], 50.0)
+        self.assertLess(by_id["C1"]["N_derived"], 65.0)
+        self.assertLess(abs(by_id["C1"]["pull"]), 2.0)
         self.assertEqual(by_id["C1"]["verdict"], COMPATIBLE)
-        self.assertLess(abs(by_id["C1"]["pull"]), 1.0)
+        self.assertEqual(by_id["C1b"]["verdict"], CIRCULAR)
         self.assertEqual(by_id["C2"]["verdict"], NOT_EXCLUDED)
+        self.assertEqual(report["phenomenology_contracts_passed"], 1)
+        self.assertEqual(report["validated_observational_predictions"], 0)
 
     def test_default_proton_estimate_is_below_super_k(self) -> None:
         report = confront_observables(alpha_h_gev3=0.015)

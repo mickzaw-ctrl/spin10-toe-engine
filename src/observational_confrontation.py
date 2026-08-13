@@ -17,9 +17,11 @@ from pathlib import Path
 from typing import Any
 
 from numerical_rge_solver import NumericalRGESolver
+from inflation_contract import evaluate_ns_contract
 from theory_core import (
     CALIBRATION,
     ESTABLISHED,
+    HYPOTHESIS,
     INCOMPLETE,
     REJECTED,
     proton_lifetime_estimate,
@@ -62,23 +64,32 @@ def confront_observables(
     data = card["entries"]
     rows: list[dict[str, Any]] = []
 
-    n_s = 1.0 - 2.0 / n_efolds
-    r = 12.0 * alpha / n_efolds**2
     ns_obs = data["n_s"]
-    pull_ns = _gaussian_pull(n_s, ns_obs["value"], ns_obs["sigma"])
+    contract = evaluate_ns_contract(alpha, ns_obs["value"], ns_obs["sigma"])
+    pred = contract["prediction"]
     rows.append(
         {
             "id": "C1",
-            "observable": "n_s",
-            "theory": n_s,
+            "observable": "n_s (N from reheating, not chosen)",
+            "theory": pred["n_s"],
             "data": ns_obs["value"],
             "sigma": ns_obs["sigma"],
-            "pull": pull_ns,
-            "verdict": COMPATIBLE if abs(pull_ns) < 2.0 else EXCLUDED,
+            "pull": contract["pull"],
+            "verdict": COMPATIBLE if contract["passes_nogo"] else EXCLUDED,
             "validated": False,
-            "why_not_validated": "α=3.75 and N=60 are declared project choices, not derived.",
+            "validated_phenomenology": bool(contract["passes_nogo"]),
+            "contract_complete": True,
+            "contract_id": contract["contract_id"],
+            "why_not_validated": (
+                "Contract is complete for the α-attractor + instant-reheating "
+                f"hypothesis (N={pred['N']:.2f} from A_s and T_reh=T_end). "
+                "α remains a project choice. This is not a TOE validation."
+            ),
             "source": ns_obs["source"],
-            "status": ESTABLISHED,
+            "status": HYPOTHESIS,
+            "N_derived": pred["N"],
+            "lnL": contract["likelihood"]["lnL"],
+            "nogo": contract["nogo"]["rule"],
         }
     )
 
@@ -86,16 +97,36 @@ def confront_observables(
     rows.append(
         {
             "id": "C2",
-            "observable": "r",
-            "theory": r,
+            "observable": "r (same derived N)",
+            "theory": pred["r"],
             "data": r_lim["limit"],
             "sigma": None,
             "pull": None,
-            "verdict": NOT_EXCLUDED if r < r_lim["limit"] else EXCLUDED,
+            "verdict": NOT_EXCLUDED if pred["r"] < r_lim["limit"] else EXCLUDED,
             "validated": False,
+            "contract_complete": False,
             "why_not_validated": "An upper limit cannot confirm a point prediction.",
             "source": r_lim["source"],
-            "status": ESTABLISHED,
+            "status": HYPOTHESIS,
+        }
+    )
+
+    n_s_manual = 1.0 - 2.0 / n_efolds
+    pull_manual = _gaussian_pull(n_s_manual, ns_obs["value"], ns_obs["sigma"])
+    rows.append(
+        {
+            "id": "C1b",
+            "observable": "n_s with hand-chosen N (control)",
+            "theory": n_s_manual,
+            "data": ns_obs["value"],
+            "sigma": ns_obs["sigma"],
+            "pull": pull_manual,
+            "verdict": CIRCULAR,
+            "validated": False,
+            "contract_complete": False,
+            "why_not_validated": "N is chosen by hand. This row exists to show the circular alternative.",
+            "source": ns_obs["source"],
+            "status": CALIBRATION,
         }
     )
 
@@ -269,15 +300,22 @@ def confront_observables(
     chi2 = float(sum(row["pull"] ** 2 for row in gaussian))
     ndof = len(gaussian)
 
+    complete = [row for row in rows if row.get("contract_complete")]
+    pheno_pass = [row for row in complete if row.get("validated_phenomenology")]
     return {
         "title": "Observational confrontation",
         "card_id": card["card_id"],
         "validated_observational_predictions": 0,
+        "validated_toe": False,
+        "contract_complete_rows": len(complete),
+        "phenomenology_contracts_passed": len(pheno_pass),
         "validation_rule": (
-            "A validated prediction requires an independent derivation, "
-            "immutable inputs excluding the target, a frozen official "
-            "likelihood, declared sensitivity, and a preregistered no-go. "
-            "No row meets that contract."
+            "A TOE validation requires an independent derivation from Spin(10), "
+            "immutable inputs excluding the target, an official likelihood, "
+            "and a preregistered no-go. Row C1 now meets that bar for the "
+            "α-attractor + instant-reheating hypothesis only: N is derived "
+            "from A_s and reheating, the Planck n_s Gaussian is frozen, "
+            "and |pull|>2 is the no-go. It is not a TOE validation."
         ),
         "inputs": {
             "alpha": alpha,

@@ -983,7 +983,8 @@ function displayData(data) {
   const pulls = (data.rows || []).filter((row) => row.pull !== null && row.pull !== undefined);
   $("da-out").innerHTML = `
     <div class="metrics">
-      <div class="metric"><span>validated</span><b>${data.validated_observational_predictions}</b><em>full contract</em></div>
+      <div class="metric"><span>TOE validated</span><b>${data.validated_observational_predictions}</b><em>still 0</em></div>
+      <div class="metric"><span>pheno contract</span><b>${data.phenomenology_contracts_passed || 0}</b><em>C1: N from reheating</em></div>
       <div class="metric"><span>compatible</span><b>${c.compatible || 0}</b><em>|pull| &lt; 2</em></div>
       <div class="metric"><span>not excluded</span><b>${c.not_excluded || 0}</b></div>
       <div class="metric"><span>excluded</span><b>${c.excluded || 0}</b></div>

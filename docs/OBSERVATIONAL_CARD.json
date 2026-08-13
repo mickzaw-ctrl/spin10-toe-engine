@@ -1,8 +1,24 @@
 {
   "card_id": "OBS-2026-08",
   "frozen": true,
-  "note": "Published central values and limits only. This card is not an official likelihood.",
+  "note": "Published central values and limits only. The n_s Gaussian is a proxy, not Plik/CamSpec.",
+  "contracts": {
+    "NS-AT-INSTANT-01": {
+      "target": "n_s",
+      "nogo": "reject if |pull| > 2",
+      "inputs": ["A_s", "k_star", "alpha", "instant_reheating"],
+      "excludes_target": true
+    }
+  },
   "entries": {
+    "A_s": {
+      "kind": "gaussian",
+      "value": 2.1e-9,
+      "sigma": 0.03e-9,
+      "pivot": "k=0.05 Mpc^-1",
+      "role": "input_for_N_not_a_target",
+      "source": "Planck PR4 scalar amplitude (used only to set V_*; not the tilt)"
+    },
     "n_s": {
       "kind": "gaussian",
       "value": 0.9682,
