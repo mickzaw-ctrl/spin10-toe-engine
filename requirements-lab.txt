@@ -1,0 +1,6 @@
+# Research Lab interactive workbench
+numpy>=1.20
+scipy>=1.7
+networkx>=2.6
+fastapi>=0.100
+uvicorn>=0.22
