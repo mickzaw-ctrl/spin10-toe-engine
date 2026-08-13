@@ -26,7 +26,7 @@ The α-attractor contract NS-AT-INSTANT-01 is phenomenology, not a TOE.
 | ID | Condition | Now |
 |---|---|---|
 | **T1** | Internal consistency: classified axioms, named inputs and units, rejected shortcuts stay rejected. | **PARTIAL** |
-| **T2** | One action / measure for gravity + SM gauge + matter. Imported LQC / α-attractor / RGE stacks do not count. | **UNMET** |
+| **T2** | One action / measure for gravity + SM gauge + matter. Imported LQC / α-attractor / RGE stacks do not count. Gate 4 writes the classical EYM candidate; T2 stays unmet while those modules still drive predictions. | **UNMET** |
 | **T3** | Quantum definition: Hilbert space or Euclidean measure, gauge fixing, continuum / refinement limit. | **UNMET** |
 | **T4** | Gravity limit: Einstein (or a specified alternative) with controlled extras. \(G_{\rm eff}=G_0/P\) is not the field equation unless \(\nabla P=0\). | **UNMET** |
 | **T5** | SM content derived, including three generations. \(N_{\rm gen}=3\) as an input (A2) blocks a TOE claim. | **UNMET** |

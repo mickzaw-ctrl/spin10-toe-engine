@@ -211,6 +211,24 @@ validates a TOE.
 
 Write-up: [`JACOBSON_CLAUSIUS.md`](JACOBSON_CLAUSIUS.md).
 
+### Gate 4 — one action, not a stack
+
+T2 requires gravity and the SM in one action. The classical candidate is
+
+\[
+S[g,A,\psi,\Phi]
+=
+S_{\mathrm{grav}}[g;P]
++S_{\mathrm{YM}}^{\mathrm{Spin}(10)}
++S_{16}
++S_{\mathrm{H}}.
+\]
+
+LQC, α-attractors and \(M_Z\)-input RGE are **not terms of \(S\)**.
+Writing the formula is syntax. T2 stays **UNMET** while C1 and the
+bounce are used as if they were consequences. Write-up:
+[`UNIFIED_ACTION.md`](UNIFIED_ACTION.md).
+
 ---
 
 ## 4. Prediction registry
@@ -230,6 +248,7 @@ Write-up: [`JACOBSON_CLAUSIUS.md`](JACOBSON_CLAUSIUS.md).
 | P11 | prescribed-\(P\) action \(\int P R\) | Established | metric variation; \(P\) not derived |
 | P12 | Einstein with \(G_{\rm eff}=G_0/P\) | **NO-GO** unless \(\nabla P=0\) | extra Hessian terms required |
 | P13 | \(P(N,T)\) from local Clausius | Rejected as stated | Jacobson assumes constant \(\eta\) |
+| P14 | one action gravity + Spin(10) | Established syntax | T2 unmet: stack still drives predictions |
 
 No row is an observational validation.
 

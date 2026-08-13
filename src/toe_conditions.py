@@ -76,7 +76,11 @@ def evaluate_toe_conditions() -> dict[str, Any]:
                 "RGE modules is not a TOE."
             ),
             UNMET,
-            "LQC, α-attractors, and SM/MSSM RGE are imported. No bulk GFT action.",
+            (
+                "Gate 4 writes the classical EYM candidate S[g,A,ψ,Φ]. "
+                "LQC, α-attractors and M_Z-input RGE are not terms of S. "
+                "Syntax without consequences is not T2."
+            ),
         ),
         _item(
             "T3",

@@ -571,19 +571,23 @@ def complete_theory(
     seesaw = type_i_seesaw(m_dirac_gev, m_majorana_gev)
     from jacobson_clausius import gate3_jacobson_action
     from toe_conditions import evaluate_toe_conditions
+    from unified_action import gate4_unified_action
 
     if not run_gates:
         gate1 = {"decision": "SKIPPED", "status": INCOMPLETE, "points": []}
         gate2 = {"R_m_over_sqrt_sigma": None, "prediction_contract": {"complete": False}}
         gate3 = {"decisions": {"geff_is_the_field_equation": "SKIPPED"}, "status": INCOMPLETE}
+        gate4 = {"decisions": {"t2_met": False}, "status": INCOMPLETE}
     elif fast:
         gate1 = independent_spectral_flow(sweeps=30, walkers=800, steps=28)
         gate2 = u1_wilson_mass_gap(side=6, sweeps=40)
         gate3 = gate3_jacobson_action(run_identity_check=True)
+        gate4 = gate4_unified_action()
     else:
         gate1 = independent_spectral_flow()
         gate2 = u1_wilson_mass_gap()
         gate3 = gate3_jacobson_action()
+        gate4 = gate4_unified_action()
 
     registry = [
         {
@@ -677,6 +681,13 @@ def complete_theory(
             "status": REJECTED,
             "contract": "Jacobson 1995 assumes constant η; P remains a project ansatz",
         },
+        {
+            "id": "P14",
+            "observable": "single action containing gravity + Spin(10)",
+            "value": gate4.get("action", {}).get("action") if run_gates else None,
+            "status": ESTABLISHED,
+            "contract": "syntax of S is written; T2 unmet while predictions use the imported stack",
+        },
     ]
     open_problems = [
         "Microscopic derivation of P(N,T) from a graph entropy (Jacobson does not supply it).",
@@ -708,6 +719,7 @@ def complete_theory(
         "gate1_independent_spectral_flow": gate1,
         "gate2_mass_gap": gate2,
         "gate3_jacobson_action": gate3,
+        "gate4_unified_action": gate4,
         "registry": registry,
         "open_problems": open_problems,
         "toe_conditions": evaluate_toe_conditions(),
@@ -717,12 +729,14 @@ def complete_theory(
             "Independent Gate-1 protocol (ensemble does not inject d_S)",
             "Independent Gate-2 estimator (no 1.71 GeV in the inputs)",
             "Standard GUT lifetime and seesaw formulae with declared inputs",
+            "Gate 4 continuum EYM candidate and imported-stack inventory",
         ],
         "what_is_not_closed": [
             "A derivation of the cosmological constant",
             "A derivation of α_em without calibration",
             "A derivation of three generations",
             "A completed causal GFT",
+            "T2: claimed predictions as consequences of one action",
             "Any observational validation",
         ],
     }
