@@ -14,6 +14,7 @@ if str(SRC) not in sys.path:
 from theory_core import (  # noqa: E402
     CALIBRATION,
     ESTABLISHED,
+    INCOMPLETE,
     REJECTED,
     UNVERIFIED,
     complete_theory,
@@ -74,7 +75,9 @@ class TheoryCoreTests(unittest.TestCase):
         self.assertEqual(statuses["P12"], REJECTED)
         self.assertEqual(statuses["P13"], REJECTED)
         self.assertEqual(statuses["P14"], ESTABLISHED)
+        self.assertEqual(statuses["P15"], INCOMPLETE)
         self.assertFalse(report["gate4_unified_action"]["decisions"]["t2_met"])
+        self.assertFalse(report["gate5_quantum_measure"]["decisions"]["t3_met"])
         self.assertIn(report["gate1_independent_spectral_flow"]["decision"], {"NO-GO", "HOLD"})
         self.assertEqual(len(report["gate1_independent_spectral_flow"]["points"]), 5)
         gate3 = report["gate3_jacobson_action"]

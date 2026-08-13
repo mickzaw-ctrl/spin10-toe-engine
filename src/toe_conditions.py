@@ -91,7 +91,11 @@ def evaluate_toe_conditions() -> dict[str, Any]:
                 "positivity or a stated Lorentzian reconstruction."
             ),
             UNMET,
-            "Z_TCD is still a schematic. Graph measure and continuum limit are open.",
+            (
+                "Gate 5 writes Z_disc and Z_cont and scores M1–M6. Only M1 "
+                "(configuration names) is MET. Haar-on-fixed-Γ exists; "
+                "μ(Γ), continuum, OS/Lorentz and matter measure do not."
+            ),
         ),
         _item(
             "T4",

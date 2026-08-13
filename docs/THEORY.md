@@ -229,6 +229,23 @@ Writing the formula is syntax. T2 stays **UNMET** while C1 and the
 bounce are used as if they were consequences. Write-up:
 [`UNIFIED_ACTION.md`](UNIFIED_ACTION.md).
 
+### Gate 5 — quantum measure without constructing \(Z\)
+
+T3 requires a measure, not a Lagrangian. The intended object is
+
+\[
+Z_{\mathrm{disc}}
+=\sum_{\Gamma}\mu(\Gamma)
+\int\prod_e\mathrm{d}\mu_{\mathrm{Haar}}(U_e)
+\prod_v\mathrm{d}\psi_v\,\mathrm{d}\Phi_v
+\;\mathrm{e}^{-S_E}.
+\]
+
+Haar on compact Spin(10) exists; the Wilson integral on a *fixed* graph
+is therefore finite. \(\mu(\Gamma)\), the continuum, OS/Lorentz and the
+matter measure are missing. Clauses M2–M6 are UNMET. T3 stays **UNMET**.
+Write-up: [`QUANTUM_MEASURE.md`](QUANTUM_MEASURE.md).
+
 ---
 
 ## 4. Prediction registry
@@ -249,6 +266,7 @@ bounce are used as if they were consequences. Write-up:
 | P12 | Einstein with \(G_{\rm eff}=G_0/P\) | **NO-GO** unless \(\nabla P=0\) | extra Hessian terms required |
 | P13 | \(P(N,T)\) from local Clausius | Rejected as stated | Jacobson assumes constant \(\eta\) |
 | P14 | one action gravity + Spin(10) | Established syntax | T2 unmet: stack still drives predictions |
+| P15 | quantum measure Z | Incomplete | T3 unmet: Haar on fixed Γ only |
 
 No row is an observational validation.
 

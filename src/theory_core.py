@@ -572,22 +572,26 @@ def complete_theory(
     from jacobson_clausius import gate3_jacobson_action
     from toe_conditions import evaluate_toe_conditions
     from unified_action import gate4_unified_action
+    from quantum_measure import gate5_quantum_measure
 
     if not run_gates:
         gate1 = {"decision": "SKIPPED", "status": INCOMPLETE, "points": []}
         gate2 = {"R_m_over_sqrt_sigma": None, "prediction_contract": {"complete": False}}
         gate3 = {"decisions": {"geff_is_the_field_equation": "SKIPPED"}, "status": INCOMPLETE}
         gate4 = {"decisions": {"t2_met": False}, "status": INCOMPLETE}
+        gate5 = {"decisions": {"t3_met": False}, "status": INCOMPLETE}
     elif fast:
         gate1 = independent_spectral_flow(sweeps=30, walkers=800, steps=28)
         gate2 = u1_wilson_mass_gap(side=6, sweeps=40)
         gate3 = gate3_jacobson_action(run_identity_check=True)
         gate4 = gate4_unified_action()
+        gate5 = gate5_quantum_measure()
     else:
         gate1 = independent_spectral_flow()
         gate2 = u1_wilson_mass_gap()
         gate3 = gate3_jacobson_action()
         gate4 = gate4_unified_action()
+        gate5 = gate5_quantum_measure()
 
     registry = [
         {
@@ -688,6 +692,13 @@ def complete_theory(
             "status": ESTABLISHED,
             "contract": "syntax of S is written; T2 unmet while predictions use the imported stack",
         },
+        {
+            "id": "P15",
+            "observable": "quantum measure Z for the Gate-4 fields",
+            "value": gate5.get("t3", {}).get("decision") if run_gates else None,
+            "status": INCOMPLETE,
+            "contract": "T3 unmet: only Haar-on-fixed-graph Wilson is defined",
+        },
     ]
     open_problems = [
         "Microscopic derivation of P(N,T) from a graph entropy (Jacobson does not supply it).",
@@ -720,6 +731,7 @@ def complete_theory(
         "gate2_mass_gap": gate2,
         "gate3_jacobson_action": gate3,
         "gate4_unified_action": gate4,
+        "gate5_quantum_measure": gate5,
         "registry": registry,
         "open_problems": open_problems,
         "toe_conditions": evaluate_toe_conditions(),
