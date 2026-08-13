@@ -75,6 +75,18 @@
       "value": 0.23122,
       "sigma": 0.00004,
       "source": "PDG MSbar at M_Z"
+    },
+    "f_nl_equilateral": {
+      "kind": "gaussian",
+      "value": -26.0,
+      "sigma": 47.0,
+      "source": "Planck 2018 T+E equilateral, arXiv:1905.05697; not a confirmation of any in-repo calculation"
+    },
+    "gluino_lhc": {
+      "kind": "lower",
+      "limit": 2200.0,
+      "unit": "GeV",
+      "source": "ATLAS/CMS simplified-model order-of-magnitude (dataset-dependent)"
     }
   }
 }

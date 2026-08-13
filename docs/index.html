@@ -194,16 +194,24 @@
         <thead><tr><th>ID</th><th data-i="cObs">Observable</th><th data-i="cTh">Teoria</th><th data-i="cDa">Dane / limit</th><th>Werdykt</th></tr></thead>
         <tbody>
           <tr><td class="mono">C1</td><td>n_s, N z reheatingu (nie z tilta)</td><td class="mono">0.9652</td><td class="mono">0.9682 ± 0.0032</td><td class="ok">compatible · −0.94σ · kontrakt OK</td></tr>
-          <tr><td class="mono">C1b</td><td>n_s przy ręcznym N=60</td><td class="mono">0.9667</td><td class="mono">0.9682 ± 0.0032</td><td class="warn">circular</td></tr>
-          <tr><td class="mono">C2</td><td>r (to samo N)</td><td class="mono">0.0136</td><td class="mono">&lt; 0.036</td><td class="cy">not excluded</td></tr>
-          <tr><td class="mono">C3</td><td>τ(p→e⁺π⁰), α_H=0.015</td><td class="mono">~1.9×10³⁴ yr</td><td class="mono">&gt; 2.4×10³⁴ yr</td><td class="bad">excluded under this α_H</td></tr>
-          <tr><td class="mono">C4</td><td>BR(μ→eγ) legacy</td><td class="mono">8×10⁻¹⁴</td><td class="mono">&lt; 3.1×10⁻¹³</td><td class="cy">not excluded · incomplete</td></tr>
-          <tr><td class="mono">C7–C9</td><td>α_s, sin²θ_W(M_Z), 1/α_em</td><td>—</td><td>PDG</td><td class="warn">circular / calibration</td></tr>
+          <tr><td class="mono">C1b / C23</td><td>n_s pasmo 0.9629–0.9667 (ręczne N)</td><td class="mono">0.9667</td><td class="mono">0.9682 ± 0.0032</td><td class="warn">circular</td></tr>
+          <tr><td class="mono">C2</td><td>r (to samo N)</td><td class="mono">0.0136</td><td class="mono">&lt; 0.036 BK18</td><td class="cy">not excluded</td></tr>
+          <tr><td class="mono">C3</td><td>τ(p→e⁺π⁰) zaimplementowane, α_H=0.015</td><td class="mono">~1.9×10³⁴ yr</td><td class="mono">&gt; 2.4×10³⁴ yr SK</td><td class="bad">excluded under this α_H</td></tr>
+          <tr><td class="mono">C19</td><td>τ_p marketing 10³⁵–³⁶ yr</td><td class="mono">—</td><td class="mono">SK 2.4×10³⁴</td><td class="bad">rejected formula</td></tr>
+          <tr><td class="mono">C4</td><td>BR(μ→eγ) legacy</td><td class="mono">8×10⁻¹⁴</td><td class="mono">&lt; 3.1×10⁻¹³ MEG-II</td><td class="cy">not excluded · incomplete</td></tr>
+          <tr><td class="mono">C5</td><td>η_B legacy 6.11×10⁻¹⁰</td><td class="mono">—</td><td class="mono">6.12×10⁻¹⁰</td><td class="warn">incomplete</td></tr>
+          <tr><td class="mono">C7–C9 / C22</td><td>α_s, 1/α_em, „−0.0006”</td><td>—</td><td>PDG / CODATA</td><td class="warn">circular / incomplete</td></tr>
+          <tr><td class="mono">C11</td><td>M_GUT 1.03×10¹⁶ GeV</td><td class="mono">RGE diagnostic</td><td>—</td><td class="warn">circular</td></tr>
+          <tr><td class="mono">C12</td><td>sin²θ_W 0.3779 vs 3/8</td><td class="mono">0.375 algebra</td><td>nie jest daną Plancka</td><td class="warn">circular</td></tr>
+          <tr><td class="mono">C13</td><td>Immirzi γ=0.2739</td><td class="mono">0.2739</td><td>dopasowanie S=A/4</td><td class="warn">calibration</td></tr>
+          <tr><td class="mono">C14</td><td>f_NL^eq = 14.5</td><td class="mono">14.5 slogan</td><td class="mono">−26 ± 47 Planck</td><td class="warn">incomplete</td></tr>
+          <tr><td class="mono">C15–C18 / C21</td><td>gluino, aksjon, μ→eee, Ω_GW, g*</td><td>slogany</td><td>brak likelihoodu</td><td class="warn">incomplete</td></tr>
+          <tr><td class="mono">C20</td><td>d_S 2→4 interpolacja</td><td>HOLD curve</td><td>Gate 1 zespół</td><td class="bad">rejected formula · NO-GO</td></tr>
           <tr><td class="mono">C10</td><td>Ω_Λ z T_c⁴/M_Pl²</td><td>—</td><td>0.685</td><td class="bad">rejected formula</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="note w" data-i="daNote">C1 spełnia cztery pola kontraktu dla hipotezy α-attractor + instant reheating. α=3.75 nadal jest wyborem. TOE validated = 0.</div>
+    <div class="note w" data-i="daNote">C1 spełnia cztery pola kontraktu dla hipotezy α-attractor + instant reheating. α=3.75 nadal jest wyborem. Reszta tabeli v8–v14 to slogany albo kalibracje — patrz LEGACY_CLAIMS.md. TOE validated = 0.</div>
   </div>
 </section>
 
@@ -229,6 +237,7 @@ python -m lab
       <a class="dc" href="JACOBSON_CLAUSIUS.md"><div class="dtp">Gate 3</div><div class="dtit">JACOBSON_CLAUSIUS.md</div><div class="dd">Akcja dla zadanego P; Jacobson nie daje P(N,T)</div></a>
       <a class="dc" href="VALIDATION_CONTRACT.md"><div class="dtp">kontrakt</div><div class="dtit">VALIDATION_CONTRACT.md</div><div class="dd">NS-AT-INSTANT-01 — N z reheatingu</div></a>
       <a class="dc" href="OBSERVATIONAL_CARD.json"><div class="dtp">dane</div><div class="dtit">OBSERVATIONAL_CARD.json</div><div class="dd">Zamrożona karta Planck / SK / MEG-II</div></a>
+      <a class="dc" href="LEGACY_CLAIMS.md"><div class="dtp">audyt</div><div class="dtit">LEGACY_CLAIMS.md</div><div class="dd">Tabela v8–v14 rozliczona wiersz po wierszu</div></a>
       <a class="dc" href="TCD_V15_FINAL_RESEARCH_REPORT.md"><div class="dtp">audyt</div><div class="dtit">TCD v15 final report</div><div class="dd">KEEP / HOLD / NO-GO TCD</div></a>
       <a class="dc" href="TCD_ASSUMPTION_LEDGER.json"><div class="dtp">ledger</div><div class="dtit">TCD assumption ledger</div><div class="dd">Klasy epistemiczne</div></a>
       <a class="dc" href="IFT_EGR_COSMOLOGY_CLOSURE.md"><div class="dtp">IFT-EGR</div><div class="dtit">Cosmology closure</div><div class="dd">Bounce nie ustala Λ</div></a>
@@ -239,7 +248,7 @@ python -m lab
 </section>
 
 <footer>
-  <div class="fl">Spin(10) Research Programme v16</div>
+  <div class="fl">Spin(10) Research Programme v16.1</div>
   <div data-i="foot">Nie Teoria Wszystkiego. Michał Ślusarczyk · MIT (rdzeń) · 2026</div>
 </footer>
 
@@ -264,7 +273,7 @@ const I = {
     o4:"Causal GFT i mapa bulk–boundary", o5:"Oficjalny likelihood Planck Plik / MEG-II", o6:"Mikroskopowe wyprowadzenie P(N,T)",
     daTag:"Konfrontacja", daH:"Zamrożona karta vs. teoria", daSub:"Planck PR4, BICEP/Keck BK18, Super-K, MEG-II. Żaden wiersz nie jest walidacją TOE.",
     cObs:"Observable", cTh:"Teoria", cDa:"Dane / limit",
-    daNote:"C1 spełnia cztery pola kontraktu dla hipotezy α-attractor + instant reheating. α=3.75 nadal jest wyborem. TOE validated = 0.",
+    daNote:"C1 spełnia cztery pola kontraktu dla hipotezy α-attractor + instant reheating. α=3.75 nadal jest wyborem. Reszta tabeli v8–v14 to slogany albo kalibracje — patrz LEGACY_CLAIMS.md. TOE validated = 0.",
     labH:"Interaktywny warsztat", labSub:"RGE, d_S, audyt TCD, LQC, inflacja, teoria v16.1, Jacobson / P, karta danych.",
     labNote:"Laboratorium liczy na żywo w Pythonie. Zgodność referencyjna ≠ potwierdzenie obserwacyjne.",
     docTag:"Dokumenty kanoniczne", docH:"Najpierw to, potem archiwum",
@@ -289,7 +298,7 @@ const I = {
     o4:"Causal GFT and a bulk–boundary map", o5:"Official Planck Plik / MEG-II likelihoods", o6:"A microscopic derivation of P(N,T)",
     daTag:"Confrontation", daH:"Frozen card vs theory", daSub:"Planck PR4, BICEP/Keck BK18, Super-K, MEG-II. No row is a TOE validation.",
     cObs:"Observable", cTh:"Theory", cDa:"Data / limit",
-    daNote:"C1 meets the four contract fields for α-attractor + instant reheating. α=3.75 is still a project choice. TOE validated = 0.",
+    daNote:"C1 meets the four contract fields for α-attractor + instant reheating. α=3.75 is still a project choice. The rest of the v8–v14 table is slogans or calibrations — see LEGACY_CLAIMS.md. TOE validated = 0.",
     labH:"Interactive workbench", labSub:"RGE, d_S, TCD audit, LQC, inflation, theory v16.1, Jacobson / P, data card.",
     labNote:"The lab computes live in Python. A reference match is not observational confirmation.",
     docTag:"Canonical documents", docH:"These first, then the archive",

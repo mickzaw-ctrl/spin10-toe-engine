@@ -69,6 +69,24 @@ class ObservationalConfrontationTests(unittest.TestCase):
         self.assertEqual(by_id["C10"]["verdict"], REJECTED_FORMULA)
         self.assertEqual(report["ndof_compatible_gaussian"], 1)
 
+    def test_legacy_marketing_table_stays_unvalidated(self) -> None:
+        report = confront_observables()
+        by_id = {row["id"]: row for row in report["rows"]}
+        for ident in (
+            "C11", "C12", "C13", "C14", "C15", "C16", "C17",
+            "C18", "C19", "C20", "C21", "C22", "C23",
+        ):
+            self.assertIn(ident, by_id)
+            self.assertFalse(by_id[ident]["validated"])
+            self.assertNotEqual(by_id[ident]["verdict"], COMPATIBLE)
+        self.assertEqual(by_id["C14"]["verdict"], INCOMPLETE_ROW)
+        self.assertEqual(by_id["C15"]["verdict"], INCOMPLETE_ROW)
+        self.assertEqual(by_id["C19"]["verdict"], REJECTED_FORMULA)
+        self.assertEqual(by_id["C20"]["verdict"], REJECTED_FORMULA)
+        self.assertEqual(by_id["C23"]["verdict"], CIRCULAR)
+        self.assertEqual(report["validated_observational_predictions"], 0)
+        self.assertIn("f_nl_equilateral", load_card()["entries"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -49,6 +49,227 @@ def _gaussian_pull(theory: float, value: float, sigma: float) -> float:
     return (theory - value) / sigma
 
 
+def _row(
+    ident: str,
+    observable: str,
+    *,
+    theory: float | None,
+    data: float | None,
+    verdict: str,
+    why: str,
+    source: str,
+    status: str,
+    sigma: float | None = None,
+    pull: float | None = None,
+    extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    payload = {
+        "id": ident,
+        "observable": observable,
+        "theory": theory,
+        "data": data,
+        "sigma": sigma,
+        "pull": pull,
+        "verdict": verdict,
+        "validated": False,
+        "contract_complete": False,
+        "why_not_validated": why,
+        "source": source,
+        "status": status,
+    }
+    if extra:
+        payload.update(extra)
+    return payload
+
+
+def _legacy_marketing_rows(
+    analysis: dict[str, Any],
+    data: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Audit the v8–v14 marketing table. None of these is a TOE validation."""
+
+    fnl = data["f_nl_equilateral"]
+    gluino = data["gluino_lhc"]
+    return [
+        _row(
+            "C11",
+            "M_GUT from two-loop SM/MSSM running",
+            theory=analysis["M_GUT_GeV"],
+            data=None,
+            verdict=CIRCULAR,
+            why=(
+                "M_Z couplings and M_SUSY are inputs. Closest-approach scale "
+                "is a diagnostic, not a Spin(10) derivation. The legacy "
+                "1.03e16 GeV is the same class of number."
+            ),
+            source="in-repo two-loop RGE; M_Z couplings declared",
+            status=ESTABLISHED,
+        ),
+        _row(
+            "C12",
+            "sin²θ_W at a Spin(10) point",
+            theory=0.375,
+            data=0.375,
+            verdict=CIRCULAR,
+            why=(
+                "Group theory in GUT normalisation gives exactly 3/8. "
+                "The legacy 0.3779 is the running diagnostic at closest "
+                "approach, not a low-energy prediction and not Planck data."
+            ),
+            source="Lie algebra of Spin(10); running diagnostic in analyze_unification",
+            status=ESTABLISHED,
+            extra={
+                "running_diagnostic": analysis["sin2_theta_W_GUT"],
+                "legacy_claim": 0.3779,
+            },
+        ),
+        _row(
+            "C13",
+            "Immirzi γ = 0.2739",
+            theory=0.2739,
+            data=0.2739,
+            verdict=CIRCULAR,
+            why=(
+                "γ is chosen so that a state-counting model matches S=A/4. "
+                "That is a calibration, not a derivation from Spin(10)."
+            ),
+            source="LQG entropy-matching literature (ENP/ME values)",
+            status=CALIBRATION,
+        ),
+        _row(
+            "C14",
+            "f_NL^equil legacy 14.5",
+            theory=14.5,
+            data=fnl["value"],
+            sigma=fnl["sigma"],
+            verdict=INCOMPLETE_ROW,
+            why=(
+                "No in-repo bispectrum. A pull against Planck −26±47 would be "
+                "circular marketing: the target was never an input-independent "
+                "calculation. Future CMB-S4 reach is not a present validation."
+            ),
+            source=fnl["source"],
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C15",
+            "m_gluino legacy 10.6 TeV",
+            theory=1.06e4,
+            data=gluino["limit"],
+            verdict=INCOMPLETE_ROW,
+            why=(
+                "No spectrum calculation. 10.6 TeV is a Split-SUSY slogan "
+                "tied to a declared M_SUSY. It sits above the LHC "
+                f"~{gluino['limit']:.0f} GeV simplified-model floor, which "
+                "does not confirm it."
+            ),
+            source=gluino["source"],
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C16",
+            "m_axion legacy 28.5 neV",
+            theory=28.5e-9,
+            data=None,
+            verdict=INCOMPLETE_ROW,
+            why="No implementing axion-mass derivation or CASPEr likelihood.",
+            source="legacy engine slogan; CASPEr is a future search, not a measurement of 28.5 neV",
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C17",
+            "BR(μ→eee) legacy ~10⁻¹⁶",
+            theory=1.0e-16,
+            data=None,
+            verdict=INCOMPLETE_ROW,
+            why="No frozen loop calculation. Mu3e Phase-II is a future search.",
+            source="legacy engine slogan",
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C18",
+            "Ω_GW(1 mHz) legacy 10⁻⁷",
+            theory=1.0e-7,
+            data=None,
+            verdict=INCOMPLETE_ROW,
+            why=(
+                "No tensor-spectrum calculation. A future LISA sensitivity "
+                "band is not data. The number is a slogan from the synthetic suite."
+            ),
+            source="legacy engine slogan; LISA is not flying",
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C19",
+            "legacy τ(p→e⁺π⁰) ~10³⁵–³⁶ yr",
+            theory=None,
+            data=data["tau_p_eppi0"]["limit"],
+            verdict=REJECTED_FORMULA,
+            why=(
+                "The implemented dimension-6 estimate at default α_H=0.015 is "
+                "about 2e34 yr and is excluded by Super-K 2.4e34 yr. The "
+                "marketing band 10^35–36 yr is not that formula. The table's "
+                "1.7e34 Hyper-K figure is also a stale limit."
+            ),
+            source=data["tau_p_eppi0"]["source"],
+            status=REJECTED,
+        ),
+        _row(
+            "C20",
+            "d_S(T) interpolation 4→2",
+            theory=None,
+            data=None,
+            verdict=REJECTED_FORMULA,
+            why=(
+                "Gate 1 on the independent 3D-torus ensemble (action = "
+                "Manhattan length, no d_S in the action) is NO-GO for the "
+                "HOLD interpolation. A qualitative CDT UV reduction is not "
+                "evidence for this curve."
+            ),
+            source="Gate 1 in src/theory_core.py; CDT context arXiv:hep-th/0505113",
+            status=REJECTED,
+        ),
+        _row(
+            "C21",
+            "asymptotic-safety g* = 0.83",
+            theory=0.83,
+            data=None,
+            verdict=INCOMPLETE_ROW,
+            why="No implementing UV-fixed-point calculation from Spin(10).",
+            source="legacy engine slogan",
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C22",
+            "legacy α_s shift −0.0006",
+            theory=-0.0006,
+            data=None,
+            verdict=INCOMPLETE_ROW,
+            why=(
+                "The pasted table gives −0.0006 with no formula. Apex instead "
+                "multiplies α_s(M_Z) by 0.9736. Neither is a derivation."
+            ),
+            source="unidentified legacy table entry",
+            status=INCOMPLETE,
+        ),
+        _row(
+            "C23",
+            "legacy n_s band 0.9629–0.9667",
+            theory=0.9667,
+            data=data["n_s"]["value"],
+            sigma=data["n_s"]["sigma"],
+            verdict=CIRCULAR,
+            why=(
+                "That band is 1−2/N for hand-chosen N∈[50,60]. Row C1 already "
+                "treats the non-circular contract. This row exists so the old "
+                "table cannot be mistaken for extra evidence."
+            ),
+            source=data["n_s"]["source"],
+            status=CALIBRATION,
+        ),
+    ]
+
+
 def confront_observables(
     alpha: float = 3.75,
     n_efolds: float = 60.0,
@@ -284,6 +505,8 @@ def confront_observables(
             "status": REJECTED,
         }
     )
+
+    rows.extend(_legacy_marketing_rows(analysis, data))
 
     counts = {
         COMPATIBLE: 0,
