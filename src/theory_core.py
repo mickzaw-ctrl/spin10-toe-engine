@@ -570,6 +570,7 @@ def complete_theory(
     proton = proton_lifetime_estimate(analysis["M_GUT_GeV"], analysis["alpha_GUT"])
     seesaw = type_i_seesaw(m_dirac_gev, m_majorana_gev)
     from jacobson_clausius import gate3_jacobson_action
+    from toe_conditions import evaluate_toe_conditions
 
     if not run_gates:
         gate1 = {"decision": "SKIPPED", "status": INCOMPLETE, "points": []}
@@ -689,6 +690,7 @@ def complete_theory(
         "title": "Relational Spin(10) programme — complete specification",
         "version": "16.1",
         "scientific_status": "internally closed research programme; not a validated TOE",
+        "is_toe": False,
         "validated_observational_predictions": 0,
         "axioms": AXIOMS,
         "group": group,
@@ -708,6 +710,7 @@ def complete_theory(
         "gate3_jacobson_action": gate3,
         "registry": registry,
         "open_problems": open_problems,
+        "toe_conditions": evaluate_toe_conditions(),
         "what_is_closed": [
             "Spin(10) representation theory and SM embedding",
             "Epistemic ledger and fail-closed domains",

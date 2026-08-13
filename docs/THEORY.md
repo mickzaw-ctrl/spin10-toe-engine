@@ -33,6 +33,10 @@ It is **observationally complete** only after an official likelihood accepts
 or rejects a frozen signal. That has not happened. The programme is therefore
 internally closed and empirically open.
 
+A **Theory of Everything** requires the necessary conditions T1–T12 in
+[`TOE_NECESSARY_CONDITIONS.md`](TOE_NECESSARY_CONDITIONS.md). They are not
+met. Internal closure is not a TOE.
+
 ---
 
 ## 1. Axioms

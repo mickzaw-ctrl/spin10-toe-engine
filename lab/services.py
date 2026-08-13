@@ -106,6 +106,7 @@ def lab_status() -> dict[str, Any]:
         "version": "16.1.0",
         "scientific_status": "internally closed research programme; physical theory empirically open",
         "validated_predictions": 0,
+        "is_toe": False,
         "what_this_is": (
             "A fail-closed workbench plus the v16.1 theoretical specification: "
             "Spin(10) group theory, standard GUT estimates, independent "

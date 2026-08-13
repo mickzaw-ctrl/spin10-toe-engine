@@ -63,6 +63,8 @@ class TheoryCoreTests(unittest.TestCase):
         report = complete_theory(run_gates=True, fast=True)
         self.assertEqual(report["version"], "16.1")
         self.assertEqual(report["validated_observational_predictions"], 0)
+        self.assertFalse(report["toe_conditions"]["is_toe"])
+        self.assertFalse(report["toe_conditions"]["necessary_all_met"])
         statuses = {row["id"]: row["status"] for row in report["registry"]}
         self.assertEqual(statuses["P7"], CALIBRATION)
         self.assertEqual(statuses["P8"], REJECTED)
