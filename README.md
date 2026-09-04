@@ -122,6 +122,12 @@ New dual-protocol cloud service wrapping the MERA surrogate:
 
 ---
 
+## Enterprise v10 API compatibility
+
+The current v10 contract, Qiskit QASM2 migration, backend reporting, placeholder status, and regression commands are documented in [`docs/V10_API_COMPATIBILITY_AUDIT.md`](docs/V10_API_COMPATIBILITY_AUDIT.md). Run `PYTHONPATH=src python3 -m unittest -v tests.test_v10_api_contract`.
+
+---
+
 ## ⚡ Quantum Core — Production Inference API
 
 **Module path:** `src/quantum_core/` · **Added:** 2026-06-17
@@ -319,7 +325,7 @@ The `CosmicEvolutionEngine` class adds a complete Big Bang simulation:
 | **v14.5** ★ | **ULTIMA COSMOS UNIFIED** | Windows pip package, unified monolithic wheel, FRW cosmology (Big Bang+CMB+P(k)), Streamlit dashboard, Inno Setup .exe |
 | v13.0-PRO | Physics Apex | SpinFoamLQGBridge (EPRL, γ=0.274), SM constants top-down, Quantum Core (JAX+gRPC+Ray), Ray HPC, SaaS+Stripe, 16-qubit QASM, EIC €15M |
 | v12.0-ULTIMA | Ultimate Frontiers | MERA AdS/CFT (Ryu-Takayanagi), AI equation discovery, Black Hole Page Curve, Yukawa A₄, E₈, Surface Code QEC |
-| v10.0-PRO | Enterprise | GPU/CUDA 10⁷ edges/s, Quantum Bridge QAOA/VQE, SciML Digital Twins, FastAPI REST |
+| v10.0-PRO | Enterprise | Audited NumPy/CuPy relaxation, QASM2-compatible Quantum Bridge, declared SciML placeholders, FastAPI REST |
 | v9.0 / v9.7 | Enhanced | 2-loop RGE, Mukhanov-Sasaki, Lazy Random Walk d_S, Bayesian MCMC (emcee) |
 | v8.0 | Core | 8 physics modules, 38 predictions, 35/35 tests, heptalogy complete |
 

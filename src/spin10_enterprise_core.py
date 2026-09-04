@@ -33,12 +33,16 @@ class Spin10EnterpriseHPCEngine:
     Umozliwia relaksacje nieabelowych matrix SO(10) dla 10^7 edges na sekunde.
     """
     def __init__(self, N: int = 1000000, use_gpu: bool = True):
+        if isinstance(N, bool) or not isinstance(N, int) or N <= 0:
+            raise ValueError("N must be a positive integer")
         self.N = N
-        self.use_gpu = use_gpu and GPU_CUDA_AVAILABLE
+        self.use_gpu = bool(use_gpu) and GPU_CUDA_AVAILABLE
         self.lib = cp if self.use_gpu else np
         
     def batch_link_variable_relaxation_gpu(self, n_sweeps: int = 10) -> Dict[str, Any]:
-        """Ultraszybka rotacja 10x10 Link Variables na tysiacach rdzeni CUDA."""
+        """Run batched 10x10 link-variable relaxation on CUDA or the CPU fallback."""
+        if isinstance(n_sweeps, bool) or not isinstance(n_sweeps, int) or n_sweeps <= 0:
+            raise ValueError("n_sweeps must be a positive integer")
         start_t = time.time()
         # Version wektoryzowana / tensorowa operujaca w pamieci graphicznej GPU
         # Przyklad alokacji pamieci o wysokiej przepustowosci (HBM)
@@ -54,11 +58,15 @@ class Spin10EnterpriseHPCEngine:
             
         gpu_time = time.time() - start_t
         return {
-            'hardware_backend': 'NVIDIA CUDA GPU Multi-cluster' if self.use_gpu else 'NVIDIA CUDA GPU Multi-cluster',
+            'hardware_backend': 'CuPy CUDA' if self.use_gpu else 'NumPy CPU fallback',
+            'gpu_acceleration_enabled': self.use_gpu,
             'nodes_simulated': self.N,
             'tensor_sweeps': n_sweeps,
-            'execution_time_seconds': float(round(gpu_time, 4)) if gpu_time > 0.01 else 0.0412,
-            'status': 'ENTERPRISE JOB COMPLETED WITH 99.99% SLA'
+            'execution_time_seconds': float(round(gpu_time, 6)),
+            # Kept as an explicit nullable field for callers of the old demo API.
+            'hpc_speedup_factor': None,
+            'benchmark_status': 'not_measured_against_a_frozen_baseline',
+            'status': 'completed'
         }
 
 
@@ -70,33 +78,53 @@ class QuantumHardwareBridge:
     """
     @staticmethod
     def compile_toe_graph_to_qiskit_circuit(nodes: int = 12, layers: int = 2) -> Dict[str, Any]:
-        """Kompiluje quantum graph ToE na kubity w frameworku Qiskit."""
+        """Compile a graph ansatz to QASM using the installed Qiskit API."""
+        if isinstance(nodes, bool) or not isinstance(nodes, int) or nodes <= 0:
+            raise ValueError("nodes must be a positive integer")
+        if isinstance(layers, bool) or not isinstance(layers, int) or layers <= 0:
+            raise ValueError("layers must be a positive integer")
+
         try:
             from qiskit import QuantumCircuit
+
             qc = QuantumCircuit(nodes, nodes)
-            # Initialization stanu superpozycji (Hadamard gates)
             qc.h(range(nodes))
-            
-            # Wariacyjny obwod QAOA implementujacy ulamek przyczynowy i dzialanie YM
-            for layer in range(layers):
-                for q in range(nodes-1):
-                    qc.rzz(np.random.uniform(0.1, 0.5), q, q+1)
+            for _ in range(layers):
+                for q in range(nodes - 1):
+                    qc.rzz(np.random.uniform(0.1, 0.5), q, q + 1)
                 for q in range(nodes):
                     qc.rx(np.random.uniform(0.1, 0.3), q)
-                    
             qc.measure(range(nodes), range(nodes))
-            circuit_qasm = qc.qasm()
+
+            try:
+                from qiskit.qasm2 import dumps as qasm2_dumps
+
+                circuit_qasm = qasm2_dumps(qc)
+                compiler_backend = 'qiskit.qasm2.dumps'
+            except ImportError:
+                if not hasattr(qc, 'qasm'):
+                    raise RuntimeError('The installed Qiskit version has no QASM 2 exporter')
+                circuit_qasm = qc.qasm()
+                compiler_backend = 'legacy_QuantumCircuit.qasm'
+            hardware_ready = True
         except ImportError:
-            # Autonomiczny szkielet zastepczy QASM (Quantum Assembly)
-            circuit_qasm = "OPENQASM 2.0;\ninclude \"qelib1.inc\";\nqreg q[12];\ncreg c[12];\nh q[0];\n// ... Petla rotacji SO(10) QAOA\nmeasure q -> c;"
-            
+            circuit_qasm = (
+                f'OPENQASM 2.0;\ninclude "qelib1.inc";\nqreg q[{nodes}];\n'
+                f'creg c[{nodes}];\nh q[0];\nmeasure q -> c;'
+            )
+            compiler_backend = 'fallback_qasm_skeleton'
+            hardware_ready = False
+
         return {
-            'target_platform': 'IBM Quantum Hardware / IonQ',
+            'target_platform': 'IBM Quantum QASM-compatible backends',
             'qubits_allocated': nodes,
             'gate_depth': nodes * layers * 2,
-            'qasm_circuit_code_snippet': circuit_qasm[:120] + "...",
-            'hardware_ready': True
+            'qasm_circuit_code_snippet': circuit_qasm[:120] + '...',
+            'compiler_backend': compiler_backend,
+            'hardware_ready': hardware_ready,
+            'scientific_status': 'circuit_compilation_smoke_test_not_hardware_validation',
         }
+
 
 
 class SciMLDigitalTwinSurrogate:
@@ -115,7 +143,8 @@ class SciMLDigitalTwinSurrogate:
             'real_time_inference_latency_ms': 1.4,
             'plasma_turbulence_suppression_quality': '99.4%',
             'materials_tensile_strength_enhancement': '14.2%',
-            'sciml_model': 'Physics-Informed Graph Neural Network (PINN-GNN)'
+            'sciml_model': 'Physics-Informed Graph Neural Network (PINN-GNN)',
+            'scientific_status': 'placeholder_outputs_not_a_trained_or_validated_model'
         }
 
 
