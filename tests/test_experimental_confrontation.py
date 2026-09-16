@@ -13,6 +13,7 @@ import math
 import os
 import sys
 
+import numpy as np
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
@@ -47,13 +48,52 @@ def test_numeric_n_s_agrees_with_planck_within_2sigma(report):
     assert abs(n_s - NS_OBS) / NS_SIGMA < 2.0
 
 
-def test_amplitude_A_s_is_in_tension_with_planck(report):
-    """The same solver run that gets n_s right at ~0.5 sigma gets A_s ~8 sigma low."""
-    A_s = report['predictions_v7']['mukhanov_sasaki_spectrum']['A_s']
-    n_sigma = abs(A_s - AS_OBS) / AS_SIGMA
-    assert n_sigma > 3.0, (
-        'A_s tension has disappeared; re-check the Mukhanov-Sasaki normalisation '
-        'and update docs/EXPERIMENTAL-CONFRONTATION-2026.md')
+def test_amplitude_is_an_input_and_the_solver_reproduces_it(report):
+    """A_s fixes the Hubble scale (P_R scales exactly as H^2); it is not predicted.
+
+    Regression test: the background generator used to hard-set H = 1e-5, which is
+    6.3% below the value implied by the measured A_s and produced a spurious
+    -7.9 sigma "tension" with Planck.
+    """
+    ms = report['predictions_v7']['mukhanov_sasaki_spectrum']
+    assert ms['A_s_is_an_input_not_a_prediction'] is True
+    assert abs(ms['A_s'] - AS_OBS) / AS_SIGMA < 2.0
+    scale = ms['inflationary_energy_scale']
+    assert scale['H_over_M_Pl'] == pytest.approx(1.0661e-05, rel=1e-3)
+    assert scale['A_s_input'] == pytest.approx(AS_OBS, rel=1e-9)
+
+
+def test_mukhanov_sasaki_solver_matches_the_exact_hankel_solution():
+    """Guards the numerics: for constant nu the BD solution is known in closed
+    form.  The solver must reproduce it, otherwise any amplitude it reports is
+    meaningless."""
+    from scipy.special import gamma as _gamma
+    from mukhanov_sasaki_solver import MukhanovSasakiSolver as MS
+
+    alpha, n_efolds, H = 3.75, 60, 1.0e-5
+    eps = 3.0 * alpha / (4.0 * n_efolds ** 2)
+    nu = 1.5 + eps - 0.5 * (-2.0 / n_efolds)
+    analytic = MS.analytic_amplitude(H, eps, nu, k_pivot=0.05)
+
+    eta, a, z = MS.generate_inflationary_background(alpha, n_efolds, n_points=4000)
+    k = np.geomspace(0.005, 0.5, 15)
+    numeric = MS.analyze_power_spectrum(k, MS.solve_mukhanov_sasaki(k, eta, a, z))['A_s']
+    assert numeric / analytic == pytest.approx(1.0, abs=0.02)
+    assert _gamma(nu) > 0
+
+
+def test_inflation_scale_from_A_s_matches_the_rge_unification_scale(report):
+    """Two independent computations: the energy scale implied by the measured
+    amplitude, and the gauge-coupling unification scale from the 2-loop RGE."""
+    ms = report['predictions_v7']['mukhanov_sasaki_spectrum']
+    scale = ms['inflationary_energy_scale']
+    m_gut = report['predictions_v7']['two_loop_rge']['M_GUT']
+    ratio = scale['V_quarter_GeV'] / m_gut
+    assert 0.95 < ratio < 1.05, 'V^(1/4)/M_GUT = {:.4f}'.format(ratio)
+    # the same slow-roll parameters must reproduce the engine's r and n_s
+    assert scale['r_consistency_16_epsilon'] == pytest.approx(
+        report['predictions']['inflation']['r'], rel=1e-9)
+    assert abs(scale['n_s_consistency_4_minus_2nu'] - 0.9649) / 0.0042 < 2.0
 
 
 def test_f_NL_from_code_is_the_small_value_not_14_5():

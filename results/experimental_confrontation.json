@@ -2,21 +2,21 @@
  "engine": "SHZSpin10QuantumEngine v9.0 (Heptalog)",
  "nodes": 200,
  "steps": 400,
- "elapsed_s": 7.65,
- "chi2": 67.19895809246093,
+ "elapsed_s": 6.85,
+ "chi2": 5.025165710828197,
  "n_measured_rows": 7,
  "counts": {
-  "AGREE": 10,
-  "EXCLUDED": 2,
-  "NO-DATA": 5
+  "AGREE": 12,
+  "NO-DATA": 5,
+  "EXCLUDED": 1
  },
  "rows": [
   {
    "observable": "n_s (numeric Mukhanov-Sasaki solver)",
-   "engine_value": 0.9628822141715746,
+   "engine_value": 0.9635289717586615,
    "experimental": "0.9649 +- 0.0042",
-   "deviation": "-0.48 sigma",
-   "n_sigma": 0.4804251972441376,
+   "deviation": "-0.33 sigma",
+   "n_sigma": 0.326435295556786,
    "data_verdict": "AGREE",
    "derivation": "computed",
    "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
@@ -35,10 +35,10 @@
   },
   {
    "observable": "n_s (numeric) vs ACT DR6",
-   "engine_value": 0.9628822141715746,
+   "engine_value": 0.9635289717586615,
    "experimental": "0.966 +- 0.0046",
-   "deviation": "-0.68 sigma",
-   "n_sigma": 0.6777795279185582,
+   "deviation": "-0.54 sigma",
+   "n_sigma": 0.5371800524648893,
    "data_verdict": "AGREE",
    "derivation": "computed",
    "source": "ACT DR6 (2025)",
@@ -46,14 +46,14 @@
   },
   {
    "observable": "A_s (Mukhanov-Sasaki solver)",
-   "engine_value": 1.8673531469956953e-09,
+   "engine_value": 2.112533164745577e-09,
    "experimental": "2.099e-09 +- 2.938e-11",
-   "deviation": "-7.88 sigma",
-   "n_sigma": 7.879966748101898,
-   "data_verdict": "EXCLUDED",
-   "derivation": "computed",
+   "deviation": "+0.46 sigma",
+   "n_sigma": 0.46384762284614345,
+   "data_verdict": "AGREE",
+   "derivation": "measured input",
    "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
-   "note": "same solver run that produces n_s; amplitude is NOT normalised to data"
+   "note": "A_s is the INPUT that fixes H (P_R scales exactly as H^2); this row checks that the solver reproduces it, not that the model predicts it"
   },
   {
    "observable": "r_0.05 (tensor-to-scalar)",
@@ -120,6 +120,17 @@
    "derivation": "tuned-to-data",
    "source": "ATLAS 13 TeV 139 fb^-1, JHEP 02 (2021) 143 (massless LSP)",
    "note": "posterior mode of a prior-dominated MCMC, not a mass calculation"
+  },
+  {
+   "observable": "V^(1/4) from A_s vs M_GUT from RGE",
+   "engine_value": 1.0457261284174968e+16,
+   "experimental": "M_GUT = 1.0310e+16 GeV (2-loop RGE)",
+   "deviation": "x1.0143",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "no direct measurement of either scale",
+   "note": "H = 1.0661e-05 M_Pl derived from the measured A_s; r = 16 eps = 0.0125 matches the engine r"
   },
   {
    "observable": "m_a (axion) vs QCD relation",

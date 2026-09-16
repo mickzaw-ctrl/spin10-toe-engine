@@ -370,9 +370,17 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
         try:
             from mukhanov_sasaki_solver import MukhanovSasakiSolver
             k_m = np.geomspace(0.005, 0.5, 15)
-            eta_v, a_e, z_e = MukhanovSasakiSolver.generate_inflationary_background()
+            # A_s is an INPUT (Planck 2018 VI: ln(10^10 A_s) = 3.044 +- 0.014);
+            # it fixes the Hubble scale, it is not predicted here.  n_s, r and the
+            # inflationary energy scale are the outputs.
+            A_s_measured = float(np.exp(3.044) * 1e-10)
+            eta_v, a_e, z_e = MukhanovSasakiSolver.generate_inflationary_background(
+                n_points=4000, A_s_target=A_s_measured)
             p_spec = MukhanovSasakiSolver.solve_mukhanov_sasaki(k_m, eta_v, a_e, z_e)
             ms_res = MukhanovSasakiSolver.analyze_power_spectrum(k_m, p_spec)
+            ms_res['inflationary_energy_scale'] = (
+                MukhanovSasakiSolver.inflationary_energy_scale(A_s_target=A_s_measured))
+            ms_res['A_s_is_an_input_not_a_prediction'] = True
         except Exception as e:
             warnings.warn(f"MukhanovSasakiSolver failed: {e}")
             # Placeholder values, clearly flagged.  The earlier fallback returned

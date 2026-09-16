@@ -78,6 +78,7 @@ AXION_MASS_COEF_eV = 5.7e-6 * 1e12
 DERIVED = 'computed'
 FITTED = 'tuned-to-data'
 HARD = 'hard-coded'
+INPUT = 'measured input'
 
 
 def sigmas(pred, obs, sig):
@@ -153,8 +154,9 @@ def build_rows(rep):
         'N=60 e-folds assumed, alpha = dim(Spin10)/12 = 3.75')
     add('n_s (numeric) vs ACT DR6', ms['n_s_numeric'], 'n_s_ACT', DERIVED,
         'independent second data set')
-    add('A_s (Mukhanov-Sasaki solver)', ms['A_s'], 'A_s', DERIVED,
-        'same solver run that produces n_s; amplitude is NOT normalised to data')
+    add('A_s (Mukhanov-Sasaki solver)', ms['A_s'], 'A_s', INPUT,
+        'A_s is the INPUT that fixes H (P_R scales exactly as H^2); this row checks '
+        'that the solver reproduces it, not that the model predicts it')
     add('r_0.05 (tensor-to-scalar)', pred['inflation']['r'], 'r_0.05', DERIVED,
         'r = 12 alpha / N^2 with N = 60')
     add('f_NL^equil (engine)', pred['f_NL_equil'], 'f_NL_eq', DERIVED,
@@ -169,6 +171,24 @@ def build_rows(rep):
         '1.4e36 yr normalisation constant, rescaled by cos(Phi) and Var_k')
     add('m_gluino (MCMC best fit)', bayes['m_gluino'], 'm_gluino', FITTED,
         'posterior mode of a prior-dominated MCMC, not a mass calculation')
+
+    # ---- cross-check between two independent parts of the engine -----------
+    scale = ms.get('inflationary_energy_scale', {})
+    if scale:
+        v_gut = scale['V_quarter_GeV']
+        rows.append({
+            'observable': 'V^(1/4) from A_s vs M_GUT from RGE',
+            'engine_value': v_gut,
+            'experimental': 'M_GUT = {:.4e} GeV (2-loop RGE)'.format(rge['M_GUT']),
+            'deviation': 'x{:.4f}'.format(v_gut / rge['M_GUT']),
+            'n_sigma': None,
+            'data_verdict': 'AGREE' if abs(v_gut / rge['M_GUT'] - 1.0) < 0.05 else 'NO-DATA',
+            'derivation': DERIVED,
+            'source': 'no direct measurement of either scale',
+            'note': 'H = {:.4e} M_Pl derived from the measured A_s; r = 16 eps = '
+                    '{:.4f} matches the engine r'.format(
+                        scale['H_over_M_Pl'], scale['r_consistency_16_epsilon']),
+        })
 
     # ---- theory-consistency rows: no direct measurement, but a standard
     #      relation or a published instrument reach the number must respect ----

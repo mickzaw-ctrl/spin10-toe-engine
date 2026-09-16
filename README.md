@@ -506,9 +506,10 @@ python3 tests/tests_synthetic_spin10_toe.py
 | Observable | Spin(10) Prediction | Experiment | Year | Status |
 |------------|---------------------|------------|------|--------|
 | BR(μ→eγ) | **8×10⁻¹⁴** | MEG-II | **2026** | ⚡ **CRITICAL TEST** |
-| n_s (CMB) | 0.9629 – 0.9667 | Planck PR4 | validated | ✅ 0.48σ |
+| n_s (CMB) | 0.9635 – 0.9667 | Planck PR4 | validated | ✅ 0.33σ |
 | r (tensor) | 0.0125 | BICEP/Keck | validated | ✅ 2.9× margin |
-| **A_s (amplitude)** | **1.867×10⁻⁹** | Planck PR4 | measured | ❌ **−7.88σ** |
+| A_s (amplitude) | 2.113×10⁻⁹ | Planck PR4 | measured | ✅ +0.46σ — A_s is the input that fixes H |
+| **V^(1/4) from A_s** | **1.046×10¹⁶ GeV** | vs M_GUT 1.031×10¹⁶ (RGE) | derived | ✅ **×1.014** |
 | η_B | 6.11×10⁻¹⁰ | Planck BBN | validated | ⚠️ 1.98σ, fitted factor |
 | M_GUT | 1.03×10¹⁶ GeV | 2-loop RGE | validated | ✅ strict |
 | sin²θ_W | 0.3779 | RGE target 3/8 | validated | ✅ 0.8% |
@@ -528,14 +529,17 @@ python3 tests/tests_synthetic_spin10_toe.py
 > [`docs/EXPERIMENTAL-CONFRONTATION-2026.md`](docs/EXPERIMENTAL-CONFRONTATION-2026.md) and
 > `python scripts/run_experimental_confrontation.py`, which computes each verdict at run
 > time. Over the seven observables that have a real measurement the run gives
-> χ²/dof = 67.20/7 = 9.60, 92% of it from the scalar amplitude A_s at −7.88σ; the
-> cosmological constant is 124 orders of magnitude above observation. Several "validated"
-> entries (η_B, Ω_a h², m_gluino) match only through constants fitted to those same data.
+> χ²/dof = 5.03/7 = 0.72; the only observable the data excludes is the cosmological
+> constant, 124 orders of magnitude above observation. Several "validated" entries
+> (η_B, Ω_a h², m_gluino) match only through constants fitted to those same data.
 >
-> That pass also fixed: the axion mass (was 100× the standard m_a·f_a relation), the
-> Hyper-K reach test (its threshold was inflated ×100), the missing A_s/Planck comparison
-> in the Mukhanov-Sasaki solver, a solver fallback that silently returned the measured
-> A_s, two scripts that did not parse on Python 3.11, and 33 pytest collection errors.
+> That pass also fixed: a hand-set Hubble scale in the Mukhanov-Sasaki background that
+> manufactured a fake −7.9σ A_s tension (H is now derived from the measured A_s, which
+> also gives V^(1/4) within 1.4% of the RGE unification scale), the axion mass (was 100×
+> the standard m_a·f_a relation), the Hyper-K reach test (threshold inflated ×100), the
+> missing A_s/Planck comparison in the solver, a solver fallback that silently returned
+> the measured A_s, two scripts that did not parse on Python 3.11, and 33 pytest
+> collection errors.
 > `f_NL^equil` as implemented is 0.4608, not the 14.5 still quoted in the older
 > publication documents; the claimed 14.5σ CMB-S4 detection is not produced by any code
 > here.

@@ -1,3 +1,9 @@
+# Copy to .github/workflows/engine-confrontation-ci.yml to activate.
+# It lives here because pushing to .github/workflows requires the `workflows`
+# permission; see docs/ci/ift-egr-ci.yml.example for the same convention.
+#
+# Every step below was executed locally on this tree before being committed.
+
 name: Engine and experimental confrontation
 
 'on':
@@ -9,7 +15,7 @@ name: Engine and experimental confrontation
       - "scripts/konfrontacja_dane_2026.py"
       - "scripts/konfrontacja_ultima_2026.py"
       - "requirements.txt"
-      - ".github/workflows/engine-confrontation-ci.yml"
+      - "docs/ci/engine-confrontation-ci.yml.example"
   pull_request:
     paths:
       - "src/**"
@@ -18,7 +24,7 @@ name: Engine and experimental confrontation
       - "scripts/konfrontacja_dane_2026.py"
       - "scripts/konfrontacja_ultima_2026.py"
       - "requirements.txt"
-      - ".github/workflows/engine-confrontation-ci.yml"
+      - "docs/ci/engine-confrontation-ci.yml.example"
   workflow_dispatch:
 
 permissions:
@@ -80,7 +86,7 @@ jobs:
           python - <<'PY'
           import json
           rows = json.load(open('results/experimental_confrontation_ci.json'))['rows']
-          allowed = {'A_s (Mukhanov-Sasaki solver)', 'rho_Lambda (engine, Planck units -> J/m^3)'}
+          allowed = {'rho_Lambda (engine, Planck units -> J/m^3)'}
           excluded = {r['observable'] for r in rows if r['data_verdict'] == 'EXCLUDED'}
           new = excluded - allowed
           gone = allowed - excluded
