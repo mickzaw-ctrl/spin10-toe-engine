@@ -508,19 +508,31 @@ python3 tests/tests_synthetic_spin10_toe.py
 | BR(μ→eγ) | **8×10⁻¹⁴** | MEG-II | **2026** | ⚡ **CRITICAL TEST** |
 | n_s (CMB) | 0.9629 – 0.9667 | Planck PR4 | validated | ✅ 0.48σ |
 | r (tensor) | 0.0125 | BICEP/Keck | validated | ✅ 2.9× margin |
-| η_B | 6.11×10⁻¹⁰ | Planck BBN | validated | ✅ 0.03σ |
+| **A_s (amplitude)** | **1.867×10⁻⁹** | Planck PR4 | measured | ❌ **−7.88σ** |
+| η_B | 6.11×10⁻¹⁰ | Planck BBN | validated | ⚠️ 1.98σ, fitted factor |
 | M_GUT | 1.03×10¹⁶ GeV | 2-loop RGE | validated | ✅ strict |
 | sin²θ_W | 0.3779 | RGE target 3/8 | validated | ✅ 0.8% |
 | **γ (Immirzi)** ★v13 | **0.2739** | LQG entropy | v13 | ✅ derived |
 | **α_em** ★v13 | **1/137.036** | SM top-down | v13 | ✅ derived |
 | m_gluino | 10.6 TeV | HE-LHC | 2027+ | ⏳ |
-| m_axion | 28.5 neV | CASPEr | 2028 | ⏳ |
+| m_axion | 28.5 neV | CASPEr | 2028 | ⚠️ 100× the standard m_a·f_a relation |
 | BR(μ→eee) | ~10⁻¹⁶ | Mu3e Phase-II | 2030 | ⏳ |
 | Ω_GW (1 mHz) | 10⁻⁷ | LISA | 2034+ | ⏳ |
-| τ_p (e⁺π⁰) | ~10³⁵⁻³⁶ yr | Hyper-K | 2035+ | ✅ margin |
-| d_S (UV→IR) | 2.0 → 4.0 | LQG/CDT | — | ✅ |
+| τ_p (e⁺π⁰) | 4.88×10³⁶ yr | Hyper-K | 2035+ | ⚠️ survives SK, 49× beyond HK 2030 reach |
+| d_S (UV→IR) | 3.40 → 3.08 (measured) | LQG/CDT | — | ⚠️ not the documented 2.0 → 4.0 |
 
 > **MEG-II 2026:** Spin(10) predicts BR(μ→eγ) = 8×10⁻¹⁴, within MEG-II 2026 final limit target 6×10⁻¹⁴ (arXiv:2504.15711). Primary falsification test of the framework.
+
+> ⚠️ **Status of the table above.** Every row marked ⚠️ or ❌ was produced by actually
+> running the engine against published data — see
+> [`docs/EXPERIMENTAL-CONFRONTATION-2026.md`](docs/EXPERIMENTAL-CONFRONTATION-2026.md) and
+> `PYTHONPATH=src python scripts/run_experimental_confrontation.py`. The run finds
+> χ²/dof = 9.60 over the seven observables that have a real measurement, driven by the
+> scalar amplitude A_s at −7.88σ, and shows that several "validated" entries
+> (η_B, Ω_a h², m_gluino) match only through constants fitted to those same data.
+> `f_NL^equil` as implemented is 0.4608, not the 14.5 quoted in the publication
+> documents; the claimed 14.5σ CMB-S4 detection is not produced by any code in
+> this repository.
 
 ---
 

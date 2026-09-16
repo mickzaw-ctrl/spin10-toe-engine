@@ -88,8 +88,11 @@ def run_konfrontacje():
     print("   " + "-"*80)
     
     # M_GUT i Kat Weinberga
-    print(f"   {'Scale Unifikacji M_GUT':<26} | {f'{rge_res['M_GUT']:.2e} GeV':<20} | {'10^16 GeV (Standard)':<20} | {'UNIFIKACJA ✓✓✓':<18}")
-    print(f"   {'Kat Weinberga sin^2(theta)':<26} | {rge_res['sin2_theta_W_GUT']:<20.4f} | {'0.3750 (Teoria 3/8)':<20} | {f'ZGODNE ({abs(rge_res['sin2_theta_W_GUT']-0.375)/0.375:.1%})':<18}")
+    M_GUT_val = rge_res['M_GUT']
+    sin2w_val = rge_res['sin2_theta_W_GUT']
+    sin2w_dev = abs(sin2w_val - 0.375) / 0.375
+    print(f"   {'Scale Unifikacji M_GUT':<26} | {M_GUT_val:.2e} GeV{'':<12} | {'10^16 GeV (Standard)':<20} | {'UNIFIKACJA ✓✓✓':<18}")
+    print(f"   {'Kat Weinberga sin^2(theta)':<26} | {sin2w_val:<20.4f} | {'0.3750 (Teoria 3/8)':<20} | {f'ZGODNE ({sin2w_dev:.1%})':<18}")
     
     # Rozpad protonu
     tau_p_bayes = bayes_res['tau_p']
