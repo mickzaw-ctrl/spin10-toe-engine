@@ -40,6 +40,7 @@ from quantum_gravity_core import (
 
 
 class TestResults:
+    __test__ = False  # results accumulator, not a pytest test class
     """Prosty system zbierania wyników testów."""
     def __init__(self):
         self.passed = 0

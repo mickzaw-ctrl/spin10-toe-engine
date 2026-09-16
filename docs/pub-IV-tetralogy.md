@@ -156,10 +156,16 @@ $f_{NL}$ ma trzy ortogonalne kształty:
 Z 45 pól gauge Spin(10) + ich fluktuacji:
 
 $$
-f_{NL}^{\text{gauge}} = N_{\text{gauge}}\cdot\phi_{\text{rms}}^{2}\cdot 0.1 = 45\cdot 0.32\cdot 0.1 = 14.5189
+f_{NL}^{\text{gauge}} = N_{\text{gauge}}\cdot\phi_{\text{rms}}^{2}\cdot 0.1 = 45\cdot 0.32^{2}\cdot 0.1 = 0.4608
 $$
 
-**To jest dominujący wkład!** 45 pól gauge generuje silną non-Gaussianity.
+Wcześniejsza wersja tego równania zapisywała $45\cdot 0.32\cdot 0.1 = 14.5189$. To było
+błędne dwukrotnie: $45\cdot 0.32\cdot 0.1 = 1.44$, a zaimplementowany wzór zawiera
+$\phi_{\text{rms}}^{2}$, więc poprawna wartość to $0.4608$. Kod
+(`src/spin10_engine.py`, `Spin10Predictions.f_NL_equilateral`) zawsze zwracał $0.4608$;
+przy czułości $\sigma(f_{NL}^{eq})\sim 1$ planowanego CMB-S4 daje to SNR $\approx 0.46$,
+czyli **brak detekcji**, a nie „14.5σ". Wartość 14.518 nie jest
+wytwarzana przez żaden kod w tym repozytorium.
 
 ### 3.3. Wyniki
 
@@ -167,8 +173,8 @@ $$
 |---|---|---|---|
 | $f_{NL}^{\text{local}}$ | 0.0139 | $[-0.9, 14.2]$ | ✓ w oknie |
 | $f_{NL}^{\text{equil}}$ (SR) | $\sim 0$ | $[-26, 254]$ | ✓ |
-| $f_{NL}^{\text{gauge}}$ (Spin(10)) | **14.5189** | (w $f_{NL}^{\text{eq}}$) | **DOMINUJE** |
-| $f_{NL}^{\text{equil}}$ (total) | **14.518** | $[-26, 254]$ | ✓ |
+| $f_{NL}^{\text{gauge}}$ (Spin(10)) | **0.4608** | (w $f_{NL}^{\text{eq}}$) | poniżej czułości |
+| $f_{NL}^{\text{equil}}$ (total) | **0.4608** | $-26 \pm 47$ | ✓ zgodne, niewykrywalne |
 | $f_{NL}^{\text{orth}}$ | $-1.2\times 10^{-5}$ | $[-38, 24]$ | ✓ |
 
 ### 3.4. Kształt mieszany
@@ -225,7 +231,7 @@ Publ. IV, Rys. 4 pokazuje mapę 2D $B(\ell_1, \ell_2)|_{\ell_3=200}$ — struktu
 
 CMB-S4 (2035) czułość: $\sigma(f_{NL}^{\text{equil}}) \sim 1$.
 
-Model predykcja: $f_{NL}^{\text{equil}} = 14.5$ → **14.5σ detekcja!**
+Model predykcja: $f_{NL}^{\text{equil}} = 0.4608$ → **SNR ≈ 0.46σ, poniżej progu detekcji**
 
 **To jest NAJSILNIEJSZY test Spin(10)** — bardziej nawet niż SGWB w LISA!
 
@@ -264,7 +270,7 @@ Każda modyfikacja modelu (zmiana $N$, $\langle k\rangle$, gauge group) **zmieni
 | Predykcja | Model | Eksperyment | Status |
 |---|---|---|---|
 | $f_{NL}^{\text{local}}$ | 0.0139 | Planck $[-0.9, 14.2]$ | ✓ |
-| $f_{NL}^{\text{equil}}$ | **14.5** | CMB-S4 (σ~1) | **★★★ 14.5σ!** |
+| $f_{NL}^{\text{equil}}$ | **0.4608** | CMB-S4 (σ~1) | SNR ≈ 0.46σ — brak detekcji |
 | Kształt bispektrum | 70% eq + 30% loc | CMB-S4 | TESTABLE |
 | $N_{\text{gen}}$ | **3** (topologicznie) | SM | ✓✓✓ |
 | $\langle\bar\psi\psi\rangle$ | -1.81 | lattice QCD | porównywalne |
@@ -293,7 +299,7 @@ Każda modyfikacja modelu (zmiana $N$, $\langle k\rangle$, gauge group) **zmieni
 
 | Test | Spin(10) | Detektor | Timeline | Krytyczność |
 |---|---|---|---|---|
-| **★★★ $f_{NL}^{\text{eq}}$** | **14.5** | **CMB-S4** | **2035** | **14.5σ!** |
+| $f_{NL}^{\text{eq}}$ | **0.4608** | CMB-S4 | 2035 | SNR ≈ 0.46σ |
 | **★★★ SGWB** | $\Omega\sim 10^{-7}$ | **LISA** | **2035** | **7 dekad** |
 | ★★ $r$ | 0.0125 | LiteBIRD | 2030 | σ~10⁻³ |
 | ★★ $n_s$ | 0.967 | CMB-S4 | 2028 | σ~10⁻³ |
@@ -384,12 +390,12 @@ Każda warstwa dodaje **nowe struktury emergentne** bez naruszania poprzednich.
 5. **CPT** — idealnie zachowana
 6. **Baryogeneza** — dwa komplementarne kanały (torsja + leptogeneza)
 7. **Holografia** — spełniona w 67% (do poprawy $N$)
-8. **f_NL equilateral** — 14.5 (najsilniejsza predykcja)
+8. **f_NL equilateral** — 0.4608 (zgodne z Planck, SNR ≈ 0.46 w CMB-S4 — nie „najsilniejsza predykcja")
 
 ### 10.2. Najważniejsze nowe wyniki z Publ. IV
 
 - **Indeks topologiczny = 3** (Atiyah-Singer) — dowód emergencji generacji
-- **f_NL^equil = 14.5** — 14.5σ w CMB-S4
+- **f_NL^equil = 0.4608** — SNR ≈ 0.46 w CMB-S4, czyli brak detekcji (poprzednio błędnie podawano 14.5 / 14.5σ)
 - **Bispektrum** jako najczulszy test modelu
 - **Leptogeneza** jako alternatywny kanał baryogenezy
 

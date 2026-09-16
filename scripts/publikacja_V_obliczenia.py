@@ -29,9 +29,11 @@ eta_B_res = 1.8996e-46
 
 # Axion Spin(10)
 f_a_GeV = 2e16              # = M_GUT
-m_a_eV = 2.85e-8            # 28 neV
+m_a_eV = 5.7e-6 * (1e12 / f_a_GeV)   # eV; m_a f_a ~ m_pi f_pi (PDG) = 0.285 neV
 g_a_gamma = 4.6456e-20      # GeV^-1
-theta_req = 0.0031
+# theta_i derived from requiring Omega_a h^2 = Omega_c h^2 = 0.12; it is a fit,
+# not a prediction.  A natural theta ~ 1 overcloses the Universe by ~1e4 here.
+theta_req = math.sqrt(0.12 / (0.12 * (f_a_GeV / 1e12) ** (7.0 / 6.0)))
 Omega_a_h2 = 0.12
 
 # Tensor bispectrum
@@ -142,10 +144,11 @@ print("="*65)
 print(f"f_a (scale PQ)          = {f_a_GeV:.2e} GeV")
 print(f"  = M_GUT  (naturalny wybor)")
 
-# Mass axiona z formuly QCD
+# Mass axiona z formuly QCD: m_a = 5.7 ueV * (1e12 GeV / f_a)
 m_a_calc = 5.7e-6 * (1e12 / f_a_GeV)  # w eV
-print(f"\nm_a (computeona)         = {m_a_calc:.2e} eV = {m_a_calc*1e9:.1f} neV")
-print(f"m_a (z Publ. V)         = {m_a_eV:.2e} eV = {m_a_eV*1e9:.1f} neV")
+assert abs(m_a_calc - m_a_eV) < 1e-18, 'm_a_eV must come from the QCD relation'
+print(f"\nm_a (QCD relation)      = {m_a_calc:.2e} eV = {m_a_calc*1e9:.3f} neV")
+print(f"  (wczesniejsza wartosc 'z Publ. V' 2.85e-8 eV byla 100x za duza)")
 
 # Relic density
 omega_a_h2 = 0.12 * (f_a_GeV / 1e12)**(7/6) * theta_req**2
@@ -153,7 +156,8 @@ print(f"\nΩ_a h² (formula misalignment):")
 print(f"  = 0.12 × (f_a/10^12)^(7/6) × θ_0²")
 print(f"  = 0.12 × ({f_a_GeV/1e12:.2e})^(7/6) × {theta_req}²")
 print(f"  = {omega_a_h2:.3f}")
-print(f"  -> ZGODNE z obserwowana Ω_DM h² = 0.12! ✓")
+print(f"  -> zgodne z Ω_DM h² = 0.12 TYLKO dzieki dobranemu θ = {theta_req:.4f};")
+print(f"     przy naturalnym θ = 1 formula daje {0.12*(f_a_GeV/1e12)**(7/6):.0f} (przekrycie ~1e4)")
 
 # Diagram ekskluzyjny
 print(f"\nDiagram ekskluzyjny g_a vs m_a:")

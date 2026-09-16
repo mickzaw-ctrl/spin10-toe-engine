@@ -168,9 +168,16 @@ class MukhanovSasakiSolver:
         
         # Teoretyczna wartosc ToE z analityki: n_s = 1 - 2/N
         n_s_theo = 1.0 - 2.0 / N_efolds
-        
+
         # Stosunek tensorowo-scalerny r w modelu ToE
         r_theo = 12.0 * alpha / (N_efolds**2)
+
+        # Amplituda zmierzona przez Planck: ln(10^10 A_s) = 3.044 +- 0.014
+        # (Planck 2018 VI).  P_R = k^3 |v_k|^2 / (2 pi^2 z^2) przy k_* = 0.05
+        # Mpc^-1 jest dokladnie konwencja Plancka, wiec porownanie jest bezposrednie.
+        A_s_Planck = float(np.exp(3.044) * 1e-10)
+        A_s_Planck_sigma = A_s_Planck * 0.014
+        A_s_sigma_deviation = abs(A_s_actual - A_s_Planck) / A_s_Planck_sigma
 
         return {
             'A_s': A_s_actual,
@@ -178,6 +185,10 @@ class MukhanovSasakiSolver:
             'n_s_numeric': n_s_numeric,
             'n_s_theoretical': n_s_theo,
             'n_s_error_sigma': abs(n_s_numeric - 0.9649) / 0.0042, # w porownaniu z danymi Planck PR4
+            'A_s_Planck': A_s_Planck,
+            'A_s_Planck_sigma': A_s_Planck_sigma,
+            'A_s_error_sigma': A_s_sigma_deviation,
+            'A_s_agrees_with_Planck': bool(A_s_sigma_deviation < 2.0),
             'r_theoretical': r_theo,
             'excellent_agreement': abs(n_s_numeric - n_s_theo) < 0.005
         }

@@ -375,7 +375,17 @@ class SHZSpin10QuantumEngineV9(SHZSpin10QuantumEngine):
             ms_res = MukhanovSasakiSolver.analyze_power_spectrum(k_m, p_spec)
         except Exception as e:
             warnings.warn(f"MukhanovSasakiSolver failed: {e}")
-            ms_res = {'n_s_numeric': 0.9667, 'A_s': 2.1e-9}
+            # Placeholder values, clearly flagged.  The earlier fallback returned
+            # A_s = 2.1e-9 - the Planck measurement - which made a solver failure
+            # indistinguishable from a successful amplitude prediction.
+            ms_res = {
+                'n_s_numeric': float('nan'),
+                'A_s': float('nan'),
+                'A_s_error_sigma': float('nan'),
+                'A_s_agrees_with_Planck': False,
+                'solver_fallback': True,
+                'solver_fallback_reason': str(e),
+            }
 
         # Computations z estymatora Bayesowskiego MCMC
         try:

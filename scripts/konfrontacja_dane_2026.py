@@ -122,8 +122,12 @@ def run_konfrontacje():
     print(f"   {'Wlasciwosc Geometrii / QG':<26} | {'Wartosc / Sygnatura ToE':<24} | {'Method Weryfikacji':<25}")
     print("   " + "-"*80)
     
-    # Dimension spektralny
-    print(f"   {'Przeplyw d_S (UV -> IR)':<26} | {'2.0 (UV)  --->  4.0 (IR)':<24} | {'Potwierdzone Random Walkiem':<25}")
+    # Dimension spektralny - wartosci ZMIERZONE na grafie, nie deklarowane
+    d_uv = report['observables']['d_S_UV']
+    d_ir = report['observables']['d_S_IR']
+    d_flow = '{:.2f} (UV) ---> {:.2f} (IR)'.format(d_uv, d_ir)
+    d_note = 'Random Walk (zmierzone)' if d_ir > d_uv else 'Random Walk: brak redukcji UV<IR'
+    print(f"   {'Przeplyw d_S (UV -> IR)':<26} | {d_flow:<24} | {d_note:<25}")
     
     # 5. sila Torsja
     print(f"   {'Torsja jako 5. Sila':<26} | {'alpha_5 ~ 10^-6 @ μm':<24} | {'Eksperyment IUPUI':<25}")
@@ -138,22 +142,53 @@ def run_konfrontacje():
     # PANEL 4: PODSUMOWANIE STATYSTYCZNE I SCENARIUSZE FALSYFIKACJI
     # =========================================================================
     print("\n" + "="*80)
-    print(" PODSUMOWANIE STATYSTYCZNE MEGA-KONFRONTACJA 2026")
+    print(" PODSUMOWANIE STATYSTYCZNE - LICZONE W RUNTIME, NIE DEKLAROWANE")
     print("="*80)
-    
-    print(f"   Calkowita liczba badata predykcji ToE: 38")
-    print(f"   - Predictions krytyczne (★★★★★):      4  (Wszystkie w pelni spojne z teoria)")
-    print(f"   - Predictions potwierdzone (✓):          6  (Supresja l=2 w CMB, N_gen=3, Ω_a h²=0.12, c-theorem)")
-    print(f"   - Predictions w fazie oczekiwania (⏳): 28  (Dla Hyper-K, LiteBIRD, CMB-S4, LISA, IUPUI, HE-LHC)")
-    
-    print(f"\n   >>> SCENARIUSZ JEDNOZNACZNEGO OBALENIA TEORII (FALSYFIKACJA) <<<")
-    print(f"   Model Spin(10) ToE zostanie BEZPOWROTNIE OBALONY, jesli nastapi JEDNO z ponizszych:")
-    print(f"   1. Hyper-K (po 2035 roku) osiagnie czulosc 10^36 lat i NIE zarejestruje rozpadu protonu.")
-    print(f"   2. LiteBIRD (wokol 2030 roku) wykryje pierwotne mody B, ale zmierzy B_TTB = 0 (brak chiralnej torsji).")
-    print(f"   3. CMB-S4 (po 2035 roku) wykluczy f_NL^equil na poziomie mniejszym niz 5.0.")
-    print(f"   4. Nowe zderzacze (FCC/HE-LHC) wyklucza gluina Split-SUSY do scale 15 TeV.")
-    
-    print(f"\n   >>> STATUS NA DZIS (2026): MODEL JEST W 100% NIEOBALONY I PERFEKCYJNIE ZGODNY Z DANYMI <<<")
+
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from run_experimental_confrontation import build_rows
+
+    rows = build_rows(report)
+    counts = {}
+    for r in rows:
+        counts[r['data_verdict']] = counts.get(r['data_verdict'], 0) + 1
+    chi2 = sum(r['n_sigma'] ** 2 for r in rows if r['n_sigma'] is not None)
+    ndof = sum(1 for r in rows if r['n_sigma'] is not None)
+    derived = [r['observable'] for r in rows
+               if r['data_verdict'] == 'AGREE' and r['derivation'] == 'computed']
+    excluded = [r['observable'] for r in rows if r['data_verdict'] == 'EXCLUDED']
+    fitted = [r['observable'] for r in rows if r['derivation'] == 'tuned-to-data']
+    hard = [r['observable'] for r in rows if r['derivation'] == 'hard-coded']
+
+    print(f"   Obserwabli skonfrontowanych z danymi : {len(rows)}")
+    print(f"   chi^2 / dof                          : {chi2:.2f} / {ndof} = {chi2/ndof:.2f}")
+    print(f"   Werdykty                             : "
+          + ", ".join(f"{k}={counts[k]}" for k in sorted(counts)))
+    print(f"\n   Zgodne z danymi I faktycznie liczone ({len(derived)}):")
+    for name in derived:
+        print(f"     + {name}")
+    print(f"\n   WYKLUCZONE przez dane ({len(excluded)}):")
+    for name in excluded:
+        print(f"     x {name}")
+    print(f"\n   Zgodne tylko dzieki stalym dobranym do tych danych ({len(fitted)}):")
+    for name in fitted:
+        print(f"     ! {name}")
+    print(f"\n   Wartosci wpisane na sztywno, bez pomiaru odniesienia ({len(hard)}):")
+    for name in hard:
+        print(f"     ? {name}")
+
+    print("\n   >>> FALSYFIKACJA - co obaliloby model <<<")
+    print("   Model zostanie obalony, jesli:")
+    print("   1. Hyper-K osiagnie 10^36 lat i nie zarejestruje rozpadu protonu.")
+    print("   2. LiteBIRD wykryje pierwotne mody B, ale zmierzy B_TTB = 0.")
+    print("   3. CMB-S4 wykluczy f_NL^equil na poziomie < 5.0.")
+    print("   4. FCC/HE-LHC wyklucza gluino Split-SUSY do 15 TeV.")
+
+    if excluded:
+        print("\n   >>> STATUS NA DZIS: model NIE JEST w pelni zgodny z danymi. <<<")
+        print("   Szczegoly: docs/EXPERIMENTAL-CONFRONTATION-2026.md")
+    else:
+        print("\n   >>> STATUS NA DZIS: zadna skonfrontowana obserwala nie jest wykluczona. <<<")
     print("="*80)
 
 

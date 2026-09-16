@@ -1,6 +1,23 @@
 """
 TESTY - Porownanie predykcji Spin(10) z aktualnymi granicami eksperymentalnymi
 Kompletny manifest testow dla heksalogii Spin(10)
+
+UWAGA (audyt 2026-09-16)
+-----------------------
+Ten plik NIE uruchamia silnika. Wiekszosc liczb ponizej to stale wpisane recznie,
+a nie wyniki obliczen; kilka z nich bylo blednych. Stan faktyczny, liczony przez
+``scripts/run_experimental_confrontation.py`` z raportu silnika, opisuje
+``docs/EXPERIMENTAL-CONFRONTATION-2026.md``. Poprawiono tu:
+
+  * f_NL^equil - bylo 14.518 (stala), silnik liczy 45 * 0.32^2 * 0.1 = 0.4608,
+    wiec SNR w CMB-S4 to ~0.46, a nie 14.5; wartosc 14.518 nie powstaje w zadnym
+    kodzie tego repozytorium;
+  * sygnal SGWB - amplituda 1e-7 to PEK widma, ktory silnik umieszcza przy
+    1e-7 Hz (``SGWB_LISA_freq``), czyli 4 dekady ponizej pasma LISA
+    (1e-4 - 1e-1 Hz); SNR liczony jako Omega_peak / Omega_sens nie jest SNR.
+
+Pozostale stale (B_TTB, opoznienie GRB ~10 ms, alpha_5, masy neutrin) pozostaja
+niezweryfikowanymi zalozeniami projektu i nie sa predykcjami.
 """
 import math
 import numpy as np
@@ -21,15 +38,22 @@ print("="*72)
 print(" KATEGORIA 1: TESTY KRYTYCZNE (★★★★★)")
 print("="*72)
 
-# 1.1 f_NL equilateral
+# 1.1 f_NL equilateral - wartosc liczona przez silnik, nie wpisana recznie
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'src'))
+from spin10_engine import Spin10Predictions as _P
+
 print("\n[1.1] f_NL^equilateral w CMB-S4 (2035)")
-f_NL_eq = 14.518
+f_NL_eq = _P.f_NL_equilateral()          # 45 * 0.32^2 * 0.1 = 0.4608
 f_NL_eq_CMB_S4_sigma = 1.0
 SNR_f_NL = f_NL_eq / f_NL_eq_CMB_S4_sigma
-print(f"  Spin(10):              f_NL^eq = {f_NL_eq}")
+f_NL_Planck, f_NL_Planck_sigma = -26.0, 47.0   # Planck 2018 IX, 68% CL
+print(f"  Spin(10) (z kodu):     f_NL^eq = {f_NL_eq:.4f}")
 print(f"  CMB-S4 czulosc:        σ(f_NL^eq) ~ {f_NL_eq_CMB_S4_sigma}")
-print(f"  SNR:                   {SNR_f_NL:.1f}σ  >> 5 = DETEKCJAAA")
-print(f"  Planck limit:          [-26, 254]  -> ZGODNE")
+print(f"  SNR:                   {SNR_f_NL:.2f}σ  -> BRAK DETEKCJI (potrzeba > 5σ)")
+print(f"  Planck 2018:           {f_NL_Planck:.0f} ± {f_NL_Planck_sigma:.0f}"
+      f"  -> {(f_NL_eq - f_NL_Planck)/f_NL_Planck_sigma:+.2f}σ, ZGODNE")
+print(f"  (poprzednio wpisywano tu 14.518 - bledna stale, patrz naglowek pliku)")
 
 # 1.2 SGWB
 print("\n[1.2] SGWB w LISA (2035)")
@@ -38,7 +62,8 @@ Omega_GW_LISA_sens = 1e-14
 SNR_SGWB = Omega_GW_pred / Omega_GW_LISA_sens
 print(f"  Spin(10):              Ω_GW(1 mHz) = {Omega_GW_pred:.1e}")
 print(f"  LISA czulosc:          ~ {Omega_GW_LISA_sens:.0e}")
-print(f"  SNR:                   {SNR_SGWB:.0e} (7 DEKAD)")
+print(f"  Omega_peak/Omega_sens: {SNR_SGWB:.0e}  (to NIE jest SNR)")
+print(f"  UWAGA: silnik umieszcza pek widma przy ~1e-7 Hz, czyli poza pasmem LISA (1e-4 - 1e-1 Hz)")
 print(f"  Peak:                  Ω_GW^max = 5.18e-7")
 print(f"  Struktura:             inflation + GUT + Bounce")
 

@@ -7,6 +7,23 @@ Generates synthetic observational data for 9 experiments
 and confronts them with the 38 predictions of the Spin(10) Theory of Everything
 hypothesis.
 
+WHAT THIS SUITE DOES AND DOES NOT SHOW (audyt 2026-09-16)
+---------------------------------------------------------
+The "measurement" for every observable is generated as
+
+    observed = pred['value'] + N(0, sensitivity) + systematics
+
+i.e. noise drawn around the model's OWN prediction (``SyntheticExperiment.measure``).
+The suite therefore exercises the chi^2 / log K / discovery-significance machinery
+and its stability across seeds; a 35/35 pass rate is close to guaranteed by
+construction and carries no information about whether the model agrees with the
+real world.  The confrontation against published measurements lives in
+``scripts/run_experimental_confrontation.py`` and
+``docs/EXPERIMENTAL-CONFRONTATION-2026.md``.
+
+For reference, a current run reports <chi^2> = 0.578 (not the 0.844 quoted in
+older documentation) and a BIC comparison that favours LCDM by 103.7.
+
 Tested experiments:
   1. Planck PR4          — n_s
   2. LiteBIRD            — r

@@ -2,13 +2,13 @@
  "engine": "SHZSpin10QuantumEngine v9.0 (Heptalog)",
  "nodes": 200,
  "steps": 400,
- "elapsed_s": 7.75,
- "chi2": 67.21754682174542,
+ "elapsed_s": 7.65,
+ "chi2": 67.19895809246093,
  "n_measured_rows": 7,
  "counts": {
-  "AGREE": 9,
+  "AGREE": 10,
   "EXCLUDED": 2,
-  "NO-DATA": 4
+  "NO-DATA": 5
  },
  "rows": [
   {
@@ -90,10 +90,10 @@
   },
   {
    "observable": "Omega_a h^2 (axion DM)",
-   "engine_value": 0.12016360858831264,
+   "engine_value": 0.12,
    "experimental": "0.12 +- 0.0012",
-   "deviation": "+0.14 sigma",
-   "n_sigma": 0.13634049026053688,
+   "deviation": "+0.00 sigma",
+   "n_sigma": 0.0,
    "data_verdict": "AGREE",
    "derivation": "tuned-to-data",
    "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
@@ -120,6 +120,28 @@
    "derivation": "tuned-to-data",
    "source": "ATLAS 13 TeV 139 fb^-1, JHEP 02 (2021) 143 (massless LSP)",
    "note": "posterior mode of a prior-dominated MCMC, not a mass calculation"
+  },
+  {
+   "observable": "m_a (axion) vs QCD relation",
+   "engine_value": 2.85e-10,
+   "experimental": "2.850e-10 eV (5.7 ueV * 1e12/f_a)",
+   "deviation": "x1",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "PDG axion review (m_a f_a ~ m_pi f_pi)",
+   "note": "used to be 100x too high (28.5 neV instead of 0.285 neV)"
+  },
+  {
+   "observable": "tau(p) vs Hyper-K 2030 design reach",
+   "engine_value": 4.884825711456431e+36,
+   "experimental": "> 1e35 yr needed to be visible in 2030",
+   "deviation": "x48.8 beyond reach",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "hard-coded",
+   "source": "Hyper-Kamiokande design report",
+   "note": "engine now reports visible_2030 = False"
   },
   {
    "observable": "M_GUT (2-loop RGE from PDG couplings at M_Z)",

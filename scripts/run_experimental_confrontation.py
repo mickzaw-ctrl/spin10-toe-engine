@@ -170,6 +170,34 @@ def build_rows(rep):
     add('m_gluino (MCMC best fit)', bayes['m_gluino'], 'm_gluino', FITTED,
         'posterior mode of a prior-dominated MCMC, not a mass calculation')
 
+    # ---- theory-consistency rows: no direct measurement, but a standard
+    #      relation or a published instrument reach the number must respect ----
+    ax = pred['axion']
+    m_a_std = 5.7e-6 * 1e12 / ax['f_a_GeV']   # PDG: m_a = 5.7 ueV * (1e12 GeV / f_a)
+    rows.append({
+        'observable': 'm_a (axion) vs QCD relation',
+        'engine_value': ax['m_a_eV'],
+        'experimental': '{} eV (5.7 ueV * 1e12/f_a)'.format(fmt(m_a_std)),
+        'deviation': 'x{:.4g}'.format(ax['m_a_eV'] / m_a_std),
+        'n_sigma': None,
+        'data_verdict': 'AGREE' if abs(ax['m_a_eV'] / m_a_std - 1.0) < 0.01 else 'EXCLUDED',
+        'derivation': DERIVED,
+        'source': 'PDG axion review (m_a f_a ~ m_pi f_pi)',
+        'note': 'used to be 100x too high (28.5 neV instead of 0.285 neV)',
+    })
+    hk = rep['tests']['proton_decay_HyperK']
+    rows.append({
+        'observable': 'tau(p) vs Hyper-K 2030 design reach',
+        'engine_value': hk['tau_e_pi0'],
+        'experimental': '> 1e35 yr needed to be visible in 2030',
+        'deviation': 'x{:.1f} beyond reach'.format(hk['beyond_HyperK_2030_reach_by']),
+        'n_sigma': None,
+        'data_verdict': 'AGREE' if hk['visible_2030'] else 'NO-DATA',
+        'derivation': HARD,
+        'source': 'Hyper-Kamiokande design report',
+        'note': 'engine now reports visible_2030 = {}'.format(hk['visible_2030']),
+    })
+
     # ---- quantities with no measurement yet ------------------------------
     rows.append({
         'observable': 'M_GUT (2-loop RGE from PDG couplings at M_Z)',

@@ -1,0 +1,99 @@
+name: Engine and experimental confrontation
+
+'on':
+  push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "scripts/run_experimental_confrontation.py"
+      - "scripts/konfrontacja_dane_2026.py"
+      - "scripts/konfrontacja_ultima_2026.py"
+      - "requirements.txt"
+      - ".github/workflows/engine-confrontation-ci.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "scripts/run_experimental_confrontation.py"
+      - "scripts/konfrontacja_dane_2026.py"
+      - "scripts/konfrontacja_ultima_2026.py"
+      - "requirements.txt"
+      - ".github/workflows/engine-confrontation-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  confront-with-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # numpy/scipy/networkx/emcee are what the engine itself imports; the rest of
+      # requirements.txt (fastapi, stripe, quimb, gplearn) belongs to the service
+      # stack and is not needed to confront the physics with data.
+      - name: Install engine dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy networkx emcee sympy matplotlib pytest
+
+      - name: Byte-compile every Python source
+        # Guards the regression that made two confrontation scripts unrunnable
+        # on the Python 3.8+ the README advertises (PEP 701 nested f-strings).
+        run: |
+          python - <<'PY'
+          import pathlib, py_compile, sys
+          bad = []
+          for p in sorted(pathlib.Path('.').rglob('*.py')):
+              if any(part.startswith('.') for part in p.parts):
+                  continue
+              try:
+                  py_compile.compile(str(p), doraise=True)
+              except Exception as exc:
+                  bad.append(f'{p}: {exc}')
+          if bad:
+              print('\n'.join(bad))
+              sys.exit(1)
+          print('all sources compile')
+          PY
+
+      - name: Run the full test suite
+        run: python -m pytest tests -q
+
+      - name: Run the experimental confrontation
+        run: >-
+          python scripts/run_experimental_confrontation.py
+          --json results/experimental_confrontation_ci.json
+
+      - name: Fail if a previously consistent observable became excluded
+        # Characterisation gate: the set of observables the data excludes must
+        # not grow without someone editing this file on purpose.
+        run: |
+          python - <<'PY'
+          import json
+          rows = json.load(open('results/experimental_confrontation_ci.json'))['rows']
+          allowed = {'A_s (Mukhanov-Sasaki solver)', 'rho_Lambda (engine, Planck units -> J/m^3)'}
+          excluded = {r['observable'] for r in rows if r['data_verdict'] == 'EXCLUDED'}
+          new = excluded - allowed
+          gone = allowed - excluded
+          if new:
+              raise SystemExit(f'newly excluded by data: {sorted(new)}')
+          if gone:
+              print(f'no longer excluded, update the allow-list: {sorted(gone)}')
+          print(f'excluded (known): {sorted(excluded)}')
+          PY
+
+      - name: Upload confrontation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: experimental-confrontation
+          path: results/experimental_confrontation_ci.json
+          if-no-files-found: error
