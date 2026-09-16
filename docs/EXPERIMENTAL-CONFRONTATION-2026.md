@@ -4,7 +4,7 @@ Everything below was produced by running the engine in this repository, not by
 reading its documentation. Reproduce with:
 
 ```bash
-python -m pytest tests -q                                                        # 96 passed
+python -m pytest tests -q                                                        # 99 passed
 python scripts/run_experimental_confrontation.py --json results/experimental_confrontation.json
 ```
 
@@ -55,9 +55,9 @@ m_a·f_a.
 
 ## What genuinely survives
 
-1. **The scalar tilt.** `n_s = 0.96288` comes from an actual integration of the
-   Mukhanov–Sasaki equation (`src/mukhanov_sasaki_solver.py`), 0.48σ from Planck
-   and 0.68σ from ACT DR6.
+1. **The scalar tilt.** `n_s = 0.96353` comes from an actual integration of the
+   Mukhanov–Sasaki equation (`src/mukhanov_sasaki_solver.py`, n_points = 4000),
+   0.33σ from Planck and 0.54σ from ACT DR6.
 2. **Gauge coupling unification.** `src/numerical_rge_solver.py` integrates the
    2-loop RGE upward from measured couplings at M_Z, `g = (0.462, 0.652, 1.221)`
    (consistent with PDG α_s(M_Z) = 0.1179 ± 0.0009 and sin²θ_W(M_Z) = 0.23121).
@@ -159,7 +159,7 @@ dominates it (40.4 for this run, 0.262 assumed in `src/oblicz_lambda.py`). Not s
 ## Test suite state
 
 ```
-96 passed, 4 subtests passed in ~9 s
+99 passed, 4 subtests passed in ~11 s
 ```
 
 was `51 passed, 33 errors, 2 warnings`. The four script-style modules
