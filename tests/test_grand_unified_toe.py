@@ -30,6 +30,7 @@ from grand_unified_toe_core import (
 
 
 class TestResults:
+    __test__ = False  # results accumulator, not a pytest test class
     def __init__(self):
         self.passed = 0
         self.failed = 0

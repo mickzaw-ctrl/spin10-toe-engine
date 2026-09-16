@@ -57,23 +57,33 @@ class YukawaFlavourHierarchy:
     """
     @staticmethod
     def generate_exact_fermion_masses() -> Dict[str, Any]:
-        """Computea fizyczne mass wynikajace z lamania smaku na scale ToE."""
-        # Wartosci w GeV
+        """Measured fermion masses and PMNS angles, passed through unchanged.
+
+        Despite the name, nothing here is derived from the A_4 x Z_2 flavour
+        symmetry: the numbers below are the PDG / oscillation measurements
+        themselves.  Comparing them against PDG therefore returns a perfect match
+        by construction and must not be reported as a confirmation of the model
+        (``scripts/konfrontacja_ultima_2026.py`` used to print "ZGODNE" for each).
+        Deriving them from the symmetry is an open task.
+        """
+        # Wartosci w GeV - ZMIERZONE (PDG), nie wyprowadzone
         m_top = 172.76
         m_bottom = 4.18
         m_tau = 1.776
-        
-        # Unikana matrix PMNS (Neutrino Mixing) z symmetry A_4 (Tribimaximal-like with theta13 corrections)
+
+        # ZMIERZONE katy PMNS (oscylacje neutrin), nie wynik symetrii A_4
         sin2_theta_12 = 0.307
         sin2_theta_23 = 0.546
-        sin2_theta_13 = 0.0220 # Planck / DUNE target
-        
+        sin2_theta_13 = 0.0220
+
         return {
             'flavour_symmetry': 'Non-Abelian Discrete Family Symmetry A_4 x Z_2',
             'quark_masses_GeV': {'top': m_top, 'bottom': m_bottom},
             'lepton_masses_GeV': {'tau': m_tau},
             'pmns_mixing_angles': {'theta_12': sin2_theta_12, 'theta_23': sin2_theta_23, 'theta_13': sin2_theta_13},
-            'neutrino_mass_mechanism': 'Emergent Relational Seesaw Type-I'
+            'neutrino_mass_mechanism': 'Emergent Relational Seesaw Type-I',
+            'derived_from_flavour_symmetry': False,
+            'source': 'measured PDG / neutrino-oscillation values, passed through',
         }
 
 

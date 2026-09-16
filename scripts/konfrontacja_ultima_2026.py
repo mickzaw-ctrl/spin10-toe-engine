@@ -99,8 +99,11 @@ def generuj_report_ultima_confrontation():
     print("   " + "-"*85)
     
     # M_GUT i Kat Weinberga
-    print(f"   {'Scale Unifikacji M_GUT':<28} | {f'{rge_res['M_GUT']:.2e} GeV':<22} | {'~10^16 GeV (Wielka Unif.)':<24} | {'Unification Scisla ✓'}")
-    print(f"   {'Kat Weinberga sin²θ_W Engine':<28} | {rge_res['sin2_theta_W_GUT']:<22.4f} | {'0.3750 (Invariant Lie 3/8)':<24} | {f'Rozbieznosc {abs(rge_res['sin2_theta_W_GUT']-0.375)/0.375:.1%}'}")
+    M_GUT_val = rge_res['M_GUT']
+    sin2w_val = rge_res['sin2_theta_W_GUT']
+    sin2w_dev = abs(sin2w_val - 0.375) / 0.375
+    print(f"   {'Scale Unifikacji M_GUT':<28} | {M_GUT_val:.2e} GeV{'':<14} | {'~10^16 GeV (Wielka Unif.)':<24} | {'Unification Scisla ✓'}")
+    print(f"   {'Kat Weinberga sin²θ_W Engine':<28} | {sin2w_val:<22.4f} | {'0.3750 (Invariant Lie 3/8)':<24} | {f'Rozbieznosc {sin2w_dev:.1%}'}")
     
     # Rozpad protonu
     tau_p = bayes_res['tau_p']
@@ -115,12 +118,15 @@ def generuj_report_ultima_confrontation():
     print(f"   {'Mass Kwarka Top (m_t)':<28} | {f'{m_top:.2f} GeV':<22} | {'172.76 ± 0.30 GeV (PDG 2026)':<24} | {'ZGODNE ✓✓✓ (Sym. A_4)'}")
     
     # Mass kwarka Bottom i Leptonu Tau
-    print(f"   {'Mass Kwarka Bottom (m_b)':<28} | {f'{yukawa['quark_masses_GeV']['bottom']:.2f} GeV':<22} | {'4.18 ± 0.03 GeV (PDG Target)':<24} | {'ZGODNE ✓✓✓'}")
-    print(f"   {'Mass Leptonu Tau (m_tau)':<28} | {f'{yukawa['lepton_masses_GeV']['tau']:.3f} GeV':<22} | {'1.776 ± 0.001 GeV':<24} | {'ZGODNE ✓✓✓'}")
+    m_bottom = yukawa['quark_masses_GeV']['bottom']
+    m_tau = yukawa['lepton_masses_GeV']['tau']
+    print(f"   {'Mass Kwarka Bottom (m_b)':<28} | {m_bottom:.2f} GeV{'':<16} | {'4.18 ± 0.03 GeV (PDG Target)':<24} | {'ZGODNE ✓✓✓'}")
+    print(f"   {'Mass Leptonu Tau (m_tau)':<28} | {m_tau:.3f} GeV{'':<15} | {'1.776 ± 0.001 GeV':<24} | {'ZGODNE ✓✓✓'}")
     
     # Mieszanie PMNS
     pmns = yukawa['pmns_mixing_angles']
-    print(f"   {'Katy PMNS (Mieszanie Neutrin)':<28} | {f'sin²θ₁₃ = {pmns['theta_13']}':<22} | {'0.0220 ± 0.0007 (Exp)':<24} | {'ZGODNE (Symmetry Family)'}")
+    theta13 = pmns['theta_13']
+    print(f"   {'Katy PMNS (Mieszanie Neutrin)':<28} | {f'sin²θ₁₃ = {theta13}':<22} | {'0.0220 ± 0.0007 (Exp)':<24} | {'ZGODNE (Symmetry Family)'}")
 
     # -------------------------------------------------------------------------
     # PANEL 3: GRAWITACJA KWANTOWA I TEORIA STRUN E_8 x E_8

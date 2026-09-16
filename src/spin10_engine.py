@@ -443,7 +443,11 @@ class Spin10Predictions:
             'Lambda_SUSY': Lambda_SUSY,
             'Lambda_Euc': Lambda_Euc,
             'Lambda_Lor': Lambda_Lor,
-            'Lambda_Lor_eq': 0.0,  # w pelnej Lorentz → 0
+            # ASSUMPTION, not a result: the Lorentzian continuation is set to zero
+            # by hand.  The non-zero Lambda_Lor above is in Planck units and is
+            # ~1e124 times the observed vacuum energy density.
+            'Lambda_Lor_eq': 0.0,
+            'Lambda_Lor_eq_is_an_assumption': True,
         }
     
     @staticmethod
@@ -507,21 +511,41 @@ class Spin10Predictions:
     @staticmethod
     def axion_mass(f_a_GeV: float = None) -> Dict[str, float]:
         """
-        Axion Spin(10): m_a z f_a = M_GUT (Publ. V).
-        Formula zgodna z Publ. V: m_a = 5.7e-2 eV × (10^10 GeV / f_a)
-        Dla f_a = M_GUT = 2×10^16 GeV: m_a = 28.5 neV
+        Axion Spin(10): m_a from f_a = M_GUT, using the standard QCD relation
+        m_a * f_a ~ m_pi * f_pi (PDG axion review):
+
+            m_a = 5.7e-6 eV * (1e12 GeV / f_a)
+
+        The earlier implementation used ``5.7e-2 eV * (1e10 GeV / f_a)``, i.e. the
+        same relation inflated by exactly a factor of 100 - it reported 28.5 neV
+        at f_a = 2e16 GeV where the standard relation gives 0.285 neV.
+
+        The relic abundance is reported twice, because at f_a = M_GUT the two
+        differ by four orders of magnitude:
+
+          * ``Omega_h2_natural_theta`` - misalignment angle theta ~ 1, which
+            OVERCLOSES the Universe;
+          * ``Omega_h2`` - the theta that would be required to match the observed
+            cold dark matter density.  ``theta_req`` is derived from that
+            requirement here instead of being hard-coded, so the value is a fit
+            to Omega_c h^2 and must not be quoted as a prediction.
         """
         if f_a_GeV is None:
             f_a_GeV = CONST.M_GUT_GeV
-        m_a_eV = 5.7e-2 * (1e10 / f_a_GeV)  # formula z Publ. V
-        theta_req = 0.0031
-        Omega_h2 = 0.12 * (f_a_GeV / 1e12)**(7/6) * theta_req**2
+        m_a_eV = 5.7e-6 * (1e12 / f_a_GeV)
+        Omega_h2_theta1 = 0.12 * (f_a_GeV / 1e12) ** (7.0 / 6.0)
+        theta_req = float(np.sqrt(CONST.Omega_DM_h2 / Omega_h2_theta1))
+        Omega_h2 = Omega_h2_theta1 * theta_req ** 2
         return {
             'f_a_GeV': f_a_GeV,
             'm_a_eV': m_a_eV,
             'm_a_neV': m_a_eV * 1e9,
+            'm_a_relation': 'm_a = 5.7e-6 eV * (1e12 GeV / f_a)',
             'Omega_h2': Omega_h2,
+            'Omega_h2_natural_theta': Omega_h2_theta1,
+            'overclosure_factor_at_theta_1': Omega_h2_theta1 / CONST.Omega_DM_h2,
             'theta_req': theta_req,
+            'theta_req_is_a_fit_to_Omega_c_h2': True,
         }
     
     @staticmethod
@@ -593,6 +617,8 @@ class Spin10Predictions:
         if with_remedies:
             # Hidden SUSY sector z 125 chiralnych multipletow
             a_4_per_hid = 0.05
+            # N_hid is chosen so the anomaly cancels exactly, so a_4_total is 0
+            # by construction rather than by calculation.
             N_hid = abs(a_4_bare) / a_4_per_hid  # ~125
             a_4_total = a_4_bare + N_hid * a_4_per_hid
             result.update({
@@ -773,18 +799,28 @@ class Spin10Tests:
     
     @staticmethod
     def test_proton_decay_vs_HyperK() -> Dict[str, Any]:
-        """Test: τ_p vs Hyper-K sensitivity"""
+        """Test: τ_p vs Hyper-K sensitivity.
+
+        A lifetime is *visible* to a detector only if it is SHORTER than that
+        detector's reach.  The previous version compared tau with
+        ``HyperK_2030 * 100`` (1e37 yr), which made a 4.9e36 yr lifetime look
+        reachable in 2030 when the real design reach is ~1e35 yr.
+        """
         tau = Spin10Predictions.proton_decay_branch(with_susy=True)
         HyperK_2030 = 1e35
         HyperK_2040 = 1e36
-        
+        SuperK_limit = 2.4e34  # SK I-IV, 450 kton.yr, 90% CL
+
         return {
             'tau_e_pi0': tau['tau_e_pi0'],
             'tau_nu_K': tau['tau_nu_K'],
             'HyperK_2030': HyperK_2030,
             'HyperK_2040': HyperK_2040,
-            'visible_2030': tau['tau_e_pi0'] < HyperK_2030 * 100,
-            'visible_2040': tau['tau_e_pi0'] < HyperK_2040 * 100,
+            'visible_2030': tau['tau_e_pi0'] < HyperK_2030,
+            'visible_2040': tau['tau_e_pi0'] < HyperK_2040,
+            'beyond_HyperK_2030_reach_by': tau['tau_e_pi0'] / HyperK_2030,
+            'beyond_HyperK_2040_reach_by': tau['tau_e_pi0'] / HyperK_2040,
+            'survives_SuperK': tau['tau_e_pi0'] > SuperK_limit,
         }
     
     @staticmethod

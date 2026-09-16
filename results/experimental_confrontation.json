@@ -1,0 +1,213 @@
+{
+ "engine": "SHZSpin10QuantumEngine v9.0 (Heptalog)",
+ "nodes": 200,
+ "steps": 400,
+ "elapsed_s": 6.85,
+ "chi2": 5.025165710828197,
+ "n_measured_rows": 7,
+ "counts": {
+  "AGREE": 12,
+  "NO-DATA": 5,
+  "EXCLUDED": 1
+ },
+ "rows": [
+  {
+   "observable": "n_s (numeric Mukhanov-Sasaki solver)",
+   "engine_value": 0.9635289717586615,
+   "experimental": "0.9649 +- 0.0042",
+   "deviation": "-0.33 sigma",
+   "n_sigma": 0.326435295556786,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
+   "note": "genuine numerical integration of the MS equation"
+  },
+  {
+   "observable": "n_s (analytic alpha-attractor 1-2/N)",
+   "engine_value": 0.9666666666666667,
+   "experimental": "0.9649 +- 0.0042",
+   "deviation": "+0.42 sigma",
+   "n_sigma": 0.4206349206349272,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
+   "note": "N=60 e-folds assumed, alpha = dim(Spin10)/12 = 3.75"
+  },
+  {
+   "observable": "n_s (numeric) vs ACT DR6",
+   "engine_value": 0.9635289717586615,
+   "experimental": "0.966 +- 0.0046",
+   "deviation": "-0.54 sigma",
+   "n_sigma": 0.5371800524648893,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "ACT DR6 (2025)",
+   "note": "independent second data set"
+  },
+  {
+   "observable": "A_s (Mukhanov-Sasaki solver)",
+   "engine_value": 2.112533164745577e-09,
+   "experimental": "2.099e-09 +- 2.938e-11",
+   "deviation": "+0.46 sigma",
+   "n_sigma": 0.46384762284614345,
+   "data_verdict": "AGREE",
+   "derivation": "measured input",
+   "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
+   "note": "A_s is the INPUT that fixes H (P_R scales exactly as H^2); this row checks that the solver reproduces it, not that the model predicts it"
+  },
+  {
+   "observable": "r_0.05 (tensor-to-scalar)",
+   "engine_value": 0.0125,
+   "experimental": "< 0.036 (95% CL)",
+   "deviation": "margin x2.88",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "BICEP/Keck BK18 (95% CL), Phys. Rev. Lett. 127, 151301 (2021)",
+   "note": "r = 12 alpha / N^2 with N = 60"
+  },
+  {
+   "observable": "f_NL^equil (engine)",
+   "engine_value": 0.4608000000000001,
+   "experimental": "-26 +- 47",
+   "deviation": "+0.56 sigma",
+   "n_sigma": 0.562995744680851,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "Planck 2018 IX, arXiv:1905.05697",
+   "note": "45 * 0.32^2 * 0.1; docs quote 14.5 which this code never produces"
+  },
+  {
+   "observable": "eta_B (baryon asymmetry)",
+   "engine_value": 6.18518611599297e-10,
+   "experimental": "6.104e-10 +- 4.100e-12",
+   "deviation": "+1.98 sigma",
+   "n_sigma": 1.9801491705602519,
+   "data_verdict": "AGREE",
+   "derivation": "tuned-to-data",
+   "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209 (Omega_b h^2 = 0.02237 +- 0.00015)",
+   "note": "eta_B_res * F_3flavour with F_3flavour = 4.27e11 hard-coded to land on the data"
+  },
+  {
+   "observable": "Omega_a h^2 (axion DM)",
+   "engine_value": 0.12,
+   "experimental": "0.12 +- 0.0012",
+   "deviation": "+0.00 sigma",
+   "n_sigma": 0.0,
+   "data_verdict": "AGREE",
+   "derivation": "tuned-to-data",
+   "source": "Planck 2018 VI (TT,TE,EE+lowE+lensing), arXiv:1807.06209",
+   "note": "theta_req = 0.0031 chosen so that Omega_a h^2 = 0.12"
+  },
+  {
+   "observable": "tau(p -> e+ pi0)",
+   "engine_value": 4.884825711456431e+36,
+   "experimental": "> 2.400e+34 (90% CL)",
+   "deviation": "margin x204",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "hard-coded",
+   "source": "Super-Kamiokande I-IV, 450 kton.yr, PRD 102, 112011 (2020)",
+   "note": "1.4e36 yr normalisation constant, rescaled by cos(Phi) and Var_k"
+  },
+  {
+   "observable": "m_gluino (MCMC best fit)",
+   "engine_value": 12389.714537272464,
+   "experimental": "> 2300 (95% CL)",
+   "deviation": "margin x5.39",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "tuned-to-data",
+   "source": "ATLAS 13 TeV 139 fb^-1, JHEP 02 (2021) 143 (massless LSP)",
+   "note": "posterior mode of a prior-dominated MCMC, not a mass calculation"
+  },
+  {
+   "observable": "V^(1/4) from A_s vs M_GUT from RGE",
+   "engine_value": 1.0457261284174968e+16,
+   "experimental": "M_GUT = 1.0310e+16 GeV (2-loop RGE)",
+   "deviation": "x1.0143",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "no direct measurement of either scale",
+   "note": "H = 1.0661e-05 M_Pl derived from the measured A_s; r = 16 eps = 0.0125 matches the engine r"
+  },
+  {
+   "observable": "m_a (axion) vs QCD relation",
+   "engine_value": 2.85e-10,
+   "experimental": "2.850e-10 eV (5.7 ueV * 1e12/f_a)",
+   "deviation": "x1",
+   "n_sigma": null,
+   "data_verdict": "AGREE",
+   "derivation": "computed",
+   "source": "PDG axion review (m_a f_a ~ m_pi f_pi)",
+   "note": "used to be 100x too high (28.5 neV instead of 0.285 neV)"
+  },
+  {
+   "observable": "tau(p) vs Hyper-K 2030 design reach",
+   "engine_value": 4.884825711456431e+36,
+   "experimental": "> 1e35 yr needed to be visible in 2030",
+   "deviation": "x48.8 beyond reach",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "hard-coded",
+   "source": "Hyper-Kamiokande design report",
+   "note": "engine now reports visible_2030 = False"
+  },
+  {
+   "observable": "M_GUT (2-loop RGE from PDG couplings at M_Z)",
+   "engine_value": 1.0309766776257968e+16,
+   "experimental": "no direct measurement",
+   "deviation": "g_i spread 0.28% at M_GUT",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "computed",
+   "source": "input: g(M_Z) = (0.462, 0.652, 1.221) ~ PDG PDG 2024",
+   "note": "data-driven input, but unification scale itself is untested"
+  },
+  {
+   "observable": "sin^2(theta_W) at M_GUT vs 3/8",
+   "engine_value": 0.37788278131344616,
+   "experimental": "3/8 = 0.375 (GUT boundary condition, not a measurement)",
+   "deviation": "+0.77%",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "computed",
+   "source": "PDG 2024",
+   "note": "engine's own passes_3sigma_unification test returns False"
+  },
+  {
+   "observable": "d_S (spectral dimension, UV -> IR)",
+   "engine_value": 3.397574917730513,
+   "experimental": "no measurement",
+   "deviation": "random walk returns 3.398 -> 3.081",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "hard-coded",
+   "source": "engine Monte Carlo",
+   "note": "README claims \"2.0 (UV) -> 4.0 (IR)\"; the run goes the other way and never reaches 4"
+  },
+  {
+   "observable": "CF (causal fraction)",
+   "engine_value": 0.8661518661518661,
+   "experimental": "no measurement",
+   "deviation": "n/a",
+   "n_sigma": null,
+   "data_verdict": "NO-DATA",
+   "derivation": "hard-coded",
+   "source": "engine Monte Carlo",
+   "note": "graph observable with no experimental counterpart"
+  },
+  {
+   "observable": "rho_Lambda (engine, Planck units -> J/m^3)",
+   "engine_value": 5.085824838545904e+114,
+   "experimental": "5.310e-10 J/m^3 (= 1.1e-123 rho_Planck)",
+   "deviation": "x9.58e+123 too large (124 orders)",
+   "n_sigma": null,
+   "data_verdict": "EXCLUDED",
+   "derivation": "hard-coded",
+   "source": "Planck 2018 LambdaCDM (rho_Lambda / rho_Planck)",
+   "note": "Lambda = (3/4)(1-cos Phi) + Var_k + ... in units of M_Pl^4; Lambda_Lor_eq is a hard-coded 0.0"
+  }
+ ]
+}

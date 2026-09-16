@@ -26,7 +26,7 @@ A complete computational implementation of a **Spin(10) Theory of Everything** o
 
 - Relational graph network with Monte Carlo simulation (Metropolis-Hastings)
 - **38 testable predictions** across cosmology, particle physics, and gravity
-- **35/35 synthetic tests passed** — mean χ² = 0.844
+- **35/35 synthetic tests passed** — mean χ² = 0.578 (synthetic data drawn around the model's own predictions; see the header of [`tests/tests_synthetic_spin10_toe.py`](tests/tests_synthetic_spin10_toe.py))
 - **5 key remedies** resolving critical open problems in fundamental physics
 - Full **heptalogy**: 7 publications from pre-geometry to complete ToE
 - **Physics Apex (v13.0-PRO):** LQG Spin Foams, EPRL, Immirzi γ=0.274, SM constants top-down
@@ -506,21 +506,43 @@ python3 tests/tests_synthetic_spin10_toe.py
 | Observable | Spin(10) Prediction | Experiment | Year | Status |
 |------------|---------------------|------------|------|--------|
 | BR(μ→eγ) | **8×10⁻¹⁴** | MEG-II | **2026** | ⚡ **CRITICAL TEST** |
-| n_s (CMB) | 0.9629 – 0.9667 | Planck PR4 | validated | ✅ 0.48σ |
+| n_s (CMB) | 0.9635 – 0.9667 | Planck PR4 | validated | ✅ 0.33σ |
 | r (tensor) | 0.0125 | BICEP/Keck | validated | ✅ 2.9× margin |
-| η_B | 6.11×10⁻¹⁰ | Planck BBN | validated | ✅ 0.03σ |
+| A_s (amplitude) | 2.113×10⁻⁹ | Planck PR4 | measured | ✅ +0.46σ — A_s is the input that fixes H |
+| **V^(1/4) from A_s** | **1.046×10¹⁶ GeV** | vs M_GUT 1.031×10¹⁶ (RGE) | derived | ✅ **×1.014** |
+| η_B | 6.11×10⁻¹⁰ | Planck BBN | validated | ⚠️ 1.98σ, fitted factor |
 | M_GUT | 1.03×10¹⁶ GeV | 2-loop RGE | validated | ✅ strict |
 | sin²θ_W | 0.3779 | RGE target 3/8 | validated | ✅ 0.8% |
 | **γ (Immirzi)** ★v13 | **0.2739** | LQG entropy | v13 | ✅ derived |
 | **α_em** ★v13 | **1/137.036** | SM top-down | v13 | ✅ derived |
 | m_gluino | 10.6 TeV | HE-LHC | 2027+ | ⏳ |
-| m_axion | 28.5 neV | CASPEr | 2028 | ⏳ |
+| m_axion | 0.285 neV | CASPEr | 2028 | ✅ fixed — was 28.5 neV (100× the m_a·f_a relation) |
 | BR(μ→eee) | ~10⁻¹⁶ | Mu3e Phase-II | 2030 | ⏳ |
 | Ω_GW (1 mHz) | 10⁻⁷ | LISA | 2034+ | ⏳ |
-| τ_p (e⁺π⁰) | ~10³⁵⁻³⁶ yr | Hyper-K | 2035+ | ✅ margin |
-| d_S (UV→IR) | 2.0 → 4.0 | LQG/CDT | — | ✅ |
+| τ_p (e⁺π⁰) | 4.88×10³⁶ yr | Hyper-K | 2035+ | ⚠️ survives SK, but 49× beyond the HK 2030 reach |
+| d_S (UV→IR) | 3.40 → 3.08 (measured) | LQG/CDT | — | ⚠️ not the documented 2.0 → 4.0 |
 
 > **MEG-II 2026:** Spin(10) predicts BR(μ→eγ) = 8×10⁻¹⁴, within MEG-II 2026 final limit target 6×10⁻¹⁴ (arXiv:2504.15711). Primary falsification test of the framework.
+
+> ⚠️ **Status of the table above.** Every number marked ⚠️ or ❌ was produced by
+> actually running the engine against published data — see
+> [`docs/EXPERIMENTAL-CONFRONTATION-2026.md`](docs/EXPERIMENTAL-CONFRONTATION-2026.md) and
+> `python scripts/run_experimental_confrontation.py`, which computes each verdict at run
+> time. Over the seven observables that have a real measurement the run gives
+> χ²/dof = 5.03/7 = 0.72; the only observable the data excludes is the cosmological
+> constant, 124 orders of magnitude above observation. Several "validated" entries
+> (η_B, Ω_a h², m_gluino) match only through constants fitted to those same data.
+>
+> That pass also fixed: a hand-set Hubble scale in the Mukhanov-Sasaki background that
+> manufactured a fake −7.9σ A_s tension (H is now derived from the measured A_s, which
+> also gives V^(1/4) within 1.4% of the RGE unification scale), the axion mass (was 100×
+> the standard m_a·f_a relation), the Hyper-K reach test (threshold inflated ×100), the
+> missing A_s/Planck comparison in the solver, a solver fallback that silently returned
+> the measured A_s, two scripts that did not parse on Python 3.11, and 33 pytest
+> collection errors.
+> `f_NL^equil` as implemented is 0.4608, not the 14.5 still quoted in the older
+> publication documents; the claimed 14.5σ CMB-S4 detection is not produced by any code
+> here.
 
 ---
 
@@ -588,7 +610,9 @@ spin10-toe-engine/
 │   ├── run_vc_deeptech_preseed_pitch.py  # v13 — VC pitch pipeline
 │   └── ...
 ├── tests/
-│   └── tests_synthetic_spin10_toe.py     # 35/35 tests, mean χ²=0.844
+│   ├── conftest.py                       # ★ puts src/ on sys.path + `tr` fixture (was 33 collection errors)
+│   ├── test_experimental_confrontation.py # ★ 12 tests pinning every number vs published data
+│   └── tests_synthetic_spin10_toe.py     # 35/35 synthetic, ⟨χ²⟩=0.578 — data drawn around the model, not a validation
 ├── docs/
 │   ├── quantum-core-architecture.md      # ★ NEW — full Quantum Core module reference
 │   ├── index.html                        # ★ GitHub Pages — v13.0-PRO Physics Apex
@@ -640,7 +664,7 @@ Total: 174 files
 | Publ. I | Lorentz invariance + Big Bounce | CPT, Conformal Factor CF | v2.0 |
 | Publ. II | Riemannian geometry + dS entropy | d_S: 2→4, holographic bound | v3.0 |
 | Publ. III | α-Attractor inflation + SGWB + Torsion | n_s=0.9667, r=0.0125, 5th force | v4.0 |
-| Publ. IV | Fermions + f_NL + CMB Bispectrum | N_gen=3 (topological), f_NL^eq=14.5 | v5.0 |
+| Publ. IV | Fermions + f_NL + CMB Bispectrum | N_gen=3 (topological), f_NL^eq=0.4608 | v5.0 |
 | Publ. V | RGE + Axion + Leptogenesis | m_a=28.5 neV, η_B=6.2×10⁻¹⁰ | v6.0 |
 | Publ. VI | SUSY + Full QG + SUGRA | M_GUT=2×10¹⁶ GeV, gravitino | v7.0 |
 | Publ. VII | Complete ToE (Multi-Bounce, 2-loop RGE, AS) | UV fixed point, full synthesis | v8.0 |
@@ -695,4 +719,4 @@ Total: 174 files
 
 ---
 
-*Last updated: 2026-06-21 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · 174 files · 38 predictions · 35/35 tests*
+*Last updated: 2026-09-16 · Engine version: v14.5 ULTIMA COSMOS UNIFIED · `python -m pytest tests` → 96 passed · see [docs/EXPERIMENTAL-CONFRONTATION-2026.md](docs/EXPERIMENTAL-CONFRONTATION-2026.md)*

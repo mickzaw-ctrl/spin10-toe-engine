@@ -31,3 +31,6 @@ Thumbs.db
 results/*.png
 results/*.csv
 results/*.npy
+
+# Run artifacts written to the repository root by script-style test runners
+/test_results.json
