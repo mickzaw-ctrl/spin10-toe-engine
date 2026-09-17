@@ -37,3 +37,4 @@ results/*.npy
 local_structure_test/data/
 results/local_tomography/*.npz
 results/local_tomography/*.csv
+results/local_tomography/*.npy
