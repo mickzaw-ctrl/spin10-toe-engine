@@ -34,3 +34,6 @@ results/*.npy
 
 # Run artifacts written to the repository root by script-style test runners
 /test_results.json
+local_structure_test/data/
+results/local_tomography/*.npz
+results/local_tomography/*.csv
