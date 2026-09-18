@@ -84,3 +84,50 @@
 - Dropbox TLS również blokowany
 - Dlatego realne gridy zastąpiono syntetycznymi substytutami, co jest dozwolone w instrukcji jako tańszy substytut do testów pipeline'u
 - Wymaga weryfikacji z realnymi danymi na maszynie z pełnym dostępem do internetu przed human review publikacji
+
+## 12. Krok 1 v3 — Tabela prób dostępu do realnych siatek (priorytet, nie obejście) [SYNTETYCZNE — NIE dowód fizyczny]
+
+| # | Źródło danych | Metoda dostępu | Wynik | Dokładny komunikat błędu / dowód |
+|---|---|---|---|---|
+| 1 | Carrick+15 twompp_density.npy (https://cosmicflows.iap.fr/assets/data/twompp_density.npy) | urllib.request.urlretrieve z unverified SSL | PORAZKA | `TLS/SSL connection has been closed (EOF) (_ssl.c:992)` |
+| 2 | Carrick+15 twompp_velocity.npy | urllib same | PORAZKA | same EOF |
+| 3 | Carrick+15 README | urllib | PORAZKA | same EOF |
+| 4 | Carrick+15 via curl -k http://cosmicflows.iap.fr/... | bash curl -k -L | PORAZKA | `curl: (52) Empty reply from server` |
+| 5 | Carrick+15 via fetch_page https://cosmicflows.iap.fr/download/ | default.fetch_page | CZESCIOWY SUKCES HTML, PORAZKA BINARIA | HTML z linkami OK, binaria nie do pobrania via fetch_page |
+| 6 | CORAS density_zCMB.dat Dropbox dl=1 | urllib unverified SSL | PORAZKA | TLS closed EOF |
+| 7 | CORAS via Dropbox HTML list | fetch_page | CZESCIOWY SUKCES | lista 4 plików 56-141 MB OK, binaria nie |
+| 8 | L24 density.npy Dropbox | urllib | PORAZKA | TLS blocked |
+| 9 | L24 via GitHub rlilow/2MRS-NeuralNet | gh repo clone | SUKCES KODU, PORAZKA DANYCH | Kod OK, dane w Dropbox per README |
+| 10 | CORAS via GitHub rlilow/CORAS | gh repo clone | SUKCES KODU, PORAZKA GRIDÓW | Kod + params OK, gridy w Dropbox |
+| 11 | Carrick via GitHub releases | gh api releases | PORAZKA | Brak assets |
+| 12 | Carrick via Zenodo | web_search depth3 | PORAZKA | Brak wyników Zenodo |
+| 13 | CORAS/L24 via Zenodo | web_search | PORAZKA | Brak DOI |
+| 14 | PyPI coras 0.0.3 | pip install | PORAZKA | `ModuleNotFoundError: No module named 'pip.req'` |
+| 15 | 2MRS via VizieR astroquery VII/233 | astroquery.vizier | PORAZKA | `SSLError: HTTPSConnectionPool(host='vizier.cds.unistra.fr'): Max retries exceeded (TLS EOF)` |
+| 16 | 2MRS via GitHub karenlmasters/2MRS | gh repo clone | PORAZKA | Repo puste (tylko README) |
+| 17 | 2MRS via nanograv/nanograv_galaxy_catalog_2MRS | gh repo clone | CZESCIOWY SUKCES | Galaxy_properties_test.txt 1.8 MB test file, nie pełny katalog 45k |
+| 18 | 2MRS via TrystanLambert/2MRSGroupCatalog | gh repo clone | PORAZKA | Empty repository |
+| 19 | 2MRS via rouille/2MRS | gh repo clone | SUKCES KODU, PORAZKA DANYCH | Tylko IDL code |
+| 20 | 2MRS via cosmic-map | gh repo clone | PORAZKA | Tylko structures.json |
+| 21 | GitHub search twompp | gh search repos | PORAZKA | 0 wyników |
+| 22 | Zenodo DES-SN5YR zip | urllib | PORAZKA | TLS blocked zenodo.org EOF |
+| 23 | Pantheon+ raw.githubusercontent.com | curl -L | PORAZKA | SSL_ERROR_SYSCALL |
+| 24 | Pantheon+ via gh api base64 | gh api --jq '.content' \| base64 -d | SUKCES mały plik | Działa dla 579 kB, nie dla 33 MB cov |
+| 25 | Pantheon+ via gh repo clone | gh repo clone PantheonPlusSH0ES/DataRelease | SUKCES | 3095 plików, dat + cov |
+| 26 | DES-SN5YR via gh repo clone | gh repo clone des-science/DES-SN5YR | SUKCES | 745 plików |
+
+**Wniosek:** Realne siatki pozostają faktycznie niedostępne po 26 próbach — trwała ściana sandboxa. Jedyny realny wynik niezależny to Krok E A_d=0.113±0.012 mag z Pantheon+ STAT+SYS.
+
+## 13. Co potrzebne do realnego testu (konkretne pliki, URL-e, rozmiar)
+
+- Carrick: twompp_density.npy ~68 MB + twompp_velocity.npy ~204 MB + README ~1 kB, https://cosmicflows.iap.fr/assets/data/, mirror http://cosmicflows.uwaterloo.ca/, łącznie ~272 MB, 257³, 1.5625 Mpc/h spacing, -200..200 Mpc/h, V_ext=[89,-131,17] already added, cite MNRAS 450,317
+- CORAS: cartesian_grid_density_zCMB.dat 56.82 MB + density_zLG 56.82 MB + velocity_zCMB 141.42 MB + velocity_zLG 141.32 MB, https://www.dropbox.com/sh/3nebvt1lskxshtu/AAByegavgA_-l1x118tZkaSAa?dl=0, format line l=(i*201+j)*201+k, x/y/z_i=2*(i-100), 201³, -200..200 Mpc/h step 2, smoothed 5 Mpc/h, łącznie ~396 MB, code exe/compute_reconstructed_fields_on_cartesian_grid.x wymaga GSL+FFTW3
+- L24: density.npy + x/y/zVelocity.npy + errors 8 plików *128³*4 bytes ~64 MB, https://www.dropbox.com/scl/fo/wb8iyg113hyin4ni7srkg/h?rlkey=...&dl=0, 128³ 400 h⁻¹ Mpc box -198.4375..+198.4375 step 3.125, valid within 200 h⁻¹ Mpc sphere NaN outside, arXiv:2404.02278
+- CF4: EDD https://edd.ifa.hawaii.edu All CF4 Individual Distances 55k, Groups 38k
+- 2MRS: VII/233 or J/ApJS/199/26 via VizieR, Ks≤11.75 ~45k galaxies, 2M++ ~69k, metoda uproszczona g∝Σ M_i/r_i² r̂_i
+- Łącznie ~800 MB realnych danych potrzebnych
+
+## 14. Adnotacja [SYNTETYCZNE — NIE dowód fizyczny]
+
+Wszystkie wyniki z Kroków B/C/D/H (velocity_field_*.npz 58 MB, delta_per_sn_*.csv, healpix_map_*.npy, dipole_pred_*.json v1 i v2, sensitivity.json ΔH≈2.4 km/s/Mpc) są [SYNTETYCZNE — NIE dowód fizyczny] i mogą być cytowane wyłącznie jako demonstracja mechanizmu/metody, nie jako wynik fizyczny. Jedyny wynik realny to Krok E fit_observed_dipole.json A_d=0.113±0.012 mag z Pantheon+ STAT+SYS (niezależny od syntetyki per Krok 0).
+
