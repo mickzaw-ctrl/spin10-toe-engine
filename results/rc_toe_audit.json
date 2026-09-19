@@ -1,0 +1,637 @@
+{
+  "audit_id": "RC-TOE-001",
+  "definition_document": "docs/DEFINICJA-TEORII-WSZYSTKIEGO.md",
+  "status": "DEFINITION_AND_DECISION_PROCEDURE_NOT_A_VALIDATED_THEORY",
+  "blocks": {
+    "theorem_T1": {
+      "statement": "L(M) is distributive (classical logic) if and only if every circuit of M has size <= 2, i.e. the substrate carries no constraint of order three or higher",
+      "sizes_checked": [
+        2,
+        3,
+        4
+      ],
+      "n_substrates_checked": 89,
+      "per_size": {
+        "3": {
+          "n_matroids": 16,
+          "n_classical": 15,
+          "n_non_classical": 1
+        },
+        "4": {
+          "n_matroids": 68,
+          "n_classical": 52,
+          "n_non_classical": 16
+        },
+        "2": {
+          "n_matroids": 5,
+          "n_classical": 5,
+          "n_non_classical": 0
+        }
+      },
+      "violations": [],
+      "verdict": "PASS"
+    },
+    "substrate_census": {
+      "counts": {
+        "n=3 rung=0 classical_lawless": 15,
+        "n=3 rung=2 generalised_probability_without_born_rule": 1,
+        "n=4 rung=0 classical_lawless": 52,
+        "n=4 rung=2 generalised_probability_without_born_rule": 14,
+        "n=4 rung=3 orthocomplemented_hilbert_ready": 1,
+        "n=4 rung=1 constrained_but_no_probability": 1
+      },
+      "n_substrates": 84,
+      "n_born_ready": 0,
+      "conclusion": "no substrate on at most four facts is Born-ready: the single orthocomplemented non-classical one is U_{2,4} = PG(1,3), whose rank is 2, exactly the dimension in which Gleason-type theorems do not apply"
+    },
+    "spin10_structural_identities": {
+      "n_spinor_weights": 16,
+      "weights_are_even_parity_half_of_5_cube": true,
+      "weyl_group_order_computed": 1920,
+      "weyl_group_order_expected_D5": 1920,
+      "hyperoctahedral_order_computed": 3840,
+      "weyl_group_acts_transitively_on_weights": true,
+      "code_matroid": "spin10_even_parity_code",
+      "code_matroid_is_uniform": true,
+      "code_matroid_flats": 27,
+      "code_matroid_characteristic_polynomial": {
+        "4": 1,
+        "3": -5,
+        "2": 10,
+        "1": -10,
+        "0": 4
+      },
+      "code_matroid_beta": 1,
+      "code_matroid_bases": 5,
+      "code_matroid_automorphisms": 120,
+      "lowest_constraint_order": 5,
+      "admissibility_rung": 1,
+      "admissibility_label": "constrained_but_no_probability",
+      "valuation_feasible": "no",
+      "consequence": "the 16-spinor weight system, read as the closure structure of the binary [5,4] even-parity code, is U_{4,5}: its unique constraint is global (one circuit of five facts = fermion parity), its flat lattice is non-distributive, and it admits **no** valuation at all. Spin(10) is therefore a *label* on the facts, not yet a substrate that can carry probability; it must be embedded in an orthocomplementable one."
+    },
+    "fano_PG22": {
+      "substrate": "fano_PG2_2",
+      "n_facts": 7,
+      "rank": 3,
+      "interaction_density": "1/5",
+      "distributive": false,
+      "modular": true,
+      "valuation_feasible": "yes",
+      "valuation_dimension": 0,
+      "n_states": 1,
+      "orthocomplemented": false,
+      "automorphism_group_order": 168,
+      "beta_invariant": 3,
+      "rung": 2,
+      "rung_label": "generalised_probability_without_born_rule",
+      "lowest_constraint_order": 3,
+      "born_ready": false,
+      "invariant_vector": {
+        "n_elements": 7,
+        "rank": 3,
+        "n_circuits": 14,
+        "min_circuit_size": 3,
+        "max_circuit_size": 4,
+        "n_flats": 16,
+        "mobius_top": -8,
+        "chi_at_0": -8,
+        "beta": 3,
+        "n_bases": 28,
+        "n_independent_sets": 57,
+        "n_spanning_sets": 92,
+        "tutte_at_2_2": 128,
+        "automorphism_group_order": 168,
+        "n_parallel_classes": 0,
+        "n_loops": 0,
+        "delta_2_numerator": 0,
+        "delta_2_denominator": 1,
+        "delta_3_numerator": 1,
+        "delta_3_denominator": 5,
+        "distributive": 0,
+        "modular": 1
+      },
+      "notes": [
+        "no orthocomplementation was found; for finite projective geometries this is expected, since every polarity of a finite projective plane has absolute points"
+      ],
+      "unique_state": {
+        "sigma_point": "1/3",
+        "sigma_line": "2/3",
+        "n_states": 1,
+        "dimension": 0
+      },
+      "circuit_profile": {
+        "1": 0,
+        "2": 0,
+        "3": 7,
+        "4": 35
+      },
+      "tutte_polynomial": {
+        "x^0y^0": 28,
+        "x^0y^1": 35,
+        "x^0y^2": 21,
+        "x^0y^3": 7,
+        "x^0y^4": 1,
+        "x^1y^0": 21,
+        "x^1y^1": 7,
+        "x^2y^0": 7,
+        "x^3y^0": 1
+      }
+    },
+    "certified_residual": {
+      "machine": "toy prefix machine U(1**k 0 body), 2-bit instructions INC/JZ/HALT/DEC",
+      "status": "exact lower bound with certified residual; not Chaitin's Omega itself",
+      "results": [
+        {
+          "max_length": 5,
+          "step_budget": 2000,
+          "omega": "27/32",
+          "omega_float": 0.84375,
+          "residual": "1/32",
+          "residual_float": 0.03125,
+          "total_mass": "7/8",
+          "n_programs": 7,
+          "n_halting": 6,
+          "n_undecided": 1
+        },
+        {
+          "max_length": 7,
+          "step_budget": 2000,
+          "omega": "57/64",
+          "omega_float": 0.890625,
+          "residual": "3/64",
+          "residual_float": 0.046875,
+          "total_mass": "15/16",
+          "n_programs": 15,
+          "n_halting": 12,
+          "n_undecided": 3
+        },
+        {
+          "max_length": 9,
+          "step_budget": 2000,
+          "omega": "467/512",
+          "omega_float": 0.912109375,
+          "residual": "29/512",
+          "residual_float": 0.056640625,
+          "total_mass": "31/32",
+          "n_programs": 31,
+          "n_halting": 23,
+          "n_undecided": 8
+        }
+      ],
+      "monotone_in_length": true,
+      "interpretation": "a theory whose axioms and proof budget are bounded by (N, B) cannot decide more than omega(N, B) of the mass of its own fact space; residual(N, B) is a certified lower bound on its unexplained sector. Gate D of the definition requires this bound to be published together with the theory, not discovered after the fact."
+    },
+    "reflexive_inference": {
+      "operator": "p -> normalise( (1-e) * p * L * (M^T p) + e * uniform )",
+      "result": {
+        "hypotheses": [
+          "A_max_likelihood",
+          "B_reflective",
+          "C_third"
+        ],
+        "likelihood": [
+          0.7,
+          0.2,
+          0.1
+        ],
+        "inference_kernel": [
+          [
+            0.1,
+            0.8,
+            0.1
+          ],
+          [
+            0.05,
+            0.9,
+            0.05
+          ],
+          [
+            0.2,
+            0.5,
+            0.3
+          ]
+        ],
+        "prior": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "fixed_point": [
+          0.008328209576020153,
+          0.9848068550610942,
+          0.006864935362885506
+        ],
+        "iterations": 13,
+        "kl_residual": 2.442149566004189e-14,
+        "contraction_rate": 0.040990664088544564,
+        "converged": true,
+        "maximum_likelihood": "A_max_likelihood",
+        "reflective_choice": "B_reflective",
+        "likelihood_overridden": true,
+        "reflective_override": 0.7848068550610943,
+        "exploration": 0.02
+      },
+      "conclusion": "the reflective fixed point is B (likelihood 0.20), not the maximum-likelihood A (likelihood 0.70): self-consistency of the inference process overrides likelihood by a total-variation margin of 0.785. A Theory of Everything that cannot survive its own inference operator is not a ToE, even when it fits the data best."
+    }
+  },
+  "audits": {
+    "guh_s10": {
+      "candidate": "GUH-S10 (Spin(10) Theory of Everything, engine v14.5)",
+      "certified": false,
+      "verdict": "REFUSED_MISSING_COMPUTATION",
+      "gates": [
+        {
+          "gate_id": "S",
+          "name": "substance closure",
+          "requirement": "no fitted parameter may remain, and every claimed constant must be a combinatorial invariant of the substrate that survives the coincidence budget",
+          "verdict": "FAIL",
+          "evidence": {
+            "fitted_parameters": [
+              "alpha_em calibration offset",
+              "holographic coefficient c_H",
+              "spectral-dimension scale N_c",
+              "graph equilibrium variance",
+              "UV fixed point g*",
+              "hidden-sector multiplet count"
+            ],
+            "n_invariant_claims": 1,
+            "coincidence_budgets": [
+              {
+                "n_invariants": 1,
+                "n_candidates": 1,
+                "tolerance": 0.0004,
+                "alpha": 0.05,
+                "p_chance": 0.0008000000000000229,
+                "admissible": false,
+                "mechanism_supplied": false,
+                "verdict": "rejected_no_mechanism"
+              }
+            ]
+          },
+          "kill_semantics": "if a parameter is later shown to be fitted rather than derived, gate S fails and every 'derivation' claim that used it is void, not merely uncertain"
+        },
+        {
+          "gate_id": "L",
+          "name": "law closure",
+          "requirement": "every interaction must be a named channel of the single rank flow A_{t+1} = cl(A_t | {x_t}); a term that is merely added to the flow fails the gate",
+          "verdict": "FAIL",
+          "evidence": {
+            "channels": {
+              "gauge": "postulated",
+              "gravity": "hypothesis",
+              "fermion_generations": "hypothesis",
+              "cosmological_constant": "rejected"
+            },
+            "channel_notes": {
+              "gauge": "Spin(10) gauge fields are imposed on the relational graph; they are not read off the automorphism group of any closure operator implemented here",
+              "gravity": "'emergent mode of the relational graph' with no implemented operator; the independent audit of the closest module is CONDITIONAL PASS (docs/IFT_EGR_INDEPENDENT_AUDIT.md)",
+              "fermion_generations": "'topologically from the graph nodes'; no derivation exists in the repository",
+              "cosmological_constant": "the holographic lambda is inverse-area only and fails the closure test (tests/test_ift_egr_closure.py)"
+            },
+            "missing_channels": [],
+            "derived_channels": [],
+            "open_channels": [
+              "fermion_generations",
+              "gravity"
+            ],
+            "postulated_or_rejected_channels": [
+              "cosmological_constant",
+              "gauge"
+            ]
+          },
+          "kill_semantics": "any interaction that has to be added to the rank flow as an extra term falsifies law closure and demotes the candidate to a framework"
+        },
+        {
+          "gate_id": "Q",
+          "name": "logic closure",
+          "requirement": "the substrate's rung on the admissibility ladder must be computed exactly and must equal the declared rung; a quantum theory needs rung 3",
+          "verdict": "REFUSED",
+          "evidence": {
+            "reason": "no substrate report was supplied"
+          },
+          "kill_semantics": "if the substrate is shown to be rung 1 (no valuation at all), the candidate has no probability interpretation and every prediction derived from it is void"
+        },
+        {
+          "gate_id": "O",
+          "name": "observer closure",
+          "requirement": "the theory must be an attractive fixed point of its own inference operator, i.e. it must predict the process by which it is inferred",
+          "verdict": "FAIL",
+          "evidence": {
+            "reason": "no reflexive inference operator was supplied"
+          },
+          "kill_semantics": "if the reflexive fixed point selects a different theory than the candidate, the candidate is self-refuting and must be abandoned, not adjusted"
+        },
+        {
+          "gate_id": "D",
+          "name": "decision closure",
+          "requirement": "at least one fully pre-registered falsifier with claim-level kill semantics, and the axiom system must be shorter than the data it explains (MDL)",
+          "verdict": "FAIL",
+          "evidence": {
+            "n_falsifiers": 4,
+            "n_complete_falsifiers": 0,
+            "n_complete_external_falsifiers": 0,
+            "axiom_bits": 5376,
+            "data_bits": 4768,
+            "mdl_satisfied": false,
+            "falsifiers": [
+              {
+                "external": true,
+                "observable": "tensor-to-scalar ratio r",
+                "prediction": "0.0125",
+                "tolerance": "not stated in the repository",
+                "experiment": "LiteBIRD / CMB-S4",
+                "horizon": "2030-2035",
+                "kill_semantics": "not stated: no claim is named as dead if r is measured outside the band",
+                "pre_registered": false
+              },
+              {
+                "external": true,
+                "observable": "axion mass m_a",
+                "prediction": "28.5 neV",
+                "tolerance": "not stated in the repository",
+                "experiment": "CASPEr",
+                "horizon": "2028-2032",
+                "kill_semantics": "not stated",
+                "pre_registered": false
+              },
+              {
+                "external": true,
+                "observable": "gluino mass m_gluino",
+                "prediction": "10.6 TeV (docs/KLUCZOWE-REMEDIA.md, docs/spin10_toe_hypothesis.md) vs 12.39 TeV (docs/PREDYKCJE-i-FALSYFIKACJA-2026-2040.md)",
+                "tolerance": "two different frozen values coexist in the repository",
+                "experiment": "HE-LHC / FCC-hh",
+                "horizon": "2027-2035",
+                "kill_semantics": "undecidable as published: a prediction with two values cannot be violated",
+                "pre_registered": false
+              },
+              {
+                "external": true,
+                "observable": "baryon asymmetry eta_B",
+                "prediction": "6.2e-10 (docs/spin10_toe_hypothesis.md) vs 6.11e-10 (docs/PREDYKCJE-i-FALSYFIKACJA-2026-2040.md)",
+                "tolerance": "1.5% spread between the two published values",
+                "experiment": "Planck / BBN",
+                "horizon": "already measured",
+                "kill_semantics": "undecidable as published",
+                "pre_registered": false
+              }
+            ]
+          },
+          "kill_semantics": "a violated falsifier kills the claim named in its kill_semantics field; the rest of the theory survives only if it does not depend on that claim"
+        }
+      ],
+      "residual": {
+        "definition": "certified lower bound on the sector the candidate cannot decide",
+        "omega": {
+          "max_length": 7,
+          "step_budget": 2000,
+          "omega": "57/64",
+          "omega_float": 0.890625,
+          "residual": "3/64",
+          "residual_float": 0.046875,
+          "total_mass": "15/16",
+          "n_programs": 15,
+          "n_halting": 12,
+          "n_undecided": 3
+        },
+        "n_gates_passed": 0,
+        "n_gates_total": 5,
+        "blocking_gates": [
+          "S",
+          "L",
+          "Q",
+          "O",
+          "D"
+        ]
+      }
+    },
+    "rc_toe_self": {
+      "candidate": "RC-ToE (Reflective Closure Theory of Everything) -- this definition",
+      "certified": false,
+      "verdict": "FRAMEWORK_NOT_TOE",
+      "gates": [
+        {
+          "gate_id": "S",
+          "name": "substance closure",
+          "requirement": "no fitted parameter may remain, and every claimed constant must be a combinatorial invariant of the substrate that survives the coincidence budget",
+          "verdict": "FAIL",
+          "evidence": {
+            "fitted_parameters": [],
+            "n_invariant_claims": 0,
+            "coincidence_budgets": []
+          },
+          "kill_semantics": "if a parameter is later shown to be fitted rather than derived, gate S fails and every 'derivation' claim that used it is void, not merely uncertain"
+        },
+        {
+          "gate_id": "L",
+          "name": "law closure",
+          "requirement": "every interaction must be a named channel of the single rank flow A_{t+1} = cl(A_t | {x_t}); a term that is merely added to the flow fails the gate",
+          "verdict": "CONDITIONAL",
+          "evidence": {
+            "channels": {
+              "gauge": "open_task",
+              "gravity": "open_task",
+              "fermion_generations": "open_task",
+              "cosmological_constant": "open_task"
+            },
+            "channel_notes": {
+              "gauge": "W(D_5) = 1920 is reproduced exactly as the parity-preserving automorphism group of the 5-slot fact lattice, but Spin(10) itself has not been derived",
+              "gravity": "the entropic response of the rank function to inserted facts is defined but no Einstein equation has been recovered from it",
+              "fermion_generations": "no invariant of any enumerated substrate has been mapped to N_gen = 3 with a mechanism; beta(Fano) = 3 was proposed and then rejected by the coincidence budget",
+              "cosmological_constant": "no invariant has been mapped to Lambda"
+            },
+            "missing_channels": [],
+            "derived_channels": [],
+            "open_channels": [
+              "cosmological_constant",
+              "fermion_generations",
+              "gauge",
+              "gravity"
+            ],
+            "postulated_or_rejected_channels": []
+          },
+          "kill_semantics": "any interaction that has to be added to the rank flow as an extra term falsifies law closure and demotes the candidate to a framework"
+        },
+        {
+          "gate_id": "Q",
+          "name": "logic closure",
+          "requirement": "the substrate's rung on the admissibility ladder must be computed exactly and must equal the declared rung; a quantum theory needs rung 3",
+          "verdict": "CONDITIONAL",
+          "evidence": {
+            "declared_rung": 2,
+            "computed_rung": 2,
+            "computed_label": "generalised_probability_without_born_rule",
+            "born_ready": false,
+            "requires_born_rule": true,
+            "report": {
+              "substrate": "fano_PG2_2",
+              "n_facts": 7,
+              "rank": 3,
+              "interaction_density": "1/5",
+              "distributive": false,
+              "modular": true,
+              "valuation_feasible": "yes",
+              "valuation_dimension": 0,
+              "n_states": 1,
+              "orthocomplemented": false,
+              "automorphism_group_order": 168,
+              "beta_invariant": 3,
+              "rung": 2,
+              "rung_label": "generalised_probability_without_born_rule",
+              "lowest_constraint_order": 3,
+              "born_ready": false,
+              "invariant_vector": {
+                "n_elements": 7,
+                "rank": 3,
+                "n_circuits": 14,
+                "min_circuit_size": 3,
+                "max_circuit_size": 4,
+                "n_flats": 16,
+                "mobius_top": -8,
+                "chi_at_0": -8,
+                "beta": 3,
+                "n_bases": 28,
+                "n_independent_sets": 57,
+                "n_spanning_sets": 92,
+                "tutte_at_2_2": 128,
+                "automorphism_group_order": 168,
+                "n_parallel_classes": 0,
+                "n_loops": 0,
+                "delta_2_numerator": 0,
+                "delta_2_denominator": 1,
+                "delta_3_numerator": 1,
+                "delta_3_denominator": 5,
+                "distributive": 0,
+                "modular": 1
+              },
+              "notes": [
+                "no orthocomplementation was found; for finite projective geometries this is expected, since every polarity of a finite projective plane has absolute points"
+              ]
+            },
+            "blocking_note": "the substrate is not Born-ready: either it has no orthocomplementation (rung < 3) or its rank is below 3, where Gleason-type theorems do not apply. A Theory of Everything with quantum probability therefore requires an infinite substrate; every finite one we can enumerate is refused"
+          },
+          "kill_semantics": "if the substrate is shown to be rung 1 (no valuation at all), the candidate has no probability interpretation and every prediction derived from it is void"
+        },
+        {
+          "gate_id": "O",
+          "name": "observer closure",
+          "requirement": "the theory must be an attractive fixed point of its own inference operator, i.e. it must predict the process by which it is inferred",
+          "verdict": "PASS",
+          "evidence": {
+            "converged": true,
+            "kl_residual": 2.442149566004189e-14,
+            "contraction_rate": 0.040990664088544564,
+            "maximum_likelihood": "A_max_likelihood",
+            "reflective_choice": "B_reflective",
+            "likelihood_overridden": true,
+            "reflective_override": 0.7848068550610943,
+            "exploration": 0.02,
+            "fixed_point": [
+              0.008328209576020153,
+              0.9848068550610942,
+              0.006864935362885506
+            ]
+          },
+          "kill_semantics": "if the reflexive fixed point selects a different theory than the candidate, the candidate is self-refuting and must be abandoned, not adjusted"
+        },
+        {
+          "gate_id": "D",
+          "name": "decision closure",
+          "requirement": "at least one fully pre-registered falsifier with claim-level kill semantics, and the axiom system must be shorter than the data it explains (MDL)",
+          "verdict": "CONDITIONAL",
+          "evidence": {
+            "n_falsifiers": 5,
+            "n_complete_falsifiers": 5,
+            "n_complete_external_falsifiers": 0,
+            "axiom_bits": 17160,
+            "data_bits": 18104,
+            "mdl_satisfied": true,
+            "falsifiers": [
+              {
+                "external": false,
+                "observable": "T1: classicality equals absence of constraints of order >= 3",
+                "prediction": "zero violations over every matroid on <= 4 labelled facts (89 substrates for n = 2, 3, 4)",
+                "tolerance": "0 violations",
+                "experiment": "exhaustive enumeration in this repository (scripts/run_rc_toe_audit.py)",
+                "horizon": "decidable now",
+                "kill_semantics": "one counterexample kills the whole ladder reading of quantum logic and demotes RC-ToE to a computational framework",
+                "pre_registered": true
+              },
+              {
+                "external": false,
+                "observable": "finite Born-ready substrate",
+                "prediction": "none exists on <= 4 facts; for finite projective planes none exists at all (every polarity has absolute points)",
+                "tolerance": "exhibition of one finite non-distributive orthocomplemented rank >= 3 matroid with a valuation",
+                "experiment": "enumeration up to 6 facts; then a search over GF(q)-representable matroids",
+                "horizon": "2026-2027 (enumeration is finite and cheap)",
+                "kill_semantics": "kills the claim that the substrate of a quantum ToE must be infinite, which is the hinge of gate Q",
+                "pre_registered": true
+              },
+              {
+                "external": false,
+                "observable": "Spin(10) weight system as a closure structure",
+                "prediction": "the binary [5,4] even-parity code matroid is U_{4,5}, rung 1, no valuation",
+                "tolerance": "exact",
+                "experiment": "scripts/run_rc_toe_audit.py block 3",
+                "horizon": "decidable now",
+                "kill_semantics": "if a valuation exists on L(U_{4,5}), the negative result about Spin(10) as a standalone substrate is void",
+                "pre_registered": true
+              },
+              {
+                "external": false,
+                "observable": "reflective override of maximum likelihood",
+                "prediction": "the reflexive operator selects a non-maximum-likelihood hypothesis with contraction rate < 1",
+                "tolerance": "exact for the published 3-hypothesis kernel",
+                "experiment": "scripts/run_rc_toe_audit.py block 4",
+                "horizon": "decidable now",
+                "kill_semantics": "if the fixed point always coincides with the maximum-likelihood choice, gate O is vacuous and must be deleted from the definition",
+                "pre_registered": true
+              },
+              {
+                "external": false,
+                "observable": "gauge group as an automorphism group of a closure structure",
+                "prediction": "NOT PREDICTED: no finite search has yet produced W(Spin(10)) as Aut of a substrate with the required invariants",
+                "tolerance": "the search space is finite and pre-registered: all matroids on <= 6 facts plus all GF(2)-representable matroids on <= 7 facts",
+                "experiment": "enumeration (to be implemented)",
+                "horizon": "2027",
+                "kill_semantics": "an empty search refutes the gauge channel of gate L for that class and forces the class to be enlarged or abandoned",
+                "pre_registered": true
+              }
+            ]
+          },
+          "kill_semantics": "a violated falsifier kills the claim named in its kill_semantics field; the rest of the theory survives only if it does not depend on that claim"
+        }
+      ],
+      "residual": {
+        "definition": "certified lower bound on the sector the candidate cannot decide",
+        "omega": {
+          "max_length": 9,
+          "step_budget": 2000,
+          "omega": "467/512",
+          "omega_float": 0.912109375,
+          "residual": "29/512",
+          "residual_float": 0.056640625,
+          "total_mass": "31/32",
+          "n_programs": 31,
+          "n_halting": 23,
+          "n_undecided": 8
+        },
+        "n_gates_passed": 1,
+        "n_gates_total": 5,
+        "blocking_gates": [
+          "S",
+          "L",
+          "Q",
+          "D"
+        ]
+      }
+    }
+  },
+  "mdl": {
+    "guh_s10_axiom_bits": 5376,
+    "guh_s10_data_bits": 4768,
+    "rc_toe_axiom_bits": 17160,
+    "rc_toe_data_bits": 18104,
+    "note": "zlib-compressed bit lengths of the quoted document sections; a proxy for description length, used only for the inequality in gate D"
+  }
+}

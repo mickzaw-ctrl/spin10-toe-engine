@@ -1,0 +1,256 @@
+{
+  "ledger_id": "RC-TOE-001",
+  "version": "1.0-definition-and-decision-procedure",
+  "status": "OPEN_DEFINITION_NOT_A_VALIDATED_THEORY",
+  "documents": [
+    "docs/DEFINICJA-TEORII-WSZYSTKIEGO.md",
+    "docs/toe-reflective-closure-definition.md"
+  ],
+  "modules": [
+    "src/toe_closure_kernel.py",
+    "src/toe_reflective_closure.py",
+    "scripts/run_rc_toe_audit.py"
+  ],
+  "classification_vocabulary": {
+    "established_mathematics": "textbook result used as an input; not re-derived here",
+    "theorem_verified_in_repo": "proved or exhaustively verified by the committed kernel and frozen in a contract test",
+    "project_hypothesis": "RC-ToE reading of a physical concept; no derivation of any observable",
+    "unverified_assumption": "assumption with no derivation and no implementation",
+    "rejected_assumption": "claim examined and rejected by computation or by the coincidence budget",
+    "open_task": "a task with a frozen, finite decision procedure and a horizon"
+  },
+  "entries": [
+    {
+      "id": "E001",
+      "classification": "established_mathematics",
+      "statement": "A closure operator satisfying the exchange axiom is a matroid; its closed sets form a geometric lattice (atomic and semimodular), and the rank axioms R0-R3 are equivalent to exchange.",
+      "impact": "Defines the substrate of the RC-ToE definition and justifies the exhaustive rank-function enumeration used to verify T1.",
+      "confidence": "high",
+      "provenance": "Oxley, Matroid Theory; Whitney (1935); Mac Lane (1936)"
+    },
+    {
+      "id": "E002",
+      "classification": "established_mathematics",
+      "statement": "A lattice is distributive iff it contains neither N5 nor M3 as a sublattice; propositions of a quantum system form a non-distributive orthomodular lattice.",
+      "impact": "Supplies the forbidden-sublattice half of the T1 proof and the reading 'non-distributivity = non-classical logic'.",
+      "confidence": "high",
+      "provenance": "Birkhoff, Lattice Theory; Birkhoff & von Neumann (1936), DOI:10.2307/1968621"
+    },
+    {
+      "id": "E003",
+      "classification": "established_mathematics",
+      "statement": "Gleason's theorem: for a Hilbert space of dimension at least 3, every state on the lattice of closed subspaces comes from a density operator. Soler's theorem: an orthomodular lattice with an infinite orthonormal sequence is the subspace lattice of a Hilbert space over a division ring with involution.",
+      "impact": "Makes the Born rule (gate Q) and the field R/C/H derived rather than postulated; also explains why the dimension-2 exception matters for U_{2,4}.",
+      "confidence": "high",
+      "provenance": "Gleason (1957), DOI:10.2307/1970145; Soler (1995), DOI:10.1006/aima.1995.1036"
+    },
+    {
+      "id": "E004",
+      "classification": "established_mathematics",
+      "statement": "Every polarity of a finite projective plane of order n has absolute points (at least n+1).",
+      "impact": "An absolute point p satisfies p <= p_perp, which violates x ^ x_perp = 0, so no finite projective plane lattice is orthocomplementable: the hinge of T4.",
+      "confidence": "high",
+      "provenance": "Baer (1946); standard projective-geometry texts (e.g. Dembowski, Finite Geometries). Not re-derived here."
+    },
+    {
+      "id": "E005",
+      "classification": "established_mathematics",
+      "statement": "The weights of the chiral 16-spinor of Spin(10) are (±1/2,...,±1/2) with an even number of minus signs, and |W(D_5)| = 2^4 * 5! = 1920.",
+      "impact": "Inputs of section 5; both are re-derived by explicit enumeration in the kernel rather than quoted.",
+      "confidence": "high",
+      "provenance": "Standard weight tables for Spin(2n); Bourbaki, Lie Groups and Lie Algebras IV-VI"
+    },
+    {
+      "id": "E006",
+      "classification": "established_mathematics",
+      "statement": "T(1,1) counts bases, T(2,1) independent sets and T(1,2) spanning sets; chi_M(q) = sum_F mu(0,F) q^(r-r(F)); beta(U_{r,n}) = C(n-2, r-1).",
+      "impact": "Fixes the invariant vocabulary of gate S and the sign convention of the kernel's beta_invariant.",
+      "confidence": "high",
+      "provenance": "Tutte; Crapo (1967); verified numerically in tests/test_toe_closure_kernel.py"
+    },
+    {
+      "id": "E007",
+      "classification": "established_mathematics",
+      "statement": "A consistent, sufficiently strong, recursively axiomatisable theory cannot prove its own consistency (Godel II); Lob's theorem constrains self-referential trust.",
+      "impact": "Basis of T7: substance closure and observer closure cannot both hold with zero residual, which is why RC-ToE demands a computed residual instead of completeness.",
+      "confidence": "high",
+      "provenance": "Godel (1931); Lob (1955)"
+    },
+    {
+      "id": "E008",
+      "classification": "established_mathematics",
+      "statement": "Chaitin's Omega is uncomputable; published values are exact lower bounds with a certified undecided mass.",
+      "impact": "Fixes the epistemic status of section 6.5: the kernel reports omega(N,B) and residual(N,B) for a specific toy prefix machine, never 'Omega'.",
+      "confidence": "high",
+      "provenance": "Chaitin (1987); Calude et al., Omega lower-bound computations"
+    },
+    {
+      "id": "T001",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T1: L(M) is distributive iff every circuit of M has at most two elements, i.e. iff the substrate carries no constraint of order three or higher.",
+      "impact": "Quantum logic becomes a theorem about constraint density, and a constraint-free substrate is lawless (cl = id).",
+      "confidence": "high",
+      "provenance": "Proof sketch in docs/DEFINICJA-TEORII-WSZYSTKIEGO.md section 4; exhaustive verification on 89 substrates (all matroids on <= 4 labelled facts) in scripts/run_rc_toe_audit.py, frozen by tests/test_toe_closure_kernel.py::TheoremT1Tests"
+    },
+    {
+      "id": "T002",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T2: the classical limit of a substrate is its distributive reflector L/theta_D, computed exactly; M3, U_{2,4} and PG(2,2) all collapse to two blocks (one classical bit), while B_n is left unchanged.",
+      "impact": "Replaces the hbar -> 0 story by a canonical algebraic construction with a computable defect kappa(L).",
+      "confidence": "high",
+      "provenance": "Lattice.variety reflector (Birkhoff); computed in toe_closure_kernel.Lattice.distributive_quotient and frozen in tests"
+    },
+    {
+      "id": "T003",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T3: the valuation system of a flat lattice can be inconsistent; U_{3,4} and U_{4,5} admit no normalised valuation, hence no probability measure at all.",
+      "impact": "Admissibility becomes an exclusion criterion that removes substrates without any experiment; the census of the 68 substrates on four facts is rung0=52, rung1=1, rung2=14, rung3=1.",
+      "confidence": "high",
+      "provenance": "Exact rational linear algebra in toe_closure_kernel.Lattice.valuation_polytope; hand-checked contradiction for U_{3,4} in the document; frozen in tests"
+    },
+    {
+      "id": "T004",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T4: no substrate on <= 4 facts is Born-ready (orthocomplemented, non-distributive, rank >= 3); the only orthocomplemented non-classical one is U_{2,4} = PG(1,3), of rank 2.",
+      "impact": "Gate Q refuses every finite substrate, so a quantum ToE must have an infinite substrate; Soler then derives the division ring.",
+      "confidence": "high",
+      "provenance": "Exhaustive search in toe_reflective_closure.admissibility_report plus E004; frozen by tests/test_toe_reflective_closure.py::test_no_finite_substrate_up_to_four_facts_is_born_ready"
+    },
+    {
+      "id": "T005",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T5: PG(2,2) has 7 facts, rank 3, 14 circuits, 16 flats, chi = q^3 - 7q^2 + 14q - 8, beta = 3, 28 bases, |Aut| = 168 = GL(3,2), delta_3 = 1/5, exactly one valuation (points 1/3, lines 2/3) and no orthocomplementation.",
+      "impact": "Identifies the smallest admissible non-classical substrate and shows its state space is rigid (a candidate source of constants).",
+      "confidence": "high",
+      "provenance": "toe_closure_kernel.fano_matroid; frozen by tests/test_toe_closure_kernel.py::FanoSubstrateTests"
+    },
+    {
+      "id": "T006",
+      "classification": "theorem_verified_in_repo",
+      "statement": "T6: for the published three-hypothesis kernel, the reflexive inference operator has an attractive fixed point (contraction 0.041) that selects a hypothesis of likelihood 0.20 over the maximum-likelihood hypothesis of 0.70, a total-variation override of 0.785.",
+      "impact": "Gate O is a real selection principle, not a restatement of Bayesian updating; for an identity kernel the fixed point returns to the maximum-likelihood choice.",
+      "confidence": "high",
+      "provenance": "toe_reflective_closure.reflexive_bayes_fixed_point; frozen by tests/test_toe_reflective_closure.py::ReflexiveInferenceTests"
+    },
+    {
+      "id": "H001",
+      "classification": "project_hypothesis",
+      "statement": "Gravity is the entropic response of the constraint charge C(A) = |A| - r(A) to inserting a fact.",
+      "impact": "Would realise Jacobson's programme combinatorially; no Einstein equation has been recovered, so gate L keeps gravity at 'open_task'.",
+      "confidence": "low",
+      "provenance": "Analogy with arXiv:gr-qc/9504004; no repository derivation"
+    },
+    {
+      "id": "H002",
+      "classification": "project_hypothesis",
+      "statement": "Spacetime dimension equals the rank of the closure structure, and the metric is derived from the order of the flat lattice.",
+      "impact": "Defines what 'dimension' means in RC-ToE; no observable (spectral dimension, Lorentzian signature) has been derived from it.",
+      "confidence": "low",
+      "provenance": "Project construction; compare the repository ansatz d_S(N) = 4(1 - exp(-N/150)) which is not reproducible by a Hasse-diagram diffusion (see R002)"
+    },
+    {
+      "id": "H003",
+      "classification": "project_hypothesis",
+      "statement": "The Universe's fact structure is a closure operator (a matroid-like antimatroid of actualisations), so that time is the accessibility order.",
+      "impact": "The whole RC-ToE reading depends on it; it is a hypothesis about the world, not a theorem.",
+      "confidence": "speculative",
+      "provenance": "No derivation; antimatroid axioms are the standard combinatorics of irreversible processes"
+    },
+    {
+      "id": "H004",
+      "classification": "project_hypothesis",
+      "statement": "Gauge symmetry is Aut(cl) of a sector; W(D_5) = 1920 is reproduced exactly as the parity-preserving automorphism group of the five fact slots.",
+      "impact": "Reproduces a Weyl group order but not the Lie group, not its representation theory and not the Standard Model embedding.",
+      "confidence": "medium",
+      "provenance": "toe_closure_kernel.spin10_weyl_group_order and spin10_weyl_group_acts_transitively; frozen in tests"
+    },
+    {
+      "id": "U001",
+      "classification": "unverified_assumption",
+      "statement": "The dimensionless constants of Nature are evaluations of Tutte/Whitney/Mobius invariants of a single 'universe matroid'.",
+      "impact": "This is the content of gate S; not one constant has been mapped, so gate S is FAIL for RC-ToE itself.",
+      "confidence": "speculative",
+      "provenance": "No derivation; no implementing search"
+    },
+    {
+      "id": "U002",
+      "classification": "unverified_assumption",
+      "statement": "Three fermion generations correspond to an invariant of the substrate (for example a count of flat classes).",
+      "impact": "No mechanism; the only candidate noticed so far was rejected by the coincidence budget (R003).",
+      "confidence": "speculative",
+      "provenance": "No derivation"
+    },
+    {
+      "id": "U003",
+      "classification": "unverified_assumption",
+      "statement": "The infinite orthocomplementable embedding required by T4 is octonionic/exceptional (Fano -> h_3(O) -> E_6/E_8) and contains the Spin(10) spinor.",
+      "impact": "Would connect the ladder to the repository's E8 and Spin(10) material; nothing is implemented.",
+      "confidence": "speculative",
+      "provenance": "Suggested by the Fano plane as the octonion multiplication diagram; no repository derivation"
+    },
+    {
+      "id": "R001",
+      "classification": "rejected_assumption",
+      "statement": "The density of dependent triples delta_3 measures quantumness.",
+      "impact": "Refuted by computation: U_{3,4} has delta_3 = 0 and a non-distributive lattice, because its only circuit has four elements. Replaced by the lowest constraint order.",
+      "confidence": "high",
+      "provenance": "toe_closure_kernel.Matroid.lowest_constraint_order docstring and tests"
+    },
+    {
+      "id": "R002",
+      "classification": "rejected_assumption",
+      "statement": "A spectral dimension can be read off a random walk on the Hasse diagram of a finite flat lattice, reproducing d_S(N) = 4(1 - exp(-N/150)).",
+      "impact": "The kernel refuses: a finite lattice mixes to the plateau 1/|L| inside the usable window, so no exponent is identifiable. The repository ansatz is therefore not derivable this way and remains an ansatz.",
+      "confidence": "high",
+      "provenance": "Finite-size guard in toe_closure_kernel.spectral_dimension_from_graph; frozen by tests/test_toe_closure_kernel.py::SpectralDimensionIntegrityTests"
+    },
+    {
+      "id": "R003",
+      "classification": "rejected_assumption",
+      "statement": "beta(PG(2,2)) = 3 explains N_gen = 3.",
+      "impact": "Rejected by the coincidence budget: with 20 invariants over 89 substrates and a 5% tolerance, p_chance = 1 - 0.9^1780 > 0.99, and no mechanism is supplied.",
+      "confidence": "high",
+      "provenance": "toe_reflective_closure.coincidence_budget; frozen by tests/test_toe_reflective_closure.py::CoincidenceBudgetTests"
+    },
+    {
+      "id": "R004",
+      "classification": "rejected_assumption",
+      "statement": "alpha_em = 1/137.036 is derived top-down from the Spin(10) Lie algebra with zero experimental input.",
+      "impact": "Contradicted by the repository's own source: the two-loop integration ends with a hard-coded offset -6.5504 commented 'exact calibration to 1/137.036'.",
+      "confidence": "high",
+      "provenance": "src/physics_apex_v13_core.py:145 and src/grand_unified_toe_core.py:551; recorded in gate S of the GUH-S10 audit"
+    },
+    {
+      "id": "O001",
+      "classification": "open_task",
+      "statement": "Search the frozen class (all matroids on <= 6 facts, all GF(2)-representable matroids on <= 7 facts) for a substrate whose automorphism group is Spin(10) or its Weyl group with the required invariant vector.",
+      "impact": "A non-empty result would open gate L's gauge channel; an empty result refutes that channel for this class (falsifier F5).",
+      "confidence": "n/a",
+      "provenance": "Pre-registered in docs/DEFINICJA-TEORII-WSZYSTKIEGO.md section 8.1, horizon 2027"
+    },
+    {
+      "id": "O002",
+      "classification": "open_task",
+      "statement": "Supply at least one external falsifier for gate D (decidable without running this repository).",
+      "impact": "Until then gate D stays CONDITIONAL and RC-ToE cannot be certified even if S, L and Q were closed.",
+      "confidence": "n/a",
+      "provenance": "docs/DEFINICJA-TEORII-WSZYSTKIEGO.md section 7.3"
+    },
+    {
+      "id": "O003",
+      "classification": "open_task",
+      "statement": "Decide which division ring (R, C or H) Soler's theorem leaves open, from the substrate rather than from observation.",
+      "impact": "Selects the quantum theory; no criterion is implemented.",
+      "confidence": "n/a",
+      "provenance": "Soler (1995); docs section 4, T4"
+    },
+    {
+      "id": "L001",
+      "classification": "project_hypothesis",
+      "statement": "Kernel domain limits: exhaustive subset routines fail closed above 12 facts, matroid enumeration above 5 facts, valuation polytopes above 40 lattice elements, vertex enumeration above nullspace dimension 3, orthocomplementation search above 20 lattice elements, and the Omega lower bound above program length 21.",
+      "impact": "Every number in the documents is inside these limits; outside them the code raises instead of extrapolating.",
+      "confidence": "high",
+      "provenance": "Guards in src/toe_closure_kernel.py and src/toe_reflective_closure.py"
+    }
+  ]
+}

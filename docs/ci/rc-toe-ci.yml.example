@@ -1,0 +1,89 @@
+# Copy to .github/workflows/rc-toe-ci.yml to enable.
+# Committed as an example because the repository's automation token does not
+# have the `workflows` permission (same convention as ift-egr-ci.yml.example).
+# No dependency install: the RC-ToE kernel is standard library only.
+
+name: RC-ToE definition audit
+
+'on':
+  push:
+    paths:
+      - "src/toe_closure_kernel.py"
+      - "src/toe_reflective_closure.py"
+      - "tests/test_toe_closure_kernel.py"
+      - "tests/test_toe_reflective_closure.py"
+      - "scripts/run_rc_toe_audit.py"
+      - "docs/DEFINICJA-TEORII-WSZYSTKIEGO.md"
+      - "docs/toe-reflective-closure-definition.md"
+      - "docs/RC_TOE_ASSUMPTIONS.json"
+      - "docs/ci/rc-toe-ci.yml.example"
+  pull_request:
+    paths:
+      - "src/toe_closure_kernel.py"
+      - "src/toe_reflective_closure.py"
+      - "tests/test_toe_closure_kernel.py"
+      - "tests/test_toe_reflective_closure.py"
+      - "scripts/run_rc_toe_audit.py"
+      - "docs/DEFINICJA-TEORII-WSZYSTKIEGO.md"
+      - "docs/toe-reflective-closure-definition.md"
+      - "docs/RC_TOE_ASSUMPTIONS.json"
+      - "docs/ci/rc-toe-ci.yml.example"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  definition-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile changed sources
+        run: >-
+          python -m py_compile
+          src/toe_closure_kernel.py
+          src/toe_reflective_closure.py
+          scripts/run_rc_toe_audit.py
+          tests/test_toe_closure_kernel.py
+          tests/test_toe_reflective_closure.py
+      - name: Run combinatorial kernel contracts
+        env:
+          PYTHONPATH: src
+        run: python -m unittest -v tests.test_toe_closure_kernel
+      - name: Run closure-gate contracts
+        env:
+          PYTHONPATH: src
+        run: python -m unittest -v tests.test_toe_reflective_closure
+      - name: Run the RC-ToE audit (T1, census, Spin(10), Omega, two audits)
+        env:
+          PYTHONPATH: src
+        run: >-
+          python scripts/run_rc_toe_audit.py
+          --output results/rc_toe_audit_ci.json
+      - name: Refuse self-certification
+        env:
+          PYTHONPATH: src
+        run: >-
+          python - <<'PY'
+          import json, pathlib, sys
+          payload = json.loads(pathlib.Path("results/rc_toe_audit_ci.json").read_text())
+          self_audit = payload["audits"]["rc_toe_self"]
+          if self_audit["certified"]:
+              sys.exit("RC-ToE certified itself: the gates have lost their teeth")
+          if payload["blocks"]["theorem_T1"]["verdict"] != "PASS":
+              sys.exit("theorem T1 has counterexamples")
+          if payload["blocks"]["substrate_census"]["n_born_ready"] != 0:
+              sys.exit("a Born-ready finite substrate appeared: update the definition document")
+          print("definition contract OK:", self_audit["verdict"])
+          PY
+      - name: Upload audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rc-toe-audit
+          path: results/rc_toe_audit_ci.json
+          if-no-files-found: error
+# End of workflow.

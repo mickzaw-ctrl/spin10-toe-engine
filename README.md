@@ -70,6 +70,53 @@ TCD currently reports **project hypotheses and diagnostics, not validated predic
 
 ---
 
+## RC-ToE v1.0 — a definition of "Theory of Everything" with an executable audit
+
+A new, isolated research module answers a question the repository has so far assumed rather
+than defined: **what would make any of these frameworks a Theory of Everything?** The
+answer is a definition plus a decision procedure, not a physical theory — and it is applied
+first to this repository's own claim.
+
+- Definition (Polish, full): [`docs/DEFINICJA-TEORII-WSZYSTKIEGO.md`](docs/DEFINICJA-TEORII-WSZYSTKIEGO.md)
+- Definition (English mirror): [`docs/toe-reflective-closure-definition.md`](docs/toe-reflective-closure-definition.md)
+- Machine-readable assumption ledger: [`docs/RC_TOE_ASSUMPTIONS.json`](docs/RC_TOE_ASSUMPTIONS.json)
+- Combinatorial kernel (stdlib only, exact arithmetic, fail-closed): [`src/toe_closure_kernel.py`](src/toe_closure_kernel.py)
+- Closure gates S/L/Q/O/D + certified residual: [`src/toe_reflective_closure.py`](src/toe_reflective_closure.py)
+- Audit runner: `PYTHONPATH=src python scripts/run_rc_toe_audit.py --output results/rc_toe_audit.json`
+- CI contract (example, needs the `workflows` permission to install): [`docs/ci/rc-toe-ci.yml.example`](docs/ci/rc-toe-ci.yml.example)
+- Contract tests: `PYTHONPATH=src python -m unittest tests.test_toe_closure_kernel tests.test_toe_reflective_closure`
+
+**RC-ToE in one sentence.** A Theory of Everything is a closure structure `(E, cl, σ, Ω)`
+that is closed *substantively* (zero fitted parameters — every constant is a combinatorial
+invariant), *dynamically* (one law: the rank flow `A_{t+1} = cl(A_t ⊔ {x_t})`), *logically*
+(its substrate sits on a computed rung of the admissibility ladder), *observationally* (an
+attractive fixed point of its own inference operator) and *decisionally* (pre-registered
+external falsifiers + an MDL inequality) — **and it publishes its own residual**: what it
+provably cannot decide.
+
+Key computed results (all frozen in tests, all reproducible without NumPy/JAX/network):
+
+| Result | Value |
+|---|---|
+| **T1** classicality ⇔ no constraint of order ≥ 3 | exhaustive on **89 substrates** (all matroids on ≤ 4 facts), **0 violations** |
+| **T3** probability is not automatic | `U_{3,4}` and `U_{4,5}` admit **no** valuation; census of 68 substrates: rung0 52, rung1 1, rung2 14, rung3 1 |
+| **T4** Born rule needs an infinite substrate | **0** Born-ready finite substrates; the only orthocomplemented one is `PG(1,3)`, rank 2 (Gleason's exceptional dimension) |
+| **T5** smallest admissible non-classical substrate | `PG(2,2)`: **one** state (`σ(point)=⅓`, `σ(line)=⅔`), `|Aut| = 168 = GL(3,2)`, `β = 3`, no orthocomplementation |
+| **Spin(10)** as a closure structure | 16 weights = even-parity half of the 5-cube; `|W(D₅)| = 1920 = 2⁴·5!` (transitive); the `[5,4]` parity code is `U_{4,5}` ⇒ **rung 1, no probability** |
+| **T6** reflective stability overrides likelihood | fixed point selects `L = 0.20` over the ML `L = 0.70`; TV override `0.785`, contraction `0.041` |
+| **Audits** | GUH-S10 → `REFUSED_MISSING_COMPUTATION` (S FAIL, L FAIL, Q REFUSED, O FAIL, D FAIL); RC-ToE → `FRAMEWORK_NOT_TOE`, `certified = false` |
+
+The definition **refuses to certify its own proposal**, and the audit runner exits non-zero
+if it ever does. GUH-S10's gate-S failure is evidenced from this repository's source:
+`alpha_em_0_inv - 6.5504` (`src/physics_apex_v13_core.py:145`) is a calibration, not a
+derivation, and the published predictions carry two frozen values for `m_gluino`
+(`10.6 TeV` vs `12.39 TeV`) and for `η_B` (`6.2e-10` vs `6.11e-10`).
+
+RC-ToE derives **no** constant of Nature. It reports project hypotheses, theorems about the
+dictionary, and executable refusals — see the ledger above.
+
+---
+
 ## 🚀 What's New in v13.0-PRO — Physics Apex
 
 ### 1. `SpinFoamLQGBridge` — LQG Spin Foams (EPRL)
