@@ -1,0 +1,233 @@
+{
+  "obserwowane": {
+    "H0_GeV": 1.4377227571053704e-42,
+    "rho_c0_GeV4": 3.6767955377214663e-47,
+    "rho_Lambda_GeV4": 2.517501904677888e-47,
+    "rho_Lambda_quarter_meV": 2.239971289942528,
+    "Lambda_GeV2": 4.245920680490094e-84,
+    "Lambda_m_inv2": 1.0904328674974864e-52,
+    "Lambda_planck": 2.8484702583591965e-122,
+    "rho_over_rhoPl": 1.1330509333117254e-123
+  },
+  "problem_standardowy": [
+    {
+      "odciecie": "Λ_QCD",
+      "kappa_GeV": 0.2,
+      "rho_vac_GeV4_na_dof": 1.013211836423378e-05,
+      "log10_rozbieznosc": 41.604730446809796
+    },
+    {
+      "odciecie": "m_H   (Higgs)",
+      "kappa_GeV": 125.0,
+      "rho_vac_GeV4_na_dof": 1546038.5687612577,
+      "log10_rozbieznosc": 52.788250516186096
+    },
+    {
+      "odciecie": "v_EW  (elektrosłaba)",
+      "kappa_GeV": 246.0,
+      "rho_vac_GeV4_na_dof": 23191065.38603884,
+      "log10_rozbieznosc": 53.96435089256739
+    },
+    {
+      "odciecie": "M_SUSY (1 TeV)",
+      "kappa_GeV": 1000.0,
+      "rho_vac_GeV4_na_dof": 6332573977.6461115,
+      "log10_rozbieznosc": 56.40061046415387
+    },
+    {
+      "odciecie": "M_GUT",
+      "kappa_GeV": 2e+16,
+      "rho_vac_GeV4_na_dof": 1.0132118364233777e+63,
+      "log10_rozbieznosc": 109.6047304468098
+    },
+    {
+      "odciecie": "M_Pl  (Planck)",
+      "kappa_GeV": 1.2209e+19,
+      "rho_vac_GeV4_na_dof": 1.4070212186879397e+74,
+      "log10_rozbieznosc": 120.74733083909237
+    }
+  ],
+  "po_susy": {
+    "m_susy_GeV": 1000.0,
+    "rho_vac_GeV4": 6332573977.6461115,
+    "log10_rozbieznosc": 56.40061046415387
+  },
+  "model_grafowy": {
+    "x_dekondensacja": 0.31200000000000006,
+    "eps_YM": 0.23400000000000004,
+    "eps_top": 0.262,
+    "eps_vac": 0.49600000000000005,
+    "G_N_lat": 0.0031830988618379067,
+    "Lambda_lat_a2": 0.03968000000000001,
+    "Lambda_m_inv2": 1.5189794578650251e+68,
+    "Lambda_planck": 0.03968000000000001
+  },
+  "luka_modelu": {
+    "Lambda_model_planck": 0.03968000000000001,
+    "Lambda_obs_planck": 2.8484702583591965e-122,
+    "log10_luka": 120.14395997425076
+  },
+  "kanaly_tlumienia": {
+    "kanaly": [
+      {
+        "kanal": "1/rank Spin(10)",
+        "czynnik": 0.2,
+        "klasyfikacja": "hipoteza projektu (grupa cechowania)"
+      },
+      {
+        "kanal": "renormalizacja pętlowa Wilsona",
+        "czynnik": 0.9915565680298052,
+        "klasyfikacja": "hipoteza projektu (oszacowanie 1-pętlowe)"
+      },
+      {
+        "kanal": "redukcja lorentzowska 2(1−CF)",
+        "czynnik": 0.524,
+        "klasyfikacja": "hipoteza projektu (Publ. I sygnatura)"
+      },
+      {
+        "kanal": "korekta α-attractor",
+        "czynnik": 0.9928888888888889,
+        "klasyfikacja": "hipoteza projektu (Publ. III)"
+      }
+    ],
+    "tlumienie_laczne": 0.103176176305847,
+    "log10_tlumienie": 0.9864205710550901,
+    "Lambda_po_kanalach_planck": 0.004094030675816009,
+    "log10_luka_po_kanalach": 119.15753940319567,
+    "wystarczajace": false
+  },
+  "kanaly_tlumienia_dim45": {
+    "kanaly": [
+      {
+        "kanal": "1/dim Spin(10)",
+        "czynnik": 0.022222222222222223,
+        "klasyfikacja": "hipoteza projektu (grupa cechowania)"
+      },
+      {
+        "kanal": "renormalizacja pętlowa Wilsona",
+        "czynnik": 0.9915565680298052,
+        "klasyfikacja": "hipoteza projektu (oszacowanie 1-pętlowe)"
+      },
+      {
+        "kanal": "redukcja lorentzowska 2(1−CF)",
+        "czynnik": 0.524,
+        "klasyfikacja": "hipoteza projektu (Publ. I sygnatura)"
+      },
+      {
+        "kanal": "korekta α-attractor",
+        "czynnik": 0.9928888888888889,
+        "klasyfikacja": "hipoteza projektu (Publ. III)"
+      }
+    ],
+    "tlumienie_laczne": 0.011464019589538554,
+    "log10_tlumienie": 1.940663080494415,
+    "Lambda_po_kanalach_planck": 0.0004548922973128899,
+    "log10_luka_po_kanalach": 118.20329689375635,
+    "wystarczajace": false
+  },
+  "problem_odwrotny": {
+    "x_req": 4.747450430598661e-121,
+    "cos_phi_req": 1.0,
+    "fine_tuning_vs_eq": 6.571948555567253e+119,
+    "log10_finetuning": 119.81769415517071,
+    "var_k_req": 3.560587822948996e-121
+  },
+  "trasa_termiczna_domyslna": {
+    "q_mierzony": 1.0,
+    "p_wymagany": 3.793804685696291,
+    "x_przewidziane_dzis": 3.847980997624703e-33,
+    "x_wymagane": 4.747450430598661e-121,
+    "log10_luka": 87.90877247985922,
+    "werdykt": "WYKLUCZONA"
+  },
+  "scenariusz_krytyczny": {
+    "C": 1.0,
+    "t_R_s": 1.0782494e-43,
+    "x_dzis": 6.130167528748693e-122,
+    "Lambda_dzis_planck": 3.6781005172492155e-123,
+    "Lambda_obs_planck": 2.8484702583591965e-122,
+    "C_req_dla_Lambda_obs": 7.744405692559801,
+    "r_BBN_dla_C": 54.78140085418737,
+    "r_BBN_przy_Lambda_obs": 424.249392621569,
+    "r_BBN_max": 0.06813219529807168,
+    "werdykt": "WYKLUCZONY (BBN)"
+  },
+  "scenariusz_freeze": {
+    "x_floor": 4.747450430598661e-121,
+    "t_freeze_s": 1.5649087026724778e+17,
+    "czas_do_bbn_ok": false,
+    "rownowazny_fine_tuning": 120.32353956115226,
+    "werdykt": "SFALSZYFICOWANA (BBN)"
+  },
+  "warunek_instantonowy": {
+    "S_inst_wymagane": 277.0551885297885,
+    "alpha_eff_wymagane": 0.022678461069513697,
+    "alpha_GUT_silnik": 0.04,
+    "stosunek_do_alpha_GUT": 1.763788110550913,
+    "klasyfikacja": "PERSPEKTYWA — warunek spójności krzyżowej, nie mechanizm"
+  },
+  "werdykt": {
+    "status": "LOCALIZED_OPEN",
+    "log10_luka_model_goły": 120.14395997425076,
+    "log10_luka_po_kanalach": 119.15753940319567,
+    "log10_luka_trasa_termiczna": 93.06407403683313,
+    "tracker_przekracza_BBN_o_rzedow": 3.794268846595674,
+    "podsumowanie": "Problem stałej kosmologicznej NIE jest rozwiązany. Model zlokalizował go w dwóch liczbach (1−⟨cosΦ⟩, Var(k)) i sfalsyfikował trasy: kinematyczną, termiczną, szklistą i trackera krytycznego (BBN). Pozostałe okno: prawdziwa próżnia z x ≲ 5e-121 osiągnięta przed BBN — równoważne podłodze nieperturbacyjnej z α_eff ≈ 0.0225 (warunek krzyżowy z RGE)."
+  },
+  "mc_skan_beta": [
+    {
+      "beta": 1.0,
+      "x_eq": 0.18414281977159436,
+      "x_eq_err": 0.003369011220553055
+    },
+    {
+      "beta": 2.0,
+      "x_eq": 0.08629441527000146,
+      "x_eq_err": 0.001464558926482656
+    },
+    {
+      "beta": 4.0,
+      "x_eq": 0.050659188044742634,
+      "x_eq_err": 0.006047735593904139
+    },
+    {
+      "beta": 8.0,
+      "x_eq": 0.03136104881619601,
+      "x_eq_err": 0.005130585048762733
+    },
+    {
+      "beta": 16.0,
+      "x_eq": 0.024484676320700664,
+      "x_eq_err": 0.006490868305101833
+    },
+    {
+      "beta": 32.0,
+      "x_eq": 0.025868154396796492,
+      "x_eq_err": 0.006568705813794365
+    },
+    {
+      "beta": 64.0,
+      "x_eq": 0.01363025151393519,
+      "x_eq_err": 0.003042510216284527
+    }
+  ],
+  "mc_fit_potega": {
+    "A": 0.16973647860622773,
+    "q": 0.8352065265142332,
+    "q_err": 0.1631569821504598
+  },
+  "trasa_termiczna_zmierzona": {
+    "q_mierzony": 0.8352065265142332,
+    "p_wymagany": 3.793804685696291,
+    "x_przewidziane_dzis": 5.502175968045032e-28,
+    "x_wymagane": 4.747450430598661e-121,
+    "log10_luka": 93.06407403683313,
+    "werdykt": "WYKLUCZONA"
+  },
+  "dynamika_szklista": {
+    "beta": 64.0,
+    "n_sweeps": 4000,
+    "x_koncowe": 0.0018704962860175423,
+    "x_podloge_oszacowane": 0.0024343140389172335
+  }
+}

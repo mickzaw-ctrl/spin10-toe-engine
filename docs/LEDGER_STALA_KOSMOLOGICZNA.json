@@ -1,0 +1,138 @@
+{
+  "ledger_id": "CC-LAMBDA-001",
+  "version": "1.0-audited",
+  "status": "OPEN_RESEARCH_PROTOTYPE",
+  "module": "src/stala_kosmologiczna.py",
+  "runner": "scripts/rozwiaz_stala_kosmologiczna.py",
+  "verdict": "LOCALIZED_OPEN",
+  "entries": [
+    {
+      "id": "CC-E001",
+      "classification": "established_physics",
+      "statement": "Energia punktu zerowego pola swobodnego z fizycznym odcięciem κ daje ρ_vac ~ ±κ⁴/(16π²) na stopień swobody; przy κ = M_Pl rozbieżność względem ρ_Λ^obs wynosi ~10^120.",
+      "impact": "Definicja problemu; moduł odtwarza ją dokładnie (10^120.7).",
+      "confidence": "high",
+      "provenance": "S.Weinberg, Rev.Mod.Phys. 61 (1989) 1; J.Martin, Comptes Rendus Physique 13 (2012) 566"
+    },
+    {
+      "id": "CC-E002",
+      "classification": "established_physics",
+      "statement": "Obserwacje: ρ_Λ = Ω_Λ ρ_c0 ≈ (2.24 meV)⁴ dla H0 = 67.4 km/s/Mpc, Ω_Λ = 0.6847; Λ ≈ 1.1e-52 m⁻².",
+      "impact": "Wartości wejściowe audytu; odtworzone w module z dokładnością do 7% w ρ_Λ^{1/4}.",
+      "confidence": "high",
+      "provenance": "Planck 2018 results VI, A&A 641 (2020) A6"
+    },
+    {
+      "id": "CC-E003",
+      "classification": "established_physics",
+      "statement": "Dodatkowa sztywna (t⁻²-skulująca w erze radiacji) składowa gęstości energii w epoce BBN jest ograniczona do ρ_stiff/ρ_rad ≲ (7/8)(4/11)^{4/3}·ΔN_eff z ΔN_eff ≲ 0.3, tj. r_BBN ≲ 0.068.",
+      "impact": "Granica użyta do falsyfikacji trackera krytycznego x ∝ t⁻².",
+      "confidence": "high",
+      "provenance": "Planck 2018 BBN constraints; standardowy przelicznik ΔN_eff ↔ ρ_stiff"
+    },
+    {
+      "id": "CC-E004",
+      "classification": "established_physics",
+      "statement": "Niezłamana SUSY znosi energię punktu zerowego; po złamaniu w skali M_SUSY pozostaje ρ_vac ~ M_SUSY⁴/(16π²), co dla M_SUSY = 1 TeV zostawia rozbieżność ~10^56.",
+      "impact": "Eliminuje „SUSY jako rozwiązanie problemu Λ” — przechwycone w module.",
+      "confidence": "high",
+      "provenance": "J.Martin 2012, rozdz. 3.2"
+    },
+    {
+      "id": "CC-H001",
+      "classification": "project_hypothesis",
+      "statement": "Stała kosmologiczna jest emergentna z dynamiki grafu: Λ = 8πG_N[(3/4g²)(1−⟨cosΦ⟩) + α·Var(k)], G_N = 3/(2πNa²).",
+      "impact": "Z dokumentu docs/cosmological-constant.md; zmierzono, że dla równowagi raportu daje Λ ≈ 4×10⁻² ℓ_Pl⁻² — czyli model odziedziczył pełny problem ~10^120.",
+      "confidence": "low",
+      "provenance": "docs/cosmological-constant.md; src/oblicz_lambda.py"
+    },
+    {
+      "id": "CC-H002",
+      "classification": "project_hypothesis",
+      "statement": "Kanały tłumienia: 1/rank lub 1/dim Spin(10), renormalizacja pętlowa Wilsona, redukcja lorentzowska 2(1−CF), korekta α-attractor.",
+      "impact": "Łączny czynnik ≤ ~10² — o ~118 rzędów za mały; kanały kinematyczne nie rozwiązują problemu.",
+      "confidence": "low",
+      "provenance": "docs/cosmological-constant.md pkt 6.2; src/spin10_engine.py (Spin10Predictions.cosmological_constant)"
+    },
+    {
+      "id": "CC-H003",
+      "classification": "project_hypothesis",
+      "statement": "Kosmologiczne stygnięcie sieci można parametryzować efektywnym β ∝ 1/T kosmicznym; wtedy frakcja dekondensacji spada jak potęga temperatury.",
+      "impact": "Założenie używane w trasie termicznej; zmierzony wykładnik q ≈ 0.8–1.05 (harmoniczny) vs wymagany 3.79 — trasa sfalsyfikowana niezależnie od szczegółów mapowania.",
+      "confidence": "low",
+      "provenance": "ansatz audytowy, src/stala_kosmologiczna.py (trasa_termiczna)"
+    },
+    {
+      "id": "CC-H004",
+      "classification": "project_hypothesis",
+      "statement": "Podłoga próżni może być nieperturbacyjna: x_f ~ exp(−2π/α_eff). Wymuszenie x_f = x_req ≈ 4.7×10⁻¹²¹ daje S_inst ≈ 277, α_eff ≈ 0.0227.",
+      "impact": "PERSPEKTYWA, nie mechanizm: wymaga wykazania istnienia takiej podłogi i zgodności α_eff z biegiem sprzężenia z modułu RGE (α_GUT = 0.04, stosunek 1.76).",
+      "confidence": "low",
+      "provenance": "src/stala_kosmologiczna.py (warunek_instantonowy)"
+    },
+    {
+      "id": "CC-F001",
+      "classification": "falsified_route",
+      "statement": "Trasa termiczna: x_eq(T) ∝ T^p z p = 3.79 dałaby Λ_obs dziś, ale równowagowy pomiar MC na topologii Spin10Graph daje x_eq ∝ β^(−q), q ≈ 0.8–1.1.",
+      "impact": "Równowagowy spadek daje dziś x ~ 10⁻²¹–10⁻³³ (zależnie od mapowania) — luka ~10⁸⁶–10¹⁰⁰ do x_req. WYKLUCZONA.",
+      "confidence": "medium (kratka N=60–120, β=1–64, aktualizacje lokalne)",
+      "provenance": "pomiar: scripts/rozwiaz_stala_kosmologiczna.py, results/stala_kosmologiczna_raport.json"
+    },
+    {
+      "id": "CC-F002",
+      "classification": "falsified_route",
+      "statement": "Trasa szklista: relaksacja dynamiczna od startu gorącego przy β=64 zatrzymuje się na podłożu frustracyjnym x ~ 10⁻²–10⁻³ (tryby wolne/plakietki sfrustrowane).",
+      "impact": "Nawet nieskończona relaksacja nie zbliża próżni do x ≲ 10⁻¹²¹ (luka ~10¹¹⁸). WYKLUCZONA.",
+      "confidence": "medium",
+      "provenance": "pomiar: scripts/rozwiaz_stala_kosmologiczna.py [6]"
+    },
+    {
+      "id": "CC-F003",
+      "classification": "falsified_route",
+      "statement": "Tracker krytyczny typu Abbott: x(t) = C(t_R/t)². Wymuszenie Λ(t₀) = Λ_obs wymaga C ≈ 7.7 (>1, niefizyczne) i implikuje stały stosunek ρ_vac/ρ_rad ≈ 420 w epoce BBN vs granica 0.068.",
+      "impact": "WYKLUCZONY przez BBN o ~3.8 rzędu (niezależnie od C i t_R przy N=150).",
+      "confidence": "high (wynik analityczny w ramach założeń formuły grafowej)",
+      "provenance": "src/stala_kosmologiczna.py (scenariusz_krytyczny)"
+    },
+    {
+      "id": "CC-F004",
+      "classification": "falsified_route",
+      "statement": "Hybryda freeze: relaksacja t⁻² do podłogi x_f = x_req, potem Λ = const. Podłoga osiągana dopiero przy t_f ≈ 1.6×10¹⁷ s ≫ t_BBN — sztywna składowa rujnuje BBN.",
+      "impact": "SFALSZYFICOWANA. Zamrożenie przed BBN (t ≲ 0.1 s) równoważne jawnej fine-tuningu 10⁻¹²¹ — brak mechanizmu.",
+      "confidence": "high (analitycznie)",
+      "provenance": "src/stala_kosmologiczna.py (scenariusz_freeze)"
+    },
+    {
+      "id": "CC-F005",
+      "classification": "falsified_route",
+      "statement": "Tłumienie kinematyczne (kanały CC-H002) redukuje Λ najwyżej o ~2 rzędy przy pozostałej luce ~10¹¹⁸.",
+      "impact": "ZA SŁABE o co najmniej 116 rzędów.",
+      "confidence": "high (analitycznie)",
+      "provenance": "src/stala_kosmologiczna.py (kanaly_tlumienia)"
+    },
+    {
+      "id": "CC-R001",
+      "classification": "open_requirement",
+      "statement": "Pozostałe okno rozwiązania: prawdziwa próżnia musi osiągnąć x = 1−⟨cosΦ⟩ ≲ 5×10⁻¹²¹ (lub Var(k) ≲ 4×10⁻¹²¹) PRZED nukleosyntezą (t ≲ 0.1 s), po czym x pozostaje zamrożone do dziś.",
+      "impact": "Definiuje mierzalny cel dla przyszłych mechanizmów; każdy mechanizm musi spełnić ten warunek + zostawić problem koincydencji.",
+      "confidence": "high (wniosek z falsyfikacji tras)",
+      "provenance": "src/stala_kosmologiczna.py (werdykt_koncowy)"
+    },
+    {
+      "id": "CC-U001",
+      "classification": "unverified_assumption",
+      "statement": "Sektor euklidesowy (S_YM = −Σ cosΦ) użyty w pomiarach MC; w silniku obecna jest dodatkowo sygnatura lorentzowska (η(△) · cosΦ), która może zmienić równowagę próżni.",
+      "impact": "Wyniki tras F001/F002 dotyczą sektora euklidesowego (jak w wyprowadzeniu Λ z dokumentu). Pełna analiza sektora mieszanego pozostaje otwarta.",
+      "confidence": "n/a (ograniczenie zakresu)",
+      "provenance": "src/spin10_engine.py (Spin10Action.S_YM z czynnikiem η)"
+    },
+    {
+      "id": "CC-U002",
+      "classification": "unverified_assumption",
+      "statement": "Wymiarowa interpretacja Λ_lat: w jednostkach sieciowych przyjęto a = ℓ_Pl, więc Λ_lat ≡ Λ/M_Pl². Formuła wyjściowa w dokumentacji mieszała jednostki (Λ~ℓ_P⁻⁴).",
+      "impact": "Skorygowano wymiarowo na Λ = 8πG_N ρ_vac [L⁻²]; wnioski o rzędach wielkości niezmienione.",
+      "confidence": "high (korekta czysto wymiarowa)",
+      "provenance": "src/stala_kosmologiczna.py (lambda_graf, docstring)"
+    }
+  ]
+}

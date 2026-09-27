@@ -70,6 +70,20 @@ TCD currently reports **project hypotheses and diagnostics, not validated predic
 
 ---
 
+## Cosmological constant problem — audited resolution attempt (v1.0)
+
+A scientifically gated audit of the cosmological constant problem inside the Spin(10) engine. It quantifies the classic ~10¹²⁰ discrepancy, re-derives the engine's graph formula for Λ, **falsifies four natural relaxation routes** (thermal scaling, glassy relaxation, Abbott-type t⁻² tracker via BBN, freeze hybrid) using the engine's own Monte Carlo dynamics, and reduces the problem to two falsifiable target inequalities.
+
+- Research module: [`src/stala_kosmologiczna.py`](src/stala_kosmologiczna.py)
+- Pipeline + plots: `PYTHONPATH=src python3 scripts/rozwiaz_stala_kosmologiczna.py`
+- 39 scientific-contract tests: [`tests/test_stala_kosmologiczna.py`](tests/test_stala_kosmologiczna.py)
+- Report: [`docs/ROZWIAZANIE-STALEJ-KOSMOLOGICZNEJ.md`](docs/ROZWIAZANIE-STALEJ-KOSMOLOGICZNEJ.md)
+- Machine-readable assumption ledger: [`docs/LEDGER_STALA_KOSMOLOGICZNA.json`](docs/LEDGER_STALA_KOSMOLOGICZNA.json)
+
+**Verdict: `LOCALIZED_OPEN`** — the problem is *not solved*. The engine localizes it in two observables (1−⟨cosΦ⟩ ≲ 5×10⁻¹²¹ and Var(k) ≲ 4×10⁻¹²¹, required before BBN, t ≲ 0.1 s) and derives a cross-checkable condition on a possible nonperturbative vacuum floor: α_eff ≈ 0.0227 (vs engine α_GUT = 0.04).
+
+---
+
 ## 🚀 What's New in v13.0-PRO — Physics Apex
 
 ### 1. `SpinFoamLQGBridge` — LQG Spin Foams (EPRL)
