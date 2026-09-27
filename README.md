@@ -82,6 +82,8 @@ A scientifically gated audit of the cosmological constant problem inside the Spi
 
 **Verdict: `LOCALIZED_OPEN`** — the problem is *not solved*. The engine localizes it in two observables (1−⟨cosΦ⟩ ≲ 5×10⁻¹²¹ and Var(k) ≲ 4×10⁻¹²¹, required before BBN, t ≲ 0.1 s) and derives a cross-checkable condition on a possible nonperturbative vacuum floor: α_eff ≈ 0.0227 (vs engine α_GUT = 0.04).
 
+**Data confrontation (2026-09-27, Planck18/DESI DR1-DR2/BBN):** engine-wide — 18 rows, AGREE=12, the only EXCLUDED observable is ρ_Λ (χ²/dof=0.72 elsewhere). CC-sector scenarios — all relaxation routes EXCLUDED (amplitude 10⁹³–10¹²⁰, w=0 tracker 6.6σ off DESI, BBN violated by up to 10⁸⁸×); only the floor scenario agrees, *by construction* (tuned-to-data). Details: [`docs/KONFRONTACJA-KOSMOLOGICZNA-2026.md`](docs/KONFRONTACJA-KOSMOLOGICZNA-2026.md), runner `scripts/konfrontuj_stala_kosmologiczna.py`, module `src/konfrontacja_kosmologiczna.py`, 25 contract tests `tests/test_konfrontacja_kosmologiczna.py`.
+
 ---
 
 ## 🚀 What's New in v13.0-PRO — Physics Apex

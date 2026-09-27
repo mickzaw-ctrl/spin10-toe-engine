@@ -1,0 +1,508 @@
+{
+  "dane": {
+    "Lambda_planck": {
+      "value": 2.8485e-122,
+      "sigma_frac": 0.05,
+      "kind": "measurement",
+      "opis": "Λ/M_Pl² (ΛCDM)",
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    "rho_L_planck": {
+      "value": 1.135e-123,
+      "sigma_frac": 0.05,
+      "kind": "measurement",
+      "opis": "ρ_Λ/M_Pl⁴ (ΛCDM)",
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    "Omega_L": {
+      "value": 0.6847,
+      "sigma": 0.0073,
+      "kind": "measurement",
+      "opis": "gęstość ciemnej energii dziś",
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    "Omega_m_desi": {
+      "value": 0.295,
+      "sigma": 0.015,
+      "kind": "measurement",
+      "opis": "Ω_m (DESI DR1 BAO samotnie)",
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    "Omega_m_desi_cmb": {
+      "value": 0.307,
+      "sigma": 0.005,
+      "kind": "measurement",
+      "opis": "Ω_m (DESI+CMB, ΛCDM)",
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    "H0_planck": {
+      "value": 67.36,
+      "sigma": 0.54,
+      "kind": "measurement",
+      "opis": "H₀ [km/s/Mpc] (ΛCDM)",
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    "H0_desi_cmb": {
+      "value": 67.97,
+      "sigma": 0.38,
+      "kind": "measurement",
+      "opis": "H₀ [km/s/Mpc] (DESI+CMB)",
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    "w_desi": {
+      "value": -0.99,
+      "sigma_up": 0.15,
+      "sigma_dn": 0.13,
+      "kind": "measurement",
+      "opis": "stałe w ciemnej energii (DESI DR1 BAO)",
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    "w0wa_preferencja": {
+      "value": "w0>-1, wa<0",
+      "kind": "hint",
+      "significance_sigma_range": [
+        3.1,
+        4.2
+      ],
+      "opis": "preferencja ewoluującej DE ponad ΛCDM (DESI DR2+CMB, 2.8–4.2σ z SNe)",
+      "source": "DESI DR2 results II, arXiv:2503.14738"
+    },
+    "r_bbn_stiff": {
+      "value": 0.06813219529807168,
+      "kind": "upper_limit",
+      "opis": "ρ_stiff/ρ_rad w epoce BBN (ΔN_eff≤0.3)",
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    "t0_gyr": {
+      "value": 13.797,
+      "sigma": 0.023,
+      "kind": "measurement",
+      "opis": "wiek Wszechświata [Gyr] (ΛCDM)",
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    }
+  },
+  "scenariusze": [
+    {
+      "id": "S1_goly_model",
+      "nazwa": "Goły model grafowy (równowaga raportu)",
+      "Lambda_t0_planck": 0.03968000000000001,
+      "w0": -1.0,
+      "r_BBN": 3.1161266208858105e+87,
+      "Omega_L_t0": "~1 (natychmiastowa dominacja próżni)",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      }
+    },
+    {
+      "id": "S2_po_kanalach",
+      "nazwa": "Po kanałach kinematycznych (×0.103)",
+      "Lambda_t0_planck": 0.004094030675816009,
+      "w0": -1.0,
+      "r_BBN": 3.215100296278576e+86,
+      "Omega_L_t0": "~1",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      }
+    },
+    {
+      "id": "S3_termiczna",
+      "nazwa": "Trasa termiczna x∝T^q (zmierzone q=0.835)",
+      "Lambda_t0_planck": 3.301305580827019e-29,
+      "w0": -0.7215978244952557,
+      "r_BBN": 2.857791288659596e+68,
+      "Omega_L_t0": "~1",
+      "derivation": {
+        "status": "computed+measured",
+        "nota": "Λ z równowagowego wykładnika q zmierzonego MC na topologii silnika"
+      }
+    },
+    {
+      "id": "S4_tracker_req",
+      "nazwa": "Tracker krytyczny t⁻² z Λ(t₀)=Λ_obs",
+      "Lambda_t0_planck": 2.8484702583591965e-122,
+      "w0": 0.0,
+      "r_BBN": 424.249392621569,
+      "C_req": 7.744405692559801,
+      "Omega_L_t0": "nieokreślone (historia niespójna: dominacja trackera w każdej erze)",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "C_req = 7.74 (>1: amplituda początkowa niefizyczna)"
+      }
+    },
+    {
+      "id": "S4b_tracker_C1",
+      "nazwa": "Tracker krytyczny t⁻², C=1 (fizyczny start)",
+      "Lambda_t0_planck": 3.6781005172492155e-123,
+      "w0": 0.0,
+      "r_BBN": 54.78140085418737,
+      "Omega_L_t0": "nieokreślone",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      }
+    },
+    {
+      "id": "S5_podloga",
+      "nazwa": "Podłoga x_f=x_req osiągnięta przed BBN, w=−1",
+      "Lambda_t0_planck": 2.8484702583591965e-122,
+      "w0": -1.0,
+      "r_BBN": 2.236944052639762e-33,
+      "Omega_L_t0": "0.6847 (z założenia płaskości i Λ=Λ_obs)",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "podłoga JEST danymi — brak mechanizmu jej generowania"
+      }
+    }
+  ],
+  "wiersze": [
+    {
+      "scenariusz": "S1_goly_model",
+      "nazwa": "Goły model grafowy (równowaga raportu)",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 0.03968000000000001,
+      "data": 2.8485e-122,
+      "pull": "10^+120.1",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S1_goly_model",
+      "nazwa": "Goły model grafowy (równowaga raportu)",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": -1.0,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "0.08σ",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S1_goly_model",
+      "nazwa": "Goły model grafowy (równowaga raportu)",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 3.1161266208858105e+87,
+      "data": "< 0.068",
+      "pull": "×4.57e+88 limitu",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S2_po_kanalach",
+      "nazwa": "Po kanałach kinematycznych (×0.103)",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 0.004094030675816009,
+      "data": 2.8485e-122,
+      "pull": "10^+119.2",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S2_po_kanalach",
+      "nazwa": "Po kanałach kinematycznych (×0.103)",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": -1.0,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "0.08σ",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S2_po_kanalach",
+      "nazwa": "Po kanałach kinematycznych (×0.103)",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 3.215100296278576e+86,
+      "data": "< 0.068",
+      "pull": "×4.72e+87 limitu",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S3_termiczna",
+      "nazwa": "Trasa termiczna x∝T^q (zmierzone q=0.835)",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 3.301305580827019e-29,
+      "data": 2.8485e-122,
+      "pull": "10^+93.1",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed+measured",
+        "nota": "Λ z równowagowego wykładnika q zmierzonego MC na topologii silnika"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S3_termiczna",
+      "nazwa": "Trasa termiczna x∝T^q (zmierzone q=0.835)",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": -0.7215978244952557,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "1.79σ",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "computed+measured",
+        "nota": "Λ z równowagowego wykładnika q zmierzonego MC na topologii silnika"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S3_termiczna",
+      "nazwa": "Trasa termiczna x∝T^q (zmierzone q=0.835)",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 2.857791288659596e+68,
+      "data": "< 0.068",
+      "pull": "×4.19e+69 limitu",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed+measured",
+        "nota": "Λ z równowagowego wykładnika q zmierzonego MC na topologii silnika"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S4_tracker_req",
+      "nazwa": "Tracker krytyczny t⁻² z Λ(t₀)=Λ_obs",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 2.8484702583591965e-122,
+      "data": 2.8485e-122,
+      "pull": "10^-0.0",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "C_req = 7.74 (>1: amplituda początkowa niefizyczna)"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S4_tracker_req",
+      "nazwa": "Tracker krytyczny t⁻² z Λ(t₀)=Λ_obs",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": 0.0,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "6.60σ",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "C_req = 7.74 (>1: amplituda początkowa niefizyczna)"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S4_tracker_req",
+      "nazwa": "Tracker krytyczny t⁻² z Λ(t₀)=Λ_obs",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 424.249392621569,
+      "data": "< 0.068",
+      "pull": "×6.23e+03 limitu",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "C_req = 7.74 (>1: amplituda początkowa niefizyczna)"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S4b_tracker_C1",
+      "nazwa": "Tracker krytyczny t⁻², C=1 (fizyczny start)",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 3.6781005172492155e-123,
+      "data": 2.8485e-122,
+      "pull": "10^-0.9",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S4b_tracker_C1",
+      "nazwa": "Tracker krytyczny t⁻², C=1 (fizyczny start)",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": 0.0,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "6.60σ",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S4b_tracker_C1",
+      "nazwa": "Tracker krytyczny t⁻², C=1 (fizyczny start)",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 54.78140085418737,
+      "data": "< 0.068",
+      "pull": "×8.04e+02 limitu",
+      "verdict": "EXCLUDED",
+      "derivation": {
+        "status": "computed",
+        "nota": "z formuły grafowej / pomiaru MC"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S5_podloga",
+      "nazwa": "Podłoga x_f=x_req osiągnięta przed BBN, w=−1",
+      "obserwabla": "Λ_t0 [M_Pl²]",
+      "model": 2.8484702583591965e-122,
+      "data": 2.8485e-122,
+      "pull": "10^-0.0",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "podłoga JEST danymi — brak mechanizmu jej generowania"
+      },
+      "source": "Planck 2018 VI, arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S5_podloga",
+      "nazwa": "Podłoga x_f=x_req osiągnięta przed BBN, w=−1",
+      "obserwabla": "w(ciągłe, DESI DR1 BAO)",
+      "model": -1.0,
+      "data": "-0.99 (+0.15/−0.13)",
+      "pull": "0.08σ",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "podłoga JEST danymi — brak mechanizmu jej generowania"
+      },
+      "source": "DESI 2024 VI (DR1 BAO), arXiv:2404.03002"
+    },
+    {
+      "scenariusz": "S5_podloga",
+      "nazwa": "Podłoga x_f=x_req osiągnięta przed BBN, w=−1",
+      "obserwabla": "ρ_stiff/ρ_rad przy BBN",
+      "model": 2.236944052639762e-33,
+      "data": "< 0.068",
+      "pull": "×3.28e-32 limitu",
+      "verdict": "AGREE",
+      "derivation": {
+        "status": "tuned-to-data",
+        "nota": "podłoga JEST danymi — brak mechanizmu jej generowania"
+      },
+      "source": "Planck+BBN ΔN_eff<=0.3 (95% CL), arXiv:1807.06209"
+    },
+    {
+      "scenariusz": "S1/S2/S5 (w=−1 dokładnie)",
+      "nazwa": "Dowolny stały Λ (w=−1)",
+      "obserwabla": "hint w0wa (DESI DR2)",
+      "model": "(w0, wa) = (−1, 0)",
+      "data": "preferowane w0>-1, wa<0 (3.1–4.2σ)",
+      "pull": "2.5–4.2σ od punktu ΛCDM (zależnie od kombinacji)",
+      "verdict": "TENSION-CONTEXT",
+      "derivation": {
+        "status": "context",
+        "nota": "napięcie wspólne z ΛCDM, nie specyficzne dla modelu"
+      },
+      "source": "DESI DR2 results II, arXiv:2503.14738"
+    },
+    {
+      "scenariusz": "S5_podloga (mechanizm nieperturbacyjny)",
+      "nazwa": "Warunek krzyżowy α_eff (podłoga instantonowa)",
+      "obserwabla": "α_eff = 2π/ln(1/x_req) vs α_GUT silnika",
+      "model": 0.022678461069513697,
+      "data": "α_GUT = 0.04 (2-pętlowy RGE silnika)",
+      "pull": "stosunek 1.76",
+      "verdict": "TENSION",
+      "derivation": {
+        "status": "pending",
+        "nota": "wymaga ewaluacji α(M_Pl) w module RGE"
+      },
+      "source": "src/numerical_rge_solver.py (do skrzyżowania)"
+    }
+  ],
+  "podsumowanie": {
+    "po_scenariuszach": {
+      "S1_goly_model": {
+        "nazwa": "Goły model grafowy (równowaga raportu)",
+        "werdykt": "EXCLUDED",
+        "szczegoly": [
+          "EXCLUDED",
+          "AGREE",
+          "EXCLUDED"
+        ]
+      },
+      "S2_po_kanalach": {
+        "nazwa": "Po kanałach kinematycznych (×0.103)",
+        "werdykt": "EXCLUDED",
+        "szczegoly": [
+          "EXCLUDED",
+          "AGREE",
+          "EXCLUDED"
+        ]
+      },
+      "S3_termiczna": {
+        "nazwa": "Trasa termiczna x∝T^q (zmierzone q=0.835)",
+        "werdykt": "EXCLUDED",
+        "szczegoly": [
+          "EXCLUDED",
+          "AGREE",
+          "EXCLUDED"
+        ]
+      },
+      "S4_tracker_req": {
+        "nazwa": "Tracker krytyczny t⁻² z Λ(t₀)=Λ_obs",
+        "werdykt": "EXCLUDED",
+        "szczegoly": [
+          "AGREE",
+          "EXCLUDED",
+          "EXCLUDED"
+        ]
+      },
+      "S4b_tracker_C1": {
+        "nazwa": "Tracker krytyczny t⁻², C=1 (fizyczny start)",
+        "werdykt": "EXCLUDED",
+        "szczegoly": [
+          "AGREE",
+          "EXCLUDED",
+          "EXCLUDED"
+        ]
+      },
+      "S5_podloga": {
+        "nazwa": "Podłoga x_f=x_req osiągnięta przed BBN, w=−1",
+        "werdykt": "AGREE",
+        "szczegoly": [
+          "AGREE",
+          "AGREE",
+          "AGREE"
+        ]
+      }
+    },
+    "liczniki": {
+      "AGREE": 8,
+      "TENSION": 0,
+      "EXCLUDED": 10
+    },
+    "jedyny_zgodny": [
+      "S5_podloga"
+    ],
+    "uwaga_uczciwosci": "Jedyny scenariusz zgodny z danymi (S5_podloga) jest dopasowany do danych z konstrukcji (oś DERIVATION=tuned-to-data) — zgodność NIE jest predykcją modelu."
+  }
+}

@@ -133,6 +133,38 @@
       "impact": "Skorygowano wymiarowo na Λ = 8πG_N ρ_vac [L⁻²]; wnioski o rzędach wielkości niezmienione.",
       "confidence": "high (korekta czysto wymiarowa)",
       "provenance": "src/stala_kosmologiczna.py (lambda_graf, docstring)"
+    },
+    {
+      "id": "CC-D001",
+      "classification": "external_data",
+      "statement": "Planck 2018 VI (ΛCDM): Λ/M_Pl² = 2.85e-122, Ω_Λ = 0.6847±0.0073, H₀ = 67.36±0.54, t₀ = 13.797±0.023 Gyr.",
+      "impact": "Referencja amplitudy dla konfrontacji sektora Λ.",
+      "confidence": "high",
+      "provenance": "arXiv:1807.06209"
+    },
+    {
+      "id": "CC-D002",
+      "classification": "external_data",
+      "statement": "DESI 2024 VI DR1 BAO: Ω_m = 0.295±0.015 (samotnie), 0.307±0.005 (+CMB); stałe w = −0.99(+0.15/−0.13).",
+      "impact": "Najostrzejsze ograniczenie równania stanu ciemnej energii dla scenariuszy modelu; tracker z w=0 dziś odpada na 6.6σ.",
+      "confidence": "high",
+      "provenance": "arXiv:2404.03002"
+    },
+    {
+      "id": "CC-D003",
+      "classification": "external_data",
+      "statement": "DESI DR2 (2025): świadectwo ewolucji DE (w₀>−1, wₐ<0) ponad ΛCDM na 3.1σ (DESI+CMB) do 4.2σ (z SNe).",
+      "impact": "TENSION-CONTEXT dla każdego scenariusza o dokładnie stałym w=−1 — wspólne z ΛCDM, nie dyskryminuje modelu.",
+      "confidence": "high",
+      "provenance": "arXiv:2503.14738"
+    },
+    {
+      "id": "CC-C001",
+      "classification": "confrontation_result",
+      "statement": "Konfrontacja sektora Λ z danymi (Planck18/DESI/BBN): scenariusze S1–S4b wykluczone; jedyny zgodny scenariusz (S5, podłoga x_f=x_req przed BBN) jest dopasowany do danych z konstrukcji (tuned-to-data). Światowa konfrontacja silnika: 12×AGREE / 1×EXCLUDED (ρ_Λ) / 5×NO-DATA, χ²/dof=0.72.",
+      "impact": "Model pozostaje zgodny z danymi wszędzie POZA gęstością energii próżniowej; w sektorze Λ zgadza się wyłącznie wersja dopasowana — brak predykcji.",
+      "confidence": "high",
+      "provenance": "docs/KONFRONTACJA-KOSMOLOGICZNA-2026.md; results/konfrontacja_stala_kosmologiczna.json; results/konfrontacja_silnik_exp.json"
     }
   ]
 }
