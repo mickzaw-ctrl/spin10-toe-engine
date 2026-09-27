@@ -86,6 +86,19 @@ A scientifically gated audit of the cosmological constant problem inside the Spi
 
 ---
 
+## Inflation & data sector rebuild (ACT DR6 era, 2026)
+
+Replaced hard-coded N=60 and LO formulas (n_s = 1−2/N, r = 12α/N²) with exact Friedmann–Klein–Gordon background dynamics (Hubble-flow ε₁,ε₂,ε₃ → second-order n_s, r, α_s, β_s) plus a physical reheating sector (entropy chain, w_rh=0) that derives N_⋆(T_rh) — the old N=60 is shown to be **unphysical** (N_⋆ ≲ 56.5 for this potential).
+
+- Research module: [`src/inflacja_alpha_attractor.py`](src/inflacja_alpha_attractor.py) · data/verdicts: [`src/konfrontacja_inflacja.py`](src/konfrontacja_inflacja.py)
+- Runner: `PYTHONPATH=src python3 scripts/konfrontuj_inflacje.py`
+- 32 scientific-contract tests: [`tests/test_inflacja_konfrontacja.py`](tests/test_inflacja_konfrontacja.py)
+- Report: [`docs/INFLACJA-PRZEBUDOWA-2026.md`](docs/INFLACJA-PRZEBUDOWA-2026.md) · ledger: [`docs/LEDGER_INFLACJA.json`](docs/LEDGER_INFLACJA.json)
+
+**Verdict: `VANILLA_IN_TENSION_WITH_ACT_DR6_PLB`** — exact vanilla predictions (N=60: n_s=0.9684, r=0.00967, α_s=−5.1×10⁻⁴; reheating: N_⋆≲56.5, n_s≤0.966) agree with Planck 2018 and P-ACT, but sit **2.3–2.6σ below ACT DR6 P-ACT-LB n_s=0.9743±0.0034**; typical reheating temperatures are EXCLUDED at 3.8σ. r stays 2–4× below BK18. Late-Universe tensions (H₀ 4.9σ, S₈ 2σ) catalogued as shared-with-ΛCDM context, no engine predictions claimed. Watch item: engine α_s<0 vs ACT+β_s hint α_s>0 (~2σ).
+
+---
+
 ## 🚀 What's New in v13.0-PRO — Physics Apex
 
 ### 1. `SpinFoamLQGBridge` — LQG Spin Foams (EPRL)

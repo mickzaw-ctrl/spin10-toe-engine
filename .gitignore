@@ -36,3 +36,4 @@ results/*.npy
 /test_results.json
 results/stala_kosmologiczna/*.png
 logs/stala_kosmologiczna_run.log
+results/inflacja/*.png

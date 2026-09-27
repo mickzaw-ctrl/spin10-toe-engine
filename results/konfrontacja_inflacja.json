@@ -1,0 +1,389 @@
+{
+  "dane": {
+    "n_s_planck": {
+      "value": 0.9649,
+      "sigma": 0.0042,
+      "kind": "measurement",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697"
+    },
+    "n_s_pact": {
+      "value": 0.9709,
+      "sigma": 0.0038,
+      "kind": "measurement",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx)"
+    },
+    "n_s_pactlb": {
+      "value": 0.9743,
+      "sigma": 0.0034,
+      "kind": "measurement",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI"
+    },
+    "A_s": {
+      "value": 2.099e-09,
+      "sigma": 2.938e-11,
+      "kind": "measurement",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697"
+    },
+    "r_0.05": {
+      "value": 0.036,
+      "kind": "upper_limit",
+      "cl": "95%",
+      "source": "BICEP/Keck BK18, PRL 127, 151301 (2021), arXiv:2110.00483"
+    },
+    "r_combo": {
+      "value": 0.038,
+      "kind": "upper_limit",
+      "cl": "95%",
+      "source": "P-ACT-LB-BK18 (po arXiv:2606.24131)"
+    },
+    "alpha_s_planck": {
+      "value": -0.0041,
+      "sigma": 0.0067,
+      "kind": "measurement",
+      "note": "ΛCDM+running",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697 IX"
+    },
+    "alpha_s_actext": {
+      "value": 0.0119,
+      "sigma": 0.0063,
+      "kind": "extended_fit",
+      "note": "ACT+P z α_s i β_s swobodnymi",
+      "source": "arXiv:2511.01612 (fit rozszerzony)"
+    },
+    "H0_planck": {
+      "value": 67.36,
+      "sigma": 0.54,
+      "kind": "measurement",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697"
+    },
+    "H0_shoes": {
+      "value": 73.04,
+      "sigma": 1.04,
+      "kind": "measurement",
+      "source": "SH0ES/Pantheon+ (Riess et al. 2022), ApJ 934 L7, arXiv:2112.04510"
+    },
+    "S8_planck": {
+      "value": 0.832,
+      "sigma": 0.013,
+      "kind": "measurement",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697"
+    },
+    "S8_weaklens": {
+      "value": 0.79,
+      "sigma": 0.016,
+      "kind": "measurement",
+      "source": "DES Y3 + KiDS-1000 joint (2024), arXiv:2405.05311 / Open J. As."
+    }
+  },
+  "scenariusze": {
+    "I0_vanilla_LO": {
+      "n_s_LO": 0.9666666666666667,
+      "r_LO": 0.0125,
+      "alpha_s_LO": -0.0005555555555555556
+    },
+    "I1_vanilla_NLO": {
+      "n_s": 0.9684400628265507,
+      "r": 0.009671036704329915,
+      "alpha_s": -0.0005143000216183502,
+      "beta_s": 1.6983625072674203e-05,
+      "V_quarter": 5.076963889228492e+16
+    },
+    "I2_podgrzewanie": {
+      "N_range": [
+        43.88327440251742,
+        55.33341078066671
+      ],
+      "n_s_range": [
+        0.9571494951700947,
+        0.9658415597994887
+      ],
+      "r_range": [
+        0.011205062457388266,
+        0.017012781910827814
+      ],
+      "alpha_s_range": [
+        -0.0009566667229600105,
+        -0.0006037797570941282
+      ]
+    },
+    "alpha": 3.75
+  },
+  "wiersze": [
+    {
+      "scenariusz": "I0 vanilla N=60 (LO)",
+      "obserwabla": "n_s vs n_s_planck",
+      "model": 0.9666666666666667,
+      "data": "0.9649 ± 0.0042",
+      "pull": "+0.42σ",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, wzór LO",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I0 vanilla N=60 (LO)",
+      "obserwabla": "n_s vs n_s_pact",
+      "model": 0.9666666666666667,
+      "data": "0.9709 ± 0.0038",
+      "pull": "-1.11σ",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, wzór LO",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I0 vanilla N=60 (LO)",
+      "obserwabla": "n_s vs n_s_pactlb",
+      "model": 0.9666666666666667,
+      "data": "0.9743 ± 0.0034",
+      "pull": "-2.25σ",
+      "verdict": "TENSION",
+      "derivation": "hard-coded N=60, wzór LO",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "n_s vs n_s_planck",
+      "model": 0.9684400628265507,
+      "data": "0.9649 ± 0.0042",
+      "pull": "+0.84σ",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, dokładne tło",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "n_s vs n_s_pact",
+      "model": 0.9684400628265507,
+      "data": "0.9709 ± 0.0038",
+      "pull": "-0.65σ",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, dokładne tło",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "n_s vs n_s_pactlb",
+      "model": 0.9684400628265507,
+      "data": "0.9743 ± 0.0034",
+      "pull": "-1.72σ",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, dokładne tło",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (najlepsze n_s)",
+      "obserwabla": "n_s vs n_s_planck",
+      "model": 0.9658415597994887,
+      "data": "0.9649 ± 0.0042",
+      "pull": "+0.22σ",
+      "verdict": "AGREE",
+      "derivation": "computed (T_rh→max)",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (najlepsze n_s)",
+      "obserwabla": "n_s vs n_s_pact",
+      "model": 0.9658415597994887,
+      "data": "0.9709 ± 0.0038",
+      "pull": "-1.33σ",
+      "verdict": "AGREE",
+      "derivation": "computed (T_rh→max)",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (najlepsze n_s)",
+      "obserwabla": "n_s vs n_s_pactlb",
+      "model": 0.9658415597994887,
+      "data": "0.9743 ± 0.0034",
+      "pull": "-2.49σ",
+      "verdict": "TENSION",
+      "derivation": "computed (T_rh→max)",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (typowe n_s)",
+      "obserwabla": "n_s vs n_s_planck",
+      "model": 0.9614955274847917,
+      "data": "0.9649 ± 0.0042",
+      "pull": "-0.81σ",
+      "verdict": "AGREE",
+      "derivation": "computed (połowiczny log T_rh)",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (typowe n_s)",
+      "obserwabla": "n_s vs n_s_pact",
+      "model": 0.9614955274847917,
+      "data": "0.9709 ± 0.0038",
+      "pull": "-2.47σ",
+      "verdict": "TENSION",
+      "derivation": "computed (połowiczny log T_rh)",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (typowe n_s)",
+      "obserwabla": "n_s vs n_s_pactlb",
+      "model": 0.9614955274847917,
+      "data": "0.9743 ± 0.0034",
+      "pull": "-3.77σ",
+      "verdict": "EXCLUDED",
+      "derivation": "computed (połowiczny log T_rh)",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I0 vanilla N=60 (LO)",
+      "obserwabla": "r vs r_0.05",
+      "model": 0.0125,
+      "data": "< 0.036 (95%)",
+      "pull": "margin ×2.88",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, wzór LO",
+      "source": "BICEP/Keck BK18, PRL 127, 151301 (2021), arXiv:2110.00483",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I0 vanilla N=60 (LO)",
+      "obserwabla": "r vs r_combo",
+      "model": 0.0125,
+      "data": "< 0.038 (95%)",
+      "pull": "margin ×3.04",
+      "verdict": "AGREE",
+      "derivation": "hard-coded N=60, wzór LO",
+      "source": "P-ACT-LB-BK18 (po arXiv:2606.24131)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "r vs r_0.05",
+      "model": 0.009671036704329915,
+      "data": "< 0.036 (95%)",
+      "pull": "margin ×3.72",
+      "verdict": "AGREE",
+      "derivation": "dokładne tło",
+      "source": "BICEP/Keck BK18, PRL 127, 151301 (2021), arXiv:2110.00483",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "r vs r_combo",
+      "model": 0.009671036704329915,
+      "data": "< 0.038 (95%)",
+      "pull": "margin ×3.93",
+      "verdict": "AGREE",
+      "derivation": "dokładne tło",
+      "source": "P-ACT-LB-BK18 (po arXiv:2606.24131)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (max r)",
+      "obserwabla": "r vs r_0.05",
+      "model": 0.017012781910827814,
+      "data": "< 0.036 (95%)",
+      "pull": "margin ×2.12",
+      "verdict": "AGREE",
+      "derivation": "computed",
+      "source": "BICEP/Keck BK18, PRL 127, 151301 (2021), arXiv:2110.00483",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I2 podgrzewanie (max r)",
+      "obserwabla": "r vs r_combo",
+      "model": 0.017012781910827814,
+      "data": "< 0.038 (95%)",
+      "pull": "margin ×2.23",
+      "verdict": "AGREE",
+      "derivation": "computed",
+      "source": "P-ACT-LB-BK18 (po arXiv:2606.24131)",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1 vanilla N=60 (tło NLO)",
+      "obserwabla": "α_s = dn_s/dlnk vs Planck18 (+running)",
+      "model": -0.0005143000216183502,
+      "data": "-0.0041 ± 0.0067",
+      "pull": "+0.54σ",
+      "verdict": "AGREE",
+      "derivation": "computed",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697 IX",
+      "uwaga": ""
+    },
+    {
+      "scenariusz": "I1/I2 vanilla α-attractor",
+      "obserwabla": "α_s vs ACT+P (fit rozszerzony)",
+      "model": "α_s = -5.14e-04 (<0)",
+      "data": "α_s = 0.0119 ± 0.0063",
+      "pull": "-1.97σ",
+      "verdict": "AGREE",
+      "derivation": "computed",
+      "source": "arXiv:2511.01612 (fit rozszerzony)",
+      "uwaga": "fit z β_s swobodnym; atraktory przewidują α_s<0 — kierunek odwrotny do wskazania"
+    },
+    {
+      "scenariusz": "wszystkie",
+      "obserwabla": "A_s (wejście normalizujące V₀)",
+      "model": 2.099e-09,
+      "data": "2.099e-09 ± 2.938e-11",
+      "pull": "margin ×1.00",
+      "verdict": "AGREE",
+      "derivation": "measured input",
+      "source": "Planck 2018 VI/X, arXiv:1807.06209, arXiv:1905.05697",
+      "uwaga": "A_s naprawia V₀ — NIE jest predykcją (liniowość MS)"
+    },
+    {
+      "scenariusz": "model dziedziczy Planck-ΛCDM (S5)",
+      "obserwabla": "Hubble tension H₀",
+      "model": "H₀ = 67.36 (ΛCDM-inherited)",
+      "data": "SH0ES 73.04 ± 1.04",
+      "pull": "4.85σ",
+      "verdict": "TENSION-CONTEXT",
+      "derivation": "context",
+      "source": "SH0ES/Pantheon+ (Riess et al. 2022), ApJ 934 L7, arXiv:2112.04510",
+      "uwaga": "napięcie współdzielone z ΛCDM; sektor Λ silnika nie ma mechanizmu H₀"
+    },
+    {
+      "scenariusz": "model nie ma sektora formacji struktur",
+      "obserwabla": "S₈ tension",
+      "model": "brak predykcji S₈",
+      "data": "Planck 0.832 vs lensing 0.79",
+      "pull": "2.04σ",
+      "verdict": "NO-DATA",
+      "derivation": "context",
+      "source": "DES Y3 + KiDS-1000 joint (2024), arXiv:2405.05311 / Open J. As.",
+      "uwaga": "napięcie Planck↔lensing ~2σ obecnie; poza zasięgiem silnika"
+    },
+    {
+      "scenariusz": "diagnoza",
+      "obserwabla": "wymagana zmiana dla P-ACT-LB",
+      "model": "n_s_max=0.9658; N_wym przy LO = 77.8 (fizycznie ≤ ~57)",
+      "data": "n_s = 0.9743 ± 0.0034",
+      "pull": "-2.49σ",
+      "verdict": "TENSION",
+      "derivation": "computed",
+      "source": "ACT DR6 (2025), P-ACT i P-ACT-LB (po arXiv:2503.14452, 2504.xx) + DESI",
+      "uwaga": "vanilla: N poza zasięgiem podgrzewania → wymaga deformacji potencjału (literatura: δ≈0.017, arXiv:2606.24131 — zewnętrznie dopasowane)"
+    }
+  ],
+  "podsumowanie": {
+    "liczniki": {
+      "AGREE": 17,
+      "TENSION": 4,
+      "EXCLUDED": 1,
+      "NO-DATA": 1,
+      "TENSION-CONTEXT": 1
+    },
+    "najlepszy_pull_ns_pactlb_sigma": 1.72,
+    "werdykt_sektora": "TENSION z P-ACT-LB dla każdego wariantu vanilla (najlepszy |pull| = 1.72σ); AGREE z Planck 2018 i P-ACT; r bezpieczne poniżej BK18; α_s<0 sprzeczny kierunkowo ze wskazaniem ACT (fit rozszerzony).",
+    "uczciwosc": "A_s i α są wejściami/uwarunkowaniami; N=60 fizycznie niedostępne (podgrzewanie w=0 daje N≤~57)"
+  }
+}
